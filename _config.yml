@@ -75,7 +75,7 @@ enable:
 # * iphone-se-space-gray-vertical
 # * ipod-touch-blue-vertical
 #
-device: black #iphone-se-space-gray-vertical # REQUIRED
+device: iphone-se-space-gray-vertical # REQUIRED
 
 #
 # Theme Settings
