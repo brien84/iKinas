@@ -42,8 +42,8 @@ app:
 #
 # Marketing
 #
-marketing_header: Hello # Optional
-marketing_desc: Hi
+marketing_header: # Optional
+marketing_desc:
 
 #
 # Social Links
