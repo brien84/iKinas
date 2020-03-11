@@ -1,11 +1,14 @@
----
-layout: default
----
+<!DOCTYPE html>
+<html lang="en-us">
 
-<div class="page">
-  <h1>{{ page.title }}</h1>
+<body class="subPageBody">
+    <div class="headerBackground subPageHeaderBackground">
+        <div class="container subPageContainer">
+            <article class="page markdown-body">
+                {{ content }}
+            </article>
+        </div>
+    </div>
+</body>
 
-  <div class="entry">
-    {{ content }}
-  </div>
-</div>
+</html>
