@@ -12,6 +12,10 @@ body {
   min-height: 100%;
 }
 
+page {
+  background-color: #0191FF;
+}
+
 body {
   {% if site.background_color %}
   background-color: {{ site.background_color }};
