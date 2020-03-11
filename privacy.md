@@ -1,6 +1,4 @@
 # Privacy Policy
-
-## Privacy policy
 This privacy policy ("Policy") describes how Mobile Application Developer ("Mobile Application Developer", "we", "us" or "our") collects, protects and uses the personally identifiable information ("Personal Information") you ("User", "you" or "your") may provide in the iKinas mobile application and any of its products or services (collectively, "Mobile Application" or "Services").
 
 It also describes the choices available to you regarding our use of your Personal Information and how you can access and update this information. This Policy does not apply to the practices of companies that we do not own or control, or to individuals that we do not employ or manage.
