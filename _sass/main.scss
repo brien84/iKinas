@@ -1,28 +1,28 @@
 
-$body-color: {{ site.body_background_color }};
+$body-color: "#ffffff";
 
-$header-image: "{{ site.cover_image }}";
-$device-color: "assets/{{ site.device_color }}.png";
+$header-image: "";
+$device-color: "#ffffff";
 
-$accent-color: {{ site.link_color }};
+$accent-color: "#ffffff";
 
-$header-title-color: {{ site.topbar_title_color }};
-$app-title-color: {{ site.app_title_color }};
-$app-price-color: {{ site.app_price_color }};
-$app-description-color: {{ site.app_description_color }};
+$header-title-color: "#ffffff";
+$app-title-color: "#ffffff";
+$app-price-color: "#ffffff";
+$app-description-color: "#ffffff";
 
-$feature-title-color: {{ site.feature_title_color }};
-$feature-text-color: {{ site.feature_text_color }};
-$footer-text-color: {{ site.footer_text_color }};
+$feature-title-color: "#ffffff";
+$feature-text-color: "#ffffff";
+$footer-text-color: "#ffffff";
 
-$header_color: {{ site.topbar_color }};
-$header_transparency: {{ site.topbar_transparency }};
+$header_color: "#ffffff";
+$header_transparency: "#ffffff";
 
-$image-overlay-color: {{ site.cover_overlay_color }};
-$image-overlay-transparency: {{ site.cover_overlay_transparency }};
+$image-overlay-color: "#ffffff";
+$image-overlay-transparency: "#ffffff";
 
-$feature-icons-foreground-color: {{ site.feature_icons_foreground_color }};
-$feature-icons-background-color: {{ site.feature_icons_background_color }};
+$feature-icons-foreground-color: "#ffffff";
+$feature-icons-background-color: "#ffffff";
 
-$social-icons-foreground-color: {{ site.social_icons_foreground_color }};
-$social-icons-background-color: {{ site.social_icons_background_color }};
+$social-icons-foreground-color: "#ffffff";
+$social-icons-background-color: "#ffffff";
