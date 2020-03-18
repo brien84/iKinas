@@ -9,7 +9,7 @@
 #
 app:
   name: iKinas # REQUIRED - Enter your app name
-  ios_id: 1234793120 # REQUIRED - 10 Digit Numeric App ID (lookup in iTunes Connect)
+  ios_id: 1501977644 # REQUIRED - 10 Digit Numeric App ID (lookup in iTunes Connect)
   android_id: # Optional - Enter Android app id like: com.example.app
 
   icon: images/icon.png # Leave blank to auto-magically populate
