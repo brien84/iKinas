@@ -22,17 +22,17 @@
             <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="NN0-1B-aC0">
+                    <rect key="frame" x="114" y="368" width="200" height="200"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcS-2j-qzS" userLabel="errorMessage" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                    <rect key="frame" x="8" y="340" width="412" height="28"/>
+                    <rect key="frame" x="8" y="217.66666666666666" width="412" height="28"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
                     <color key="textColor" name="primaryElement"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="NN0-1B-aC0">
-                    <rect key="frame" x="114" y="368" width="200" height="200"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                </imageView>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogk-vG-pRJ" userLabel="retryButton">
                     <rect key="frame" x="190" y="568" width="48" height="48"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -55,11 +55,10 @@
                 <constraint firstItem="NN0-1B-aC0" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="22F-3S-veH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ogk-vG-pRJ" secondAttribute="bottom" id="Ixo-7E-bcg"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lcS-2j-qzS" secondAttribute="trailing" constant="8" id="V0l-5r-5ed"/>
-                <constraint firstItem="NN0-1B-aC0" firstAttribute="top" secondItem="lcS-2j-qzS" secondAttribute="bottom" id="VIH-Ro-jBp"/>
-                <constraint firstItem="lcS-2j-qzS" firstAttribute="top" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="top" constant="8" id="WWc-rv-epl"/>
                 <constraint firstItem="ogk-vG-pRJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aim-5D-Egm"/>
                 <constraint firstItem="ogk-vG-pRJ" firstAttribute="top" secondItem="NN0-1B-aC0" secondAttribute="bottom" id="ewE-8s-tFq"/>
                 <constraint firstItem="lcS-2j-qzS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="jo1-mN-moV"/>
+                <constraint firstItem="lcS-2j-qzS" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.5" id="pUF-Po-KGq"/>
             </constraints>
             <point key="canvasLocation" x="-92.523364485981304" y="103.02375809935207"/>
         </view>
