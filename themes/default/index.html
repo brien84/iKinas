@@ -58,18 +58,20 @@
 
         <!-- App Preview or Screenshot(s) -->
         <div class="device {{ site.device }}">
+          
           {% if site.app.video %}
                <div class="video-container">
                 <iframe src="{{ site.app.video }}" height="426.66" width="240" allowfullscreen="" frameborder="0">
                 </iframe>
               </div>
-
+          <!--
           {% else %}
                <img
                 class="app-screenshot"
                 {% if site.app.screenshot %}src="{{ site.app.screenshot }}"{% endif %}
                />
           {% endif %}
+          -->
         </div>
       </div>
     </div>
