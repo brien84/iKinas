@@ -186,7 +186,6 @@
 				299D135724C766F00012755A /* MovieViewController.swift */,
 				2904D0702353C79B00407B64 /* SettingsViewController.swift */,
 				2965635225BC4DC400A14651 /* ShowingsViewController.swift */,
-				291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */,
 				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 			);
 			path = "View Controllers";
@@ -210,9 +209,10 @@
 				2904C7BD233BE80300407B64 /* Cells */,
 				299C267B2502DDB30074E795 /* CustomFontLabel.swift */,
 				299D135924CA26DC0012755A /* GradientBackgroundView.swift */,
-				2904D09E2358CFB000407B64 /* NetworkImageView.swift */,
 				29833738256466FA0072347E /* LoadingView.swift */,
 				298337402564676A0072347E /* LoadingView.xib */,
+				2904D09E2358CFB000407B64 /* NetworkImageView.swift */,
+				291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */,
 				29882D23258E8F2D00CC1873 /* TransitionTableView.swift */,
 			);
 			path = Views;
