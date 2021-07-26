@@ -51,6 +51,13 @@ extension UIColor {
     }
 }
 
+extension UIFont {
+    static func preferredItalicFont(forTextStyle style: TextStyle) -> UIFont {
+        let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: style)
+        return UIFont.italicSystemFont(ofSize: descriptor.pointSize)
+    }
+}
+
 extension UINavigationBar {
     func setBackgroundImage(color: UIColor, alpha: CGFloat = 1.0) {
         // If `alpha` is equal or higher than 1.0 `UINavigationBar`
