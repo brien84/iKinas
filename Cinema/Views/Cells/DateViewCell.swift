@@ -22,4 +22,10 @@ final class DateViewCell: UITableViewCell {
             hide3DIcon.isActive = !is3D
         }
     }
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        originalTitle.font = UIFont.preferredItalicFont(forTextStyle: .subheadline)
+    }
 }
