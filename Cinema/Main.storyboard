@@ -279,7 +279,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2n-ng-l2d" userLabel="Details Container">
-                                        <rect key="frame" x="0.0" y="559" width="414" height="910.5"/>
+                                        <rect key="frame" x="0.0" y="559" width="414" height="910"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XwV-xN-apI" userLabel="Genres StackView">
                                                 <rect key="frame" x="20" y="10" width="132" height="26"/>
@@ -301,32 +301,26 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9t-BW-q0Q" userLabel="Showing Container">
-                                                <rect key="frame" x="0.0" y="46" width="414" height="50"/>
+                                                <rect key="frame" x="0.0" y="46" width="414" height="47"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ticket" translatesAutoresizingMaskIntoConstraints="NO" id="Rxj-SR-TPI">
-                                                        <rect key="frame" x="20" y="5" width="32" height="40"/>
+                                                        <rect key="frame" x="20" y="5" width="32" height="37"/>
                                                         <color key="tintColor" name="primaryElement"/>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multikino" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpN-B9-ng3" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                        <rect key="frame" x="62" y="5" width="61" height="17.5"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multikino" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpN-B9-ng3">
+                                                        <rect key="frame" x="62" y="5" width="55.5" height="16"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <color key="textColor" name="secondaryElement"/>
                                                         <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontIdentifier" value="movieViewDetail"/>
-                                                        </userDefinedRuntimeAttributes>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-Tf-TUL" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                        <rect key="frame" x="62" y="27.5" width="38" height="17.5"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-Tf-TUL">
+                                                        <rect key="frame" x="62" y="26" width="34" height="16"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
                                                         <color key="textColor" name="secondaryElement"/>
                                                         <nil key="highlightedColor"/>
-                                                        <userDefinedRuntimeAttributes>
-                                                            <userDefinedRuntimeAttribute type="string" keyPath="fontIdentifier" value="movieViewDetail"/>
-                                                        </userDefinedRuntimeAttributes>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUQ-tr-d6U">
-                                                        <rect key="frame" x="362" y="5" width="32" height="40"/>
+                                                        <rect key="frame" x="362" y="5" width="32" height="37"/>
                                                         <color key="tintColor" name="tertiaryElement"/>
                                                         <state key="normal" image="cart"/>
                                                         <userDefinedRuntimeAttributes>
@@ -362,59 +356,50 @@
                                                 </variation>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2e6-9B-hkD" userLabel="Details StackView">
-                                                <rect key="frame" x="0.0" y="116" width="414" height="53.5"/>
+                                                <rect key="frame" x="0.0" y="113" width="414" height="56"/>
                                                 <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="Jxn-9K-A9K">
-                                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="53.5"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Jxn-9K-A9K">
+                                                        <rect key="frame" x="0.0" y="0.0" width="132.5" height="56"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="year" translatesAutoresizingMaskIntoConstraints="NO" id="AXD-kh-rNZ">
                                                                 <rect key="frame" x="50.5" y="0.0" width="32" height="32"/>
                                                                 <color key="tintColor" name="primaryElement"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqF-Em-pVi" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                                <rect key="frame" x="49.5" y="36" width="33.5" height="17.5"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
-                                                                <color key="textColor" name="secondaryElement"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UqF-Em-pVi">
+                                                                <rect key="frame" x="50.5" y="40" width="32" height="16"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                                <color key="textColor" name="primaryElement"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontIdentifier" value="movieViewDetail"/>
-                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="dGf-v7-vXY">
-                                                        <rect key="frame" x="140.5" y="0.0" width="133" height="53.5"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="dGf-v7-vXY">
+                                                        <rect key="frame" x="140.5" y="0.0" width="133" height="56"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ageRating" translatesAutoresizingMaskIntoConstraints="NO" id="svJ-DP-tFy">
                                                                 <rect key="frame" x="50.5" y="0.0" width="32" height="32"/>
                                                                 <color key="tintColor" name="primaryElement"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N-18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUe-Hp-Jku" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                                <rect key="frame" x="52.5" y="39" width="28" height="14.5"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                                <color key="textColor" name="secondaryElement"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="N-18" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pUe-Hp-Jku">
+                                                                <rect key="frame" x="51.5" y="40" width="30" height="16"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                                <color key="textColor" name="primaryElement"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontIdentifier" value="movieViewDetail"/>
-                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="kJQ-4T-oXE">
-                                                        <rect key="frame" x="281.5" y="0.0" width="132.5" height="53.5"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="kJQ-4T-oXE">
+                                                        <rect key="frame" x="281.5" y="0.0" width="132.5" height="56"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="duration" translatesAutoresizingMaskIntoConstraints="NO" id="lSh-dL-hCv">
                                                                 <rect key="frame" x="50" y="0.0" width="32" height="32"/>
                                                                 <color key="tintColor" name="primaryElement"/>
                                                             </imageView>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="420 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qp-0W-eg9" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                                <rect key="frame" x="43" y="39" width="46.5" height="14.5"/>
-                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                                                <color key="textColor" name="secondaryElement"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="420 min" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0qp-0W-eg9">
+                                                                <rect key="frame" x="41" y="40" width="50" height="16"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                                <color key="textColor" name="primaryElement"/>
                                                                 <nil key="highlightedColor"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="string" keyPath="fontIdentifier" value="movieViewDetail"/>
-                                                                </userDefinedRuntimeAttributes>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
@@ -424,8 +409,8 @@
                                                     <constraint firstItem="svJ-DP-tFy" firstAttribute="width" secondItem="AXD-kh-rNZ" secondAttribute="width" id="H7R-k0-gTg"/>
                                                 </constraints>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1q-fQ-YpQ" userLabel="Plot" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="189.5" width="374" height="701"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1q-fQ-YpQ" userLabel="Plot">
+                                                <rect key="frame" x="20" y="189" width="374" height="701"/>
                                                 <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" name="secondaryElement"/>
@@ -996,7 +981,7 @@
     </scenes>
     <designables>
         <designable name="0qp-0W-eg9">
-            <size key="intrinsicContentSize" width="46.5" height="14.5"/>
+            <size key="intrinsicContentSize" width="50" height="16"/>
         </designable>
         <designable name="6ej-yH-d0D">
             <size key="intrinsicContentSize" width="30" height="17"/>
@@ -1020,19 +1005,19 @@
             <size key="intrinsicContentSize" width="221.5" height="38.5"/>
         </designable>
         <designable name="TpN-B9-ng3">
-            <size key="intrinsicContentSize" width="61" height="17.5"/>
+            <size key="intrinsicContentSize" width="55.5" height="16"/>
         </designable>
         <designable name="Tsk-LQ-gL4">
             <size key="intrinsicContentSize" width="640" height="17"/>
         </designable>
         <designable name="UqF-Em-pVi">
-            <size key="intrinsicContentSize" width="33.5" height="17.5"/>
+            <size key="intrinsicContentSize" width="32" height="16"/>
         </designable>
         <designable name="aXg-Tf-TUL">
-            <size key="intrinsicContentSize" width="38" height="17.5"/>
+            <size key="intrinsicContentSize" width="34" height="16"/>
         </designable>
         <designable name="pUe-Hp-Jku">
-            <size key="intrinsicContentSize" width="28" height="14.5"/>
+            <size key="intrinsicContentSize" width="30" height="16"/>
         </designable>
         <designable name="qWM-6b-OYy">
             <size key="intrinsicContentSize" width="66" height="23"/>
@@ -1045,7 +1030,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="AxB-la-lfB"/>
+        <segue reference="fCK-ZR-cDu"/>
         <segue reference="diA-bi-HlB"/>
     </inferredMetricsTieBreakers>
     <resources>
