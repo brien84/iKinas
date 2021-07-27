@@ -86,7 +86,7 @@ final class DateViewController: UITableViewController {
         cell.poster.url = showing.parentMovie?.poster
         cell.title.text = showing.parentMovie?.title
         cell.originalTitle.text = showing.parentMovie?.originalTitle
-        cell.venue.text = showing.venue.rawValue
+        cell.venueImage.venue = showing.venue
         cell.time.text = showing.date.asString(.timeOfDay)
         cell.is3D = showing.is3D
 

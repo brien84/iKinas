@@ -12,10 +12,9 @@ final class DateViewCell: UITableViewCell {
     @IBOutlet weak var poster: NetworkImageView!
     @IBOutlet weak var title: UILabel!
     @IBOutlet weak var originalTitle: UILabel!
-    @IBOutlet weak var venue: UILabel!
+    @IBOutlet weak var venueImage: VenueImageView!
     @IBOutlet weak var time: UILabel!
-
-    @IBOutlet private weak var hide3DIcon: NSLayoutConstraint!
+    @IBOutlet private var hide3DIcon: NSLayoutConstraint!
 
     var is3D = false {
         didSet {

@@ -55,7 +55,7 @@ final class DateViewControllerTests: XCTestCase {
         XCTAssertEqual(cell?.title.text, testTitle)
         XCTAssertEqual(cell?.originalTitle.text, testOriginalTitle)
         XCTAssertEqual(cell?.poster?.url, testURL)
-        XCTAssertEqual(cell?.venue.text, testVenue)
+        XCTAssertEqual(cell?.venueImage.image, UIImage.multikino)
         XCTAssertEqual(cell?.time.text, testTime.asString(.timeOfDay))
         XCTAssertEqual(cell?.is3D, test3D)
     }
