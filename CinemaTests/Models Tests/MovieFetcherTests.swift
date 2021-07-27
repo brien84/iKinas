@@ -142,7 +142,7 @@ final class MovieFetcherTests: XCTestCase {
             Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!),
             Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!)
         ]
-        
+
         let showings1 = [
             Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!),
             Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!)
