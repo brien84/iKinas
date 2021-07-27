@@ -10,9 +10,8 @@ import UIKit
 
 final class ShowingsViewTimeCell: UICollectionViewCell {
     @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var venue: UILabel!
-
-    @IBOutlet private weak var hide3DIcon: NSLayoutConstraint!
+    @IBOutlet weak var venueImage: VenueImageView!
+    @IBOutlet private var hide3DIcon: NSLayoutConstraint!
 
     var is3D = false {
         didSet {
@@ -20,17 +19,17 @@ final class ShowingsViewTimeCell: UICollectionViewCell {
         }
     }
 
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        layer.borderColor = UIColor.secondaryElement.cgColor
+        layer.borderWidth = 1
+        layer.cornerRadius = 10
+    }
+
     override func layoutSubviews() {
         super.layoutSubviews()
 
         hide3DIcon.isActive = !is3D
-    }
-
-    @IBInspectable
-    private var cornerRadius: CGFloat = 0 {
-       didSet {
-           layer.cornerRadius = cornerRadius
-           layer.masksToBounds = cornerRadius > 0
-       }
     }
 }

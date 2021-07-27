@@ -24,7 +24,7 @@ final class ShowingsViewController: UIViewController {
         super.viewDidLoad()
 
         guard let navigationBar = navigationController?.navigationBar else { return }
-        navigationBar.setBackgroundImage(color: .secondaryBackground, alpha: 0.0)
+        navigationBar.setBackgroundImage(color: .secondaryBackground, alpha: 0)
 
         poster.url = movie?.poster
     }
@@ -100,7 +100,7 @@ extension ShowingsViewController: UICollectionViewDataSource, UICollectionViewDe
         guard let containerView = collectionView.superview?.superview else { return timeCell }
         let showings = getShowings(on: dates[containerView.tag])
         timeCell.time.text = showings[indexPath.row].date.asString(.timeOfDay)
-        timeCell.venue.text = showings[indexPath.row].venue.rawValue
+        timeCell.venueImage.venue = showings[indexPath.row].venue
         timeCell.is3D = showings[indexPath.row].is3D
 
         return timeCell
@@ -127,7 +127,7 @@ extension ShowingsViewController: UICollectionViewDelegateFlowLayout {
             let layout = collectionViewLayout as? UICollectionViewFlowLayout
             let leftInset = layout?.sectionInset.left ?? 0
             let rightInset = layout?.sectionInset.right ?? 0
-            return CGSize(width: collectionView.frame.width - leftInset - rightInset, height: collectionView.frame.height)
+            return CGSize(width: collectionView.frame.width / 2 - leftInset - rightInset, height: collectionView.frame.height)
         }
     }
 
@@ -139,8 +139,16 @@ extension ShowingsViewController: UICollectionViewDelegateFlowLayout {
             let width = (collectionView.frame.width / 2) - (collectionView.frame.width / 3 / 2)
             return UIEdgeInsets(top: 0, left: width, bottom: 0, right: width)
         default:
-            let layout = collectionViewLayout as? UICollectionViewFlowLayout
-            return layout?.sectionInset ?? .zero
+            guard let layout = collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+            guard let containerView = collectionView.superview?.superview else { return .zero }
+            let showings = getShowings(on: dates[containerView.tag])
+
+            if showings.count == 1 {
+                return UIEdgeInsets(top: layout.sectionInset.top, left: layout.sectionInset.left,
+                                    bottom: layout.sectionInset.bottom, right: collectionView.frame.width / 2)
+            } else {
+                return layout.sectionInset
+            }
         }
     }
 }
