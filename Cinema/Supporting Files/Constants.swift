@@ -40,6 +40,11 @@ extension UIImage {
     static let arrowRight = UIImage(named: "arrowRight")!
     static let settings = UIImage(named: "settings")!
     static let navTicket = UIImage(named: "navTicket")
+
+    static let cinamon = UIImage(named: "cinamon")!
+    static let forumGold = UIImage(named: "forum-gold")!
+    static let forumWhite = UIImage(named: "forum-white")!
+    static let multikino = UIImage(named: "multikino")!
 }
 
 extension URL {
