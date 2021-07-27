@@ -125,7 +125,7 @@ final class MovieViewController: UIViewController {
             genresStackView.addArrangedSubview(createGenreButton(with: genre))
         }
 
-        venue.text = showing?.venue
+        venue.text = showing?.venue.rawValue
         time.text = showing?.date.asString(.timeOfDay)
     }
 

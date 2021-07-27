@@ -58,13 +58,13 @@ extension Array where Element == Movie {
 private struct ShowingDouble: Codable {
     let city: City
     let date: Date
-    let venue: String
+    let venue: Venue
     let is3D: Bool
     let url: URL
 }
 
 extension Showing {
-    static func create(_ city: City, _ date: Date, _ venue: String, _ is3D: Bool, _ url: URL) -> Showing {
+    static func create(_ city: City, _ date: Date, _ venue: Venue, _ is3D: Bool, _ url: URL) -> Showing {
         let double = ShowingDouble(city: city, date: date, venue: venue, is3D: is3D, url: url)
 
         let encoder = JSONEncoder()

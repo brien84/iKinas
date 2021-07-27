@@ -100,7 +100,7 @@ extension ShowingsViewController: UICollectionViewDataSource, UICollectionViewDe
         guard let containerView = collectionView.superview?.superview else { return timeCell }
         let showings = getShowings(on: dates[containerView.tag])
         timeCell.time.text = showings[indexPath.row].date.asString(.timeOfDay)
-        timeCell.venue.text = showings[indexPath.row].venue
+        timeCell.venue.text = showings[indexPath.row].venue.rawValue
         timeCell.is3D = showings[indexPath.row].is3D
 
         return timeCell

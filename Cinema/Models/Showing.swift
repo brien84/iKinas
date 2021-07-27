@@ -11,7 +11,7 @@ import Foundation
 final class Showing: Codable {
     let city: City
     let date: Date
-    let venue: String
+    let venue: Venue
     let is3D: Bool
     let url: URL
     weak var parentMovie: Movie?
@@ -21,7 +21,7 @@ final class Showing: Codable {
 
         city = try values.decode(City.self, forKey: .city)
         date = try values.decode(Date.self, forKey: .date)
-        venue = try values.decode(String.self, forKey: .venue)
+        venue = try values.decode(Venue.self, forKey: .venue)
         is3D = try values.decode(Bool.self, forKey: .is3D)
         url = try values.decode(URL.self, forKey: .url)
     }
@@ -57,7 +57,7 @@ extension Showing: Comparable {
             if lhsTitle != rhsTitle {
                 return lhsTitle < rhsTitle
             } else {
-                return lhs.venue < rhs.venue
+                return lhs.venue.rawValue < rhs.venue.rawValue
             }
         }
     }

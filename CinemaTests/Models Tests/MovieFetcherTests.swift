@@ -23,7 +23,7 @@ final class MovieFetcherTests: XCTestCase {
     func testSuccessfulFetching() {
         let city = City.vilnius
         let date = Date.today
-        let venue = "testVenue"
+        let venue = Venue.multikino
         let is3D = true
         let url = URL(string: "https://google.com")!
         let showing = Showing.create(city, date, venue, is3D, url)
@@ -103,11 +103,11 @@ final class MovieFetcherTests: XCTestCase {
         let tommorow = Date.tommorow
 
         let showings = [
-            Showing.create(.vilnius, today, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, today, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, today, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, tommorow, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, tommorow, "", true, URL(string: "some.url")!)
+            Showing.create(.vilnius, today, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, today, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, today, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!)
         ]
 
         let movie = Movie.create("", "", "", "", "", [], "", URL(string: "some.url")!, showings)
@@ -136,15 +136,16 @@ final class MovieFetcherTests: XCTestCase {
         let title = "testTitle"
 
         let showings0 = [
-            Showing.create(.vilnius, today, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, today, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, today, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, tommorow, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, tommorow, "", true, URL(string: "some.url")!)
+            Showing.create(.vilnius, today, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, today, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, today, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!)
         ]
+        
         let showings1 = [
-            Showing.create(.vilnius, tommorow, "", true, URL(string: "some.url")!),
-            Showing.create(.vilnius, tommorow, "", true, URL(string: "some.url")!)
+            Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!),
+            Showing.create(.vilnius, tommorow, .multikino, true, URL(string: "some.url")!)
         ]
 
         let movies = [
