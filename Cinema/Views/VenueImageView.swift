@@ -9,10 +9,28 @@
 import UIKit
 
 final class VenueImageView: UIImageView {
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-
+    var venue: Venue? {
+        didSet {
+            image = venueImage
+        }
     }
-    
+
+    private var venueImage: UIImage {
+        switch venue {
+        case .cinamon:
+            return .cinamon
+        case .forum, .forumVingis:
+            return .forumGold
+        case .forumAkropolis:
+            return .forumWhite
+        case .multikino:
+            return .multikino
+        default:
+            return UIImage()
+        }
+    }
+}
+
+private extension CGFloat {
+    static let padding: CGFloat = 8
 }
