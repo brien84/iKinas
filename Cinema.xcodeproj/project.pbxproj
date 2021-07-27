@@ -33,6 +33,7 @@
 		2965636125BCCE6A00A14651 /* ShowingsViewDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965636025BCCE6A00A14651 /* ShowingsViewDateCell.swift */; };
 		2965636925BD65BB00A14651 /* ShowingsViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965636825BD65BB00A14651 /* ShowingsViewContainerCell.swift */; };
 		2965637125BDEEB800A14651 /* ShowingsViewTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965637025BDEEB800A14651 /* ShowingsViewTimeCell.swift */; };
+		297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826A26AEF98C0053F706 /* VenueImageView.swift */; };
 		297CA050259CEE4F00EE95F0 /* DateViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */; };
 		29833739256466FA0072347E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29833738256466FA0072347E /* LoadingView.swift */; };
 		298337412564676A0072347E /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298337402564676A0072347E /* LoadingView.xib */; };
@@ -95,6 +96,7 @@
 		2965636025BCCE6A00A14651 /* ShowingsViewDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewDateCell.swift; sourceTree = "<group>"; };
 		2965636825BD65BB00A14651 /* ShowingsViewContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewContainerCell.swift; sourceTree = "<group>"; };
 		2965637025BDEEB800A14651 /* ShowingsViewTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTimeCell.swift; sourceTree = "<group>"; };
+		297C826A26AEF98C0053F706 /* VenueImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueImageView.swift; sourceTree = "<group>"; };
 		297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewControllerTests.swift; sourceTree = "<group>"; };
 		29833738256466FA0072347E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		298337402564676A0072347E /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
@@ -214,6 +216,7 @@
 				2904D09E2358CFB000407B64 /* NetworkImageView.swift */,
 				291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */,
 				29882D23258E8F2D00CC1873 /* TransitionTableView.swift */,
+				297C826A26AEF98C0053F706 /* VenueImageView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -463,6 +466,7 @@
 				29CE105A24E1E8560030D841 /* DateContainerViewCell.swift in Sources */,
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
+				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
 				2965636925BD65BB00A14651 /* ShowingsViewContainerCell.swift in Sources */,
 				299C267A2502DCFD0074E795 /* Fonts.swift in Sources */,
 				2904C7642336982B00407B64 /* AppDelegate.swift in Sources */,
