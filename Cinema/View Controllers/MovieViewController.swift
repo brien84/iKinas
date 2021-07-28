@@ -21,7 +21,7 @@ final class MovieViewController: UIViewController {
     @IBOutlet private weak var ageRating: CustomFontLabel!
     @IBOutlet private weak var duration: CustomFontLabel!
     @IBOutlet private weak var plot: CustomFontLabel!
-    @IBOutlet private weak var venue: CustomFontLabel!
+    @IBOutlet private weak var venueImage: VenueImageView!
     @IBOutlet private weak var time: CustomFontLabel!
     @IBOutlet private weak var genresStackView: UIStackView!
 
@@ -125,7 +125,7 @@ final class MovieViewController: UIViewController {
             genresStackView.addArrangedSubview(createGenreButton(with: genre))
         }
 
-        venue.text = showing?.venue.rawValue
+        venueImage.venue = showing?.venue
         time.text = showing?.date.asString(.timeOfDay)
     }
 

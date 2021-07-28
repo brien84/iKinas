@@ -279,7 +279,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2n-ng-l2d" userLabel="Details Container">
-                                        <rect key="frame" x="0.0" y="559" width="414" height="910"/>
+                                        <rect key="frame" x="0.0" y="559" width="414" height="935"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XwV-xN-apI" userLabel="Genres StackView">
                                                 <rect key="frame" x="20" y="10" width="132" height="26"/>
@@ -301,26 +301,10 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9t-BW-q0Q" userLabel="Showing Container">
-                                                <rect key="frame" x="0.0" y="46" width="414" height="47"/>
+                                                <rect key="frame" x="20" y="46" width="374" height="72"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ticket" translatesAutoresizingMaskIntoConstraints="NO" id="Rxj-SR-TPI">
-                                                        <rect key="frame" x="20" y="5" width="32" height="37"/>
-                                                        <color key="tintColor" name="primaryElement"/>
-                                                    </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Multikino" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TpN-B9-ng3">
-                                                        <rect key="frame" x="62" y="5" width="55.5" height="16"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                        <color key="textColor" name="secondaryElement"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-Tf-TUL">
-                                                        <rect key="frame" x="62" y="26" width="34" height="16"/>
-                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                                        <color key="textColor" name="secondaryElement"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUQ-tr-d6U">
-                                                        <rect key="frame" x="362" y="5" width="32" height="37"/>
+                                                        <rect key="frame" x="342" y="20" width="32" height="32"/>
                                                         <color key="tintColor" name="tertiaryElement"/>
                                                         <state key="normal" image="cart"/>
                                                         <userDefinedRuntimeAttributes>
@@ -330,21 +314,33 @@
                                                             <segue destination="g5h-Z4-x8A" kind="show" identifier="showWebVC" id="fCK-ZR-cDu"/>
                                                         </connections>
                                                     </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-Tf-TUL">
+                                                        <rect key="frame" x="294" y="20" width="38" height="32"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                        <color key="textColor" name="secondaryElement"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cinamon" translatesAutoresizingMaskIntoConstraints="NO" id="gg9-NR-wWl" customClass="VenueImageView" customModule="iKinas" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="20" width="100" height="32"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="overlayPosition">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                    </imageView>
                                                 </subviews>
                                                 <color key="backgroundColor" name="secondaryBackground"/>
                                                 <constraints>
-                                                    <constraint firstItem="TpN-B9-ng3" firstAttribute="leading" secondItem="Rxj-SR-TPI" secondAttribute="trailing" constant="10" id="AbW-i1-kz9"/>
-                                                    <constraint firstAttribute="bottom" secondItem="aXg-Tf-TUL" secondAttribute="bottom" priority="999" constant="5" id="IA4-l3-H6L"/>
-                                                    <constraint firstAttribute="bottom" secondItem="Rxj-SR-TPI" secondAttribute="bottom" constant="5" id="JQb-6p-RZB"/>
-                                                    <constraint firstAttribute="bottom" secondItem="jUQ-tr-d6U" secondAttribute="bottom" priority="999" constant="5" id="L49-Ka-La5"/>
-                                                    <constraint firstItem="jUQ-tr-d6U" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="5" id="LfF-sI-eQy"/>
+                                                    <constraint firstItem="gg9-NR-wWl" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="20" id="0tA-o1-R6h"/>
+                                                    <constraint firstItem="aXg-Tf-TUL" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="20" id="1o9-n6-2Yn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="jUQ-tr-d6U" secondAttribute="bottom" priority="999" constant="20" id="L49-Ka-La5"/>
+                                                    <constraint firstItem="jUQ-tr-d6U" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="20" id="LfF-sI-eQy"/>
                                                     <constraint firstAttribute="height" id="MJB-Mu-Eyj"/>
-                                                    <constraint firstItem="aXg-Tf-TUL" firstAttribute="leading" secondItem="Rxj-SR-TPI" secondAttribute="trailing" constant="10" id="QO4-0E-GIR"/>
-                                                    <constraint firstItem="aXg-Tf-TUL" firstAttribute="top" secondItem="TpN-B9-ng3" secondAttribute="bottom" constant="5" id="SA8-1p-hcF"/>
-                                                    <constraint firstItem="TpN-B9-ng3" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="5" id="TuH-uN-bG9"/>
-                                                    <constraint firstAttribute="trailing" secondItem="jUQ-tr-d6U" secondAttribute="trailing" constant="20" id="llh-gc-RXd"/>
-                                                    <constraint firstItem="Rxj-SR-TPI" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" priority="999" constant="5" id="umg-5e-yhn"/>
-                                                    <constraint firstItem="Rxj-SR-TPI" firstAttribute="leading" secondItem="Q9t-BW-q0Q" secondAttribute="leading" constant="20" id="xWw-S4-OvV"/>
+                                                    <constraint firstAttribute="bottom" secondItem="aXg-Tf-TUL" secondAttribute="bottom" priority="999" constant="20" id="PiE-Zg-PCU"/>
+                                                    <constraint firstItem="gg9-NR-wWl" firstAttribute="leading" secondItem="Q9t-BW-q0Q" secondAttribute="leading" constant="20" id="Vfa-Vb-Lbg"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jUQ-tr-d6U" secondAttribute="trailing" id="llh-gc-RXd"/>
+                                                    <constraint firstItem="jUQ-tr-d6U" firstAttribute="leading" secondItem="aXg-Tf-TUL" secondAttribute="trailing" constant="10" id="tsR-Yn-HOj"/>
+                                                    <constraint firstAttribute="bottom" secondItem="gg9-NR-wWl" secondAttribute="bottom" priority="999" constant="20" id="vvf-qB-CeH"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="movieVCShowingView"/>
@@ -356,7 +352,7 @@
                                                 </variation>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="2e6-9B-hkD" userLabel="Details StackView">
-                                                <rect key="frame" x="0.0" y="113" width="414" height="56"/>
+                                                <rect key="frame" x="0.0" y="138" width="414" height="56"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Jxn-9K-A9K">
                                                         <rect key="frame" x="0.0" y="0.0" width="132.5" height="56"/>
@@ -410,7 +406,7 @@
                                                 </constraints>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="justified" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u1q-fQ-YpQ" userLabel="Plot">
-                                                <rect key="frame" x="20" y="189" width="374" height="701"/>
+                                                <rect key="frame" x="20" y="214" width="374" height="701"/>
                                                 <string key="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                 <color key="textColor" name="secondaryElement"/>
@@ -422,9 +418,9 @@
                                             <constraint firstItem="2e6-9B-hkD" firstAttribute="leading" secondItem="Q2n-ng-l2d" secondAttribute="leading" id="A9x-nR-jJ3"/>
                                             <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="XwV-xN-apI" secondAttribute="trailing" constant="20" symbolic="YES" id="DRR-uD-FM8"/>
                                             <constraint firstAttribute="trailing" secondItem="u1q-fQ-YpQ" secondAttribute="trailing" constant="20" symbolic="YES" id="MdJ-er-g0J"/>
-                                            <constraint firstItem="Q9t-BW-q0Q" firstAttribute="leading" secondItem="Q2n-ng-l2d" secondAttribute="leading" id="Vbj-Go-WX9"/>
+                                            <constraint firstItem="Q9t-BW-q0Q" firstAttribute="leading" secondItem="Q2n-ng-l2d" secondAttribute="leading" constant="20" id="Vbj-Go-WX9"/>
                                             <constraint firstItem="XwV-xN-apI" firstAttribute="leading" secondItem="Q2n-ng-l2d" secondAttribute="leading" constant="20" symbolic="YES" id="X88-v2-lhI"/>
-                                            <constraint firstAttribute="trailing" secondItem="Q9t-BW-q0Q" secondAttribute="trailing" id="ame-hb-YIC"/>
+                                            <constraint firstAttribute="trailing" secondItem="Q9t-BW-q0Q" secondAttribute="trailing" constant="20" id="ame-hb-YIC"/>
                                             <constraint firstItem="u1q-fQ-YpQ" firstAttribute="leading" secondItem="Q2n-ng-l2d" secondAttribute="leading" constant="20" symbolic="YES" id="caj-8l-fLi"/>
                                             <constraint firstAttribute="bottom" secondItem="u1q-fQ-YpQ" secondAttribute="bottom" constant="20" symbolic="YES" id="dzb-Hq-YVh"/>
                                             <constraint firstItem="u1q-fQ-YpQ" firstAttribute="top" secondItem="2e6-9B-hkD" secondAttribute="bottom" constant="20" id="jg2-Wr-BVC"/>
@@ -497,7 +493,7 @@
                         <outlet property="showingContainerIsCollapsed" destination="MJB-Mu-Eyj" id="ypn-be-ZWb"/>
                         <outlet property="time" destination="aXg-Tf-TUL" id="0tm-5I-4VE"/>
                         <outlet property="titleContainer" destination="hZH-DU-L7m" id="knj-QG-I2N"/>
-                        <outlet property="venue" destination="TpN-B9-ng3" id="GPF-cf-Qq7"/>
+                        <outlet property="venueImage" destination="gg9-NR-wWl" id="VDY-0c-qxl"/>
                         <outlet property="year" destination="UqF-Em-pVi" id="vyS-Lh-Cbg"/>
                         <segue destination="Z9X-Du-4qz" kind="show" identifier="showShowingsVC" id="gkJ-Se-85n"/>
                     </connections>
@@ -974,15 +970,6 @@
         </scene>
     </scenes>
     <designables>
-        <designable name="0qp-0W-eg9">
-            <size key="intrinsicContentSize" width="50" height="16"/>
-        </designable>
-        <designable name="6ej-yH-d0D">
-            <size key="intrinsicContentSize" width="30" height="17"/>
-        </designable>
-        <designable name="Arj-Le-w9r">
-            <size key="intrinsicContentSize" width="81.5" height="17"/>
-        </designable>
         <designable name="C4X-r5-IHS">
             <size key="intrinsicContentSize" width="796" height="19"/>
         </designable>
@@ -992,35 +979,8 @@
         <designable name="NQD-Sy-tME">
             <size key="intrinsicContentSize" width="141.5" height="33.5"/>
         </designable>
-        <designable name="OoX-7W-iEN">
-            <size key="intrinsicContentSize" width="48" height="23"/>
-        </designable>
-        <designable name="RSf-vX-dEI">
-            <size key="intrinsicContentSize" width="231.5" height="37"/>
-        </designable>
-        <designable name="TpN-B9-ng3">
-            <size key="intrinsicContentSize" width="55.5" height="16"/>
-        </designable>
-        <designable name="Tsk-LQ-gL4">
-            <size key="intrinsicContentSize" width="640" height="17"/>
-        </designable>
-        <designable name="UqF-Em-pVi">
-            <size key="intrinsicContentSize" width="32" height="16"/>
-        </designable>
-        <designable name="aXg-Tf-TUL">
-            <size key="intrinsicContentSize" width="34" height="16"/>
-        </designable>
-        <designable name="pUe-Hp-Jku">
-            <size key="intrinsicContentSize" width="30" height="16"/>
-        </designable>
         <designable name="qWM-6b-OYy">
             <size key="intrinsicContentSize" width="66" height="23"/>
-        </designable>
-        <designable name="u1q-fQ-YpQ">
-            <size key="intrinsicContentSize" width="12599.5" height="17"/>
-        </designable>
-        <designable name="xAm-nO-pXy">
-            <size key="intrinsicContentSize" width="55.5" height="23"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
@@ -1033,11 +993,11 @@
         <image name="arrowLeft" width="25" height="25"/>
         <image name="arrowRight" width="25" height="25"/>
         <image name="cart" width="32" height="32"/>
+        <image name="cinamon" width="100" height="26.5"/>
         <image name="duration" width="32" height="32"/>
         <image name="forum-gold" width="74" height="26.5"/>
         <image name="navTicket" width="25" height="25"/>
         <image name="settings" width="25" height="25"/>
-        <image name="ticket" width="32" height="32"/>
         <image name="year" width="32" height="32"/>
         <namedColor name="primaryBackground">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
