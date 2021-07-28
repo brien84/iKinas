@@ -8,6 +8,13 @@
 
 import UIKit
 
+private enum OverlayPosition: Int {
+    case top
+    case leading
+    case trailing
+    case bottom
+}
+
 final class VenueImageView: UIImageView {
     var venue: Venue? {
         didSet {
@@ -31,9 +38,18 @@ final class VenueImageView: UIImageView {
         }
     }
 
+    @IBInspectable
+    private var overlayPosition: Int = 0 {
+        didSet {
+            _overlayPosition = OverlayPosition(rawValue: overlayPosition) ?? .top
+        }
+    }
+
+    private var _overlayPosition: OverlayPosition = .top
+
     private var showOverlay = false {
         didSet {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + .hideOverlayInterval) {
                 if self.showOverlay {
                     self.toggleOverlay()
                 }
@@ -51,20 +67,20 @@ final class VenueImageView: UIImageView {
 
     private lazy var overlay: UIView = {
         let view = UIView()
-        view.alpha = 0
+        view.alpha = .zero
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = .secondaryBackground
-        view.layer.cornerRadius = 10
-        view.layer.borderWidth = 1
+        view.layer.cornerRadius = .overlayCornerRadius
+        view.layer.borderWidth = .overlayBorderWidth
         view.layer.borderColor = UIColor.secondaryElement.cgColor
 
         view.addSubview(overlayLabel)
 
         NSLayoutConstraint.activate([
-            overlayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .padding),
-            overlayLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.padding),
-            overlayLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: .padding),
-            overlayLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.padding)
+            overlayLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: .overlayPadding),
+            overlayLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -.overlayPadding),
+            overlayLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: .overlayPadding),
+            overlayLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -.overlayPadding)
         ])
 
         return view
@@ -87,19 +103,37 @@ final class VenueImageView: UIImageView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        overlay.frame = overlay.frame.offsetBy(dx: self.bounds.midX - overlay.bounds.midX,
-                                               dy: -overlay.frame.height - .padding)
+        switch _overlayPosition {
+        case .top:
+            overlay.frame = overlay.frame.offsetBy(dx: self.bounds.midX - overlay.bounds.midX,
+                                                   dy: -overlay.frame.height - .overlayPadding)
+        case .leading:
+            overlay.frame = overlay.frame.offsetBy(dx: -overlay.bounds.maxX - .overlayPadding,
+                                                   dy: .zero)
+        case .trailing:
+            overlay.frame = overlay.frame.offsetBy(dx: bounds.maxX + .overlayPadding,
+                                                   dy: .zero)
+        case .bottom:
+            overlay.frame = overlay.frame.offsetBy(dx: self.bounds.midX - overlay.bounds.midX,
+                                                   dy: overlay.frame.height + .overlayPadding)
+        }
     }
 
     @objc private func toggleOverlay() {
         showOverlay.toggle()
 
-        UIView.animate(withDuration: 1.0) { [self] in
+        UIView.animate(withDuration: .stdAnimation) { [self] in
             overlay.alpha = showOverlay ? 1 : 0
         }
     }
 }
 
 private extension CGFloat {
-    static let padding: CGFloat = 8
+    static let overlayPadding: CGFloat = 8
+    static let overlayCornerRadius: CGFloat = 10
+    static let overlayBorderWidth: CGFloat = 1
+}
+
+private extension TimeInterval {
+    static let hideOverlayInterval = 2.0
 }
