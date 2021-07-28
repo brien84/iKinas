@@ -30,11 +30,11 @@ final class CinemaUITests: XCTestCase {
     func waitForUIUpdate() {
         let expectation = self.expectation(description: "Wait for UI to update.")
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 1.5)
+        waitForExpectations(timeout: 1.6)
     }
 
     func testAppStartingWithDateViewController() {
