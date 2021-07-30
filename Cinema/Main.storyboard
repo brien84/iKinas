@@ -27,7 +27,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filmai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtS-LT-Qg0" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="8" width="382" height="41"/>
+                                    <rect key="frame" x="16" y="8" width="382" height="31"/>
                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
                                     <color key="textColor" name="primaryElement"/>
                                     <nil key="highlightedColor"/>
@@ -36,13 +36,13 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsW-bU-O7w">
-                                    <rect key="frame" x="0.0" y="57" width="414" height="474"/>
+                                    <rect key="frame" x="0.0" y="47" width="414" height="476"/>
                                     <connections>
                                         <segue destination="fg4-kJ-Eo7" kind="embed" identifier="embedDateContainerVC" id="wOF-CZ-nGK"/>
                                     </connections>
                                 </containerView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seansai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWM-6b-OYy" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="539" width="382" height="23"/>
+                                    <rect key="frame" x="16" y="531" width="382" height="31"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <color key="textColor" name="primaryElement"/>
                                     <nil key="highlightedColor"/>
@@ -225,10 +225,10 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZH-DU-L7m" userLabel="Title Container" customClass="GradientBackgroundView" customModule="iKinas" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="471.5" width="414" height="87.5"/>
+                                        <rect key="frame" x="0.0" y="478" width="414" height="81"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Movie Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NQD-Sy-tME" userLabel="Title" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="20" width="374" height="33.5"/>
+                                                <rect key="frame" x="20" y="20" width="374" height="29"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="28"/>
                                                 <color key="textColor" name="primaryElement"/>
@@ -238,7 +238,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Extremely Long Title Movie: Episode 69420 - The Return of The Long Movie Title Lord of Long Movie Title Kingdom " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C4X-r5-IHS" userLabel="Original Title" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                                <rect key="frame" x="20" y="58.5" width="374" height="19"/>
+                                                <rect key="frame" x="20" y="54" width="374" height="17"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
                                                 <color key="textColor" name="primaryElement"/>
@@ -303,8 +303,22 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q9t-BW-q0Q" userLabel="Showing Container">
                                                 <rect key="frame" x="20" y="46" width="374" height="72"/>
                                                 <subviews>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J3h-1w-ZJ6" userLabel="Top Separator">
+                                                        <rect key="frame" x="0.0" y="0.0" width="374" height="1"/>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" priority="999" constant="1" id="vT8-It-Fq4"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14V-hG-KCm" userLabel="Bottom Separator">
+                                                        <rect key="frame" x="0.0" y="71" width="374" height="1"/>
+                                                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" priority="999" constant="1" id="dUY-cd-tzy"/>
+                                                        </constraints>
+                                                    </view>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jUQ-tr-d6U">
-                                                        <rect key="frame" x="342" y="20" width="32" height="32"/>
+                                                        <rect key="frame" x="332" y="20" width="32" height="32"/>
                                                         <color key="tintColor" name="tertiaryElement"/>
                                                         <state key="normal" image="cart"/>
                                                         <userDefinedRuntimeAttributes>
@@ -315,9 +329,9 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="20:15" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXg-Tf-TUL">
-                                                        <rect key="frame" x="294" y="20" width="38" height="32"/>
+                                                        <rect key="frame" x="284" y="20" width="38" height="32"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                                        <color key="textColor" name="secondaryElement"/>
+                                                        <color key="textColor" name="primaryElement"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cinamon" translatesAutoresizingMaskIntoConstraints="NO" id="gg9-NR-wWl" customClass="VenueImageView" customModule="iKinas" customModuleProvider="target">
@@ -333,13 +347,21 @@
                                                 <constraints>
                                                     <constraint firstItem="gg9-NR-wWl" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="20" id="0tA-o1-R6h"/>
                                                     <constraint firstItem="aXg-Tf-TUL" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="20" id="1o9-n6-2Yn"/>
+                                                    <constraint firstItem="J3h-1w-ZJ6" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" id="8bL-7g-s55"/>
+                                                    <constraint firstAttribute="trailing" secondItem="14V-hG-KCm" secondAttribute="trailing" id="FAI-G3-oyn"/>
+                                                    <constraint firstAttribute="bottom" secondItem="14V-hG-KCm" secondAttribute="bottom" id="FZl-qf-9nu"/>
                                                     <constraint firstAttribute="bottom" secondItem="jUQ-tr-d6U" secondAttribute="bottom" priority="999" constant="20" id="L49-Ka-La5"/>
                                                     <constraint firstItem="jUQ-tr-d6U" firstAttribute="top" secondItem="Q9t-BW-q0Q" secondAttribute="top" constant="20" id="LfF-sI-eQy"/>
                                                     <constraint firstAttribute="height" id="MJB-Mu-Eyj"/>
+                                                    <constraint firstItem="J3h-1w-ZJ6" firstAttribute="leading" secondItem="Q9t-BW-q0Q" secondAttribute="leading" id="Nd5-nd-iMA"/>
                                                     <constraint firstAttribute="bottom" secondItem="aXg-Tf-TUL" secondAttribute="bottom" priority="999" constant="20" id="PiE-Zg-PCU"/>
                                                     <constraint firstItem="gg9-NR-wWl" firstAttribute="leading" secondItem="Q9t-BW-q0Q" secondAttribute="leading" constant="20" id="Vfa-Vb-Lbg"/>
-                                                    <constraint firstAttribute="trailing" secondItem="jUQ-tr-d6U" secondAttribute="trailing" id="llh-gc-RXd"/>
+                                                    <constraint firstItem="14V-hG-KCm" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Q9t-BW-q0Q" secondAttribute="top" id="bbG-LC-JNP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="jUQ-tr-d6U" secondAttribute="trailing" constant="10" id="llh-gc-RXd"/>
+                                                    <constraint firstItem="14V-hG-KCm" firstAttribute="leading" secondItem="Q9t-BW-q0Q" secondAttribute="leading" id="nuD-i9-O07"/>
+                                                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="J3h-1w-ZJ6" secondAttribute="bottom" id="rO4-dv-b8s"/>
                                                     <constraint firstItem="jUQ-tr-d6U" firstAttribute="leading" secondItem="aXg-Tf-TUL" secondAttribute="trailing" constant="10" id="tsR-Yn-HOj"/>
+                                                    <constraint firstAttribute="trailing" secondItem="J3h-1w-ZJ6" secondAttribute="trailing" id="uoa-xm-OYg"/>
                                                     <constraint firstAttribute="bottom" secondItem="gg9-NR-wWl" secondAttribute="bottom" priority="999" constant="20" id="vvf-qB-CeH"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
@@ -860,7 +882,7 @@
             <objects>
                 <collectionViewController storyboardIdentifier="dateContainerVC" id="fg4-kJ-Eo7" customClass="DateContainerViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="UoG-fi-SO5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="474"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="476"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="primaryBackground"/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="8" minimumInteritemSpacing="8" id="jZ3-av-jYN">
@@ -871,7 +893,7 @@
                         </collectionViewFlowLayout>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="dateContainerViewCell" id="ZAe-yq-nof" customClass="DateContainerViewCell" customModule="iKinas" customModuleProvider="target">
-                                <rect key="frame" x="8" y="29" width="238" height="416"/>
+                                <rect key="frame" x="8" y="30" width="238" height="416"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="YFp-07-LZi">
                                     <rect key="frame" x="0.0" y="0.0" width="238" height="416"/>
@@ -971,16 +993,16 @@
     </scenes>
     <designables>
         <designable name="C4X-r5-IHS">
-            <size key="intrinsicContentSize" width="796" height="19"/>
+            <size key="intrinsicContentSize" width="696.5" height="17"/>
         </designable>
         <designable name="DtS-LT-Qg0">
-            <size key="intrinsicContentSize" width="83" height="41"/>
+            <size key="intrinsicContentSize" width="74.5" height="31"/>
         </designable>
         <designable name="NQD-Sy-tME">
-            <size key="intrinsicContentSize" width="141.5" height="33.5"/>
+            <size key="intrinsicContentSize" width="121" height="29"/>
         </designable>
         <designable name="qWM-6b-OYy">
-            <size key="intrinsicContentSize" width="66" height="23"/>
+            <size key="intrinsicContentSize" width="98" height="31"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
