@@ -431,3 +431,47 @@ footer p {
 footer a {
     color: #bdc3c7;
 }
+
+
+/*** .policy ***/
+
+.policy {
+    position: fixed;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    top: 40px; right: 0; bottom: 40px; left: 0;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.policy {
+    font-family: Helvetica, sans-serif;
+    font-size: 14px;
+    padding: 20px;
+}
+
+@media only screen and (min-width:660px) {
+    .policy {
+        font-family: Helvetica, sans-serif;
+        font-size: 16px;
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width:960px) {
+    .policy {
+        font-family: Helvetica, sans-serif;
+        font-size: 18px;
+        padding: 40px;
+    }
+}
+
+.policy::-webkit-scrollbar {
+    display: none;
+}
+
+.policy {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
