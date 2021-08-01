@@ -328,12 +328,12 @@ body,
     box-shadow: 0 2px 4px rgba(0, 0, 0, .11);
     z-index: 99;
     font-family: Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 @media only screen and (min-width:960px) {
     .site-header {
-        font-size: 20px
+        font-size: 18px
     }
 }
 
@@ -425,7 +425,7 @@ footer {
 
 footer p {
     font-family: Roboto-Regular, Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 footer a {
@@ -447,14 +447,14 @@ footer a {
 
 .policy {
     font-family: Helvetica, sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     padding: 20px;
 }
 
 @media only screen and (min-width:660px) {
     .policy {
         font-family: Helvetica, sans-serif;
-        font-size: 18px;
+        font-size: 16px;
         padding: 30px;
     }
 }
@@ -462,7 +462,7 @@ footer a {
 @media only screen and (min-width:960px) {
     .policy {
         font-family: Helvetica, sans-serif;
-        font-size: 20px;
+        font-size: 18px;
         padding: 40px;
     }
 }
