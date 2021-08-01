@@ -132,3 +132,25 @@ body,
 .site-header__content-nav>ul>li+li {
     margin-left: 1.5em
 }
+
+
+/*** footer ***/
+
+footer {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #bdc3c7;
+    background-color: black;
+    text-align: center;
+    z-index: 99;
+}
+
+footer p {
+    font-family: Roboto-Regular, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+footer a {
+    color: #bdc3c7;
+}
