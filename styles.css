@@ -206,6 +206,19 @@ body,
 }
 
 
+/*** .store-button ***/
+
+.content-container--small .store-button {
+    display: flex;
+    justify-content: center;
+}
+
+.content-container--large .store-button {
+    display: flex;
+    justify-content: left;
+}
+
+
 /*** .device-mockup ***/
 
 .content-container--small .device-mockup {
