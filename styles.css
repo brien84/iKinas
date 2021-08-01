@@ -89,6 +89,39 @@ body,
 }
 
 
+/*** .app-info ***/
+
+.content-container--small .app-info-icon {
+    width: 60px;
+    min-width: 60px;
+    height=auto;
+    vertical-align: middle;
+    border-radius: 10px;
+}
+
+.content-container--large .app-info-icon {
+    width: 92px;
+    min-width: 92px;
+    height=auto;
+    vertical-align: middle;
+    border-radius: 15px;
+}
+
+.content-container--small .app-info-title {
+    font-family: Helvetica, sans-serif;
+    font-size: 23px;
+    vertical-align: middle;
+    margin: 10px;
+}
+
+.content-container--large .app-info-title {
+    font-family: Helvetica, sans-serif;
+    font-size: 32px;
+    vertical-align: middle;
+    margin: 15px;
+}
+
+
 /***** .site-header *****/
 
 .site-header {
