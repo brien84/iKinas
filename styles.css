@@ -36,6 +36,59 @@ body,
 }
 
 
+/*** .site-content ***/
+
+.site-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    width: 100%;
+    background-size: cover;
+    background-position: 50% 50%
+}
+
+
+/*** .site-content-wrapper ***/
+
+.site-content-wrapper {
+    flex: 1 0 auto;
+    padding: 20px 20px;
+    min-width: 0
+}
+
+.site-content-wrapper>:first-child {
+    margin-top: 0
+}
+
+.site-content-wrapper>:last-child {
+    margin-bottom: 0
+}
+
+@media only screen and (min-width:960px) {
+    .site-content-wrapper {
+        flex: 1 0 auto;
+        padding: 46px 20px;
+        min-width: 0
+    }
+}
+
+@media only screen and (min-width:960px) {
+    .site-content-wrapper {
+        max-width: 960px;
+        min-width: 0
+    }
+}
+
+@media only screen and (min-width:660px) {
+    .site-content-wrapper {
+        flex: 1 0 auto;
+        padding: 46px 20px;
+        min-width: 0
+    }
+}
+
+
 /***** .site-header *****/
 
 .site-header {
