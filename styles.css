@@ -113,7 +113,7 @@ body,
 
 .content-container--small p {
     font-family: Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     margin-top: 30px;
     margin-bottom: 30px;
 }
@@ -147,7 +147,7 @@ body,
 
 .content-container--large p {
     font-family: Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     margin-top: 40px;
     margin-bottom: 40px;
 }
@@ -193,14 +193,14 @@ body,
 
 .content-container--small .app-info-title {
     font-family: Helvetica, sans-serif;
-    font-size: 23px;
+    font-size: 25px;
     vertical-align: middle;
     margin: 10px;
 }
 
 .content-container--large .app-info-title {
     font-family: Helvetica, sans-serif;
-    font-size: 32px;
+    font-size: 34px;
     vertical-align: middle;
     margin: 15px;
 }
@@ -328,12 +328,12 @@ body,
     box-shadow: 0 2px 4px rgba(0, 0, 0, .11);
     z-index: 99;
     font-family: Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 @media only screen and (min-width:960px) {
     .site-header {
-        font-size: 18px
+        font-size: 20px
     }
 }
 
@@ -425,7 +425,7 @@ footer {
 
 footer p {
     font-family: Roboto-Regular, Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
 }
 
 footer a {
@@ -447,14 +447,14 @@ footer a {
 
 .policy {
     font-family: Helvetica, sans-serif;
-    font-size: 14px;
+    font-size: 16px;
     padding: 20px;
 }
 
 @media only screen and (min-width:660px) {
     .policy {
         font-family: Helvetica, sans-serif;
-        font-size: 16px;
+        font-size: 18px;
         padding: 30px;
     }
 }
@@ -462,7 +462,7 @@ footer a {
 @media only screen and (min-width:960px) {
     .policy {
         font-family: Helvetica, sans-serif;
-        font-size: 18px;
+        font-size: 20px;
         padding: 40px;
     }
 }
