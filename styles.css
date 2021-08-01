@@ -1,0 +1,36 @@
+
+html {
+    -webkit-text-size-adjust: 100%;
+    background-color: black;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    padding-top: 50px;
+    min-height: 100vh;
+    line-height: 1.5;
+}
+
+body {
+    margin: 0
+}
+
+body,
+ ::after,
+ ::before {
+    box-sizing: border-box;
+}
+
+@media only screen and (min-width:960px) {
+    body {
+        padding-top: 60px
+    }
+}
