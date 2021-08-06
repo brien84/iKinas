@@ -19,35 +19,20 @@ final class CinemaUITests: XCTestCase {
         app.launch()
 
         // Selects city on app startup.
-        app.settingsSelectCity(0)
-        waitForUIUpdate()
+        app.settingsVCSelectCity(0)
+        XCTAssertTrue(app.dateContainerVCCollectionView.waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.dateVCTableView.waitForExistence(timeout: 2.0))
     }
 
     override func tearDown() {
         app = nil
     }
 
-    func waitForUIUpdate() {
-        let expectation = self.expectation(description: "Wait for UI to update.")
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 1.6)
-    }
-
-    func testAppStartingWithDateViewController() {
-        XCTAssertTrue(app.dateContainerVCCollectionView.exists)
-        XCTAssertTrue(app.dateVCTableView.exists)
-    }
-
-    func testChangingDate() {
+    func testChangingDateContainerVCDate() {
         let collectionInitialCount = app.dateContainerVCCollectionView.cellCount
         let tableInitialCount = app.dateVCTableView.cellCount
 
         app.dateVCRightNavButton.tap()
-        waitForUIUpdate()
 
         var collectionNewCount = app.dateContainerVCCollectionView.cellCount
         var tableNewCount = app.dateVCTableView.cellCount
@@ -56,7 +41,6 @@ final class CinemaUITests: XCTestCase {
         XCTAssertNotEqual(tableInitialCount, tableNewCount)
 
         app.dateVCLeftNavButton.tap()
-        waitForUIUpdate()
 
         collectionNewCount = app.dateContainerVCCollectionView.cellCount
         tableNewCount = app.dateVCTableView.cellCount
@@ -65,96 +49,67 @@ final class CinemaUITests: XCTestCase {
         XCTAssertEqual(tableInitialCount, tableNewCount)
     }
 
-    func testNavigationToSettings() {
+    func testNavigatingToSettingsVC() {
         app.dateVCLeftNavButton.tap()
-        waitForUIUpdate()
 
-        XCTAssertTrue(app.settingsVCTableView.exists)
+        XCTAssertTrue(app.settingsVCTableView.waitForExistence(timeout: 2.0))
         XCTAssertFalse(app.dateContainerVCCollectionView.exists)
         XCTAssertFalse(app.dateVCTableView.exists)
     }
 
-    func testNavigationToMovieVCFromDateCollectionView() {
+    func testNavigatingToMovieVCFromDateCollectionView() {
         app.dateContainerVCCollectionView.selectCell(0)
-        waitForUIUpdate()
 
-        XCTAssertTrue(app.movieVCView.exists)
+        XCTAssertTrue(app.movieVCView.waitForExistence(timeout: 2.0))
         XCTAssertFalse(app.movieVCShowingView.exists)
     }
 
-    func testNavigationToMovieVCFromDateTableView() {
+    func testNavigatingToMovieVCFromDateTableView() {
         app.dateVCTableView.selectCell(0)
-        waitForUIUpdate()
 
-        XCTAssertTrue(app.movieVCView.exists)
-        XCTAssertTrue(app.movieVCShowingView.exists)
+        XCTAssertTrue(app.movieVCView.waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.movieVCShowingView.waitForExistence(timeout: 2.0))
     }
 
-    func testNavigationToWebVCFromMovieView() {
-        app.dateVCTableView.selectCell(0)
-        waitForUIUpdate()
-
-        XCTAssertTrue(app.movieVCView.exists)
-        XCTAssertTrue(app.movieVCShowingView.exists)
+    func testNavigatingToWebVCFromMovieView() {
+        testNavigatingToMovieVCFromDateTableView()
 
         app.movieVCShowingButton.tap()
-        waitForUIUpdate()
 
-        XCTAssertTrue(app.webVCView.exists)
+        XCTAssertTrue(app.webVCView.waitForExistence(timeout: 2.0))
     }
 
-    func testNavigationToShowingsVCFromMovieView() {
+    func testNavigatingToShowingsVCFromMovieView() {
         app.dateContainerVCCollectionView.selectCell(0)
-        waitForUIUpdate()
 
-        XCTAssertTrue(app.movieVCView.exists)
+        XCTAssertTrue(app.movieVCView.waitForExistence(timeout: 2.0))
 
         app.movieVCShowingsButton.tap()
-        waitForUIUpdate()
 
-        XCTAssertTrue(app.showingsVCView.exists)
+        XCTAssertTrue(app.showingsVCView.waitForExistence(timeout: 2.0))
     }
 
-    func testNavigationToWebVCFromShowingsTimesView() {
-        app.dateContainerVCCollectionView.selectCell(0)
-        waitForUIUpdate()
-
-        XCTAssertTrue(app.movieVCView.exists)
-
-        app.movieVCShowingsButton.tap()
-        waitForUIUpdate()
-
-        XCTAssertTrue(app.showingsVCView.exists)
-
-        app.showingsVCTimesView.selectCell(0)
-        waitForUIUpdate()
-
-        XCTAssertTrue(app.webVCView.exists)
-    }
-
-    func testNavigatingDatesViewUpdatesTimesView() {
-        app.dateContainerVCCollectionView.selectCell(0)
-        waitForUIUpdate()
-
-        XCTAssertTrue(app.movieVCView.exists)
-
-        app.movieVCShowingsButton.tap()
-        waitForUIUpdate()
-
-        XCTAssertTrue(app.showingsVCView.exists)
+    func testChangingDateInDatesViewUpdatesTimesView() {
+        testNavigatingToShowingsVCFromMovieView()
 
         let initialCount = app.showingsVCDatesView.cellCount
-
         app.showingsVCDatesView.swipeLeft()
-        waitForUIUpdate()
-
         let newCount = app.showingsVCDatesView.cellCount
 
         XCTAssertNotEqual(initialCount, newCount)
     }
+
+    func testNavigatingToWebVCFromShowingsTimesView() {
+        testNavigatingToShowingsVCFromMovieView()
+
+        app.showingsVCTimesView.selectCell(0)
+
+        XCTAssertTrue(app.webVCView.waitForExistence(timeout: 2.0))
+    }
 }
 
 extension XCUIApplication {
+
     // MARK: DateContainerViewController
 
     var dateContainerVCCollectionView: XCUIElement {
@@ -199,7 +154,7 @@ extension XCUIApplication {
         tables["settingsVCTableView"]
     }
 
-    func settingsSelectCity(_ index: Int) {
+    func settingsVCSelectCity(_ index: Int) {
         settingsVCTableView.selectCell(index)
     }
 
