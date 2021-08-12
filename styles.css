@@ -475,3 +475,14 @@ footer a {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+
+/*** .not-found ***/
+
+.not-found {
+    padding: 20px;
+    color: white;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 30px;
+}
