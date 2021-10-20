@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5sa-ql-0RP">
-    <device id="retina6_1" orientation="portrait" appearance="dark"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19162" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="5sa-ql-0RP">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19144"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -66,13 +66,13 @@
                             </constraints>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="gAU-us-9tG" userLabel="Empty Footer">
-                            <rect key="frame" x="0.0" y="791.00000034679067" width="414" height="0.0"/>
+                            <rect key="frame" x="0.0" y="809" width="414" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="dateViewCell" id="3s7-SG-MPp" customClass="DateViewCell" customModule="iKinas" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="594.5" width="414" height="172"/>
+                                <rect key="frame" x="0.0" y="614.5" width="414" height="172"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3s7-SG-MPp" id="mua-dK-hgQ">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="172"/>
@@ -638,6 +638,7 @@
                                             <subviews>
                                                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="always" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="MOC-Jq-d7l">
                                                     <rect key="frame" x="0.0" y="0.0" width="413" height="383"/>
+                                                    <color key="backgroundColor" name="primaryBackground"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="8" minimumInteritemSpacing="8" id="j3K-Hu-7jj">
                                                         <size key="itemSize" width="213" height="85"/>
                                                         <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -837,7 +838,7 @@
                         </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="settingsCell" id="kSx-aa-Q47" customClass="SettingsViewCell" customModule="iKinas" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="68.5" width="414" height="63"/>
+                                <rect key="frame" x="0.0" y="88.5" width="414" height="63"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kSx-aa-Q47" id="nRW-nl-SFk">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="63"/>
@@ -1006,7 +1007,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="fCK-ZR-cDu"/>
+        <segue reference="AxB-la-lfB"/>
         <segue reference="diA-bi-HlB"/>
     </inferredMetricsTieBreakers>
     <resources>
