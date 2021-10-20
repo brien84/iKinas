@@ -60,13 +60,19 @@ extension UIFont {
 
 extension UINavigationBar {
     func setBackgroundImage(color: UIColor, alpha: CGFloat = 1.0) {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithTransparentBackground()
+
         // If `alpha` is equal or higher than 1.0 `UINavigationBar`
-        // will apply a system-defined alpha.
+        // will apply a system-defined alpha value.
         let alpha = alpha >= 0.99 ? 0.99 : alpha
         let color = color.withAlphaComponent(alpha)
+
         // `UINavigationBar` will size the image to fill.
-        let image = color.image(size: CGSize(width: 1, height: 1))
-        self.setBackgroundImage(image, for: .default)
+        appearance.backgroundImage = color.image(size: CGSize(width: 1, height: 1))
+
+        self.standardAppearance = appearance
+        self.scrollEdgeAppearance = appearance
     }
 }
 

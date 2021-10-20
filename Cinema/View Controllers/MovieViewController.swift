@@ -76,7 +76,7 @@ final class MovieViewController: UIViewController {
         navigationController?.popViewController(animated: true)
 
         // Resets `navigationBar` appearance.
-        navigationBar?.setTitleVerticalPositionAdjustment(0, for: .default)
+        navigationBar?.adjustVerticalTitlePosition(0)
         navigationBar?.setBackgroundImage(color: .secondaryBackground)
     }
 
@@ -233,7 +233,7 @@ extension MovieViewController: UIScrollViewDelegate {
 
         if 0 > currentDistance {
             navigationBar.setTitleAlpha(1.0)
-            navigationBar.setTitleVerticalPositionAdjustment(0, for: .default)
+            navigationBar.adjustVerticalTitlePosition(0)
             return
         }
 
@@ -243,7 +243,7 @@ extension MovieViewController: UIScrollViewDelegate {
 
         if navBarHeight > currentDistance {
             navigationBar.setTitleAlpha(1.0 - currentDistance / navBarHeight)
-            navigationBar.setTitleVerticalPositionAdjustment(currentDistance, for: .default)
+            navigationBar.adjustVerticalTitlePosition(currentDistance)
         }
     }
 
@@ -319,8 +319,15 @@ extension MovieViewController: UINavigationControllerDelegate {
 
 private extension UINavigationBar {
     func setTitleAlpha(_ alpha: CGFloat) {
-        self.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
-                                    .font: Fonts.getFont(.navigationBar)]
+        self.standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
+                                                       .font: Fonts.getFont(.navigationBar)]
+        self.scrollEdgeAppearance?.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
+                                                          .font: Fonts.getFont(.navigationBar)]
+    }
+
+    func adjustVerticalTitlePosition(_ offset: CGFloat) {
+        self.standardAppearance.titlePositionAdjustment.vertical = offset
+        self.scrollEdgeAppearance?.titlePositionAdjustment.vertical = offset
     }
 }
 
