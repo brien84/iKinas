@@ -199,7 +199,13 @@ extension DateViewController {
 
         let transition = CATransition()
         transition.duration = .stdAnimation
-        transition.type = .push
+
+        if #available(iOS 15.0, *) {
+            transition.type = .fade
+        } else {
+            transition.type = .push
+        }
+
         transition.subtype = direction
         transition.timingFunction = .init(name: .easeInEaseOut)
         titleView.layer.add(transition, forKey: "transition")
