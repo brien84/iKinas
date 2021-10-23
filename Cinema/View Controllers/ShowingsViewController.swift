@@ -85,8 +85,8 @@ extension ShowingsViewController: UICollectionViewDataSource, UICollectionViewDe
 
             // Highlights first cell when the view is loaded, later cell highlighting
             // is handled in `datesViewScrollToItem(at:)` method.
-            if indexPath == datesViewCenterIndexPath() {
-                dateCell.isHighlighted = true
+            if indexPath == datesViewCenterIndexPath {
+                dateCell.isLabelHighlighted = true
             }
 
             return dateCell
@@ -154,12 +154,12 @@ extension ShowingsViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ShowingsViewController: UIScrollViewDelegate {
-    private func containersViewCenterIndexPath() -> IndexPath? {
+    private var containersViewCenterIndexPath: IndexPath? {
         let point = CGPoint(x: containersView.bounds.midX, y: containersView.bounds.midY)
         return containersView.indexPathForItem(at: point)
     }
 
-    private func datesViewCenterIndexPath() -> IndexPath? {
+    private var datesViewCenterIndexPath: IndexPath? {
         let point = CGPoint(x: datesView.bounds.midX, y: datesView.bounds.midY)
         return datesView.indexPathForItem(at: point)
     }
@@ -167,16 +167,21 @@ extension ShowingsViewController: UIScrollViewDelegate {
     private func datesViewScrollToItem(at indexPath: IndexPath) {
         guard let cell = datesView.cellForItem(at: indexPath) as? ShowingsViewDateCell else { return }
 
-        datesView.visibleCells.forEach { $0.isHighlighted = false }
-        cell.isHighlighted = true
+        datesView.visibleCells.forEach {
+            if let visibleCell = $0 as? ShowingsViewDateCell {
+                visibleCell.isLabelHighlighted = false
+            }
+        }
+
+        cell.isLabelHighlighted = true
 
         datesView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
     }
 
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         guard scrollView == containersView || scrollView == datesView else { return }
-        guard let datesRow = datesViewCenterIndexPath()?.row else { return }
-        guard let containerRow = containersViewCenterIndexPath()?.row else { return }
+        guard let datesRow = datesViewCenterIndexPath?.row else { return }
+        guard let containerRow = containersViewCenterIndexPath?.row else { return }
 
         if datesRow != containerRow {
             if scrollView == containersView {
@@ -192,13 +197,13 @@ extension ShowingsViewController: UIScrollViewDelegate {
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView == containersView {
             targetContentOffset.pointee = scrollView.contentOffset
-            guard let indexPath = containersViewCenterIndexPath() else { return }
+            guard let indexPath = containersViewCenterIndexPath else { return }
             containersView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         }
 
         if scrollView == datesView {
             targetContentOffset.pointee = scrollView.contentOffset
-            guard let indexPath = datesViewCenterIndexPath() else { return }
+            guard let indexPath = datesViewCenterIndexPath else { return }
             datesViewScrollToItem(at: indexPath)
         }
     }

@@ -9,17 +9,11 @@
 import UIKit
 
 final class ShowingsViewDateCell: UICollectionViewCell {
-    @IBOutlet weak var date: UILabel! {
-        didSet {
-            // Set `textColor` in code, because of iOS12 bug, where when
-            // a custom color is selected in storyboard it cannot be changed.
-            date.textColor = .primaryElement
-        }
-    }
+    @IBOutlet weak var date: UILabel!
 
-    override var isHighlighted: Bool {
+    var isLabelHighlighted = false {
         didSet {
-            date.textColor = isHighlighted ? .tertiaryElement : .primaryElement
+            date.textColor = isLabelHighlighted ? .tertiaryElement : .primaryElement
         }
     }
 }
