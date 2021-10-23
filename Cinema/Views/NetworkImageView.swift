@@ -15,7 +15,7 @@ final class NetworkImageView: UIImageView {
     private static let cache = NSCache<NSURL, UIImage>()
 
     private lazy var activityIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView(style: .gray)
+        let indicator = UIActivityIndicatorView(style: .medium)
         indicator.startAnimating()
         indicator.hidesWhenStopped = true
 
