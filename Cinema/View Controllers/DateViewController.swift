@@ -237,16 +237,16 @@ extension DateViewController {
             datasource = fetcher.getShowings(at: dates.selected)
             setNavigation(title: nil, animation: .fromLeft)
 
-            transitionTableView?.beginTransition {
+            transitionTableView?.beginTransition { [self] in
                 setNavigation(title: dates.selected.asString(.monthAndDay), animation: .fromRight)
 
                 if datasource.count > 0 {
                     transitionTableView?.endTransition {
-                        toggleEnabled(scroll: true, buttons: true)
+                        self.toggleEnabled(scroll: true, buttons: true)
                     }
                 } else {
                     loadingView.show(.noMovies, animated: true) {
-                        toggleEnabled(scroll: false, buttons: true)
+                        self.toggleEnabled(scroll: false, buttons: true)
                     }
                 }
             }
@@ -269,12 +269,12 @@ extension DateViewController {
             if datasource.count > 0 {
                 overlay.removeFromSuperview()
                 transitionTableView?.endTransition {
-                    toggleEnabled(scroll: true, buttons: true)
+                    self.toggleEnabled(scroll: true, buttons: true)
                 }
             } else {
                 loadingView.show(.noMovies, animated: true) {
                     overlay.removeFromSuperview()
-                    toggleEnabled(scroll: false, buttons: true)
+                    self.toggleEnabled(scroll: false, buttons: true)
                 }
             }
         }
