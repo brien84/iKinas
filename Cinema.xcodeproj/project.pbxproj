@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -313,7 +313,7 @@
 				2904C75C2336982B00407B64 /* Sources */,
 				2904C75D2336982B00407B64 /* Frameworks */,
 				2904C75E2336982B00407B64 /* Resources */,
-				29B4D94D23F5BB6A00BD9783 /* ShellScript */,
+				29B4D94D23F5BB6A00BD9783 /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -433,8 +433,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		29B4D94D23F5BB6A00BD9783 /* ShellScript */ = {
+		29B4D94D23F5BB6A00BD9783 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -442,6 +443,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run Script";
 			outputFileListPaths = (
 			);
 			outputPaths = (
