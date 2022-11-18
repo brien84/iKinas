@@ -43,6 +43,7 @@ extension UIImage {
     static let settings = UIImage(named: "settings")!
     static let navTicket = UIImage(named: "navTicket")
 
+    static let apollo = UIImage(named: "apollo")!
     static let cinamon = UIImage(named: "cinamon")!
     static let forumGold = UIImage(named: "forum-gold")!
     static let forumWhite = UIImage(named: "forum-white")!

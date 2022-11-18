@@ -25,6 +25,8 @@ final class VenueImageView: UIImageView {
 
     private var venueImage: UIImage {
         switch venue {
+        case .apollo:
+            return .apollo
         case .cinamon:
             return .cinamon
         case .forum, .forumVingis:
@@ -105,17 +107,25 @@ final class VenueImageView: UIImageView {
 
         switch _overlayPosition {
         case .top:
-            overlay.frame = overlay.frame.offsetBy(dx: self.bounds.midX - overlay.bounds.midX,
-                                                   dy: -overlay.frame.height - .overlayPadding)
+            overlay.frame = overlay.frame.offsetBy(
+                dx: self.bounds.midX - overlay.bounds.midX,
+                dy: -overlay.frame.height - .overlayPadding
+            )
         case .leading:
-            overlay.frame = overlay.frame.offsetBy(dx: -overlay.bounds.maxX - .overlayPadding,
-                                                   dy: .zero)
+            overlay.frame = overlay.frame.offsetBy(
+                dx: -overlay.bounds.maxX - .overlayPadding,
+                dy: .zero
+            )
         case .trailing:
-            overlay.frame = overlay.frame.offsetBy(dx: bounds.maxX + .overlayPadding,
-                                                   dy: .zero)
+            overlay.frame = overlay.frame.offsetBy(
+                dx: bounds.maxX + .overlayPadding,
+                dy: .zero
+            )
         case .bottom:
-            overlay.frame = overlay.frame.offsetBy(dx: self.bounds.midX - overlay.bounds.midX,
-                                                   dy: overlay.frame.height + .overlayPadding)
+            overlay.frame = overlay.frame.offsetBy(
+                dx: self.bounds.midX - overlay.bounds.midX,
+                dy: overlay.frame.height + .overlayPadding
+            )
         }
     }
 
