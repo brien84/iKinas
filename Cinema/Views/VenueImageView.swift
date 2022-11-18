@@ -29,10 +29,8 @@ final class VenueImageView: UIImageView {
             return .apollo
         case .cinamon:
             return .cinamon
-        case .forum, .forumVingis:
-            return .forumGold
-        case .forumAkropolis:
-            return .forumWhite
+        case .forum:
+            return .forum
         case .multikino:
             return .multikino
         default:

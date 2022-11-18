@@ -45,8 +45,7 @@ extension UIImage {
 
     static let apollo = UIImage(named: "apollo")!
     static let cinamon = UIImage(named: "cinamon")!
-    static let forumGold = UIImage(named: "forum-gold")!
-    static let forumWhite = UIImage(named: "forum-white")!
+    static let forum = UIImage(named: "forum")!
     static let multikino = UIImage(named: "multikino")!
 }
 

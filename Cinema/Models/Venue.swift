@@ -12,7 +12,5 @@ enum Venue: String, Codable {
     case apollo = "Apollo"
     case cinamon = "Cinamon"
     case forum = "Forum Cinemas"
-    case forumAkropolis = "Forum Cinemas Akropolis"
-    case forumVingis = "Forum Cinemas Vingis"
     case multikino = "Multikino"
 }
