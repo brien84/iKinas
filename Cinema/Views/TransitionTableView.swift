@@ -69,7 +69,7 @@ final class TransitionTableView: UITableView {
 
     func prepareTransition(completion: @escaping () -> Void) {
         alignToSafeArea { [self] in
-            transitionDelegate?.prepareForTransition(animated: isTableHeaderViewVisible) {
+            transitionDelegate?.prepareForTransition(animated: isTableHeaderViewVisible) { [self] in
                 setupTransitionView()
 
                 let offset = contentOffset.y
