@@ -19,6 +19,8 @@ extension City {
             return URL.api.appendingPathComponent("klaipeda")
         case .siauliai:
             return URL.api.appendingPathComponent("siauliai")
+        case .panevezys:
+            return URL.api.appendingPathComponent("panevezys")
         }
     }
 }
@@ -49,5 +51,5 @@ extension UIImage {
 
 extension URL {
     static let api = URL(string: "https://movies.ioys.lt/")!
-    //static let api = URL(string: "http://localhost:8080/")!
+    // static let api = URL(string: "http://localhost:8080/")!
 }
