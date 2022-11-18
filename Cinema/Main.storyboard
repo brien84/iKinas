@@ -674,11 +674,14 @@
                                                                             </mask>
                                                                         </variation>
                                                                     </imageView>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forum-gold" translatesAutoresizingMaskIntoConstraints="NO" id="Ae9-7V-8iV" customClass="VenueImageView" customModule="iKinas" customModuleProvider="target">
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="forum" translatesAutoresizingMaskIntoConstraints="NO" id="Ae9-7V-8iV" customClass="VenueImageView" customModule="iKinas" customModuleProvider="target">
                                                                         <rect key="frame" x="69.5" y="50" width="74" height="27"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="27" id="xZH-Bz-oFr"/>
                                                                         </constraints>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="isOverlayEnabled" value="NO"/>
+                                                                        </userDefinedRuntimeAttributes>
                                                                     </imageView>
                                                                 </subviews>
                                                                 <color key="backgroundColor" name="secondaryBackground"/>
@@ -1018,7 +1021,6 @@
         <image name="cinamon" width="100" height="26.5"/>
         <image name="duration" width="32" height="32"/>
         <image name="forum" width="74" height="26.5"/>
-        <image name="forum-gold" width="74" height="26.5"/>
         <image name="navTicket" width="25" height="25"/>
         <image name="settings" width="25" height="25"/>
         <image name="year" width="32" height="32"/>

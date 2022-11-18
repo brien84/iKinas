@@ -45,6 +45,9 @@ final class VenueImageView: UIImageView {
         }
     }
 
+    @IBInspectable
+    private var isOverlayEnabled: Bool = true
+
     private var _overlayPosition: OverlayPosition = .top
 
     private var showOverlay = false {
@@ -90,13 +93,13 @@ final class VenueImageView: UIImageView {
         super.init(coder: coder)
 
         self.clipsToBounds = false
-        self.isUserInteractionEnabled = true
         self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(toggleOverlay)))
     }
 
     override func awakeFromNib() {
         addSubview(overlay)
 
+        self.isUserInteractionEnabled = isOverlayEnabled
         self.image = venueImage
     }
 
