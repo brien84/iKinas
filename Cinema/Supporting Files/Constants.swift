@@ -52,4 +52,5 @@ extension UIImage {
 extension URL {
     static let api = URL(string: "https://movies.ioys.lt/")!
     // static let api = URL(string: "http://localhost:8080/")!
+    static let update = URL.api.appendingPathComponent("update")
 }
