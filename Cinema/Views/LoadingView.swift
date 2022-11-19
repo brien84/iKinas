@@ -13,6 +13,7 @@ enum LoadingError: String, Error {
     case noNetwork = "Nepavyksta pasiekti serverio..."
     case noMovies = "Šią dieną filmų nėra"
     case noShowings = "Šią dieną seansų nėra"
+    case requiresUpdate = "Ši aplikacijos versija yra nebepalaikoma. Prašome atnaujinti aplikaciją."
 }
 
 protocol LoadingViewDelegate: AnyObject {
@@ -24,6 +25,7 @@ final class LoadingView: UIView {
 
     @IBOutlet private weak var errorMessage: UILabel!
     @IBOutlet private weak var retryButton: UIButton!
+    @IBOutlet private weak var updateButton: UIButton!
     @IBOutlet private weak var imageView: UIImageView!
 
     override init(frame: CGRect) {
@@ -43,10 +45,17 @@ final class LoadingView: UIView {
         delegate?.loadingView(self, retryButtonDidTap: sender)
     }
 
+    @IBAction private func updateButtonDidTap(_ sender: UIButton) {
+        if let url = URL(string: "https://apps.apple.com/app/id1580929676") {
+            UIApplication.shared.open(url)
+        }
+    }
+
     private func set(error: LoadingError) {
         imageView.stopAnimating()
         imageView.image = error == .none ? nil : .empty
         retryButton.isHidden = error == .noNetwork ? false : true
+        updateButton.isHidden = error == .requiresUpdate ? false : true
         errorMessage.text = error.rawValue
         isHidden = false
     }

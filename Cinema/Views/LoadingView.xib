@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,6 +15,7 @@
                 <outlet property="errorMessage" destination="lcS-2j-qzS" id="jl6-R0-yYW"/>
                 <outlet property="imageView" destination="NN0-1B-aC0" id="KQ1-jt-cvf"/>
                 <outlet property="retryButton" destination="ogk-vG-pRJ" id="FBz-wx-WBh"/>
+                <outlet property="updateButton" destination="gLY-Ea-Fuo" id="mMU-ez-bd4"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -22,14 +23,13 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="NN0-1B-aC0">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="empty" translatesAutoresizingMaskIntoConstraints="NO" id="NN0-1B-aC0">
                     <rect key="frame" x="60" y="184" width="200" height="200"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error Message " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcS-2j-qzS" userLabel="errorMessage">
-                    <rect key="frame" x="8" y="127" width="304" height="30"/>
+                    <rect key="frame" x="8" y="129" width="304" height="26.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                     <color key="textColor" name="primaryElement"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -47,6 +47,17 @@
                         <action selector="retryButtonDidTap:" destination="-1" eventType="touchUpInside" id="H99-Gq-aoi"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gLY-Ea-Fuo">
+                    <rect key="frame" x="99" y="385" width="122" height="46"/>
+                    <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                    <state key="normal" title="Atnaujinti!">
+                        <color key="titleColor" name="tertiaryElement"/>
+                    </state>
+                    <connections>
+                        <action selector="updateButtonDidTap:" destination="-1" eventType="touchUpInside" id="4hV-kS-4AZ"/>
+                    </connections>
+                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" name="primaryBackground"/>
@@ -55,19 +66,16 @@
                 <constraint firstItem="NN0-1B-aC0" firstAttribute="centerX" secondItem="vUN-kp-3ea" secondAttribute="centerX" id="22F-3S-veH"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ogk-vG-pRJ" secondAttribute="bottom" id="Ixo-7E-bcg"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="lcS-2j-qzS" secondAttribute="trailing" constant="8" id="V0l-5r-5ed"/>
+                <constraint firstItem="ogk-vG-pRJ" firstAttribute="centerY" secondItem="gLY-Ea-Fuo" secondAttribute="centerY" id="YH3-to-6bC"/>
                 <constraint firstItem="ogk-vG-pRJ" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="aim-5D-Egm"/>
                 <constraint firstItem="ogk-vG-pRJ" firstAttribute="top" secondItem="NN0-1B-aC0" secondAttribute="bottom" id="ewE-8s-tFq"/>
                 <constraint firstItem="lcS-2j-qzS" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="8" id="jo1-mN-moV"/>
                 <constraint firstItem="lcS-2j-qzS" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" multiplier="0.5" id="pUF-Po-KGq"/>
+                <constraint firstItem="gLY-Ea-Fuo" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="s4E-ym-SWV"/>
             </constraints>
             <point key="canvasLocation" x="-92.523364485981304" y="103.02375809935207"/>
         </view>
     </objects>
-    <designables>
-        <designable name="lcS-2j-qzS">
-            <size key="intrinsicContentSize" width="161" height="30"/>
-        </designable>
-    </designables>
     <resources>
         <image name="empty" width="200" height="200"/>
         <image name="retry" width="32" height="32"/>
@@ -76,6 +84,9 @@
         </namedColor>
         <namedColor name="primaryElement">
             <color red="0.96078431372549022" green="0.96470588235294119" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tertiaryElement">
+            <color red="0.91764705882352937" green="0.12156862745098039" blue="0.15294117647058825" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
