@@ -19,6 +19,32 @@ final class VersionVerifier: VersionVerification {
     }
 
     func verifyVersion(using session: URLSession = .shared, completion: @escaping (Result<Void, VersionError>) -> Void) {
+        session.dataTask(with: .update) { data, _, error in
+            if error != nil {
+                completion(.failure(.verificationFailure))
+                return
+            }
 
+            guard let data else {
+                completion(.failure(.verificationFailure))
+                return
+            }
+
+            guard let requiredVersion = try? JSONDecoder().decode(Double.self, from: data) else {
+                completion(.failure(.verificationFailure))
+                return
+            }
+
+            guard let systemVersion = Double(UIDevice.current.systemVersion) else {
+                completion(.failure(.verificationFailure))
+                return
+            }
+
+            if systemVersion > requiredVersion {
+                completion(.success(()))
+            } else {
+                completion(.failure(.requiresUpdate))
+            }
+        }.resume()
     }
 }
