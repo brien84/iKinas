@@ -25,10 +25,28 @@ private struct MovieDouble: Codable {
 }
 
 extension Movie {
-    static func create(_ title: String, _ originalTitle: String, _ year: String, _ ageRating: String,
-                       _ duration: String, _ genres: [String], _ plot: String, _ poster: URL, _ showings: [Showing]) -> Movie {
-        let double = MovieDouble(title: title, originalTitle: originalTitle, year: year, ageRating: ageRating,
-                                 duration: duration, genres: genres, plot: plot, poster: poster, showings: showings)
+    static func create(
+        title: String = "",
+        originalTitle: String = "",
+        year: String = "",
+        ageRating: String = "",
+        duration: String = "",
+        genres: [String] = [],
+        plot: String = "",
+        poster: URL = URL(string: "https://google.com")!,
+        showings: [Showing] = []
+    ) -> Movie {
+        let double = MovieDouble(
+                        title: title,
+                        originalTitle: originalTitle,
+                        year: year,
+                        ageRating: ageRating,
+                        duration: duration,
+                        genres: genres,
+                        plot: plot,
+                        poster: poster,
+                        showings: showings
+                    )
 
         let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
@@ -64,7 +82,13 @@ private struct ShowingDouble: Codable {
 }
 
 extension Showing {
-    static func create(_ city: City, _ date: Date, _ venue: Venue, _ is3D: Bool, _ url: URL) -> Showing {
+    static func create(
+        city: City = .vilnius,
+        date: Date = Date(),
+        venue: Venue = .multikino,
+        is3D: Bool = false,
+        url: URL = URL(string: "https://google.com")!
+    ) -> Showing {
         let double = ShowingDouble(city: city, date: date, venue: venue, is3D: is3D, url: url)
 
         let encoder = JSONEncoder()
