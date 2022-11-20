@@ -25,18 +25,18 @@ final class DateContainerViewControllerTests: XCTestCase {
     }
 
     func testCollectionViewDatasourceCount() throws {
-        let movie = Movie.create("", "", "", "", "", [], "", URL(string: "https://google.com")!, [])
-        fakeDateVC.delegate?.dateVC(fakeDateVC, didUpdate: [movie])
+        fakeDateVC.delegate?.dateVC(fakeDateVC, didUpdate: [Movie.create()])
 
         sut.loadViewIfNeeded()
 
         XCTAssertGreaterThan(sut.collectionView(sut.collectionView, numberOfItemsInSection: 0), 0)
     }
 
-    func testCollectionViewCellsHaveCorrectValuesSet() {
+    func testCollectionViewCellsHaveCorrectValuesSet() throws {
         let title = "testTitle"
         let url = URL(string: "https://google.com")!
-        let movie = Movie.create(title, "", "", "", "", [], "", url, [])
+        let movie = Movie.create(title: title, poster: url)
+
         fakeDateVC.delegate?.dateVC(fakeDateVC, didUpdate: [movie])
 
         sut.loadViewIfNeeded()
@@ -58,7 +58,7 @@ final class DateContainerViewControllerTests: XCTestCase {
         if #available(iOS 13.0, *) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             fakeDateVC = storyboard.instantiateViewController(identifier: "dateVC") { coder in
-                DateViewController(coder: coder, dates: FakeSelector(), fetcher: FakeFetcher())
+                DateViewController(coder: coder, dates: FakeSelector(), fetcher: FakeFetcher(), version: FakeVerifier())
             }
         } else {
             fatalError("iOS13+ required.")
@@ -78,5 +78,9 @@ final class DateContainerViewControllerTests: XCTestCase {
 
         func previous() { }
         func next() { }
+    }
+
+    class FakeVerifier: VersionVerification {
+        func verifyVersion(using session: URLSession, completion: @escaping (Result<Void, VersionVerifier.VersionError>) -> Void) { }
     }
 }

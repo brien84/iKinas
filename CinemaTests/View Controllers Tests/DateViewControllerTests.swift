@@ -13,10 +13,12 @@ final class DateViewControllerTests: XCTestCase {
     var sut: DateViewController!
     var dates: DateTrackerStub!
     var fetcher: MovieFetcherStub!
+    var version: VersionVerifierStub!
 
     override func setUpWithError() throws {
         dates = DateTrackerStub()
         fetcher = MovieFetcherStub()
+        version = VersionVerifierStub()
         setupSUT()
     }
 
@@ -41,8 +43,8 @@ final class DateViewControllerTests: XCTestCase {
         let testVenue = Venue.multikino
         let testTime = Date.today
         let test3D = true
-        let movie = Movie.create(testTitle, testOriginalTitle, "", "", "", [], "", testURL, [])
-        let showing = Showing.create(.vilnius, testTime, testVenue, test3D, testURL)
+        let movie = Movie.create(title: testTitle, originalTitle: testOriginalTitle, poster: testURL)
+        let showing = Showing.create(city: .vilnius, date: testTime, venue: testVenue, is3D: test3D, url: testURL)
         showing.parentMovie = movie
         fetcher.showings = [showing]
 
@@ -173,7 +175,7 @@ final class DateViewControllerTests: XCTestCase {
         if #available(iOS 13.0, *) {
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             sut = storyboard.instantiateViewController(identifier: "dateVC") { [self] coder in
-                DateViewController(coder: coder, dates: dates, fetcher: fetcher)
+                DateViewController(coder: coder, dates: dates, fetcher: fetcher, version: version)
             }
         } else {
             fatalError("iOS13+ required.")
@@ -208,8 +210,8 @@ final class DateViewControllerTests: XCTestCase {
 
     class MovieFetcherStub: MovieFetching {
         var isFetchSuccessful = true
-        var movies = [Movie.create("", "", "", "", "", [], "", URL(string: "https://google.com")!, [])]
-        var showings = [Showing.create(.vilnius, Date(), .multikino, true, URL(string: "https://google.com")!)]
+        var movies = [Movie.create()]
+        var showings = [Showing.create()]
 
         func getMovies(at date: Date) -> [Movie] {
             movies
@@ -225,6 +227,12 @@ final class DateViewControllerTests: XCTestCase {
             } else {
                 completion(.failure(TestError.testError))
             }
+        }
+    }
+
+    class VersionVerifierStub: VersionVerification {
+        func verifyVersion(using session: URLSession, completion: @escaping (Result<Void, VersionVerifier.VersionError>) -> Void) {
+            completion(.success(()))
         }
     }
 
