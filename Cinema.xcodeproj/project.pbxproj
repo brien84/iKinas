@@ -21,6 +21,7 @@
 		2906154C25AE5CA90043D12C /* DateContainerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2906154B25AE5CA90043D12C /* DateContainerViewControllerTests.swift */; };
 		291A0A2625CB247000FE145A /* ShowingsViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */; };
 		292022CE292A8B560045624B /* VersionVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292022CD292A8B560045624B /* VersionVerifier.swift */; };
+		292022D2292A91A20045624B /* VersionVerifierTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292022D1292A91A20045624B /* VersionVerifierTests.swift */; };
 		292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */; };
 		292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC8255F15430077F2FF /* Models+Testable.swift */; };
 		292E7ECE2561754D0077F2FF /* MovieFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7ECD2561754D0077F2FF /* MovieFetcher.swift */; };
@@ -86,6 +87,7 @@
 		2906154B25AE5CA90043D12C /* DateContainerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateContainerViewControllerTests.swift; sourceTree = "<group>"; };
 		291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		292022CD292A8B560045624B /* VersionVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionVerifier.swift; sourceTree = "<group>"; };
+		292022D1292A91A20045624B /* VersionVerifierTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VersionVerifierTests.swift; sourceTree = "<group>"; };
 		292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Testable.swift"; sourceTree = "<group>"; };
 		292E7EC8255F15430077F2FF /* Models+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Testable.swift"; sourceTree = "<group>"; };
 		292E7ECD2561754D0077F2FF /* MovieFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetcher.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 			children = (
 				29B9C96A237F44770035EF0B /* DateTrackerTests.swift */,
 				292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */,
+				292022D1292A91A20045624B /* VersionVerifierTests.swift */,
 			);
 			path = "Models Tests";
 			sourceTree = "<group>";
@@ -501,6 +504,7 @@
 			files = (
 				292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */,
 				29B9C96B237F44770035EF0B /* DateTrackerTests.swift in Sources */,
+				292022D2292A91A20045624B /* VersionVerifierTests.swift in Sources */,
 				297CA050259CEE4F00EE95F0 /* DateViewControllerTests.swift in Sources */,
 				2906154C25AE5CA90043D12C /* DateContainerViewControllerTests.swift in Sources */,
 				292E7ED3256176DA0077F2FF /* MovieFetcherTests.swift in Sources */,
