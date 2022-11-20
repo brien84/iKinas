@@ -17,6 +17,7 @@ protocol DateViewControllerDelegate: AnyObject {
 final class DateViewController: UITableViewController {
     private let dates: DateTracking
     private let fetcher: MovieFetching
+    private let version: VersionVerification
 
     weak var delegate: DateViewControllerDelegate?
 
@@ -39,13 +40,15 @@ final class DateViewController: UITableViewController {
     required init?(coder: NSCoder) {
         self.dates = DateTracker()
         self.fetcher = MovieFetcher()
+        self.version = VersionVerifier()
 
         super.init(coder: coder)
     }
 
-    init?(coder: NSCoder, dates: DateTracking, fetcher: MovieFetching) {
+    init?(coder: NSCoder, dates: DateTracking, fetcher: MovieFetching, version: VersionVerification) {
         self.dates = dates
         self.fetcher = fetcher
+        self.version = version
 
         super.init(coder: coder)
     }
@@ -108,14 +111,31 @@ final class DateViewController: UITableViewController {
         prepareForFetching()
         loadingView.startLoading()
 
-        fetcher.fetch(using: .shared) { result in
+        version.verifyVersion(using: .shared) { result in
             DispatchQueue.main.async { [self] in
                 switch result {
                 case .success:
-                    updateDatasource()
+
+                    fetcher.fetch(using: .shared) { result in
+                        DispatchQueue.main.async { [self] in
+                            switch result {
+                            case .success:
+                                updateDatasource()
+                            case .failure(let error):
+                                print(error)
+                                loadingView.show(.noNetwork, animated: false)
+                            }
+                        }
+                    }
+
                 case .failure(let error):
                     print(error)
-                    loadingView.show(.noNetwork, animated: false)
+                    switch error {
+                    case .verificationFailure:
+                        loadingView.show(.noNetwork, animated: false)
+                    case .requiresUpdate:
+                        loadingView.show(.requiresUpdate, animated: false)
+                    }
                 }
             }
         }
