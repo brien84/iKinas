@@ -19,7 +19,7 @@ final class VersionVerifier: VersionVerification {
     }
 
     func verifyVersion(using session: URLSession = .shared, completion: @escaping (Result<Void, VersionError>) -> Void) {
-        session.dataTask(with: .update) { data, _, error in
+        let task = session.dataTask(with: .update) { data, _, error in
             if error != nil {
                 completion(.failure(.verificationFailure))
                 return
@@ -45,6 +45,10 @@ final class VersionVerifier: VersionVerification {
             } else {
                 completion(.failure(.requiresUpdate))
             }
-        }.resume()
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            task.resume()
+        }
     }
 }
