@@ -50,6 +50,8 @@ extension UIImage {
 }
 
 extension URL {
+    static let appStore = URL(string: "https://apps.apple.com/app/id1501977644")!
+
     static let api = URL(string: "https://movies.ioys.lt/")!
     // static let api = URL(string: "http://localhost:8080/")!
     static let update = URL.api.appendingPathComponent("update")
