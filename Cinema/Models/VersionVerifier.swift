@@ -30,25 +30,33 @@ final class VersionVerifier: VersionVerification {
                 return
             }
 
-            guard let requiredVersion = try? JSONDecoder().decode(Double.self, from: data) else {
-                completion(.failure(.verificationFailure))
-                return
+            let requiredVersion = String(decoding: data, as: UTF8.self)
+
+            guard let currentVersion = Bundle.main.appVersion else {
+                fatalError("App Version not found!")
             }
 
-            guard let systemVersion = Double(UIDevice.current.systemVersion) else {
-                completion(.failure(.verificationFailure))
-                return
-            }
-
-            if systemVersion > requiredVersion {
+            switch requiredVersion.compare(currentVersion, options: .numeric) {
+            case .orderedAscending:
                 completion(.success(()))
-            } else {
+                return
+            case .orderedSame:
+                completion(.success(()))
+                return
+            case .orderedDescending:
                 completion(.failure(.requiresUpdate))
+                return
             }
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             task.resume()
         }
+    }
+}
+
+private extension Bundle {
+    var appVersion: String? {
+        self.infoDictionary?["CFBundleShortVersionString"] as? String
     }
 }
