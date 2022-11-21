@@ -12,15 +12,15 @@ extension City {
     var api: URL {
         switch self {
         case .vilnius:
-            return URL.api.appendingPathComponent("vilnius")
+            return URL.api.appendingPathComponent("vilnius_")
         case .kaunas:
-            return URL.api.appendingPathComponent("kaunas")
+            return URL.api.appendingPathComponent("kaunas_")
         case .klaipeda:
-            return URL.api.appendingPathComponent("klaipeda")
+            return URL.api.appendingPathComponent("klaipeda_")
         case .siauliai:
-            return URL.api.appendingPathComponent("siauliai")
+            return URL.api.appendingPathComponent("siauliai_")
         case .panevezys:
-            return URL.api.appendingPathComponent("panevezys")
+            return URL.api.appendingPathComponent("panevezys_")
         }
     }
 }
