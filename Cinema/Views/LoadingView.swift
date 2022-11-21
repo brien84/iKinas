@@ -46,9 +46,7 @@ final class LoadingView: UIView {
     }
 
     @IBAction private func updateButtonDidTap(_ sender: UIButton) {
-        if let url = URL(string: "https://apps.apple.com/app/id1580929676") {
-            UIApplication.shared.open(url)
-        }
+        UIApplication.shared.open(.appStore)
     }
 
     private func set(error: LoadingError) {
