@@ -24,7 +24,7 @@ final class VersionVerifierTests: XCTestCase {
     }
 
     func testVerifyingLowerThanSystemVersion() {
-        let testVersion = Double(1.0)
+        let testVersion = 1.0
         let session = URLSession.makeMockSession(with: try! JSONEncoder().encode(testVersion))
 
         let expectation = expectation(description: "Waiting for completion handler.")
@@ -48,7 +48,7 @@ final class VersionVerifierTests: XCTestCase {
     }
 
     func testVerifyingHigherThanSystemVersion() {
-        let testVersion = Double(999.0)
+        let testVersion = 999.0
         let session = URLSession.makeMockSession(with: try! JSONEncoder().encode(testVersion))
 
         let expectation = expectation(description: "Waiting for completion handler.")
