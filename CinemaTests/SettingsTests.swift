@@ -49,4 +49,22 @@ final class SettingsTests: XCTestCase {
         }
     }
 
+    func testLoadingSettings() async {
+        let store = TestStore(
+            initialState: Settings.State(selectedCity: .vilnius, selectedVenues: [.forum]),
+            reducer: Settings()
+        )
+
+        store.dependencies.settingsClient.load = { (City.kaunas, City.kaunas.venues) }
+
+        await store.send(.loadSettings)
+
+        await store.receive(.didLoadSettings(.kaunas, City.kaunas.venues)) {
+            $0.selectedCity = .kaunas
+            $0.selectedVenues = City.kaunas.venues
+        }
+
+        await store.finish()
+    }
+
 }
