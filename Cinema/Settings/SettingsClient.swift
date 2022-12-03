@@ -19,7 +19,22 @@ struct SettingsClient {
 extension SettingsClient: DependencyKey {
     static let liveValue = Self(
         load: {
-            (.vilnius, [])
+            guard
+                let rawValue = UserDefaults.standard.string(forKey: UserDefaults.cityKey),
+                let city = City(rawValue: rawValue)
+            else {
+                return (.vilnius, City.vilnius.venues)
+            }
+
+            guard
+                let rawValues = UserDefaults.standard.array(forKey: UserDefaults.venuesKey) as? [String]
+            else {
+                return (city, city.venues)
+            }
+
+            let venues = OrderedSet(rawValues.compactMap { Venue(rawValue: $0) })
+
+            return (city, venues)
         },
         save: { _, _ in
 
@@ -29,7 +44,7 @@ extension SettingsClient: DependencyKey {
 
 extension SettingsClient: TestDependencyKey {
     static let previewValue = Self(
-        load: { (.vilnius, []) },
+        load: { (City.vilnius, City.vilnius.venues) },
         save: { _, _ in }
     )
 
