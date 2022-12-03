@@ -67,4 +67,20 @@ final class SettingsTests: XCTestCase {
         await store.finish()
     }
 
+    func testSavingSettings() async {
+        let store = TestStore(
+            initialState: Settings.State(selectedCity: .kaunas, selectedVenues: [.forum]),
+            reducer: Settings()
+        )
+
+        store.dependencies.settingsClient.save = { city, venues in
+            XCTAssertEqual(city, .kaunas)
+            XCTAssertEqual(venues, [.forum])
+        }
+
+        await store.send(.saveSettings)
+
+        await store.finish()
+    }
+
 }
