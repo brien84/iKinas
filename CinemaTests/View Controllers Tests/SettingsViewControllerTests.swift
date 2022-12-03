@@ -55,7 +55,7 @@ final class SettingsViewControllerTests: XCTestCase {
     }
 
     func testSelectingRowSendsNotification() {
-        expectation(forNotification: .SettingsCityDidChange, object: nil, handler: nil)
+        expectation(forNotification: .SettingsDidChange, object: nil, handler: nil)
 
         sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
 

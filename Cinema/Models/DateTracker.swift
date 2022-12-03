@@ -52,7 +52,7 @@ final class DateTracker: DateTracking {
     }
 
     private func postNotification() {
-        NotificationCenter.default.post(name: .DateTrackerDateDidChange, object: nil)
+        NotificationCenter.default.post(name: .DateDidChange, object: nil)
     }
 
     func previous() {
@@ -92,8 +92,4 @@ extension Date {
 
         return dates
     }
-}
-
-extension Notification.Name {
-    static let DateTrackerDateDidChange = Notification.Name("DateTrackerDateDidChangeNotification")
 }

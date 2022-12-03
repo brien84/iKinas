@@ -70,7 +70,7 @@ final class DateViewControllerTests: XCTestCase {
         XCTAssertGreaterThan(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 0)
 
         fetcher.showings = []
-        NotificationCenter.default.post(name: .SettingsCityDidChange, object: nil)
+        NotificationCenter.default.post(name: .SettingsDidChange, object: nil)
 
         waitForUIUpdate()
 
@@ -90,7 +90,7 @@ final class DateViewControllerTests: XCTestCase {
         XCTAssertEqual(titleView?.text, testDateToday.asString(.monthAndDay))
 
         dates.selected = testDateTommorow
-        NotificationCenter.default.post(name: .DateTrackerDateDidChange, object: nil)
+        NotificationCenter.default.post(name: .DateDidChange, object: nil)
 
         waitForUIUpdate()
 
