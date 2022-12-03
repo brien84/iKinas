@@ -6,6 +6,7 @@
 //  Copyright © 2019 Marius. All rights reserved.
 //
 
+import SwiftUI
 import UIKit
 
 extension City {
@@ -23,6 +24,14 @@ extension City {
             return URL.api.appendingPathComponent("panevezys_")
         }
     }
+}
+
+extension Color {
+    static let primaryElement = Color("primaryElement")
+    static let secondaryElement = Color("secondaryElement")
+    static let tertiaryElement = Color("tertiaryElement")
+    static let primaryBackground = Color("primaryBackground")
+    static let secondaryBackground = Color("secondaryBackground")
 }
 
 extension TimeInterval {
