@@ -36,8 +36,10 @@ extension SettingsClient: DependencyKey {
 
             return (city, venues)
         },
-        save: { _, _ in
-
+        save: { city, venues in
+            UserDefaults.standard.set(city.rawValue, forKey: UserDefaults.cityKey)
+            UserDefaults.standard.set(venues.map { $0.rawValue }, forKey: UserDefaults.venuesKey)
+            NotificationCenter.default.post(name: .SettingsDidChange, object: nil)
         }
     )
 }

@@ -20,6 +20,7 @@ struct Settings: ReducerProtocol {
         case didSelectCity(City)
         case didSelectVenue(Venue)
         case loadSettings
+        case saveSettings
     }
 
     @Dependency(\.settingsClient) var settingsClient
@@ -49,6 +50,11 @@ struct Settings: ReducerProtocol {
             return .task {
                 let (city, venues) = await settingsClient.load()
                 return .didLoadSettings(city, venues)
+            }
+
+        case .saveSettings:
+            return .fireAndForget { [city = state.selectedCity, venues = state.selectedVenues] in
+                await settingsClient.save(city, venues)
             }
 
         }
