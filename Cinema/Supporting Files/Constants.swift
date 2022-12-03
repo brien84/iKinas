@@ -65,3 +65,8 @@ extension URL {
     // static let api = URL(string: "http://localhost:8080/")!
     static let update = URL.api.appendingPathComponent("update")
 }
+
+extension UserDefaults {
+    static let cityKey = "UserDefaultsCityKey"
+    static let venuesKey = "UserDefaultsVenuesKey"
+}
