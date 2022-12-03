@@ -42,6 +42,7 @@
 		29817F6D293BB60600E59D42 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6C293BB60600E59D42 /* Dependencies */; };
 		29817F78293BC1E800E59D42 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F77293BC1E800E59D42 /* Settings.swift */; };
 		29817F7A293BCE5F00E59D42 /* SettingsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F79293BCE5F00E59D42 /* SettingsClient.swift */; };
+		29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F7B293BD70100E59D42 /* SettingsView.swift */; };
 		29833739256466FA0072347E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29833738256466FA0072347E /* LoadingView.swift */; };
 		298337412564676A0072347E /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298337402564676A0072347E /* LoadingView.xib */; };
 		29882D24258E8F2D00CC1873 /* TransitionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29882D23258E8F2D00CC1873 /* TransitionTableView.swift */; };
@@ -110,6 +111,7 @@
 		297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewControllerTests.swift; sourceTree = "<group>"; };
 		29817F77293BC1E800E59D42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		29817F79293BCE5F00E59D42 /* SettingsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsClient.swift; sourceTree = "<group>"; };
+		29817F7B293BD70100E59D42 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		29833738256466FA0072347E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		298337402564676A0072347E /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		29882D23258E8F2D00CC1873 /* TransitionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionTableView.swift; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			children = (
 				29817F77293BC1E800E59D42 /* Settings.swift */,
 				29817F79293BCE5F00E59D42 /* SettingsClient.swift */,
+				29817F7B293BD70100E59D42 /* SettingsView.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -511,6 +514,7 @@
 				297C826D26B01DA30053F706 /* Venue.swift in Sources */,
 				2904D09F2358CFB000407B64 /* NetworkImageView.swift in Sources */,
 				2948398424D1F85500133940 /* DateViewController.swift in Sources */,
+				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
 				29817F78293BC1E800E59D42 /* Settings.swift in Sources */,
 				2904C79E2336A69100407B64 /* Movie.swift in Sources */,
 				2904D0742353C7CC00407B64 /* SettingsViewCell.swift in Sources */,
