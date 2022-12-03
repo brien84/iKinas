@@ -38,6 +38,8 @@
 		297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826A26AEF98C0053F706 /* VenueImageView.swift */; };
 		297C826D26B01DA30053F706 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826C26B01DA30053F706 /* Venue.swift */; };
 		297CA050259CEE4F00EE95F0 /* DateViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */; };
+		29817F6B293BB60600E59D42 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6A293BB60600E59D42 /* ComposableArchitecture */; };
+		29817F6D293BB60600E59D42 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6C293BB60600E59D42 /* Dependencies */; };
 		29833739256466FA0072347E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29833738256466FA0072347E /* LoadingView.swift */; };
 		298337412564676A0072347E /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298337402564676A0072347E /* LoadingView.xib */; };
 		29882D24258E8F2D00CC1873 /* TransitionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29882D23258E8F2D00CC1873 /* TransitionTableView.swift */; };
@@ -128,6 +130,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29817F6D293BB60600E59D42 /* Dependencies in Frameworks */,
+				29817F6B293BB60600E59D42 /* ComposableArchitecture in Frameworks */,
 				2961EA3325CD9EEC00ED23C8 /* WebKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -326,6 +330,10 @@
 			dependencies = (
 			);
 			name = Cinema;
+			packageProductDependencies = (
+				29817F6A293BB60600E59D42 /* ComposableArchitecture */,
+				29817F6C293BB60600E59D42 /* Dependencies */,
+			);
 			productName = Cinema;
 			productReference = 2904C7602336982B00407B64 /* iKinas.app */;
 			productType = "com.apple.product-type.application";
@@ -399,6 +407,9 @@
 				Base,
 			);
 			mainGroup = 2904C7572336982B00407B64;
+			packageReferences = (
+				29817F69293BB60600E59D42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = 2904C7612336982B00407B64 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -837,6 +848,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		29817F69293BB60600E59D42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		29817F6A293BB60600E59D42 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29817F69293BB60600E59D42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+		29817F6C293BB60600E59D42 /* Dependencies */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 29817F69293BB60600E59D42 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = Dependencies;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2904C7582336982B00407B64 /* Project object */;
 }
