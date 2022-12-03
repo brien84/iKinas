@@ -32,20 +32,16 @@ final class DateContainerViewCell: UICollectionViewCell {
 }
 
 extension DateContainerViewCell {
-    // iOS 13+
-    override func systemLayoutSizeFitting(_ targetSize: CGSize,
-                                          withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
-                                          verticalFittingPriority: UILayoutPriority) -> CGSize {
-        super.systemLayoutSizeFitting(targetSize,
-                                      withHorizontalFittingPriority: horizontalFittingPriority,
-                                      verticalFittingPriority: verticalFittingPriority)
-
-        return calculateCellSize(with: targetSize)
-    }
-
-    // iOS 12
-    override func systemLayoutSizeFitting(_ targetSize: CGSize) -> CGSize {
-        super.systemLayoutSizeFitting(targetSize)
+    override func systemLayoutSizeFitting(
+        _ targetSize: CGSize,
+        withHorizontalFittingPriority horizontalFittingPriority: UILayoutPriority,
+        verticalFittingPriority: UILayoutPriority
+    ) -> CGSize {
+        super.systemLayoutSizeFitting(
+            targetSize,
+            withHorizontalFittingPriority: horizontalFittingPriority,
+            verticalFittingPriority: verticalFittingPriority
+        )
 
         return calculateCellSize(with: targetSize)
     }
