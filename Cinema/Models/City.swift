@@ -8,7 +8,9 @@
 
 import Foundation
 
-enum City: String, CaseIterable, Codable {
+enum City: String, CaseIterable, Codable, Identifiable {
+    var id: Self { self }
+
     case vilnius = "Vilnius"
     case kaunas = "Kaunas"
     case klaipeda = "Klaipėda"
