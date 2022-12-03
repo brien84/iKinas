@@ -13,5 +13,40 @@ import XCTest
 @MainActor
 final class SettingsTests: XCTestCase {
 
+    func testSelectingCity() async {
+        let store = TestStore(
+            initialState: Settings.State(selectedCity: .vilnius, selectedVenues: [.forum]),
+            reducer: Settings()
+        )
+
+        await store.send(.didSelectCity(.kaunas)) {
+            $0.selectedCity = .kaunas
+            $0.selectedVenues = City.kaunas.venues
+        }
+    }
+
+    func testSelectingVenue() async {
+        let store = TestStore(
+            initialState: Settings.State(selectedCity: .vilnius, selectedVenues: [.forum]),
+            reducer: Settings()
+        )
+
+        await store.send(.didSelectVenue(.multikino)) {
+            $0.selectedCity = .vilnius
+            $0.selectedVenues = [.forum, .multikino]
+        }
+    }
+
+    func testDeselectingVenue() async {
+        let store = TestStore(
+            initialState: Settings.State(selectedCity: .vilnius, selectedVenues: [.forum, .multikino]),
+            reducer: Settings()
+        )
+
+        await store.send(.didSelectVenue(.multikino)) {
+            $0.selectedCity = .vilnius
+            $0.selectedVenues = [.forum]
+        }
+    }
 
 }
