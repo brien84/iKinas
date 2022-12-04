@@ -6,6 +6,7 @@
 //  Copyright © 2020 Marius. All rights reserved.
 //
 
+import ComposableArchitecture
 import UIKit
 
 private let reuseIdentifier = "dateViewCell"
@@ -159,7 +160,11 @@ final class DateViewController: UITableViewController {
 
     @IBAction private func leftNavigationBarButtonDidTap(_ sender: UIBarButtonItem) {
         if dates.isFirst {
-            performSegue(withIdentifier: "showSettings", sender: nil)
+            let vc = SettingsViewHost(
+                rootView: SettingsView(store: Store(initialState: Settings.State(), reducer: Settings()))
+            )
+
+            navigationController?.pushViewController(vc, animated: true)
         } else {
             dates.previous()
         }
