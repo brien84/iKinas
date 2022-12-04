@@ -61,12 +61,14 @@ struct VenueListView: View {
                                 Image(systemName: "checkmark")
                                     .foregroundColor(isDisabled ? .gray : Color(.tertiaryElement))
                                     .hidden(!viewStore.selectedVenues.contains(venue))
+                                    .accessibilityIdentifier(getVenueCheckmarkID(viewStore.selectedCity, venue))
                             }
                         }
                     )
                     .padding()
                     .padding(.horizontal)
                     .disabled(isDisabled)
+                    .accessibilityIdentifier(getVenueButtonID(viewStore.selectedCity, venue))
                 }
             }
             .transition(.verticalScaleAndOpacity)
@@ -100,6 +102,18 @@ private extension AnyTransition {
             active: VerticalScaleAndOpacity(0),
             identity: VerticalScaleAndOpacity(1)
         )
+    }
+}
+
+// MARK: - UI Test IDs
+
+private extension VenueListView {
+    func getVenueButtonID(_ city: City, _ venue: Venue) -> String {
+        "SettingsView-VenueListView-VenueButton-\(city)-\(venue)"
+    }
+
+    func getVenueCheckmarkID(_ city: City, _ venue: Venue) -> String {
+        "SettingsView-VenueListView-VenueCheckmark-\(city)-\(venue)"
     }
 }
 

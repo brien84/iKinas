@@ -53,6 +53,7 @@ struct CityListView: View {
                                 .foregroundColor(Color(city == viewStore.selectedCity ? .tertiaryElement : .secondaryElement))
                         }
                     )
+                    .accessibilityIdentifier(getCityButtonID(city))
 
                     if city == viewStore.selectedCity {
                         VenueListView(store: store)
@@ -60,6 +61,14 @@ struct CityListView: View {
                 }
             }
         }
+    }
+}
+
+// MARK: - UI Test IDs
+
+private extension CityListView {
+    func getCityButtonID(_ city: City) -> String {
+        "SettingsView-CityListView-CityButton-\(city)"
     }
 }
 

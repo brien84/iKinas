@@ -62,8 +62,15 @@ struct ExitButtonView: View {
                         )
                 }
             )
+            .accessibilityIdentifier(id)
         }
     }
+}
+
+// MARK: - UI Test IDs
+
+private extension ExitButtonView {
+    var id: String { "SettingsView-ExitButtonView" }
 }
 
 // MARK: - Previews
