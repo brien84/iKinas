@@ -54,6 +54,13 @@ struct SettingsView: View {
                     CityListView(store: store)
                 }
             }
+            .overlay(
+                VStack(alignment: .trailing) {
+                    ExitButtonView(store: store)
+
+                    Color.clear
+                }
+            )
             .onAppear {
                 viewStore.send(.loadSettings)
             }
