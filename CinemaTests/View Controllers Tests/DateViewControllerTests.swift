@@ -172,13 +172,9 @@ final class DateViewControllerTests: XCTestCase {
     // MARK: Test Helpers
 
     func setupSUT() {
-        if #available(iOS 13.0, *) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            sut = storyboard.instantiateViewController(identifier: "dateVC") { [self] coder in
-                DateViewController(coder: coder, dates: dates, fetcher: fetcher, version: version)
-            }
-        } else {
-            fatalError("iOS13+ required.")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        sut = storyboard.instantiateViewController(identifier: "dateVC") { [self] coder in
+            DateViewController(coder: coder, dates: dates, fetcher: fetcher, version: version)
         }
     }
 
@@ -209,6 +205,12 @@ final class DateViewControllerTests: XCTestCase {
     }
 
     class MovieFetcherStub: MovieFetching {
+        var userDefaults: UserDefaults {
+            let userDefaults = UserDefaults(suiteName: #file)!
+            userDefaults.removePersistentDomain(forName: #file)
+            return userDefaults
+        }
+
         var isFetchSuccessful = true
         var movies = [Movie.create()]
         var showings = [Showing.create()]

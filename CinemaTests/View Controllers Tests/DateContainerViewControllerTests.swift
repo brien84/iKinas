@@ -55,17 +55,19 @@ final class DateContainerViewControllerTests: XCTestCase {
     }
 
     func setupFakeDateVC() {
-        if #available(iOS 13.0, *) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            fakeDateVC = storyboard.instantiateViewController(identifier: "dateVC") { coder in
-                DateViewController(coder: coder, dates: FakeSelector(), fetcher: FakeFetcher(), version: FakeVerifier())
-            }
-        } else {
-            fatalError("iOS13+ required.")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        fakeDateVC = storyboard.instantiateViewController(identifier: "dateVC") { coder in
+            DateViewController(coder: coder, dates: FakeSelector(), fetcher: FakeFetcher(), version: FakeVerifier())
         }
     }
 
     class FakeFetcher: MovieFetching {
+        var userDefaults: UserDefaults {
+            let userDefaults = UserDefaults(suiteName: #file)!
+            userDefaults.removePersistentDomain(forName: #file)
+            return userDefaults
+        }
+
         func getMovies(at date: Date) -> [Movie] { [] }
         func getShowings(at date: Date) -> [Showing] { [] }
         func fetch(using session: URLSession, completion: @escaping (Result<Void, Error>) -> Void) { }

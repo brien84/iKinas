@@ -12,9 +12,13 @@ import XCTest
 // swiftlint:disable function_body_length
 final class MovieFetcherTests: XCTestCase {
     var sut: MovieFetcher!
+    var userDefaults: UserDefaults!
 
     override func setUp() {
-        sut = MovieFetcher()
+        userDefaults = UserDefaults(suiteName: #file)
+        userDefaults.removePersistentDomain(forName: #file)
+
+        sut = MovieFetcher(userDefaults: userDefaults)
     }
 
     override func tearDown() {
@@ -52,7 +56,7 @@ final class MovieFetcherTests: XCTestCase {
 
         let session = URLSession.makeMockSession(with: [movie].encoded())
 
-        let expectation = expectation(description: "Waiting for completion fetching.")
+        let expectation = expectation(description: "Waiting for fetching to complete.")
         var result: Result<Void, Error>?
 
         sut.fetch(using: session) {
@@ -95,7 +99,7 @@ final class MovieFetcherTests: XCTestCase {
     func testFetchingFailureWhenDataCouldNotBeDecoded() {
         let session = URLSession.makeMockSession(with: Data())
 
-        let expectation = expectation(description: "Waiting for completion fetching.")
+        let expectation = expectation(description: "Waiting for fetching to complete.")
         var result: Result<Void, Error>?
 
         sut.fetch(using: session) {
@@ -119,7 +123,7 @@ final class MovieFetcherTests: XCTestCase {
     func testFetchingFailureWhenNotConnectedToInternet() {
         let session = URLSession.makeMockSession(with: nil)
 
-        let expectation = expectation(description: "Waiting for completion fetching.")
+        let expectation = expectation(description: "Waiting for fetching to complete.")
         var result: Result<Void, Error>?
 
         sut.fetch(using: session) {
@@ -156,7 +160,7 @@ final class MovieFetcherTests: XCTestCase {
 
         let session = URLSession.makeMockSession(with: [movie].encoded())
 
-        let expectation = expectation(description: "Waiting for completion fetching.")
+        let expectation = expectation(description: "Waiting for fetching to complete.")
         var result: Result<Void, Error>?
 
         sut.fetch(using: session) {
@@ -207,7 +211,7 @@ final class MovieFetcherTests: XCTestCase {
 
         let session = URLSession.makeMockSession(with: movies.encoded())
 
-        let expectation = expectation(description: "Waiting for completion fetching.")
+        let expectation = expectation(description: "Waiting for fetching to complete.")
         var result: Result<Void, Error>?
 
         sut.fetch(using: session) {
