@@ -9,6 +9,7 @@
 import UIKit
 
 protocol MovieFetching {
+    var userDefaults: UserDefaults { get }
     func getMovies(at date: Date) -> [Movie]
     func getShowings(at date: Date) -> [Showing]
     func fetch(using session: URLSession, completion: @escaping (Result<Void, Error>) -> Void)
@@ -16,6 +17,11 @@ protocol MovieFetching {
 
 final class MovieFetcher: MovieFetching {
     private var movies = [Movie]()
+    let userDefaults: UserDefaults
+
+    init(userDefaults: UserDefaults = .standard) {
+        self.userDefaults = userDefaults
+    }
 
     func getMovies(at date: Date) -> [Movie] {
         let movies = getShowings(at: date).compactMap { showing in
@@ -26,20 +32,21 @@ final class MovieFetcher: MovieFetching {
     }
 
     func getShowings(at date: Date) -> [Showing] {
-        movies.flatMap { movie in
-            movie.showings.filter { $0.isShown(on: date) }
+        let venues = userDefaults.readVenues()
+
+        return movies.flatMap { movie in
+            movie.showings.filter { $0.isShown(on: date) && venues.contains($0.venue) }
         }
     }
 
     func fetch(using session: URLSession = .shared, completion: @escaping (Result<Void, Error>) -> Void) {
         if CommandLine.arguments.contains("ui-testing") {
-            guard let data = NSDataAsset(name: "UITestData")?.data else {
-                fatalError("Cannot load UITestData!")
-            }
+            guard let data = NSDataAsset(name: "UITestData")?.data
+            else { fatalError("Cannot load UITestData!") }
 
             completion(decode(data))
         } else {
-            let city = UserDefaults.standard.readCity()
+            let city = userDefaults.readCity()
 
             let task = session.dataTask(with: city.api) { data, _, error in
                 if let error = error {
