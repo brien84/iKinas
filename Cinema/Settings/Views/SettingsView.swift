@@ -53,6 +53,8 @@ struct SettingsView: View {
 
                     CityListView(store: store)
                 }
+                .modifier(Scale320X568Screen())
+
             }
             .overlay(
                 VStack(alignment: .trailing) {
@@ -65,6 +67,21 @@ struct SettingsView: View {
                 viewStore.send(.loadSettings)
             }
         }
+    }
+}
+
+/// Scales down the view if screen size of the device is 320x568.
+///
+/// Used on iPod Touch and iPhone SE 1st Gen devices.
+/// Can be deleted when iOS 15 is no longer supported.
+private struct Scale320X568Screen: ViewModifier {
+    private var isActive: Bool {
+        UIScreen.main.bounds.size == CGSize(width: 320, height: 568)
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(isActive ? 0.9 : 1)
     }
 }
 
