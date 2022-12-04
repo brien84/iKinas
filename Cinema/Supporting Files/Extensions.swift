@@ -109,6 +109,11 @@ extension UserDefaults {
 
         return rawValues.compactMap { Venue(rawValue: $0) }
     }
+
+    func save(city: City, venues: [Venue]) {
+        self.set(city.rawValue, forKey: Self.cityKey)
+        self.set(venues.map { $0.rawValue }, forKey: Self.venuesKey)
+    }
 }
 
 extension View {
