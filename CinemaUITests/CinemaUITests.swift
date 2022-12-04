@@ -53,7 +53,7 @@ final class CinemaUITests: XCTestCase {
         XCTAssertTrue(app.dateVCTableView.waitForExistence(timeout: 2.0))
     }
 
-    func testSettingsViewChangingCity() {
+    func testChangingSettingsViewCity() {
         app.dateVCLeftNavButton.tap()
 
         XCTAssertTrue(app.SettingsView_VenueButton_vilnius_apollo.exists)
@@ -71,7 +71,7 @@ final class CinemaUITests: XCTestCase {
         XCTAssertFalse(app.SettingsView_VenueButton_vilnius_multikino.exists)
     }
 
-    func testSettingsViewLeavesOneUndisabled() {
+    func testSettingsViewPreventsDeselectingAllVenues() {
         app.dateVCLeftNavButton.tap()
 
         XCTAssertTrue(app.SettingsView_VenueButton_vilnius_apollo.isEnabled)
@@ -84,7 +84,7 @@ final class CinemaUITests: XCTestCase {
         XCTAssertFalse(app.SettingsView_VenueButton_vilnius_multikino.isEnabled)
     }
 
-    func testSettingsViewHidesCheckmark() {
+    func testSettingsViewHidesCheckmarkWhenVenueIsDeselected() {
         app.dateVCLeftNavButton.tap()
 
         XCTAssertTrue(app.SettingsView_VenueCheckmark_vilnius_apollo.isEnabled)
@@ -212,16 +212,6 @@ extension XCUIApplication {
 
     var movieVCShowingsButton: XCUIElement {
         buttons["movieVCShowingsButton"]
-    }
-
-    // MARK: SettingsViewController
-
-    var settingsVCTableView: XCUIElement {
-        tables["settingsVCTableView"]
-    }
-
-    func settingsVCSelectCity(_ index: Int) {
-        settingsVCTableView.selectCell(index)
     }
 
     // MARK: ShowingsViewController
