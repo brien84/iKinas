@@ -9,6 +9,22 @@
 import ComposableArchitecture
 import SwiftUI
 
+final class SettingsViewHost: UIHostingController<SettingsView> {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        DispatchQueue.main.async {
+            self.navigationController?.isNavigationBarHidden = true
+        }
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        self.navigationController?.isNavigationBarHidden = false
+    }
+}
+
 private extension SettingsView {
     struct State: Equatable {
         var selectedCity: City
@@ -54,7 +70,6 @@ struct SettingsView: View {
                     CityListView(store: store)
                 }
                 .modifier(Scale320X568Screen())
-
             }
             .overlay(
                 VStack(alignment: .trailing) {
