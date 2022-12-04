@@ -8,6 +8,7 @@
 
 import XCTest
 
+// swiftlint:disable identifier_name
 final class CinemaUITests: XCTestCase {
     var app: XCUIApplication!
 
@@ -18,14 +19,87 @@ final class CinemaUITests: XCTestCase {
         app.launchArguments = ["ui-testing"]
         app.launch()
 
-        // Selects city on app startup.
-        app.settingsVCSelectCity(0)
-        XCTAssertTrue(app.dateContainerVCCollectionView.waitForExistence(timeout: 2.0))
-        XCTAssertTrue(app.dateVCTableView.waitForExistence(timeout: 2.0))
+        // UI Tests start with `SettingsView` as if
+        // user launched the app for the first time.
+        closeSettingsView()
     }
 
     override func tearDown() {
         app = nil
+    }
+
+    func debugElementIdentifiers() {
+        let allElements = app.descendants(matching: .any)
+        var allHittableElements = [XCUIElement]()
+        for index in 0..<allElements.count {
+            let element = allElements.element(boundBy: index)
+            if element.isHittable {
+                allHittableElements.append(element)
+            }
+        }
+
+        allHittableElements.forEach {
+            print($0)
+        }
+    }
+
+    func closeSettingsView() {
+        XCTAssertTrue(app.SettingsView_ExitButtonView.waitForExistence(timeout: 2.0))
+
+        app.SettingsView_ExitButtonView.tap()
+
+        XCTAssertFalse(app.SettingsView_ExitButtonView.waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.dateContainerVCCollectionView.waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.dateVCTableView.waitForExistence(timeout: 2.0))
+    }
+
+    func testSettingsViewChangingCity() {
+        app.dateVCLeftNavButton.tap()
+
+        XCTAssertTrue(app.SettingsView_VenueButton_vilnius_apollo.exists)
+        XCTAssertTrue(app.SettingsView_VenueButton_vilnius_forum.exists)
+        XCTAssertTrue(app.SettingsView_VenueButton_vilnius_multikino.exists)
+        XCTAssertFalse(app.SettingsView_VenueButton_kaunas_cinamon.exists)
+        XCTAssertFalse(app.SettingsView_VenueButton_kaunas_forum.exists)
+
+        app.SettingsView_CityButton_kaunas.tap()
+
+        XCTAssertTrue(app.SettingsView_VenueButton_kaunas_cinamon.waitForExistence(timeout: 2.0))
+        XCTAssertTrue(app.SettingsView_VenueButton_kaunas_forum.waitForExistence(timeout: 2.0))
+        XCTAssertFalse(app.SettingsView_VenueButton_vilnius_apollo.exists)
+        XCTAssertFalse(app.SettingsView_VenueButton_vilnius_forum.exists)
+        XCTAssertFalse(app.SettingsView_VenueButton_vilnius_multikino.exists)
+    }
+
+    func testSettingsViewLeavesOneUndisabled() {
+        app.dateVCLeftNavButton.tap()
+
+        XCTAssertTrue(app.SettingsView_VenueButton_vilnius_apollo.isEnabled)
+        XCTAssertTrue(app.SettingsView_VenueButton_vilnius_forum.isEnabled)
+        XCTAssertTrue(app.SettingsView_VenueButton_vilnius_multikino.isEnabled)
+
+        app.SettingsView_VenueButton_vilnius_apollo.tap()
+        app.SettingsView_VenueButton_vilnius_forum.tap()
+
+        XCTAssertFalse(app.SettingsView_VenueButton_vilnius_multikino.isEnabled)
+    }
+
+    func testSettingsViewHidesCheckmark() {
+        app.dateVCLeftNavButton.tap()
+
+        XCTAssertTrue(app.SettingsView_VenueCheckmark_vilnius_apollo.isEnabled)
+
+        app.SettingsView_VenueButton_vilnius_apollo.tap()
+
+        XCTAssertFalse(app.SettingsView_VenueCheckmark_vilnius_apollo.isEnabled)
+    }
+
+    func testNavigatingToSettingsView() {
+        app.dateVCLeftNavButton.tap()
+
+        XCTAssertTrue(app.SettingsView_ExitButtonView.waitForExistence(timeout: 2.0))
+        XCTAssertFalse(app.dateContainerVCCollectionView.exists)
+        XCTAssertFalse(app.dateVCTableView.exists)
     }
 
     func testChangingDateContainerVCDate() {
@@ -47,14 +121,6 @@ final class CinemaUITests: XCTestCase {
 
         XCTAssertEqual(collectionInitialCount, collectionNewCount)
         XCTAssertEqual(tableInitialCount, tableNewCount)
-    }
-
-    func testNavigatingToSettingsVC() {
-        app.dateVCLeftNavButton.tap()
-
-        XCTAssertTrue(app.settingsVCTableView.waitForExistence(timeout: 2.0))
-        XCTAssertFalse(app.dateContainerVCCollectionView.exists)
-        XCTAssertFalse(app.dateVCTableView.exists)
     }
 
     func testNavigatingToMovieVCFromDateCollectionView() {
@@ -180,6 +246,40 @@ extension XCUIApplication {
 
     var webVCView: XCUIElement {
         webViews["webVCView"]
+    }
+
+    // MARK: SettingsView
+
+    var SettingsView_ExitButtonView: XCUIElement {
+        buttons["SettingsView-ExitButtonView"]
+    }
+
+    var SettingsView_CityButton_kaunas: XCUIElement {
+        buttons["SettingsView-CityListView-CityButton-kaunas"]
+    }
+
+    var SettingsView_VenueButton_vilnius_apollo: XCUIElement {
+        buttons["SettingsView-VenueListView-VenueButton-vilnius-apollo"]
+    }
+
+    var SettingsView_VenueButton_vilnius_forum: XCUIElement {
+        buttons["SettingsView-VenueListView-VenueButton-vilnius-forum"]
+    }
+
+    var SettingsView_VenueButton_vilnius_multikino: XCUIElement {
+        buttons["SettingsView-VenueListView-VenueButton-vilnius-multikino"]
+    }
+
+    var SettingsView_VenueButton_kaunas_cinamon: XCUIElement {
+        buttons["SettingsView-VenueListView-VenueButton-kaunas-cinamon"]
+    }
+
+    var SettingsView_VenueButton_kaunas_forum: XCUIElement {
+        buttons["SettingsView-VenueListView-VenueButton-kaunas-forum"]
+    }
+
+    var SettingsView_VenueCheckmark_vilnius_apollo: XCUIElement {
+        images["SettingsView-VenueListView-VenueCheckmark-vilnius-apollo"]
     }
 }
 
