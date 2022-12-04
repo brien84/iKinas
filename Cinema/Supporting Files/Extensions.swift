@@ -78,28 +78,36 @@ extension UINavigationBar {
 }
 
 extension UserDefaults {
-    /// Returns a Boolean value indicating whether value for key "city" exists.
-    /// If the value does not exist, function saves a default value before returning false.
-    /// Only used to check if the app is started for the first time.
-    func isCitySet() -> Bool {
-        if UserDefaults.standard.string(forKey: "city") != nil {
+    func isFirstLaunch() -> Bool {
+        guard
+            self.string(forKey: Self.cityKey) != nil,
+            self.array(forKey: Self.venuesKey) != nil
+        else {
             return true
-        } else {
-            save(city: City.vilnius)
-            return false
         }
-    }
 
-    func save(city: City) {
-        UserDefaults.standard.set(city.rawValue, forKey: "city")
+        return false
     }
 
     func readCity() -> City {
-        if let value = UserDefaults.standard.string(forKey: "city"), let city = City(rawValue: value) {
-            return city
-        } else {
-            return City.vilnius
+        guard
+            let rawValue = self.string(forKey: Self.cityKey),
+            let city = City(rawValue: rawValue)
+        else {
+            return .vilnius
         }
+
+        return city
+    }
+
+    func readVenues() -> [Venue] {
+        guard
+            let rawValues = self.array(forKey: Self.venuesKey) as? [String]
+        else {
+            return Array(self.readCity().venues)
+        }
+
+        return rawValues.compactMap { Venue(rawValue: $0) }
     }
 }
 
