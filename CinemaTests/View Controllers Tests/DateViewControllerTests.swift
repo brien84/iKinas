@@ -13,12 +13,10 @@ final class DateViewControllerTests: XCTestCase {
     var sut: DateViewController!
     var dates: DateTrackerStub!
     var fetcher: MovieFetcherStub!
-    var version: VersionVerifierStub!
 
     override func setUpWithError() throws {
         dates = DateTrackerStub()
         fetcher = MovieFetcherStub()
-        version = VersionVerifierStub()
         setupSUT()
     }
 
@@ -174,7 +172,7 @@ final class DateViewControllerTests: XCTestCase {
     func setupSUT() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         sut = storyboard.instantiateViewController(identifier: "dateVC") { [self] coder in
-            DateViewController(coder: coder, dates: dates, fetcher: fetcher, version: version)
+            DateViewController(coder: coder, dates: dates, fetcher: fetcher)
         }
     }
 
@@ -229,12 +227,6 @@ final class DateViewControllerTests: XCTestCase {
             } else {
                 completion(.failure(FetchingError.networkFailed(TestError.testError)))
             }
-        }
-    }
-
-    class VersionVerifierStub: VersionVerification {
-        func verifyVersion(using session: URLSession, completion: @escaping (Result<Void, VersionVerifier.VersionError>) -> Void) {
-            completion(.success(()))
         }
     }
 

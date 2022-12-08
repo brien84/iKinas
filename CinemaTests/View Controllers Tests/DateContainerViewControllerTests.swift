@@ -57,7 +57,7 @@ final class DateContainerViewControllerTests: XCTestCase {
     func setupFakeDateVC() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         fakeDateVC = storyboard.instantiateViewController(identifier: "dateVC") { coder in
-            DateViewController(coder: coder, dates: FakeSelector(), fetcher: FakeFetcher(), version: FakeVerifier())
+            DateViewController(coder: coder, dates: FakeSelector(), fetcher: FakeFetcher())
         }
     }
 
@@ -80,9 +80,5 @@ final class DateContainerViewControllerTests: XCTestCase {
 
         func previous() { }
         func next() { }
-    }
-
-    class FakeVerifier: VersionVerification {
-        func verifyVersion(using session: URLSession, completion: @escaping (Result<Void, VersionVerifier.VersionError>) -> Void) { }
     }
 }

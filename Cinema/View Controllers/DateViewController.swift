@@ -18,7 +18,6 @@ protocol DateViewControllerDelegate: AnyObject {
 final class DateViewController: UITableViewController {
     private let dates: DateTracking
     private let fetcher: MovieFetching
-    private let version: VersionVerification
 
     weak var delegate: DateViewControllerDelegate?
 
@@ -41,15 +40,13 @@ final class DateViewController: UITableViewController {
     required init?(coder: NSCoder) {
         self.dates = DateTracker()
         self.fetcher = MovieFetcher()
-        self.version = VersionVerifier()
 
         super.init(coder: coder)
     }
 
-    init?(coder: NSCoder, dates: DateTracking, fetcher: MovieFetching, version: VersionVerification) {
+    init?(coder: NSCoder, dates: DateTracking, fetcher: MovieFetching) {
         self.dates = dates
         self.fetcher = fetcher
-        self.version = version
 
         super.init(coder: coder)
     }
