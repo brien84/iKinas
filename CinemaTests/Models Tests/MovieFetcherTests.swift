@@ -57,7 +57,7 @@ final class MovieFetcherTests: XCTestCase {
         let session = URLSession.makeMockSession(with: [movie].encoded())
 
         let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, Error>?
+        var result: Result<Void, FetchingError>?
 
         sut.fetch(using: session) {
             result = $0
@@ -100,7 +100,7 @@ final class MovieFetcherTests: XCTestCase {
         let session = URLSession.makeMockSession(with: Data())
 
         let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, Error>?
+        var result: Result<Void, FetchingError>?
 
         sut.fetch(using: session) {
             result = $0
@@ -113,8 +113,12 @@ final class MovieFetcherTests: XCTestCase {
         case .success:
             XCTFail("Fetching should fail!")
         case .failure(let error):
-            print(error.localizedDescription)
-            XCTAssertNotNil(error as? DecodingError)
+            switch error {
+            case .decodingFailed(let error):
+                XCTAssertNotNil(error as? DecodingError)
+            default:
+                XCTFail("Error should be of type FetchingError.decodingFailed.")
+            }
         case .none:
             XCTFail("Result should have a value!")
         }
@@ -124,7 +128,7 @@ final class MovieFetcherTests: XCTestCase {
         let session = URLSession.makeMockSession(with: nil)
 
         let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, Error>?
+        var result: Result<Void, FetchingError>?
 
         sut.fetch(using: session) {
             result = $0
@@ -137,8 +141,13 @@ final class MovieFetcherTests: XCTestCase {
         case .success:
             XCTFail("Fetching should fail!")
         case .failure(let error):
-            let error = error as? URLError
-            XCTAssertEqual(error?.errorCode, URLError.notConnectedToInternet.rawValue)
+            switch error {
+            case .networkFailed(let error):
+                let error = error as? URLError
+                XCTAssertEqual(error?.errorCode, URLError.notConnectedToInternet.rawValue)
+            default:
+                XCTFail("Error should be of type FetchingError.networkFailed.")
+            }
         case .none:
             XCTFail("Result should have a value!")
         }
@@ -161,7 +170,7 @@ final class MovieFetcherTests: XCTestCase {
         let session = URLSession.makeMockSession(with: [movie].encoded())
 
         let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, Error>?
+        var result: Result<Void, FetchingError>?
 
         sut.fetch(using: session) {
             result = $0
@@ -212,7 +221,7 @@ final class MovieFetcherTests: XCTestCase {
         let session = URLSession.makeMockSession(with: movies.encoded())
 
         let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, Error>?
+        var result: Result<Void, FetchingError>?
 
         sut.fetch(using: session) {
             result = $0
@@ -252,7 +261,7 @@ final class MovieFetcherTests: XCTestCase {
         let session = URLSession.makeMockSession(with: [movie].encoded())
 
         let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, Error>?
+        var result: Result<Void, FetchingError>?
 
         sut.fetch(using: session) {
             result = $0

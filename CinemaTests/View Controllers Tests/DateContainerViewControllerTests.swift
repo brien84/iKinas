@@ -70,7 +70,7 @@ final class DateContainerViewControllerTests: XCTestCase {
 
         func getMovies(at date: Date) -> [Movie] { [] }
         func getShowings(at date: Date) -> [Showing] { [] }
-        func fetch(using session: URLSession, completion: @escaping (Result<Void, Error>) -> Void) { }
+        func fetch(using session: URLSession, completion: @escaping (Result<Void, FetchingError>) -> Void) { }
     }
 
     class FakeSelector: DateTracking {

@@ -112,30 +112,18 @@ final class DateViewController: UITableViewController {
         prepareForFetching()
         loadingView.startLoading()
 
-        version.verifyVersion(using: .shared) { result in
+        fetcher.fetch(using: .shared) { result in
             DispatchQueue.main.async { [self] in
                 switch result {
                 case .success:
-
-                    fetcher.fetch(using: .shared) { result in
-                        DispatchQueue.main.async { [self] in
-                            switch result {
-                            case .success:
-                                updateDatasource()
-                            case .failure(let error):
-                                print(error)
-                                loadingView.show(.noNetwork, animated: false)
-                            }
-                        }
-                    }
-
+                    updateDatasource()
                 case .failure(let error):
-                    print(error)
                     switch error {
-                    case .verificationFailure:
-                        loadingView.show(.noNetwork, animated: false)
                     case .requiresUpdate:
                         loadingView.show(.requiresUpdate, animated: false)
+                    default:
+                        print(error)
+                        loadingView.show(.noNetwork, animated: false)
                     }
                 }
             }

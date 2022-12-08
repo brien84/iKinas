@@ -12,7 +12,13 @@ protocol MovieFetching {
     var userDefaults: UserDefaults { get }
     func getMovies(at date: Date) -> [Movie]
     func getShowings(at date: Date) -> [Showing]
-    func fetch(using session: URLSession, completion: @escaping (Result<Void, Error>) -> Void)
+    func fetch(using session: URLSession, completion: @escaping (Result<Void, FetchingError>) -> Void)
+}
+
+enum FetchingError: Error {
+    case decodingFailed(Error)
+    case networkFailed(Error)
+    case requiresUpdate
 }
 
 final class MovieFetcher: MovieFetching {
@@ -39,7 +45,7 @@ final class MovieFetcher: MovieFetching {
         }
     }
 
-    func fetch(using session: URLSession = .shared, completion: @escaping (Result<Void, Error>) -> Void) {
+    func fetch(using session: URLSession = .shared, completion: @escaping (Result<Void, FetchingError>) -> Void) {
         if CommandLine.arguments.contains("ui-testing") {
             guard let data = NSDataAsset(name: "UITestData")?.data
             else { fatalError("Cannot load UITestData!") }
@@ -48,23 +54,31 @@ final class MovieFetcher: MovieFetching {
         } else {
             let city = userDefaults.readCity()
 
-            let task = session.dataTask(with: city.api) { data, _, error in
-                if let error = error {
-                    completion(.failure(error))
+            let task = session.dataTask(with: city.api) { data, response, error in
+                if let error {
+                    completion(.failure(.networkFailed(error)))
+                    return
                 }
 
-                if let data = data {
+                if let response = response as? HTTPURLResponse {
+                    if response.statusCode == 469 {
+                        completion(.failure(.requiresUpdate))
+                        return
+                    }
+                }
+
+                if let data {
                     completion(self.decode(data))
                 }
             }
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 task.resume()
             }
         }
     }
 
-    private func decode(_ data: Data) -> Result<Void, Error> {
+    private func decode(_ data: Data) -> Result<Void, FetchingError> {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
@@ -72,7 +86,7 @@ final class MovieFetcher: MovieFetching {
             self.movies = try decoder.decode([Movie].self, from: data)
             return .success(())
         } catch {
-            return .failure(error)
+            return .failure(.decodingFailed(error))
         }
     }
 }

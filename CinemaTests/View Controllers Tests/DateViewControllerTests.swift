@@ -223,11 +223,11 @@ final class DateViewControllerTests: XCTestCase {
             showings
         }
 
-        func fetch(using session: URLSession, completion: @escaping (Result<Void, Error>) -> Void) {
+        func fetch(using session: URLSession, completion: @escaping (Result<Void, FetchingError>) -> Void) {
             if isFetchSuccessful {
                 completion(.success(()))
             } else {
-                completion(.failure(TestError.testError))
+                completion(.failure(FetchingError.networkFailed(TestError.testError)))
             }
         }
     }
