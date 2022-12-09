@@ -58,6 +58,7 @@ extension UIImage {
     static let navTicket = UIImage(named: "navTicket")
 
     static let apollo = UIImage(named: "apollo")!
+    static let atlantis = UIImage(named: "atlantis")!
     static let cinamon = UIImage(named: "cinamon")!
     static let forum = UIImage(named: "forum")!
     static let multikino = UIImage(named: "multikino")!
@@ -68,7 +69,6 @@ extension URL {
 
     static let api = URL(string: "https://movies.ioys.lt/")!
     // static let api = URL(string: "http://localhost:8080/")!
-    static let update = URL.api.appendingPathComponent("update")
 }
 
 extension UserDefaults {
@@ -81,6 +81,8 @@ extension Venue {
         switch self {
         case .apollo:
             return "apollo"
+        case .atlantis:
+            return "atlantis"
         case .cinamon:
             return "cinamon"
         case .forum:

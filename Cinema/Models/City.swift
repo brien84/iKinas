@@ -26,7 +26,7 @@ enum City: String, CaseIterable, Codable, Identifiable {
         case .klaipeda:
             return [.forum]
         case .siauliai:
-            return [.forum]
+            return [.atlantis, .forum]
         case .panevezys:
             return [.apollo]
         }

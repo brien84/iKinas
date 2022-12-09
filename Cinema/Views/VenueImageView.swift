@@ -27,6 +27,8 @@ final class VenueImageView: UIImageView {
         switch venue {
         case .apollo:
             return .apollo
+        case .atlantis:
+            return .atlantis
         case .cinamon:
             return .cinamon
         case .forum:
