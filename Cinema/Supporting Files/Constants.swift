@@ -9,19 +9,29 @@
 import SwiftUI
 import UIKit
 
+extension Bundle {
+    var appVersion: String {
+        if let version = self.infoDictionary?["CFBundleShortVersionString"] as? String {
+            return version
+        } else {
+            fatalError("App Version not found!")
+        }
+    }
+}
+
 extension City {
     var api: URL {
         switch self {
         case .vilnius:
-            return URL.api.appendingPathComponent("vilnius_")
+            return URL.api.appendingPathComponent("vilnius/\(Bundle.main.appVersion)")
         case .kaunas:
-            return URL.api.appendingPathComponent("kaunas_")
+            return URL.api.appendingPathComponent("kaunas/\(Bundle.main.appVersion)")
         case .klaipeda:
-            return URL.api.appendingPathComponent("klaipeda_")
+            return URL.api.appendingPathComponent("klaipeda/\(Bundle.main.appVersion)")
         case .siauliai:
-            return URL.api.appendingPathComponent("siauliai_")
+            return URL.api.appendingPathComponent("siauliai/\(Bundle.main.appVersion)")
         case .panevezys:
-            return URL.api.appendingPathComponent("panevezys_")
+            return URL.api.appendingPathComponent("panevezys/\(Bundle.main.appVersion)")
         }
     }
 }
