@@ -62,6 +62,10 @@ extension ShowingsViewController: UICollectionViewDataSource, UICollectionViewDe
             collectionView.backgroundView = loadingView
         }
 
+        DispatchQueue.main.async {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
+
         return getShowings(on: dates[containerView.tag]).count
     }
 
@@ -144,8 +148,12 @@ extension ShowingsViewController: UICollectionViewDelegateFlowLayout {
             let showings = getShowings(on: dates[containerView.tag])
 
             if showings.count == 1 {
-                return UIEdgeInsets(top: layout.sectionInset.top, left: layout.sectionInset.left,
-                                    bottom: layout.sectionInset.bottom, right: collectionView.frame.width / 2)
+                return UIEdgeInsets(
+                    top: layout.sectionInset.top,
+                    left: layout.sectionInset.left,
+                    bottom: layout.sectionInset.bottom,
+                    right: collectionView.frame.width / 2
+                )
             } else {
                 return layout.sectionInset
             }
