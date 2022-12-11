@@ -244,43 +244,4 @@ final class MovieFetcherTests: XCTestCase {
         XCTAssertEqual(todayMovies.count, 1)
         XCTAssertEqual(todayMovies[0].title, title)
     }
-
-    func testVenuesAreFilteredOut() {
-        userDefaults.save(city: .vilnius, venues: [.multikino])
-
-        let testShowings = [
-            Showing.create(date: .today, venue: .apollo),
-            Showing.create(date: .today, venue: .forum),
-            Showing.create(date: .today, venue: .multikino),
-            Showing.create(date: .today, venue: .multikino),
-            Showing.create(date: .today, venue: .multikino)
-        ]
-
-        let movie = Movie.create(showings: testShowings)
-
-        let session = URLSession.makeMockSession(with: [movie].encoded())
-
-        let expectation = expectation(description: "Waiting for fetching to complete.")
-        var result: Result<Void, FetchingError>?
-
-        sut.fetch(using: session) {
-            result = $0
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 1)
-
-        switch result {
-        case .success:
-            XCTAssertTrue(true)
-        case .failure:
-            XCTFail("Fetching should succeed!")
-        case .none:
-            XCTFail("Result should have a value!")
-        }
-
-        let showings = sut.getShowings(at: .today)
-
-        XCTAssertEqual(3, showings.count)
-    }
 }
