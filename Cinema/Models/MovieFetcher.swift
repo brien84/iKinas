@@ -38,10 +38,8 @@ final class MovieFetcher: MovieFetching {
     }
 
     func getShowings(at date: Date) -> [Showing] {
-        let venues = userDefaults.readVenues()
-
-        return movies.flatMap { movie in
-            movie.showings.filter { $0.isShown(on: date) && venues.contains($0.venue) }
+        movies.flatMap { movie in
+            movie.showings.filter { $0.isShown(on: date) }
         }
     }
 
@@ -52,9 +50,7 @@ final class MovieFetcher: MovieFetching {
 
             completion(decode(data))
         } else {
-            let city = userDefaults.readCity()
-
-            let task = session.dataTask(with: city.api) { data, response, error in
+            let task = session.dataTask(with: constructURL()) { data, response, error in
                 if let error {
                     completion(.failure(.networkFailed(error)))
                     return
@@ -88,5 +84,20 @@ final class MovieFetcher: MovieFetching {
         } catch {
             return .failure(.decodingFailed(error))
         }
+    }
+
+    private func constructURL() -> URL {
+        guard let versionPath = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        else { fatalError("App Version not found!") }
+
+        let city = userDefaults.readCity()
+        let cityPath = city.rawValue
+
+        let venues = userDefaults.readVenues()
+        let venuesPath = venues.map { String($0.rawValue) }.joined(separator: ",")
+
+        let path = "\(versionPath)/\(cityPath)/\(venuesPath)"
+
+        return URL.api.appendingPathComponent(path)
     }
 }
