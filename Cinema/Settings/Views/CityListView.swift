@@ -47,7 +47,7 @@ struct CityListView: View {
                             viewStore.send(.didSelectCity(city), animation: .easeInOut)
                         },
                         label: {
-                            Text(city.rawValue)
+                            Text(city.description)
                                 .padding()
                                 .font(.title2)
                                 .foregroundColor(Color(city == viewStore.selectedCity ? .tertiaryElement : .secondaryElement))
