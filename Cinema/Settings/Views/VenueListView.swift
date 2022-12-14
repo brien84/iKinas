@@ -54,7 +54,7 @@ struct VenueListView: View {
                         },
                         label: {
                             HStack {
-                                Image(venue.image)
+                                Image(venue.rawValue)
 
                                 Spacer()
 
