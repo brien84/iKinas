@@ -50,7 +50,7 @@ final class MovieFetcher: MovieFetching {
 
             completion(decode(data))
         } else {
-            let task = session.dataTask(with: constructURL()) { data, response, error in
+            let task = session.dataTask(with: constructURLRequest()) { data, response, error in
                 if let error {
                     completion(.failure(.networkFailed(error)))
                     return
@@ -86,18 +86,19 @@ final class MovieFetcher: MovieFetching {
         }
     }
 
-    private func constructURL() -> URL {
-        guard let versionPath = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        else { fatalError("App Version not found!") }
-
+    private func constructURLRequest() -> URLRequest {
         let city = userDefaults.readCity()
         let cityPath = city.rawValue
-
         let venues = userDefaults.readVenues()
         let venuesPath = venues.map { String($0.rawValue) }.joined(separator: ",")
+        let path = "\(cityPath)/\(venuesPath)"
 
-        let path = "\(versionPath)/\(cityPath)/\(venuesPath)"
+        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        else { fatalError("App Version not found!") }
 
-        return URL.api.appendingPathComponent(path)
+        var request = URLRequest(url: URL.api.appendingPathComponent(path))
+        request.setValue(version, forHTTPHeaderField: "iOS-Client-Version")
+
+        return request
     }
 }
