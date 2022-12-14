@@ -68,7 +68,7 @@ struct CityListView: View {
 
 private extension CityListView {
     func getCityButtonID(_ city: City) -> String {
-        "SettingsView-CityListView-CityButton-\(city)"
+        "SettingsView-CityListView-CityButton-\(city.rawValue)"
     }
 }
 

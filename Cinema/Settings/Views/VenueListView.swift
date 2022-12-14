@@ -109,11 +109,11 @@ private extension AnyTransition {
 
 private extension VenueListView {
     func getVenueButtonID(_ city: City, _ venue: Venue) -> String {
-        "SettingsView-VenueListView-VenueButton-\(city)-\(venue)"
+        "SettingsView-VenueListView-VenueButton-\(city.rawValue)-\(venue.rawValue)"
     }
 
     func getVenueCheckmarkID(_ city: City, _ venue: Venue) -> String {
-        "SettingsView-VenueListView-VenueCheckmark-\(city)-\(venue)"
+        "SettingsView-VenueListView-VenueCheckmark-\(city.rawValue)-\(venue.rawValue)"
     }
 }
 
