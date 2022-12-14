@@ -58,20 +58,3 @@ extension UserDefaults {
     static let cityKey = "UserDefaultsCityKey"
     static let venuesKey = "UserDefaultsVenuesKey"
 }
-
-extension Venue {
-    var image: String {
-        switch self {
-        case .apollo:
-            return "apollo"
-        case .atlantis:
-            return "atlantis"
-        case .cinamon:
-            return "cinamon"
-        case .forum:
-            return "forum"
-        case .multikino:
-            return "multikino"
-        }
-    }
-}
