@@ -11,11 +11,11 @@ import OrderedCollections
 enum City: String, CaseIterable, Codable, Identifiable {
     var id: Self { self }
 
-    case vilnius = "Vilnius"
-    case kaunas = "Kaunas"
-    case klaipeda = "Klaipėda"
-    case siauliai = "Šiauliai"
-    case panevezys = "Panevėžys"
+    case vilnius
+    case kaunas
+    case klaipeda
+    case siauliai
+    case panevezys
 
     var venues: OrderedSet<Venue> {
         switch self {
