@@ -8,7 +8,7 @@
 
 import OrderedCollections
 
-enum City: String, CaseIterable, Codable, Identifiable {
+enum City: String, CaseIterable, Codable, CustomStringConvertible, Identifiable {
     var id: Self { self }
 
     case vilnius
@@ -29,6 +29,21 @@ enum City: String, CaseIterable, Codable, Identifiable {
             return [.atlantis, .forum]
         case .panevezys:
             return [.apollo]
+        }
+    }
+
+    var description: String {
+        switch self {
+        case .vilnius:
+            return "Vilnius"
+        case .kaunas:
+            return "Kaunas"
+        case .klaipeda:
+            return "Klaipėda"
+        case .siauliai:
+            return "Šiauliai"
+        case .panevezys:
+            return "Panevėžys"
         }
     }
 }
