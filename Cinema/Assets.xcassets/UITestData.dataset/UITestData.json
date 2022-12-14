@@ -2,8 +2,8 @@
     {
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "ADAE12D7-5C88-4324-BB8C-CB81E88909DD",
           "url": "https://www.google.com",
@@ -13,9 +13,9 @@
           }
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "is3D": false,
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "id": "EBA5672A-0DAD-4C79-AAE3-2BC16CA42285",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
@@ -24,8 +24,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "movie": {
             "id": "51252F33-5D8B-42BF-BFBD-A9A379E5E3CF"
           },
@@ -36,8 +36,8 @@
         },
         {
           "is3D": false,
-          "venue": "Multikino",
-          "city": "Vilnius",
+          "venue": "multikino",
+          "city": "vilnius",
           "id": "6061A8F7-8ADA-44DE-8CE8-CF837E716E25",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
@@ -62,8 +62,8 @@
     {
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "date": "2030-01-04T00:00:00Z",
           "id": "91EC09F9-30A3-40FC-9545-8F699009C1CB",
           "url": "https://www.google.com",
@@ -73,9 +73,9 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "is3D": false,
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "id": "2E73DFC2-7112-469B-8575-0867347ECFD7",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
@@ -85,8 +85,8 @@
         },
         {
           "is3D": false,
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "3158A41A-6744-4457-9294-4078CDC73D3D",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
@@ -95,19 +95,19 @@
           }
         },
         {
-          "venue": "Multikino",
+          "venue": "multikino",
           "movie": {
             "id": "21DAD4E3-6459-42D3-9862-33612F20A737"
           },
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "582BB941-A0A2-428D-A936-42A17C7BD7A3",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
           "is3D": false
         },
         {
-          "venue": "Multikino",
-          "city": "Vilnius",
+          "venue": "multikino",
+          "city": "vilnius",
           "date": "2030-01-04T00:00:00Z",
           "id": "D47D9281-4D7E-4F27-8D43-CD7B25A61457",
           "url": "https://www.google.com",
@@ -135,8 +135,8 @@
       "duration": "104 min",
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "movie": {
             "id": "466F98A7-8FF6-4290-AFD2-036153D7E722"
           },
@@ -147,8 +147,8 @@
         },
         {
           "is3D": false,
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "02A65927-2704-44AF-A1A7-900204FFB998",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
@@ -157,8 +157,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "E79CAAC9-142E-4703-BE71-ED536C30D9AF",
           "url": "https://www.google.com",
@@ -169,8 +169,8 @@
         },
         {
           "date": "2030-01-04T00:00:00Z",
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "193F1F0D-8638-4D8B-A6C3-E0917C060934",
           "url": "https://www.google.com",
           "movie": {
@@ -179,8 +179,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "movie": {
             "id": "466F98A7-8FF6-4290-AFD2-036153D7E722"
           },
@@ -190,8 +190,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "68497135-CA8A-4137-A7EC-2FE9BCE53D67",
           "url": "https://www.google.com",
@@ -201,9 +201,9 @@
           "date": "2030-01-04T00:00:00Z"
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "date": "2030-01-04T00:00:00Z",
-          "venue": "Multikino",
+          "venue": "multikino",
           "id": "7684B2CD-84E5-4532-B7BE-8860E4A2A821",
           "url": "https://www.google.com",
           "movie": {
@@ -212,9 +212,9 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "date": "2030-01-04T00:00:00Z",
-          "venue": "Multikino",
+          "venue": "multikino",
           "id": "5DD7518C-CC11-4ABB-9953-79E2F1FDFE37",
           "url": "https://www.google.com",
           "movie": {
@@ -240,8 +240,8 @@
       "duration": "99 min",
       "showings": [
         {
-          "venue": "Multikino",
-          "city": "Vilnius",
+          "venue": "multikino",
+          "city": "vilnius",
           "date": "2030-01-04T00:00:00Z",
           "id": "03C30C75-A38E-48C1-8DFB-FC498986048D",
           "url": "https://www.google.com",
@@ -266,20 +266,20 @@
     {
       "showings": [
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "movie": {
             "id": "731EF5A4-D94A-43C1-98A5-35BD785CCD37"
           },
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "id": "E13D6A8B-C1D8-49BA-861D-0A0938B0FF42",
           "url": "https://www.google.com",
           "date": "2030-01-03T12:00:00Z",
           "is3D": false
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "date": "2030-01-03T12:00:00Z",
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "id": "7ED39611-F913-45F1-9008-D56D20929537",
           "url": "https://www.google.com",
           "movie": {
@@ -288,8 +288,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "E7E4263E-398B-445A-AFF3-A2F88F190176",
           "url": "https://www.google.com",
@@ -299,8 +299,8 @@
           "date": "2030-01-03T12:00:00Z"
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "F250F8C1-FB12-46BF-8E90-042B969AC518",
           "url": "https://www.google.com",
@@ -310,19 +310,19 @@
           "date": "2030-01-03T12:00:00Z"
         },
         {
-          "venue": "Multikino",
+          "venue": "multikino",
           "movie": {
             "id": "731EF5A4-D94A-43C1-98A5-35BD785CCD37"
           },
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "E8CFBE37-4DED-471C-965A-E219EBED5F84",
           "url": "https://www.google.com",
           "date": "2030-01-03T12:00:00Z",
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "movie": {
             "id": "731EF5A4-D94A-43C1-98A5-35BD785CCD37"
           },
@@ -332,11 +332,11 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "movie": {
             "id": "731EF5A4-D94A-43C1-98A5-35BD785CCD37"
           },
-          "venue": "Multikino",
+          "venue": "multikino",
           "id": "4CDCAB26-B8BF-4A68-B776-3A806E774CAF",
           "url": "https://www.google.com",
           "date": "2030-01-03T12:00:00Z",
@@ -361,8 +361,8 @@
       "showings": [
         {
           "date": "2030-01-01T12:00:00Z",
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "id": "B68BB8A3-184E-4040-95FB-EDAB7D343703",
           "url": "https://www.google.com",
           "movie": {
@@ -372,8 +372,8 @@
         },
         {
           "is3D": false,
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "id": "F118D283-5873-4F9D-B839-A7986587D7A8",
           "url": "https://www.google.com",
           "date": "2030-01-01T12:00:00Z",
@@ -382,8 +382,8 @@
           }
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "E89D327D-2F62-46ED-9D21-70DBF2E4D334",
           "url": "https://www.google.com",
@@ -393,9 +393,9 @@
           "date": "2030-01-01T12:00:00Z"
         },
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "date": "2030-01-01T12:00:00Z",
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "968DD3D0-2C87-46FF-90A5-32E870A8187C",
           "url": "https://www.google.com",
           "movie": {
@@ -404,8 +404,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "CB67984B-FE81-4B37-BDF8-A84D6B0EAF3C",
           "url": "https://www.google.com",
@@ -415,8 +415,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "movie": {
             "id": "E3847DCE-15C6-4C00-9A17-7ECEC2B5C4A2"
           },
@@ -426,9 +426,9 @@
           "is3D": false
         },
         {
-          "venue": "Multikino",
+          "venue": "multikino",
           "date": "2030-01-01T12:00:00Z",
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "B236281A-06B0-4092-B6C6-B03D87B639B5",
           "url": "https://www.google.com",
           "movie": {
@@ -440,15 +440,15 @@
       "duration": "91 min",
       "poster": "https://movies.ioys.lt/posters/example.png",
       "ageRating": "N-13",
-      "originalTitle": "Lyubov' bez razmera",
-      "title": "Meilei dydis nesvarbu",
+      "originalTitle": "Original Movie",
+      "title": "Geras pavadinimas",
       "genres": [
         "Komedija",
         "Romantinis"
       ],
       "id": "E3847DCE-15C6-4C00-9A17-7ECEC2B5C4A2",
       "year": "2020",
-      "plot": "Puikiai pažįstamų aktorių Svetlanos Chodčenkovos, Maksimo Lagaškino bei Ivano Kolesnikovo tandemas žada šmaikštų ir komiškų situacijų kupiną filmą.\n\nKad galėtum jaustis lyg žuvis vandenyje pramogų pasaulyje turėti gražų balsą tikrai nepakanka. Ant scenos reikia gražios figūros, įspūdingos išvaizdos, plastiškų judesių, žavesio ir charizmos. Marija (akt. Svetlana Chodčenkova) šou pasaulyje ne naujokė. Ji talentinga „back-vokalo“ dainininkė, su grupe koncertuojanti žymiausiuose šalies klubuose. Įspūdingi kostiumai, gražios kojos, puikus balsas, talentas – ji turi visą, kas traukia žiūrovo akį, tačiau iki tobulumo jai trūksta vieno – didelės krūtinės. Jokie „push – up bra“ čia netinka – scenai ir įvaizdžiui reikia tikro DD ar net DDD dydžio.\n\nNelemtas trūkumas Marijai kainuoja itin daug – ji priversta palikti savo mylimą darbą, o karjera pakimba ant plauko. Silikonu padidinta krūtinė – vienintelė galimybė grįžti į sceną. Viskas būtų gerai, bet grįžimo į šou biznį kaina – 500 tūkstančių! Marija greit prisimena savo skolininkus, vienas tokių – senas geras bičiulis, prodiuseris Saša (akt. Maksimas Lagaškinas). Saška seniai ištaškęs visus Marijos pinigus „į kairę ir į dešinę“, bet šansas, nors ir menkas, juos atgauti vis tik yra – tolimame kurorte pas Sašos tetą. Kelionė prie tolimojo Elbruso įtraukia Mariją ir Sašą į neįtikėtinų įvykių sūkurį, o pinigų susigrąžinimas virsta vienu dideliu nuotykiu, nestokojančiu juokingų nesusipratimų ir smagių situacijų! Netikėtai sutikta sena meilė – gydytojas Aleksėjus (akt. Ivanas Kolesnikovas) sumaišo Marijos planus ir protą! Pasilikti kurorte? Pamiršti karjerą, sceną, savo tikslą, skolas, muziką? Ką pasirinkti? Kas supras, ko toms moterims reikia?"
+      "plot": "Plot"
     },
     {
       "showings": [
@@ -456,16 +456,16 @@
           "movie": {
             "id": "2C25A97E-6C05-481D-8ED2-63756A0E7222"
           },
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "71BBA5DD-53C9-4D06-8DFD-9A69B39BFD4B",
           "url": "https://www.google.com",
           "date": "2030-01-04T00:00:00Z",
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "A70048D8-C191-473C-B499-42445DB42799",
           "url": "https://www.google.com",
@@ -475,9 +475,9 @@
           "date": "2030-01-04T00:00:00Z"
         },
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "date": "2030-01-04T00:00:00Z",
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "0C41187B-1AA8-48E5-9754-8B56A8F24878",
           "url": "https://www.google.com",
           "movie": {
@@ -486,8 +486,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "movie": {
             "id": "2C25A97E-6C05-481D-8ED2-63756A0E7222"
           },
@@ -497,8 +497,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "movie": {
             "id": "2C25A97E-6C05-481D-8ED2-63756A0E7222"
           },
@@ -525,9 +525,9 @@
       "duration": "113 min",
       "showings": [
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "date": "2030-01-03T12:00:00Z",
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "3FF8CBDE-4ABE-4239-ACE2-D5F0008533F2",
           "url": "https://www.google.com",
           "movie": {
@@ -536,8 +536,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "date": "2030-01-03T12:00:00Z",
           "id": "502806AB-04F0-4666-8D24-80D400103777",
           "url": "https://www.google.com",
@@ -547,8 +547,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "DF4ED1ED-6706-405B-A72F-79FD661A2AF8",
           "url": "https://www.google.com",
@@ -558,8 +558,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "movie": {
             "id": "7F96177C-878C-4B82-B3D0-5030A22A9C45"
           },
@@ -569,9 +569,9 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "is3D": false,
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "399F3A62-D484-4C1B-8898-772CE8B91C63",
           "url": "https://www.google.com",
           "date": "2030-01-03T12:00:00Z",
@@ -580,8 +580,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Apollo",
+          "city": "vilnius",
+          "venue": "apollo",
           "date": "2030-01-03T12:00:00Z",
           "id": "B31BEDF7-4629-4C42-9291-48045EEF413C",
           "url": "https://www.google.com",
@@ -594,16 +594,16 @@
           "movie": {
             "id": "7F96177C-878C-4B82-B3D0-5030A22A9C45"
           },
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "id": "824E7C6B-5112-405D-B624-CD7CAA0555D6",
           "url": "https://www.google.com",
           "date": "2030-01-03T12:00:00Z",
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "A14472F1-7FD8-445C-B35C-167D245DCFC3",
           "url": "https://www.google.com",
@@ -613,8 +613,8 @@
           "date": "2030-01-03T12:00:00Z"
         },
         {
-          "venue": "Multikino",
-          "city": "Vilnius",
+          "venue": "multikino",
+          "city": "vilnius",
           "is3D": false,
           "id": "5C05FF14-E61D-4ABC-8E1E-D303BE6E27E5",
           "url": "https://www.google.com",
@@ -624,8 +624,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "date": "2030-01-03T12:00:00Z",
           "id": "555C6AFE-C201-40CF-BC83-2E982DAF0B43",
           "url": "https://www.google.com",
@@ -651,9 +651,9 @@
       "duration": "91 min",
       "showings": [
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "is3D": false,
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "id": "D9AAFB35-DACD-4F97-809B-6BC5F27A36E1",
           "url": "https://www.google.com",
           "date": "2030-01-02T12:00:00Z",
@@ -662,9 +662,9 @@
           }
         },
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "date": "2030-01-02T12:00:00Z",
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "4A844B6C-2E8B-4DEF-A3A8-7AFAA0B57279",
           "url": "https://www.google.com",
           "movie": {
@@ -673,8 +673,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "D4852D37-1D5F-4284-B635-A5BAF0FB44D1",
           "url": "https://www.google.com",
@@ -687,16 +687,16 @@
           "movie": {
             "id": "BF15F956-4C45-47ED-8894-0C528181BD86"
           },
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "67B76EA4-6C21-4198-810C-04D878A4031A",
           "url": "https://www.google.com",
           "date": "2030-01-02T12:00:00Z",
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "movie": {
             "id": "BF15F956-4C45-47ED-8894-0C528181BD86"
           },
@@ -722,8 +722,8 @@
     {
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "movie": {
             "id": "9E98162F-DCD1-42B0-8F12-AA9DCCA7A755"
           },
@@ -733,11 +733,11 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "movie": {
             "id": "9E98162F-DCD1-42B0-8F12-AA9DCCA7A755"
           },
-          "venue": "Multikino",
+          "venue": "multikino",
           "id": "E92ECE19-41FA-434C-8542-01426580587E",
           "url": "https://www.google.com",
           "date": "2030-01-03T00:00:00Z",
@@ -761,9 +761,9 @@
     {
       "showings": [
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "date": "2030-01-02T00:00:00Z",
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "470C6922-7591-463C-8EEF-4FD9DEE68392",
           "url": "https://www.google.com",
           "movie": {
@@ -772,8 +772,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "DC0C5045-C96D-4640-B2CB-566E2B6FD725",
           "url": "https://www.google.com",
@@ -783,8 +783,8 @@
           "date": "2030-01-02T00:00:00Z"
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "0199EE67-1FC5-4FA6-9F4D-E221F30A0669",
           "url": "https://www.google.com",
@@ -794,8 +794,8 @@
           "date": "2030-01-02T00:00:00Z"
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "date": "2030-01-02T00:00:00Z",
           "id": "55B89CFC-92E7-4F27-8FC0-160DB86FDBED",
           "url": "https://www.google.com",
@@ -805,8 +805,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "629C9B15-74CB-4ECA-BD4E-0E4B31B9E1C4",
           "url": "https://www.google.com",
@@ -816,8 +816,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "is3D": false,
           "id": "522D2ECE-8FE3-4058-925B-462D63D2145B",
           "url": "https://www.google.com",
@@ -845,8 +845,8 @@
       "duration": "119 min",
       "showings": [
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "date": "2030-01-03T00:00:00Z",
           "id": "BA7978C2-EABB-4A34-B484-92AA5035EB54",
           "url": "https://www.google.com",
@@ -856,8 +856,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "9703AE65-327F-4676-B2F0-3B2829C48581",
           "url": "https://www.google.com",
@@ -867,8 +867,8 @@
           "date": "2030-01-03T00:00:00Z"
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "C4C16088-B358-4C64-B67A-C15CD36E3F93",
           "url": "https://www.google.com",
@@ -878,8 +878,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "B8A0D597-A047-41C8-BAB0-2EB5BD993249",
           "url": "https://www.google.com",
@@ -889,8 +889,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "is3D": false,
           "id": "875C5167-6CDF-4237-AE20-A1323EA55219",
           "url": "https://www.google.com",
@@ -901,8 +901,8 @@
         },
         {
           "date": "2030-01-03T00:00:00Z",
-          "venue": "Multikino",
-          "city": "Vilnius",
+          "venue": "multikino",
+          "city": "vilnius",
           "id": "3E8DFCEC-5E8C-45D3-98BF-12E4B73041C2",
           "url": "https://www.google.com",
           "movie": {
@@ -927,8 +927,8 @@
       "duration": "127 min",
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "date": "2030-01-04T00:00:00Z",
           "id": "6319AD1C-8D12-47B7-92C2-A7D1A471F85A",
           "url": "https://www.google.com",
@@ -938,8 +938,8 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
-          "venue": "Apollo",
+          "city": "vilnius",
+          "venue": "apollo",
           "movie": {
             "id": "550A3325-3C2B-421C-924D-3591330655ED"
           },
@@ -949,8 +949,8 @@
           "is3D": false
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "5B179E30-E15A-452E-8D54-B1C3F6333252",
           "url": "https://www.google.com",
@@ -960,8 +960,8 @@
           "date": "2030-01-04T00:00:00Z"
         },
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "4B85F773-2B04-4358-80BE-339C2E91E8F8",
           "url": "https://www.google.com",
@@ -971,8 +971,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "is3D": false,
           "id": "C0E34960-A1DB-467B-A22C-2FE799CEE141",
           "url": "https://www.google.com",
@@ -982,8 +982,8 @@
           }
         },
         {
-          "city": "Vilnius",
-          "venue": "Multikino",
+          "city": "vilnius",
+          "venue": "multikino",
           "movie": {
             "id": "550A3325-3C2B-421C-924D-3591330655ED"
           },
@@ -1008,8 +1008,8 @@
       "duration": "88 min",
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "date": "2030-01-02T12:00:00Z",
           "id": "3B3F50BC-7E54-4C32-8787-B814834F1061",
           "url": "https://www.google.com",
@@ -1019,9 +1019,9 @@
           "is3D": false
         },
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "is3D": false,
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "id": "454174C5-E0DA-4D93-9708-493FA6877E50",
           "url": "https://www.google.com",
           "date": "2030-01-02T00:00:00Z",
@@ -1030,8 +1030,8 @@
           }
         },
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "date": "2030-01-02T00:00:00Z",
           "id": "F3336AD3-9A41-4E23-B64C-8E9A6070F20C",
           "url": "https://www.google.com",
@@ -1057,8 +1057,8 @@
       "showings": [
         {
           "date": "2030-01-02T12:00:00Z",
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "85D1873D-D538-42C9-BC45-EF60954EDD02",
           "url": "https://www.google.com",
           "movie": {
@@ -1083,8 +1083,8 @@
       "duration": "120 min",
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "date": "2030-01-03T12:00:00Z",
           "id": "080B8BEC-C3A7-4609-AE64-84938D9F7363",
           "url": "https://www.google.com",
@@ -1108,8 +1108,8 @@
     {
       "showings": [
         {
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "is3D": false,
           "id": "B44174D2-6B48-4A54-8BD1-C51AE56D6284",
           "url": "https://www.google.com",
@@ -1119,11 +1119,11 @@
           }
         },
         {
-          "venue": "Forum Cinemas",
+          "venue": "forum",
           "movie": {
             "id": "C70F3848-FB3C-41E4-831C-5F39495F5D44"
           },
-          "city": "Vilnius",
+          "city": "vilnius",
           "id": "23BFC79B-9130-45C3-92A1-58DA03922487",
           "url": "https://www.google.com",
           "date": "2030-01-02T00:00:00Z",
@@ -1145,8 +1145,8 @@
     {
       "showings": [
         {
-          "city": "Vilnius",
-          "venue": "Forum Cinemas",
+          "city": "vilnius",
+          "venue": "forum",
           "is3D": false,
           "id": "B93B3EF8-83D9-49CF-B349-23F890212DFE",
           "url": "https://www.google.com",
@@ -1174,8 +1174,8 @@
           "movie": {
             "id": "6AA9534E-20D1-4738-9FB1-5CBC324BCAA7"
           },
-          "venue": "Forum Cinemas",
-          "city": "Vilnius",
+          "venue": "forum",
+          "city": "vilnius",
           "id": "E83819D1-A235-4C7E-B775-D5E3E59B3CF8",
           "url": "https://www.google.com",
           "date": "2030-01-03T12:00:00Z",
@@ -1198,9 +1198,9 @@
       "duration": "115 min",
       "showings": [
         {
-          "city": "Vilnius",
+          "city": "vilnius",
           "date": "2030-01-03T00:00:00Z",
-          "venue": "Multikino",
+          "venue": "multikino",
           "id": "02E27781-548D-4FB3-BD01-146B06BB8F4B",
           "url": "https://www.google.com",
           "movie": {
