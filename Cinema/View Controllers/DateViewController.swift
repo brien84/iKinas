@@ -16,8 +16,8 @@ protocol DateViewControllerDelegate: AnyObject {
 }
 
 final class DateViewController: UITableViewController {
-    private let dates: DateTracking
     private let fetcher: MovieFetching
+    private var selectedDate = Date()
 
     weak var delegate: DateViewControllerDelegate?
 
@@ -32,20 +32,18 @@ final class DateViewController: UITableViewController {
         didSet {
             datasource.sort()
 
-            delegate?.dateVC(self, didUpdate: fetcher.getMovies(at: dates.selected))
+            delegate?.dateVC(self, didUpdate: fetcher.getMovies(at: selectedDate))
             tableView.reloadData()
         }
     }
 
     required init?(coder: NSCoder) {
-        self.dates = DateTracker()
         self.fetcher = MovieFetcher()
 
         super.init(coder: coder)
     }
 
-    init?(coder: NSCoder, dates: DateTracking, fetcher: MovieFetching) {
-        self.dates = dates
+    init?(coder: NSCoder, fetcher: MovieFetching) {
         self.fetcher = fetcher
 
         super.init(coder: coder)
@@ -95,7 +93,11 @@ final class DateViewController: UITableViewController {
     }
 
     private func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(forName: .DateDidChange, object: nil, queue: .main) { [self] _ in
+        NotificationCenter.default.addObserver(forName: .DateDidChange, object: nil, queue: .main) { [self] notification in
+            guard let info = notification.userInfo as? [String: Date] else { return }
+            guard let date = info[NotificationCenter.selectedDateKey] else { return }
+            selectedDate = date
+
             updateDatasource()
         }
 
@@ -181,7 +183,7 @@ extension DateViewController {
         toggleEnabled(scroll: false, buttons: false)
 
         transitionTableView?.prepareTransition { [self] in
-            datasource = fetcher.getShowings(at: dates.selected)
+            datasource = fetcher.getShowings(at: selectedDate)
 
             transitionTableView?.beginTransition { [self] in
                 if datasource.count > 0 {
@@ -204,7 +206,7 @@ extension DateViewController {
         overlay.backgroundColor = tableView.backgroundColor
         tableView.addSubview(overlay)
 
-        datasource = fetcher.getShowings(at: dates.selected)
+        datasource = fetcher.getShowings(at: selectedDate)
 
         loadingView.hide { [self] in
             if datasource.count > 0 {
