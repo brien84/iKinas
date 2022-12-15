@@ -32,4 +32,17 @@ final class DateSelectorTests: XCTestCase {
         }
     }
 
+    func testSelectingDate() async {
+        let store = TestStore(
+            initialState: DateSelector.State(),
+            reducer: DateSelector()
+        )
+
+        let date = store.state.restOfTheWeek[4]
+
+        await store.send(.didSelect(date: date)) {
+            $0.selectedDate = date
+        }
+    }
+
 }
