@@ -13,8 +13,23 @@ import XCTest
 @MainActor
 final class DateSelectorTests: XCTestCase {
 
-    func test0() async {
-        XCTAssert(true)
+    func testDateSelectorInitializesWithExpectedProperties() async {
+        let store = TestStore(
+            initialState: DateSelector.State(),
+            reducer: DateSelector()
+        )
+
+        XCTAssertTrue(Calendar.current.isDate(Date(), inSameDayAs: store.state.today))
+        XCTAssertEqual(store.state.today, store.state.selectedDate)
+        XCTAssertTrue(store.state.isTodaySelected)
+        XCTAssertEqual(store.state.restOfTheWeek.count, 7)
+
+        for index in 0..<store.state.restOfTheWeek.count {
+            XCTAssertEqual(
+                store.state.restOfTheWeek[index],
+                Calendar.current.date(byAdding: .day, value: index, to: store.state.today)
+            )
+        }
     }
 
 }
