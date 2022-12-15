@@ -11,17 +11,14 @@ import XCTest
 
 final class DateViewControllerTests: XCTestCase {
     var sut: DateViewController!
-    var dates: DateTrackerStub!
     var fetcher: MovieFetcherStub!
 
     override func setUpWithError() throws {
-        dates = DateTrackerStub()
         fetcher = MovieFetcherStub()
         setupSUT()
     }
 
     override func tearDownWithError() throws {
-        dates = nil
         fetcher = nil
         sut = nil
     }
@@ -75,50 +72,14 @@ final class DateViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.tableView(sut.tableView, numberOfRowsInSection: 0), 0)
     }
 
-    func testDateTrackerNotificationObserver() {
-        let testDateToday = Date.today
-        let testDateTommorow = Date.tommorow
-        dates.selected = testDateToday
-
-        sutLoadViewIfNeeded()
-
-        waitForUIUpdate()
-
-        let titleView = sut.navigationItem.titleView as? UILabel
-        XCTAssertEqual(titleView?.text, testDateToday.asString(.monthAndDay))
-
-        dates.selected = testDateTommorow
-        NotificationCenter.default.post(name: .DateDidChange, object: nil)
-
-        waitForUIUpdate()
-
-        XCTAssertEqual(titleView?.text, testDateTommorow.asString(.monthAndDay))
-    }
-
-    func testNavigationTitleViewIsSet() {
-        let testDateToday = Date.today
-        dates.selected = testDateToday
-
-        sutLoadViewIfNeeded()
-
-        waitForUIUpdate()
-
-        let titleView = sut.navigationItem.titleView as? UILabel
-        XCTAssertEqual(titleView?.text, testDateToday.asString(.monthAndDay))
-    }
-
     func testNavigationIsReenabledAfterSuccessfulFetch() {
         sutLoadViewIfNeeded()
 
         XCTAssertFalse(sut.tableView.isScrollEnabled)
-        XCTAssertFalse(sut.navigationItem.leftBarButtonItem!.isEnabled)
-        XCTAssertFalse(sut.navigationItem.rightBarButtonItem!.isEnabled)
 
         waitForUIUpdate()
 
         XCTAssertTrue(sut.tableView.isScrollEnabled)
-        XCTAssertTrue(sut.navigationItem.leftBarButtonItem!.isEnabled)
-        XCTAssertTrue(sut.navigationItem.rightBarButtonItem!.isEnabled)
     }
 
     func testScrollIsDisabledWhenDatasourceIsEmpty() {
@@ -128,8 +89,6 @@ final class DateViewControllerTests: XCTestCase {
         waitForUIUpdate()
 
         XCTAssertFalse(sut.tableView.isScrollEnabled)
-        XCTAssertTrue(sut.navigationItem.leftBarButtonItem!.isEnabled)
-        XCTAssertTrue(sut.navigationItem.rightBarButtonItem!.isEnabled)
     }
 
     func testNavigationIsDisabledIfFetchingFails() {
@@ -139,32 +98,6 @@ final class DateViewControllerTests: XCTestCase {
         waitForUIUpdate()
 
         XCTAssertFalse(sut.tableView.isScrollEnabled)
-        XCTAssertFalse(sut.navigationItem.leftBarButtonItem!.isEnabled)
-        XCTAssertFalse(sut.navigationItem.rightBarButtonItem!.isEnabled)
-    }
-
-    func testRightNavigationButtonDisableWhenLastDateIsSelected() {
-        dates.isLast = true
-        sutLoadViewIfNeeded()
-
-        waitForUIUpdate()
-
-        XCTAssertTrue(sut.tableView.isScrollEnabled)
-        XCTAssertTrue(sut.navigationItem.leftBarButtonItem!.isEnabled)
-        XCTAssertFalse(sut.navigationItem.rightBarButtonItem!.isEnabled)
-    }
-
-    func testLeftBarButtonImageIsSettingsWhenFirstDateIsSelected() {
-        dates.isFirst = true
-        sutLoadViewIfNeeded()
-
-        waitForUIUpdate()
-
-        guard let button = sut.navigationItem.leftBarButtonItem else {
-            return XCTFail("leftBarButtonItem is nil!")
-        }
-
-        XCTAssertEqual(button.image?.imageAsset, UIImage.settings.imageAsset)
     }
 
     // MARK: Test Helpers
@@ -172,7 +105,7 @@ final class DateViewControllerTests: XCTestCase {
     func setupSUT() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         sut = storyboard.instantiateViewController(identifier: "dateVC") { [self] coder in
-            DateViewController(coder: coder, dates: dates, fetcher: fetcher)
+            DateViewController(coder: coder, fetcher: fetcher)
         }
     }
 
@@ -191,15 +124,6 @@ final class DateViewControllerTests: XCTestCase {
         }
 
         waitForExpectations(timeout: 3.0)
-    }
-
-    class DateTrackerStub: DateTracking {
-        var selected: Date = Date()
-        var isFirst: Bool = false
-        var isLast: Bool = false
-
-        func previous() { }
-        func next() { }
     }
 
     class MovieFetcherStub: MovieFetching {
