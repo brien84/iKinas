@@ -144,15 +144,7 @@ final class DateViewController: UITableViewController {
     }
 
     @IBAction private func leftNavigationBarButtonDidTap(_ sender: UIBarButtonItem) {
-        if dates.isFirst {
-            let vc = SettingsViewHost(
-                rootView: SettingsView(store: Store(initialState: Settings.State(), reducer: Settings()))
-            )
-
-            navigationController?.pushViewController(vc, animated: true)
-        } else {
-            dates.previous()
-        }
+        dates.previous()
     }
 
     @IBAction private func rightNavigationBarButtonDidTap(_ sender: UIBarButtonItem) {

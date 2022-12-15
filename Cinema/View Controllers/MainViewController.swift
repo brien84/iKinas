@@ -6,6 +6,7 @@
 //  Copyright © 2022 Marius. All rights reserved.
 //
 
+import ComposableArchitecture
 import UIKit
 
 final class MainViewController: UIViewController {
@@ -15,4 +16,11 @@ final class MainViewController: UIViewController {
 
     }
 
+    @IBAction private func settingsButtonDidTap(_ sender: UIBarButtonItem) {
+        let vc = SettingsViewHost(
+            rootView: SettingsView(store: Store(initialState: Settings.State(), reducer: Settings()))
+        )
+
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
