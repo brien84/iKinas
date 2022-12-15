@@ -26,7 +26,7 @@ struct DateSelector: ReducerProtocol {
 
             var restOfTheWeek = [Date]()
 
-            for index in 0..<7 {
+            for index in 1..<8 {
                 guard let date = Calendar.current.date(byAdding: .day, value: index, to: self.today)
                 else { fatalError("Date generation failed!") }
                 restOfTheWeek.append(date)
