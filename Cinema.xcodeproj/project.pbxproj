@@ -28,6 +28,7 @@
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
 		29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */; };
 		29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */; };
+		29602B17294B6E9100FBE1A4 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B16294B6E9100FBE1A4 /* MainViewController.swift */; };
 		2961EA2D25CC9EFB00ED23C8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */; };
 		2961EA3325CD9EEC00ED23C8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2961EA3225CD9EEC00ED23C8 /* WebKit.framework */; };
 		2965635325BC4DC400A14651 /* ShowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965635225BC4DC400A14651 /* ShowingsViewController.swift */; };
@@ -101,6 +102,7 @@
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorTests.swift; sourceTree = "<group>"; };
+		29602B16294B6E9100FBE1A4 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		2961EA3225CD9EEC00ED23C8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		2965635225BC4DC400A14651 /* ShowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewController.swift; sourceTree = "<group>"; };
@@ -207,6 +209,7 @@
 			children = (
 				2932FB8024D602E8009AEDD1 /* DateContainerViewController.swift */,
 				2948398324D1F85500133940 /* DateViewController.swift */,
+				29602B16294B6E9100FBE1A4 /* MainViewController.swift */,
 				299D135724C766F00012755A /* MovieViewController.swift */,
 				2965635225BC4DC400A14651 /* ShowingsViewController.swift */,
 				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
@@ -530,6 +533,7 @@
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
 				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
+				29602B17294B6E9100FBE1A4 /* MainViewController.swift in Sources */,
 				2965636925BD65BB00A14651 /* ShowingsViewContainerCell.swift in Sources */,
 				299C267A2502DCFD0074E795 /* Fonts.swift in Sources */,
 				2904C7642336982B00407B64 /* AppDelegate.swift in Sources */,
