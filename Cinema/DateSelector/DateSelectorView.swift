@@ -41,7 +41,7 @@ struct DateSelectorView: View {
                     Divider()
 
                     ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack(spacing: 24) {
+                        LazyHStack(spacing: .horizontalSpacing) {
                             ForEach(viewStore.restOfTheWeek, id: \.self) { date in
                                 Button {
                                     viewStore.send(.didSelect(date: date))
@@ -63,10 +63,15 @@ struct DateSelectorView: View {
                 }
             }
             .padding(.vertical)
-            .fixedSize(horizontal: false, vertical: true)
+            .frame(height: .height)
             .background(Color.secondaryBackground)
         }
     }
+}
+
+private extension CGFloat {
+    static let horizontalSpacing: CGFloat = 24
+    static let height: CGFloat = 60
 }
 
 private extension Date {
