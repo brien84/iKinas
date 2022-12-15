@@ -33,7 +33,7 @@ final class DateSelectorTests: XCTestCase {
         }
     }
 
-    func testSelectingDate() async {
+    func testSelectingDatePostsNotification() async {
         let store = TestStore(
             initialState: DateSelector.State(),
             reducer: DateSelector()
@@ -41,9 +41,30 @@ final class DateSelectorTests: XCTestCase {
 
         let date = store.state.restOfTheWeek[4]
 
+        NotificationCenter.default.addObserver(forName: .DateDidChange, object: nil, queue: .main) { notification in
+            guard let info = notification.userInfo as? [String: Date] else { return }
+            guard let receivedDate = info[NotificationCenter.selectedDateKey] else { return }
+            XCTAssertEqual(date, receivedDate)
+        }
+
         await store.send(.didSelect(date: date)) {
             $0.selectedDate = date
         }
+    }
+
+    func testSelectingAlreadySelectedDateDoesNotPostNotification() async {
+        let store = TestStore(
+            initialState: DateSelector.State(),
+            reducer: DateSelector()
+        )
+
+        NotificationCenter.default.addObserver(forName: .DateDidChange, object: nil, queue: .main) { _ in
+            XCTFail("Received notification!")
+        }
+
+        let date = store.state.today
+
+        await store.send(.didSelect(date: date))
     }
 
 }
