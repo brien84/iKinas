@@ -18,8 +18,12 @@ extension Color {
 }
 
 extension Notification.Name {
-    static let SettingsDidChange = Notification.Name("SettingsDidChangeNotification")
     static let DateDidChange = Notification.Name("DateDidChangeNotification")
+    static let SettingsDidChange = Notification.Name("SettingsDidChangeNotification")
+}
+
+extension NotificationCenter {
+    static let selectedDateKey = "selectedDate"
 }
 
 extension TimeInterval {
