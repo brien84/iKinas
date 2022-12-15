@@ -21,13 +21,14 @@ final class DateSelectorTests: XCTestCase {
 
         XCTAssertTrue(Calendar.current.isDate(Date(), inSameDayAs: store.state.today))
         XCTAssertEqual(store.state.today, store.state.selectedDate)
+        XCTAssertFalse(store.state.restOfTheWeek.contains(store.state.today))
         XCTAssertTrue(store.state.isTodaySelected)
         XCTAssertEqual(store.state.restOfTheWeek.count, 7)
 
         for index in 0..<store.state.restOfTheWeek.count {
             XCTAssertEqual(
                 store.state.restOfTheWeek[index],
-                Calendar.current.date(byAdding: .day, value: index, to: store.state.today)
+                Calendar.current.date(byAdding: .day, value: index + 1, to: store.state.today)
             )
         }
     }
