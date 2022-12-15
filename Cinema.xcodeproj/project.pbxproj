@@ -25,6 +25,7 @@
 		2932FB7F24D35D62009AEDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2932FB7E24D35D62009AEDD1 /* Main.storyboard */; };
 		2932FB8124D602E8009AEDD1 /* DateContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2932FB8024D602E8009AEDD1 /* DateContainerViewController.swift */; };
 		2948398424D1F85500133940 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948398324D1F85500133940 /* DateViewController.swift */; };
+		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
 		2961EA2D25CC9EFB00ED23C8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */; };
 		2961EA3325CD9EEC00ED23C8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2961EA3225CD9EEC00ED23C8 /* WebKit.framework */; };
 		2965635325BC4DC400A14651 /* ShowingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965635225BC4DC400A14651 /* ShowingsViewController.swift */; };
@@ -95,6 +96,7 @@
 		2932FB7E24D35D62009AEDD1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2932FB8024D602E8009AEDD1 /* DateContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateContainerViewController.swift; sourceTree = "<group>"; };
 		2948398324D1F85500133940 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		2961EA3225CD9EEC00ED23C8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		2965635225BC4DC400A14651 /* ShowingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewController.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				2904C7632336982B00407B64 /* AppDelegate.swift */,
+				29602B0F294B6BEC00FBE1A4 /* DateSelector */,
 				29817F76293BC1D100E59D42 /* Settings */,
 				2904C7952336A10700407B64 /* Models */,
 				2904C7942336A0EB00407B64 /* View Controllers */,
@@ -265,6 +268,14 @@
 				292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		29602B0F294B6BEC00FBE1A4 /* DateSelector */ = {
+			isa = PBXGroup;
+			children = (
+				29602B10294B6C0A00FBE1A4 /* DateSelector.swift */,
+			);
+			path = DateSelector;
 			sourceTree = "<group>";
 		};
 		2961EA3125CD9EEC00ED23C8 /* Frameworks */ = {
@@ -512,6 +523,7 @@
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
 				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
+				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
 				2965636925BD65BB00A14651 /* ShowingsViewContainerCell.swift in Sources */,
 				299C267A2502DCFD0074E795 /* Fonts.swift in Sources */,
 				2904C7642336982B00407B64 /* AppDelegate.swift in Sources */,
