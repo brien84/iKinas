@@ -97,7 +97,6 @@ final class DateViewController: UITableViewController {
     private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(forName: .DateDidChange, object: nil, queue: .main) { [self] _ in
             updateDatasource()
-            navigationItem.leftBarButtonItem?.image = dates.isFirst ? .settings : .arrowLeft
         }
 
         NotificationCenter.default.addObserver(forName: .SettingsDidChange, object: nil, queue: .main) { [self] _ in
@@ -139,16 +138,6 @@ final class DateViewController: UITableViewController {
 
     private func toggleEnabled(scroll: Bool, buttons: Bool) {
         tableView.isScrollEnabled = scroll
-        navigationItem.leftBarButtonItem?.isEnabled = buttons
-        navigationItem.rightBarButtonItem?.isEnabled = dates.isLast ? false : buttons
-    }
-
-    @IBAction private func leftNavigationBarButtonDidTap(_ sender: UIBarButtonItem) {
-        dates.previous()
-    }
-
-    @IBAction private func rightNavigationBarButtonDidTap(_ sender: UIBarButtonItem) {
-        dates.next()
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

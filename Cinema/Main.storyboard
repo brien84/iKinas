@@ -238,26 +238,7 @@
                             <outlet property="headerShowingsLabel" destination="qWM-6b-OYy" id="eWV-JK-k2d"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="Zyf-4w-ETq">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="settings" id="EeZ-9z-enu">
-                            <color key="tintColor" name="primaryElement"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="dateVCLeftNavButton"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="leftNavigationBarButtonDidTap:" destination="Dxm-QZ-lup" id="qJG-6E-dKD"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="arrowRight" id="XXe-QF-8Ls">
-                            <color key="tintColor" name="primaryElement"/>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="dateVCRightNavButton"/>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="rightNavigationBarButtonDidTap:" destination="Dxm-QZ-lup" id="830-hv-Xpq"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="Zyf-4w-ETq"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3IX-t3-o3O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -1016,13 +997,11 @@
         <image name="3d" width="32" height="32"/>
         <image name="ageRating" width="32" height="32"/>
         <image name="arrowLeft" width="25" height="25"/>
-        <image name="arrowRight" width="25" height="25"/>
         <image name="cart" width="32" height="32"/>
         <image name="cinamon" width="100" height="26.5"/>
         <image name="duration" width="32" height="32"/>
         <image name="forum" width="74" height="26.5"/>
         <image name="navTicket" width="25" height="25"/>
-        <image name="settings" width="25" height="25"/>
         <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <image name="year" width="32" height="32"/>
         <namedColor name="primaryBackground">
