@@ -101,13 +101,13 @@ extension UserDefaults {
     }
 
     func readVenues() -> [Venue] {
-        guard
-            let rawValues = self.array(forKey: Self.venuesKey) as? [String]
-        else {
-            return Array(self.readCity().venues)
-        }
+        guard let rawValues = self.array(forKey: Self.venuesKey) as? [String]
+        else { return Array(self.readCity().venues) }
 
-        return rawValues.compactMap { Venue(rawValue: $0) }
+        let venues = rawValues.compactMap { Venue(rawValue: $0) }
+        guard !venues.isEmpty else { return Array(self.readCity().venues) }
+
+        return venues
     }
 
     func save(city: City, venues: [Venue]) {
