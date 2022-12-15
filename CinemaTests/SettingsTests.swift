@@ -63,8 +63,6 @@ final class SettingsTests: XCTestCase {
             $0.selectedCity = .kaunas
             $0.selectedVenues = City.kaunas.venues
         }
-
-        await store.finish()
     }
 
     func testSavingSettings() async {
@@ -79,8 +77,6 @@ final class SettingsTests: XCTestCase {
         }
 
         await store.send(.saveSettings)
-
-        await store.finish()
     }
 
 }
