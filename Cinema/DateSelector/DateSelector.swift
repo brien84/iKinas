@@ -50,7 +50,13 @@ struct DateSelector: ReducerProtocol {
                 `state.restOfTheWeek` array, and may cause unpredictable app behavior.
                 """
             )
-            state.selectedDate = date
+
+            if state.selectedDate != date {
+                state.selectedDate = date
+                let info: [String: Date] = [NotificationCenter.selectedDateKey: state.selectedDate]
+                NotificationCenter.default.post(name: .DateDidChange, object: nil, userInfo: info)
+            }
+
             return .none
         }
     }
