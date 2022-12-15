@@ -10,7 +10,7 @@ import ComposableArchitecture
 import Foundation
 
 struct DateSelector: ReducerProtocol {
-    
+
     struct State: Equatable {
         let today: Date
         let restOfTheWeek: [Date]
@@ -43,8 +43,16 @@ struct DateSelector: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .didSelect(date: let date):
+            assert(
+                state.today == date || state.restOfTheWeek.contains(date),
+                """
+                The selected date '\(date)' is not equal to `state.today` or found in
+                `state.restOfTheWeek` array, and may cause unpredictable app behavior.
+                """
+            )
             state.selectedDate = date
             return .none
         }
     }
+
 }
