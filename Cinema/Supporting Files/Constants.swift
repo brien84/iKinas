@@ -19,6 +19,7 @@ extension Color {
 
 extension Notification.Name {
     static let dateDidChange = Notification.Name("DateDidChangeNotification")
+    static let dateViewControlsStateDidChange = Notification.Name("DateViewControlsStateDidChangeNotification")
     static let settingsDidChange = Notification.Name("SettingsDidChangeNotification")
 }
 
