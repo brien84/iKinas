@@ -10,6 +10,7 @@ import ComposableArchitecture
 import UIKit
 
 final class MainViewController: UIViewController {
+    var viewStore: ViewStoreOf<DateSelector>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,5 +23,12 @@ final class MainViewController: UIViewController {
         )
 
         navigationController?.pushViewController(vc, animated: true)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "embedDateSelectorHost" {
+            guard let vc = segue.destination as? DateSelectorHost else { return }
+            self.viewStore = ViewStore(vc.store)
+        }
     }
 }
