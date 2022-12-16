@@ -62,6 +62,7 @@ struct DateSelectorView: View {
                     }
                 }
             }
+            .disabled(viewStore.isDisabled)
             .padding(.vertical)
             .frame(height: .height)
             .background(Color.secondaryBackground)
