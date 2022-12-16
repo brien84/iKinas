@@ -23,6 +23,7 @@ extension Notification.Name {
 }
 
 extension NotificationCenter {
+    static let dateViewControlsIsEnabledKey = "dateViewControlsIsEnabled"
     static let selectedDateKey = "selectedDate"
 }
 
