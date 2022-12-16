@@ -15,6 +15,7 @@ struct DateSelector: ReducerProtocol {
         let today: Date
         let restOfTheWeek: [Date]
         var selectedDate: Date
+        var isDisabled = false
 
         var isTodaySelected: Bool {
             today == selectedDate
@@ -38,6 +39,7 @@ struct DateSelector: ReducerProtocol {
 
     enum Action: Equatable {
         case didSelect(date: Date)
+        case setDisabled(Bool)
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -57,6 +59,10 @@ struct DateSelector: ReducerProtocol {
                 NotificationCenter.default.post(name: .dateDidChange, object: nil, userInfo: info)
             }
 
+            return .none
+
+        case .setDisabled(let isDisabled):
+            state.isDisabled = isDisabled
             return .none
         }
     }
