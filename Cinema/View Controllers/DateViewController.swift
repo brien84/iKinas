@@ -138,8 +138,11 @@ final class DateViewController: UITableViewController {
 
     // MARK: - Navigation
 
-    private func toggleEnabled(scroll: Bool, buttons: Bool) {
-        tableView.isScrollEnabled = scroll
+    private func toggleControls(enabled isEnabled: Bool) {
+        tableView.isScrollEnabled = isEnabled
+
+        let info: [String: Bool] = [NotificationCenter.dateViewControlsIsEnabledKey: isEnabled]
+        NotificationCenter.default.post(name: .dateViewControlsStateDidChange, object: nil, userInfo: info)
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -174,13 +177,13 @@ extension DateViewController {
     }
 
     private func prepareForFetching() {
-        toggleEnabled(scroll: false, buttons: false)
+        toggleControls(enabled: false)
         transitionTableView?.scrollToTop()
         transitionTableView?.transitionDelegate?.prepareForTransition(animated: false, completion: nil)
     }
 
     private func hiddenLoadingViewTransition() {
-        toggleEnabled(scroll: false, buttons: false)
+        toggleControls(enabled: false)
 
         transitionTableView?.prepareTransition { [self] in
             datasource = fetcher.getShowings(at: selectedDate)
@@ -188,11 +191,11 @@ extension DateViewController {
             transitionTableView?.beginTransition { [self] in
                 if datasource.count > 0 {
                     transitionTableView?.endTransition {
-                        self.toggleEnabled(scroll: true, buttons: true)
+                        self.toggleControls(enabled: true)
                     }
                 } else {
                     loadingView.show(.noMovies, animated: true) {
-                        self.toggleEnabled(scroll: false, buttons: true)
+                        self.toggleControls(enabled: false)
                     }
                 }
             }
@@ -200,7 +203,7 @@ extension DateViewController {
     }
 
     private func visibleLoadingViewTransition() {
-        toggleEnabled(scroll: false, buttons: false)
+        toggleControls(enabled: false)
 
         let overlay = UIView(frame: tableView.bounds)
         overlay.backgroundColor = tableView.backgroundColor
@@ -212,12 +215,12 @@ extension DateViewController {
             if datasource.count > 0 {
                 overlay.removeFromSuperview()
                 transitionTableView?.endTransition {
-                    self.toggleEnabled(scroll: true, buttons: true)
+                    self.toggleControls(enabled: true)
                 }
             } else {
                 loadingView.show(.noMovies, animated: true) {
                     overlay.removeFromSuperview()
-                    self.toggleEnabled(scroll: false, buttons: true)
+                    self.toggleControls(enabled: false)
                 }
             }
         }
