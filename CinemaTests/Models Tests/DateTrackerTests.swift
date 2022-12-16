@@ -49,7 +49,7 @@ final class DateTrackerTests: XCTestCase {
 
     func testNextDatePostsNotification() {
         // given
-        expectation(forNotification: .DateDidChange, object: nil, handler: nil)
+        expectation(forNotification: .dateDidChange, object: nil, handler: nil)
 
         // when
         sut.next()
@@ -85,7 +85,7 @@ final class DateTrackerTests: XCTestCase {
     func testPreviousDatePostsNotification() {
         // given
         sut.next()
-        expectation(forNotification: .DateDidChange, object: nil, handler: nil)
+        expectation(forNotification: .dateDidChange, object: nil, handler: nil)
 
         // when
         sut.previous()

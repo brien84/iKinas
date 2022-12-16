@@ -93,7 +93,7 @@ final class DateViewController: UITableViewController {
     }
 
     private func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(forName: .DateDidChange, object: nil, queue: .main) { [self] notification in
+        NotificationCenter.default.addObserver(forName: .dateDidChange, object: nil, queue: .main) { [self] notification in
             guard let info = notification.userInfo as? [String: Date] else { return }
             guard let date = info[NotificationCenter.selectedDateKey] else { return }
             selectedDate = date
@@ -101,7 +101,7 @@ final class DateViewController: UITableViewController {
             updateDatasource()
         }
 
-        NotificationCenter.default.addObserver(forName: .SettingsDidChange, object: nil, queue: .main) { [self] _ in
+        NotificationCenter.default.addObserver(forName: .settingsDidChange, object: nil, queue: .main) { [self] _ in
             fetchMovies()
         }
     }

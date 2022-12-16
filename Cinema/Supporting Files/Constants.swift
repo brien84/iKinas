@@ -18,8 +18,8 @@ extension Color {
 }
 
 extension Notification.Name {
-    static let DateDidChange = Notification.Name("DateDidChangeNotification")
-    static let SettingsDidChange = Notification.Name("SettingsDidChangeNotification")
+    static let dateDidChange = Notification.Name("DateDidChangeNotification")
+    static let settingsDidChange = Notification.Name("SettingsDidChangeNotification")
 }
 
 extension NotificationCenter {

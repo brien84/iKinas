@@ -41,7 +41,7 @@ final class DateSelectorTests: XCTestCase {
 
         let date = store.state.restOfTheWeek[4]
 
-        expectation(forNotification: .DateDidChange, object: nil, handler: { notification in
+        expectation(forNotification: .dateDidChange, object: nil, handler: { notification in
             guard let info = notification.userInfo as? [String: Date] else { return false }
             guard let receivedDate = info[NotificationCenter.selectedDateKey] else { return false }
             XCTAssertEqual(date, receivedDate)
@@ -61,7 +61,7 @@ final class DateSelectorTests: XCTestCase {
             reducer: DateSelector()
         )
 
-        let expectation = expectation(forNotification: .DateDidChange, object: nil, handler: nil)
+        let expectation = expectation(forNotification: .dateDidChange, object: nil, handler: nil)
         expectation.isInverted = true
 
         let date = store.state.today

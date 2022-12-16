@@ -54,7 +54,7 @@ struct DateSelector: ReducerProtocol {
             if state.selectedDate != date {
                 state.selectedDate = date
                 let info: [String: Date] = [NotificationCenter.selectedDateKey: state.selectedDate]
-                NotificationCenter.default.post(name: .DateDidChange, object: nil, userInfo: info)
+                NotificationCenter.default.post(name: .dateDidChange, object: nil, userInfo: info)
             }
 
             return .none

@@ -52,7 +52,7 @@ final class DateTracker: DateTracking {
     }
 
     private func postNotification() {
-        NotificationCenter.default.post(name: .DateDidChange, object: nil)
+        NotificationCenter.default.post(name: .dateDidChange, object: nil)
     }
 
     func previous() {
