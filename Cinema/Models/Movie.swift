@@ -19,6 +19,28 @@ final class Movie: Codable {
     let poster: URL
     var showings: [Showing]
 
+    init(
+        title: String = "Filmo Pavadinimas",
+        originalTitle: String = "Movie Title",
+        year: String = "2017",
+        ageRating: String = "V",
+        duration: String = "120 min",
+        genres: [String] = ["Drama", "Komedija"],
+        plot: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit!",
+        poster: URL = URL(string: "https://movies.ioys.lt/posters/example.png")!,
+        showings: [Showing] = []
+    ) {
+        self.title = title
+        self.originalTitle = originalTitle
+        self.year = year
+        self.ageRating = ageRating
+        self.duration = duration
+        self.genres = genres
+        self.plot = plot
+        self.poster = poster
+        self.showings = showings
+    }
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
