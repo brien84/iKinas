@@ -18,6 +18,7 @@
 		2904D09F2358CFB000407B64 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2904D09E2358CFB000407B64 /* NetworkImageView.swift */; };
 		2906154C25AE5CA90043D12C /* DateContainerViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2906154B25AE5CA90043D12C /* DateContainerViewControllerTests.swift */; };
 		2915259B294CE58C00192153 /* MovieList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2915259A294CE58C00192153 /* MovieList.swift */; };
+		291525BD294E072800192153 /* NetworkImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525BC294E072800192153 /* NetworkImage.swift */; };
 		291A0A2625CB247000FE145A /* ShowingsViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */; };
 		292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */; };
 		292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC8255F15430077F2FF /* Models+Testable.swift */; };
@@ -93,6 +94,7 @@
 		2904D09E2358CFB000407B64 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		2906154B25AE5CA90043D12C /* DateContainerViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateContainerViewControllerTests.swift; sourceTree = "<group>"; };
 		2915259A294CE58C00192153 /* MovieList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieList.swift; sourceTree = "<group>"; };
+		291525BC294E072800192153 /* NetworkImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImage.swift; sourceTree = "<group>"; };
 		291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Testable.swift"; sourceTree = "<group>"; };
 		292E7EC8255F15430077F2FF /* Models+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Testable.swift"; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 				2904C7632336982B00407B64 /* AppDelegate.swift */,
 				29602B0F294B6BEC00FBE1A4 /* DateSelector */,
 				29282595294CE49D008C9590 /* MovieList */,
+				291525BB294E071600192153 /* NetworkImage */,
 				29817F76293BC1D100E59D42 /* Settings */,
 				2904C7952336A10700407B64 /* Models */,
 				2904C7942336A0EB00407B64 /* View Controllers */,
@@ -269,6 +272,14 @@
 				2965637025BDEEB800A14651 /* ShowingsViewTimeCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		291525BB294E071600192153 /* NetworkImage */ = {
+			isa = PBXGroup;
+			children = (
+				291525BC294E072800192153 /* NetworkImage.swift */,
+			);
+			path = NetworkImage;
 			sourceTree = "<group>";
 		};
 		29282595294CE49D008C9590 /* MovieList */ = {
@@ -563,6 +574,7 @@
 				299D135824C766F00012755A /* MovieViewController.swift in Sources */,
 				2965635325BC4DC400A14651 /* ShowingsViewController.swift in Sources */,
 				29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */,
+				291525BD294E072800192153 /* NetworkImage.swift in Sources */,
 				2904C7A02336A69B00407B64 /* Showing.swift in Sources */,
 				2904C7B6233BC6F700407B64 /* Constants.swift in Sources */,
 				29817F7A293BCE5F00E59D42 /* SettingsClient.swift in Sources */,
