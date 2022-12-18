@@ -10,21 +10,28 @@ import ComposableArchitecture
 import Foundation
 
 struct MovieItem: ReducerProtocol {
+
     struct State: Equatable, Identifiable {
         let id: UUID
         let movie: Movie
+
+        init(id: UUID, movie: Movie) {
+            self.id = id
+            self.movie = movie
+        }
     }
 
     enum Action: Equatable {
-        case none
+        case didSelectMovie(Movie)
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
-            case .none:
+            case .didSelectMovie:
                 return .none
             }
         }
     }
+
 }
