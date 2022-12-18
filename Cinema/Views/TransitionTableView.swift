@@ -41,7 +41,7 @@ final class TransitionTableView: UITableView {
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
 
-        tableHeaderView?.frame.size = CGSize(width: frame.width, height: frame.width * 1.25)
+        tableHeaderView?.frame.size = CGSize(width: frame.width, height: frame.width)
     }
 
     private func setupTransitionView() {
