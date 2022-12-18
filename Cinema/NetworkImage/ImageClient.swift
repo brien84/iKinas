@@ -48,6 +48,12 @@ extension ImageClient: DependencyKey {
         }
     )
 
+    static let previewValue = Self(
+        fetch: { _ -> Effect<UIImage, ImageClient.Failure> in
+            Effect(value: UIImage(named: "preview")!)
+        }
+    )
+
     static let testValue = Self(
         fetch: unimplemented("\(Self.self).fetch")
     )
