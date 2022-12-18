@@ -9,6 +9,21 @@
 import ComposableArchitecture
 import SwiftUI
 
+final class MovieListHost: UIHostingController<MovieListView> {
+    let viewStore: ViewStoreOf<MovieList>
+
+    required init?(coder aDecoder: NSCoder) {
+        let store = Store(initialState: MovieList.State(), reducer: MovieList())
+        self.viewStore = ViewStore(store)
+
+        super.init(
+            coder: aDecoder,
+            rootView: MovieListView(store: store)
+        )
+    }
+
+}
+
 struct MovieListView: View {
     let store: StoreOf<MovieList>
 
