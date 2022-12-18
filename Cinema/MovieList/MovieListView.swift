@@ -58,6 +58,12 @@ extension MovieListHost: DateViewControllerDelegate {
     }
 }
 
+extension MovieListHost: TransitionTableViewDelegate {
+    func prepareForTransition(animated isAnimated: Bool, completion: (() -> Void)?) {
+        completion?()
+    }
+}
+
 struct MovieListView: View {
     let store: StoreOf<MovieList>
 
