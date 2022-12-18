@@ -8,7 +8,6 @@
 
 import ComposableArchitecture
 import SwiftUI
-import Foundation
 
 struct NetworkImage: ReducerProtocol {
     static let defaultImage = UIImage(named: "defaultPoster")
@@ -34,6 +33,7 @@ struct NetworkImage: ReducerProtocol {
             return imageClient.fetch(state.url)
                 .receive(on: mainQueue)
                 .catchToEffect(Action.imageClient)
+                .cancellable(id: state.url, cancelInFlight: true)
 
         case .imageClient(let result):
             state.isFetching = false
