@@ -27,8 +27,24 @@ extension DependencyValues {
 
 extension ImageClient: DependencyKey {
     static let liveValue = Self(
-        fetch: { _ in
-            Effect(value: UIImage())
+        fetch: { url in
+            if let image = Self.cache.object(forKey: url as NSURL) {
+                return Effect(value: image)
+            } else {
+                return URLSession.shared.dataTaskPublisher(for: url)
+                    .tryMap {
+                        guard let image = UIImage(data: $0.data) else {
+                            throw Self.Failure()
+                        }
+
+                        Self.cache.setObject(image, forKey: url as NSURL)
+                        return image
+                    }
+                    .mapError { _ in
+                        Self.Failure()
+                    }
+                    .eraseToEffect()
+            }
         }
     )
 
