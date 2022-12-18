@@ -14,20 +14,30 @@ struct MovieListView: View {
 
     var body: some View {
         WithViewStore(store) { _ in
+            GeometryReader { proxy in
+                ZStack {
+                    Color.primaryBackground
 
-            ZStack {
-                Color.primaryBackground
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        Color.blue
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEachStore(
+                                store.scope(state: \.movieItems, action: MovieList.Action.movieItem(id:action:))
+                            ) {
+                                MovieItemView(store: $0)
+                                    .frame(width: proxy.size.height / .heightMultiplier, height: proxy.size.height)
+                            }
+                        }
+                        .padding(.horizontal, .horizontalPadding)
                     }
-                    .padding(.horizontal, 8)
                 }
             }
-
         }
     }
+}
+
+private extension CGFloat {
+    static let heightMultiplier: CGFloat = 1.5
+    static let horizontalPadding: CGFloat = 8
 }
 
 // MARK: - Previews
@@ -44,5 +54,11 @@ struct MovieListView_Previews: PreviewProvider {
         MovieListView(store: store)
             .frame(height: 300)
             .preferredColorScheme(.dark)
+    }
+}
+
+private extension MovieList.State {
+    init(movies: [Movie]) {
+        self.movieItems = IdentifiedArray(uniqueElements: movies.map { MovieItem.State(id: UUID(), movie: $0) })
     }
 }
