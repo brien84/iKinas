@@ -26,6 +26,7 @@
 		291525E9294F145900192153 /* NetworkImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525E8294F145900192153 /* NetworkImageTests.swift */; };
 		291525EB294F336600192153 /* ImageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EA294F336600192153 /* ImageClient.swift */; };
 		291525ED294F4DE300192153 /* NetworkImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EC294F4DE300192153 /* NetworkImageViewV2.swift */; };
+		291525F0294FACB100192153 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EF294FACB100192153 /* Schedule.swift */; };
 		291A0A2625CB247000FE145A /* ShowingsViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */; };
 		292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */; };
 		292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC8255F15430077F2FF /* Models+Testable.swift */; };
@@ -107,6 +108,7 @@
 		291525E8294F145900192153 /* NetworkImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageTests.swift; sourceTree = "<group>"; };
 		291525EA294F336600192153 /* ImageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClient.swift; sourceTree = "<group>"; };
 		291525EC294F4DE300192153 /* NetworkImageViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageViewV2.swift; sourceTree = "<group>"; };
+		291525EF294FACB100192153 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Testable.swift"; sourceTree = "<group>"; };
 		292E7EC8255F15430077F2FF /* Models+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Testable.swift"; sourceTree = "<group>"; };
@@ -208,6 +210,7 @@
 				291525DD294E4D1E00192153 /* MovieItem */,
 				29282595294CE49D008C9590 /* MovieList */,
 				291525BB294E071600192153 /* NetworkImage */,
+				291525EE294FA9A100192153 /* Schedule */,
 				29817F76293BC1D100E59D42 /* Settings */,
 				2904C7952336A10700407B64 /* Models */,
 				2904C7942336A0EB00407B64 /* View Controllers */,
@@ -300,6 +303,14 @@
 				291525E0294E4E0D00192153 /* MovieItemView.swift */,
 			);
 			path = MovieItem;
+			sourceTree = "<group>";
+		};
+		291525EE294FA9A100192153 /* Schedule */ = {
+			isa = PBXGroup;
+			children = (
+				291525EF294FACB100192153 /* Schedule.swift */,
+			);
+			path = Schedule;
 			sourceTree = "<group>";
 		};
 		29282595294CE49D008C9590 /* MovieList */ = {
@@ -575,6 +586,7 @@
 				291525E1294E4E0D00192153 /* MovieItemView.swift in Sources */,
 				29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */,
 				299C267C2502DDB30074E795 /* CustomFontLabel.swift in Sources */,
+				291525F0294FACB100192153 /* Schedule.swift in Sources */,
 				2915259B294CE58C00192153 /* MovieList.swift in Sources */,
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
