@@ -64,4 +64,33 @@ final class NetworkImageTests: XCTestCase {
             $0.image = NetworkImage.defaultImage
         }
     }
+
+    func testStartingFetchingCancelsInFlightFetchingEffects() async {
+        let store = TestStore(
+            initialState: NetworkImage.State(url: URL(string: "test.com")!),
+            reducer: NetworkImage()
+        )
+
+        let testImage = UIImage(named: "preview")!
+
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
+        store.dependencies.imageClient.fetch = { _ -> Effect<UIImage, ImageClient.Failure> in
+            Effect(value: testImage)
+        }
+
+        await store.send(.fetch) {
+            $0.isFetching = true
+        }
+
+        await store.send(.fetch)
+
+        await mainQueue.advance(by: .seconds(1))
+
+        await store.receive(.imageClient(.success(testImage))) {
+            $0.isFetching = false
+            $0.image = testImage
+        }
+    }
 }
