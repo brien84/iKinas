@@ -51,6 +51,13 @@ final class MovieListHost: UIHostingController<MovieListView> {
     }
 }
 
+extension MovieListHost: DateViewControllerDelegate {
+    func dateVC(_ dateVC: DateViewController, didUpdate datasource: [Movie]) {
+        let movies = datasource.sorted { $0.title < $1.title }
+        viewStore.send(.update(movies: movies))
+    }
+}
+
 struct MovieListView: View {
     let store: StoreOf<MovieList>
 
