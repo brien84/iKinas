@@ -26,6 +26,7 @@
 		291525E7294F141800192153 /* MovieListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525E6294F141800192153 /* MovieListTests.swift */; };
 		291525E9294F145900192153 /* NetworkImageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525E8294F145900192153 /* NetworkImageTests.swift */; };
 		291525EB294F336600192153 /* ImageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EA294F336600192153 /* ImageClient.swift */; };
+		291525ED294F4DE300192153 /* NetworkImageViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EC294F4DE300192153 /* NetworkImageViewV2.swift */; };
 		291A0A2625CB247000FE145A /* ShowingsViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */; };
 		292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */; };
 		292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC8255F15430077F2FF /* Models+Testable.swift */; };
@@ -109,6 +110,7 @@
 		291525E6294F141800192153 /* MovieListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTests.swift; sourceTree = "<group>"; };
 		291525E8294F145900192153 /* NetworkImageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageTests.swift; sourceTree = "<group>"; };
 		291525EA294F336600192153 /* ImageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClient.swift; sourceTree = "<group>"; };
+		291525EC294F4DE300192153 /* NetworkImageViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageViewV2.swift; sourceTree = "<group>"; };
 		291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Testable.swift"; sourceTree = "<group>"; };
 		292E7EC8255F15430077F2FF /* Models+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Testable.swift"; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 			children = (
 				291525EA294F336600192153 /* ImageClient.swift */,
 				291525BC294E072800192153 /* NetworkImage.swift */,
+				291525EC294F4DE300192153 /* NetworkImageViewV2.swift */,
 			);
 			path = NetworkImage;
 			sourceTree = "<group>";
@@ -587,6 +590,7 @@
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
 				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
+				291525ED294F4DE300192153 /* NetworkImageViewV2.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
 				29602B17294B6E9100FBE1A4 /* MainViewController.swift in Sources */,
 				2965636925BD65BB00A14651 /* ShowingsViewContainerCell.swift in Sources */,
