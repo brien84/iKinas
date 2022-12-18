@@ -6,11 +6,15 @@
 //  Copyright © 2022 Marius. All rights reserved.
 //
 
+import Combine
 import ComposableArchitecture
 import SwiftUI
 
+private let segueIdentifier = "showMovieVC"
+
 final class MovieListHost: UIHostingController<MovieListView> {
     let viewStore: ViewStoreOf<MovieList>
+    var cancellables: Set<AnyCancellable> = []
 
     required init?(coder aDecoder: NSCoder) {
         let store = Store(initialState: MovieList.State(), reducer: MovieList())
@@ -22,6 +26,29 @@ final class MovieListHost: UIHostingController<MovieListView> {
         )
     }
 
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        viewStore.publisher.selectedMovie.sink { movie in
+            if movie != nil {
+                self.performSegue(withIdentifier: segueIdentifier, sender: nil)
+            }
+        }
+        .store(in: &self.cancellables)
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewStore.send(.didDeselectMovie)
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == segueIdentifier {
+            guard let vc = segue.destination as? MovieViewController else { return }
+            vc.movie = viewStore.selectedMovie
+        }
+    }
 }
 
 struct MovieListView: View {
