@@ -146,8 +146,8 @@ final class DateViewController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedDateContainerVC" {
-            guard let vc = segue.destination as? DateContainerViewController else { return }
+        if segue.identifier == "embedMovieListHost" {
+            guard let vc = segue.destination as? MovieListHost else { return }
             delegate = vc
             transitionTableView?.transitionDelegate = vc
         }
