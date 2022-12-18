@@ -40,6 +40,9 @@ struct MovieItemView: View {
                     .foregroundColor(.primaryElement)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding()
+                    .background(
+                        VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                    )
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: .cornerRadius, style: .continuous))
@@ -70,6 +73,18 @@ private extension CGFloat {
     static let longPressOpacity: CGFloat = 0.95
     static let longPressScaleEffect: CGFloat = 0.95
 
+}
+
+private struct VisualEffectView: UIViewRepresentable {
+    var effect: UIVisualEffect?
+
+    func makeUIView(context: UIViewRepresentableContext<Self>) -> UIVisualEffectView {
+        UIVisualEffectView()
+    }
+
+    func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) {
+        uiView.effect = effect
+    }
 }
 
 struct MovieItemView_Previews: PreviewProvider {
