@@ -9,6 +9,19 @@
 import ComposableArchitecture
 import SwiftUI
 
+final class ScheduleViewHost: UIHostingController<ScheduleView> {
+
+    required init?(coder aDecoder: NSCoder) {
+        let store = Store(initialState: Schedule.State(), reducer: Schedule())
+
+        super.init(
+            coder: aDecoder,
+            rootView: ScheduleView(store: store)
+        )
+    }
+
+}
+
 struct ScheduleView: View {
     let store: StoreOf<Schedule>
 
