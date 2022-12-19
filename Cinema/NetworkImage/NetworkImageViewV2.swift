@@ -26,8 +26,28 @@ struct NetworkImageViewV2: View {
                 }
             }
             .onAppear {
-                viewStore.send(.fetch)
+                if viewStore.image == nil {
+                    viewStore.send(.fetch)
+                }
             }
         }
+    }
+}
+
+struct NetworkImageViewV2Previews: PreviewProvider {
+    static let store = Store(
+        initialState: NetworkImage.State(url: URL(string: "previ.ew")!),
+        reducer: NetworkImage()
+    )
+
+    static var previews: some View {
+        ZStack {
+            Color.gray
+
+            NetworkImageViewV2(store: store)
+                .frame(width: 200, height: 300)
+                .preferredColorScheme(.dark)
+        }
+
     }
 }
