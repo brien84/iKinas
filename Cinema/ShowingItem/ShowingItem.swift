@@ -13,17 +13,17 @@ struct ShowingItem: ReducerProtocol {
 
     struct State: Equatable, Identifiable {
         let id: UUID
-        let movie: Movie
+        let showing: Showing
     }
 
     enum Action: Equatable {
-        case none
+        case didSelectShowing(Showing)
     }
 
     var body: some ReducerProtocol<State, Action> {
         Reduce { _, action in
             switch action {
-            case .none:
+            case .didSelectShowing:
                 return .none
             }
         }
