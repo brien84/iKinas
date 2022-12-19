@@ -13,9 +13,15 @@ struct NetworkImage: ReducerProtocol {
     static let defaultImage = UIImage(named: "defaultPoster")
 
     struct State: Equatable {
+        var id: UUID
         var image: UIImage?
         var isFetching = false
         var url: URL
+
+        init(id: UUID = UUID(), url: URL) {
+            self.id = id
+            self.url = url
+        }
     }
 
     enum Action: Equatable {
@@ -33,7 +39,7 @@ struct NetworkImage: ReducerProtocol {
             return imageClient.fetch(state.url)
                 .receive(on: mainQueue)
                 .catchToEffect(Action.imageClient)
-                .cancellable(id: state.url, cancelInFlight: true)
+                .cancellable(id: state.id, cancelInFlight: true)
 
         case .imageClient(let result):
             state.isFetching = false
