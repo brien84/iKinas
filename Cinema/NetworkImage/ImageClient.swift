@@ -6,6 +6,7 @@
 //  Copyright © 2022 Marius. All rights reserved.
 //
 
+import Combine
 import ComposableArchitecture
 import SwiftUI
 import XCTestDynamicOverlay
@@ -51,6 +52,8 @@ extension ImageClient: DependencyKey {
     static let previewValue = Self(
         fetch: { _ -> Effect<UIImage, ImageClient.Failure> in
             Effect(value: UIImage(named: "preview")!)
+                .delay(for: .seconds(3), scheduler: RunLoop.main)
+                .eraseToEffect()
         }
     )
 
