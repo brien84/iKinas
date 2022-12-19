@@ -32,7 +32,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-7B-vy5" userLabel="DateViewVCContainer">
                                 <rect key="frame" x="0.0" y="152" width="414" height="744"/>
                                 <connections>
-                                    <segue destination="Dxm-QZ-lup" kind="embed" identifier="embedDateViewVC" id="qZy-u1-P7H"/>
+                                    <segue destination="Tm1-wF-igT" kind="embed" identifier="embedScheduleViewHost" id="Mro-n1-Qmz"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -67,14 +67,22 @@
                 <hostingController id="DcV-Ot-TLa" customClass="DateSelectorHost" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E5h-XR-9aM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1967" y="-961"/>
+            <point key="canvasLocation" x="2210" y="-1122"/>
+        </scene>
+        <!--Schedule View Host-->
+        <scene sceneID="gZZ-2m-ZDN">
+            <objects>
+                <hostingController id="Tm1-wF-igT" customClass="ScheduleViewHost" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g2U-tF-jQp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2019" y="-571"/>
         </scene>
         <!--Date View Controller-->
         <scene sceneID="ZcE-wn-01P">
             <objects>
                 <tableViewController storyboardIdentifier="dateVC" id="Dxm-QZ-lup" customClass="DateViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Hrt-Jy-HnZ" customClass="TransitionTableView" customModule="iKinas" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="744"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="primaryBackground"/>
                         <color key="separatorColor" name="secondaryElement"/>
@@ -242,7 +250,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3IX-t3-o3O" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="963.76811594202911" y="114.50892857142857"/>
+            <point key="canvasLocation" x="794" y="1"/>
         </scene>
         <!--Movie View Controller-->
         <scene sceneID="baV-ab-TdI">
@@ -560,7 +568,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pq8-ME-JHd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2143.4782608695655" y="538.39285714285711"/>
+            <point key="canvasLocation" x="2257" y="42"/>
         </scene>
         <!--Showings View Controller-->
         <scene sceneID="x0Q-V4-nwu">
@@ -814,7 +822,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8v5-aI-7ds" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3242.0289855072465" y="310.71428571428572"/>
+            <point key="canvasLocation" x="3243" y="42"/>
         </scene>
         <!--Web View Controller-->
         <scene sceneID="5BK-LY-9LK">
@@ -859,7 +867,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lW2-Sk-9ta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3417" y="1217"/>
+            <point key="canvasLocation" x="2794" y="720"/>
         </scene>
         <!--Movie List Host-->
         <scene sceneID="cRj-WO-Ysj">
@@ -871,7 +879,7 @@
                 </hostingController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yr9-jk-QiF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1919" y="-366"/>
+            <point key="canvasLocation" x="1329" y="524"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uCH-Wk-0el">
