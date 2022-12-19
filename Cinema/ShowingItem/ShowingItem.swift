@@ -14,16 +14,31 @@ struct ShowingItem: ReducerProtocol {
     struct State: Equatable, Identifiable {
         let id: UUID
         let showing: Showing
+        var networkImage: NetworkImage.State
+
+        init(id: UUID, showing: Showing) {
+            self.id = id
+            self.showing = showing
+            #warning("Fix force unwrap!")
+            self.networkImage = NetworkImage.State(id: id, url: showing.parentMovie!.poster)
+        }
     }
 
     enum Action: Equatable {
         case didSelectShowing(Showing)
+        case networkImage(NetworkImage.Action)
     }
 
     var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.networkImage, action: /Action.networkImage) {
+            NetworkImage()
+        }
+
         Reduce { _, action in
             switch action {
             case .didSelectShowing:
+                return .none
+            case .networkImage:
                 return .none
             }
         }
