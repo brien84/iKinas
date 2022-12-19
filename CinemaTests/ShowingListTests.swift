@@ -30,4 +30,29 @@ final class ShowingListTests: XCTestCase {
         }
     }
 
+    func testSelectingAndDeselectingMovie() async {
+        let store = TestStore(
+            initialState: ShowingList.State(),
+            reducer: ShowingList()
+        )
+
+        let uuid = UUID(uuidString: "00000000-0000-0000-0000-000000000000")!
+        store.dependencies.uuid = .constant(uuid)
+
+        let movie = Movie()
+        let showing = Showing(parentMovie: movie)
+
+        await store.send(.update(showings: [showing])) {
+            $0.showingItems = [ShowingItem.State(id: uuid, showing: showing)]
+        }
+
+        await store.send(.showingItem(id: uuid, action: .didSelectShowing(showing))) {
+            $0.selectedShowing = showing
+        }
+
+        await store.send(.didDeselectShowing) {
+            $0.selectedShowing = nil
+        }
+    }
+
 }
