@@ -45,6 +45,7 @@
 		2965636125BCCE6A00A14651 /* ShowingsViewDateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965636025BCCE6A00A14651 /* ShowingsViewDateCell.swift */; };
 		2965636925BD65BB00A14651 /* ShowingsViewContainerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965636825BD65BB00A14651 /* ShowingsViewContainerCell.swift */; };
 		2965637125BDEEB800A14651 /* ShowingsViewTimeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2965637025BDEEB800A14651 /* ShowingsViewTimeCell.swift */; };
+		296FE04C295061C60015F7AA /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE04B295061C60015F7AA /* ScheduleView.swift */; };
 		2979ECEE29504802009B743E /* ShowingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979ECED29504802009B743E /* ShowingItem.swift */; };
 		297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826A26AEF98C0053F706 /* VenueImageView.swift */; };
 		297C826D26B01DA30053F706 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826C26B01DA30053F706 /* Venue.swift */; };
@@ -129,6 +130,7 @@
 		2965636025BCCE6A00A14651 /* ShowingsViewDateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewDateCell.swift; sourceTree = "<group>"; };
 		2965636825BD65BB00A14651 /* ShowingsViewContainerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewContainerCell.swift; sourceTree = "<group>"; };
 		2965637025BDEEB800A14651 /* ShowingsViewTimeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTimeCell.swift; sourceTree = "<group>"; };
+		296FE04B295061C60015F7AA /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		2979ECED29504802009B743E /* ShowingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingItem.swift; sourceTree = "<group>"; };
 		297C826A26AEF98C0053F706 /* VenueImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueImageView.swift; sourceTree = "<group>"; };
 		297C826C26B01DA30053F706 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -315,6 +317,7 @@
 			isa = PBXGroup;
 			children = (
 				291525EF294FACB100192153 /* Schedule.swift */,
+				296FE04B295061C60015F7AA /* ScheduleView.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				2965637125BDEEB800A14651 /* ShowingsViewTimeCell.swift in Sources */,
 				291525E3294E61A700192153 /* MovieListView.swift in Sources */,
 				299D135A24CA26DC0012755A /* GradientBackgroundView.swift in Sources */,
+				296FE04C295061C60015F7AA /* ScheduleView.swift in Sources */,
 				291525EB294F336600192153 /* ImageClient.swift in Sources */,
 				2965636125BCCE6A00A14651 /* ShowingsViewDateCell.swift in Sources */,
 				29833739256466FA0072347E /* LoadingView.swift in Sources */,
