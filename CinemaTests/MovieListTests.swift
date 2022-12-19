@@ -13,7 +13,7 @@ import XCTest
 @MainActor
 final class MovieListTests: XCTestCase {
 
-    func testUpdateMovieItems() async {
+    func testUpdatingMovieItems() async {
         let store = TestStore(
             initialState: MovieList.State(),
             reducer: MovieList()
