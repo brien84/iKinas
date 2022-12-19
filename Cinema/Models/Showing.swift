@@ -16,6 +16,22 @@ final class Showing: Codable {
     let url: URL
     weak var parentMovie: Movie?
 
+    init(
+        city: City = .vilnius,
+        date: Date = Date(),
+        venue: Venue = .forum,
+        is3D: Bool = false,
+        url: URL = URL(string: "https://movies.ioys.lt/")!,
+        parentMovie: Movie? = Movie()
+    ) {
+        self.city = city
+        self.date = date
+        self.venue = venue
+        self.is3D = is3D
+        self.url = url
+        self.parentMovie = parentMovie
+    }
+
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
