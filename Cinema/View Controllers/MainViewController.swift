@@ -16,13 +16,6 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(forName: .dateViewControlsStateDidChange, object: nil, queue: .main) { [self] notification in
-            guard let info = notification.userInfo as? [String: Bool] else { return }
-            guard let isEnabled = info[NotificationCenter.dateViewControlsIsEnabledKey] else { return }
-
-            navigationItem.rightBarButtonItem?.isEnabled = isEnabled
-            dateSelectorVS?.send(.setDisabled(!isEnabled))
-        }
     }
 
     @IBAction private func settingsButtonDidTap(_ sender: UIBarButtonItem) {
