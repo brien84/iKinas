@@ -10,7 +10,8 @@ import ComposableArchitecture
 import UIKit
 
 final class MainViewController: UIViewController {
-    var viewStore: ViewStoreOf<DateSelector>?
+    private var dateSelectorVS: ViewStoreOf<DateSelector>?
+    private var scheduleVS: ViewStoreOf<Schedule>?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +21,7 @@ final class MainViewController: UIViewController {
             guard let isEnabled = info[NotificationCenter.dateViewControlsIsEnabledKey] else { return }
 
             navigationItem.rightBarButtonItem?.isEnabled = isEnabled
-            viewStore?.send(.setDisabled(!isEnabled))
+            dateSelectorVS?.send(.setDisabled(!isEnabled))
         }
     }
 
@@ -35,7 +36,12 @@ final class MainViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "embedDateSelectorHost" {
             guard let vc = segue.destination as? DateSelectorHost else { return }
-            self.viewStore = ViewStore(vc.store)
+            self.dateSelectorVS = ViewStore(vc.store)
+        }
+
+        if segue.identifier == "embedScheduleViewHost" {
+            guard let vc = segue.destination as? ScheduleViewHost else { return }
+            self.scheduleVS = ViewStore(vc.store)
         }
     }
 }
