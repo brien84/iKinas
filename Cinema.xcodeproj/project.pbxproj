@@ -53,6 +53,7 @@
 		296FE0562950A8930015F7AA /* ScheduleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE0552950A8930015F7AA /* ScheduleTests.swift */; };
 		296FE0592950E9AA0015F7AA /* Main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE0582950E9AA0015F7AA /* Main.swift */; };
 		296FE05B2951F33E0015F7AA /* MainHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE05A2951F33E0015F7AA /* MainHostingController.swift */; };
+		296FE05D2951F3BF0015F7AA /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE05C2951F3BF0015F7AA /* MainTests.swift */; };
 		2979ECEE29504802009B743E /* ShowingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979ECED29504802009B743E /* ShowingItem.swift */; };
 		297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826A26AEF98C0053F706 /* VenueImageView.swift */; };
 		297C826D26B01DA30053F706 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826C26B01DA30053F706 /* Venue.swift */; };
@@ -145,6 +146,7 @@
 		296FE0552950A8930015F7AA /* ScheduleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTests.swift; sourceTree = "<group>"; };
 		296FE0582950E9AA0015F7AA /* Main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Main.swift; sourceTree = "<group>"; };
 		296FE05A2951F33E0015F7AA /* MainHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHostingController.swift; sourceTree = "<group>"; };
+		296FE05C2951F3BF0015F7AA /* MainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTests.swift; sourceTree = "<group>"; };
 		2979ECED29504802009B743E /* ShowingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingItem.swift; sourceTree = "<group>"; };
 		297C826A26AEF98C0053F706 /* VenueImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueImageView.swift; sourceTree = "<group>"; };
 		297C826C26B01DA30053F706 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
@@ -424,6 +426,7 @@
 			isa = PBXGroup;
 			children = (
 				29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */,
+				296FE05C2951F3BF0015F7AA /* MainTests.swift */,
 				291525E4294F137D00192153 /* MovieItemTests.swift */,
 				291525E6294F141800192153 /* MovieListTests.swift */,
 				291525E8294F145900192153 /* NetworkImageTests.swift */,
@@ -432,8 +435,8 @@
 				296FE04F295097B00015F7AA /* ShowingItemTests.swift */,
 				296FE05329509FA50015F7AA /* ShowingListTests.swift */,
 				29B9C968237F42B30035EF0B /* Models Tests */,
-				29B9C967237F42B00035EF0B /* View Controllers Tests */,
 				292E7EAF255DD2560077F2FF /* Supporting Files */,
+				29B9C967237F42B00035EF0B /* View Controllers Tests */,
 				29B9C961237F42A30035EF0B /* Info.plist */,
 			);
 			path = CinemaTests;
@@ -696,6 +699,7 @@
 				29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */,
 				292E7ED3256176DA0077F2FF /* MovieFetcherTests.swift in Sources */,
 				292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */,
+				296FE05D2951F3BF0015F7AA /* MainTests.swift in Sources */,
 				296FE0562950A8930015F7AA /* ScheduleTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
