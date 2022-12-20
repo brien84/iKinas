@@ -35,9 +35,6 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="XDv-UG-qPG"/>
                                 </constraints>
-                                <connections>
-                                    <segue destination="DcV-Ot-TLa" kind="embed" identifier="embedDateSelectorHost" id="OR1-OM-cjj"/>
-                                </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-7B-vy5" userLabel="DateViewVCContainer">
                                 <rect key="frame" x="0.0" y="108" width="414" height="788"/>
@@ -67,14 +64,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gbb-Sh-a9G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="794" y="-709"/>
-        </scene>
-        <!--Date Selector Host-->
-        <scene sceneID="QcO-d9-JBY">
-            <objects>
-                <hostingController id="DcV-Ot-TLa" customClass="DateSelectorHost" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="E5h-XR-9aM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2210" y="-1122"/>
         </scene>
         <!--Date View Controller-->
         <scene sceneID="ZcE-wn-01P">

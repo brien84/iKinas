@@ -9,20 +9,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-final class DateSelectorHost: UIHostingController<DateSelectorView> {
-    let store: StoreOf<DateSelector>
-
-    required init?(coder aDecoder: NSCoder) {
-        let store = Store(initialState: DateSelector.State(), reducer: DateSelector())
-        self.store = store
-
-        super.init(
-            coder: aDecoder,
-            rootView: DateSelectorView(store: store)
-        )
-    }
-}
-
 struct DateSelectorView: View {
     let store: StoreOf<DateSelector>
 
