@@ -22,49 +22,6 @@
             </objects>
             <point key="canvasLocation" x="-229" y="-1185"/>
         </scene>
-        <!--Main View Controller-->
-        <scene sceneID="5ic-Aa-DDw">
-            <objects>
-                <viewController id="IFF-n1-Elj" customClass="MainViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="23L-Z6-5XS">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4w1-uS-mUN" userLabel="DateSelectorHostContainer">
-                                <rect key="frame" x="0.0" y="48" width="414" height="60"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="XDv-UG-qPG"/>
-                                </constraints>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-7B-vy5" userLabel="DateViewVCContainer">
-                                <rect key="frame" x="0.0" y="108" width="414" height="788"/>
-                            </containerView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="tnP-vN-qYp"/>
-                        <color key="backgroundColor" name="secondaryBackground"/>
-                        <constraints>
-                            <constraint firstItem="tnP-vN-qYp" firstAttribute="trailing" secondItem="4w1-uS-mUN" secondAttribute="trailing" id="2rM-ec-xqF"/>
-                            <constraint firstAttribute="bottom" secondItem="WjH-7B-vy5" secondAttribute="bottom" id="4Zy-k0-sYM"/>
-                            <constraint firstItem="WjH-7B-vy5" firstAttribute="leading" secondItem="tnP-vN-qYp" secondAttribute="leading" id="CvL-Do-TqX"/>
-                            <constraint firstItem="4w1-uS-mUN" firstAttribute="leading" secondItem="tnP-vN-qYp" secondAttribute="leading" id="IgZ-X5-eCB"/>
-                            <constraint firstItem="tnP-vN-qYp" firstAttribute="trailing" secondItem="WjH-7B-vy5" secondAttribute="trailing" id="LYY-tb-byl"/>
-                            <constraint firstItem="WjH-7B-vy5" firstAttribute="top" secondItem="4w1-uS-mUN" secondAttribute="bottom" id="qwZ-GX-W0V"/>
-                            <constraint firstItem="4w1-uS-mUN" firstAttribute="top" secondItem="tnP-vN-qYp" secondAttribute="top" id="x6u-Mn-tdC"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="dNr-B4-ScB">
-                        <barButtonItem key="rightBarButtonItem" title="Item" image="slider.horizontal.3" catalog="system" id="MVb-eE-x07">
-                            <color key="tintColor" name="primaryElement"/>
-                            <connections>
-                                <action selector="settingsButtonDidTap:" destination="IFF-n1-Elj" id="sFo-dI-Crv"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="gbb-Sh-a9G" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="794" y="-709"/>
-        </scene>
         <!--Date View Controller-->
         <scene sceneID="ZcE-wn-01P">
             <objects>
@@ -79,7 +36,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filmai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtS-LT-Qg0" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="8" width="382" height="36"/>
+                                    <rect key="frame" x="16" y="8" width="382" height="41"/>
                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
                                     <color key="textColor" name="primaryElement"/>
                                     <nil key="highlightedColor"/>
@@ -88,13 +45,13 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsW-bU-O7w">
-                                    <rect key="frame" x="0.0" y="52" width="414" height="466"/>
+                                    <rect key="frame" x="0.0" y="57" width="414" height="470.5"/>
                                     <connections>
                                         <segue destination="JuK-0O-Yfe" kind="embed" identifier="embedMovieListHost" id="LMf-XB-oro"/>
                                     </connections>
                                 </containerView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seansai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWM-6b-OYy" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="526" width="382" height="36"/>
+                                    <rect key="frame" x="16" y="535.5" width="382" height="26.5"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <color key="textColor" name="primaryElement"/>
                                     <nil key="highlightedColor"/>
@@ -898,13 +855,13 @@
             <size key="intrinsicContentSize" width="796" height="19"/>
         </designable>
         <designable name="DtS-LT-Qg0">
-            <size key="intrinsicContentSize" width="85.5" height="36"/>
+            <size key="intrinsicContentSize" width="83" height="41"/>
         </designable>
         <designable name="NQD-Sy-tME">
             <size key="intrinsicContentSize" width="141.5" height="33.5"/>
         </designable>
         <designable name="qWM-6b-OYy">
-            <size key="intrinsicContentSize" width="113" height="36"/>
+            <size key="intrinsicContentSize" width="75" height="26.5"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
@@ -920,7 +877,6 @@
         <image name="duration" width="32" height="32"/>
         <image name="forum" width="74" height="26.5"/>
         <image name="navTicket" width="25" height="25"/>
-        <image name="slider.horizontal.3" catalog="system" width="128" height="99"/>
         <image name="year" width="32" height="32"/>
         <namedColor name="primaryBackground">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
