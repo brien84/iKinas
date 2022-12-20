@@ -41,9 +41,6 @@
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WjH-7B-vy5" userLabel="DateViewVCContainer">
                                 <rect key="frame" x="0.0" y="108" width="414" height="788"/>
-                                <connections>
-                                    <segue destination="Tm1-wF-igT" kind="embed" identifier="embedScheduleViewHost" id="Mro-n1-Qmz"/>
-                                </connections>
                             </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="tnP-vN-qYp"/>
@@ -79,14 +76,6 @@
             </objects>
             <point key="canvasLocation" x="2210" y="-1122"/>
         </scene>
-        <!--Schedule View Host-->
-        <scene sceneID="gZZ-2m-ZDN">
-            <objects>
-                <hostingController id="Tm1-wF-igT" customClass="ScheduleViewHost" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="g2U-tF-jQp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2019" y="-571"/>
-        </scene>
         <!--Date View Controller-->
         <scene sceneID="ZcE-wn-01P">
             <objects>
@@ -101,7 +90,7 @@
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Filmai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtS-LT-Qg0" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="8" width="382" height="41"/>
+                                    <rect key="frame" x="16" y="8" width="382" height="36"/>
                                     <fontDescription key="fontDescription" name="Avenir-Heavy" family="Avenir" pointSize="30"/>
                                     <color key="textColor" name="primaryElement"/>
                                     <nil key="highlightedColor"/>
@@ -110,13 +99,13 @@
                                     </userDefinedRuntimeAttributes>
                                 </label>
                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsW-bU-O7w">
-                                    <rect key="frame" x="0.0" y="57" width="414" height="470.5"/>
+                                    <rect key="frame" x="0.0" y="52" width="414" height="466"/>
                                     <connections>
                                         <segue destination="JuK-0O-Yfe" kind="embed" identifier="embedMovieListHost" id="LMf-XB-oro"/>
                                     </connections>
                                 </containerView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seansai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWM-6b-OYy" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
-                                    <rect key="frame" x="16" y="535.5" width="382" height="26.5"/>
+                                    <rect key="frame" x="16" y="526" width="382" height="36"/>
                                     <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
                                     <color key="textColor" name="primaryElement"/>
                                     <nil key="highlightedColor"/>
@@ -267,11 +256,11 @@
             <objects>
                 <viewController storyboardIdentifier="movieVC" id="Ygy-k3-LEc" customClass="MovieViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9n5-Vo-rcr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="470.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" translatesAutoresizingMaskIntoConstraints="NO" id="2CA-jM-tJ9">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="470.5"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="efd-5U-SkD" userLabel="Poster" customClass="NetworkImageView" customModule="iKinas" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="621"/>
@@ -585,7 +574,7 @@
             <objects>
                 <viewController id="Z9X-Du-4qz" customClass="ShowingsViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wlb-Hb-ZgR">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="470.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ral-LM-BC5" customClass="NetworkImageView" customModule="iKinas" customModuleProvider="target">
@@ -595,14 +584,14 @@
                                 </constraints>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pGk-ex-u0B" userLabel="Separator">
-                                <rect key="frame" x="0.0" y="235" width="414" height="0.5"/>
+                                <rect key="frame" x="0.0" y="232.5" width="414" height="0.5"/>
                                 <color key="backgroundColor" name="secondaryElement"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="0.5" id="z9i-yl-Gug"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="IFh-i1-jhe">
-                                <rect key="frame" x="0.0" y="175" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="172.5" width="414" height="60"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="L1D-mr-rvO"/>
                                 </constraints>
@@ -676,7 +665,7 @@
                                 </connections>
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="U6W-Bf-fSx">
-                                <rect key="frame" x="0.0" y="235.5" width="414" height="235"/>
+                                <rect key="frame" x="0.0" y="233" width="414" height="233"/>
                                 <color key="backgroundColor" name="primaryBackground"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="KLa-s5-dYT">
                                     <size key="itemSize" width="413" height="383"/>
@@ -686,7 +675,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="showingsViewContainerCell" id="zsw-4a-ZMh" customClass="ShowingsViewContainerCell" customModule="iKinas" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="-74" width="413" height="383"/>
+                                        <rect key="frame" x="0.0" y="-75" width="413" height="383"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5zW-oG-dbe">
                                             <rect key="frame" x="0.0" y="0.0" width="413" height="383"/>
@@ -839,11 +828,11 @@
             <objects>
                 <viewController id="g5h-Z4-x8A" customClass="WebViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="GU7-aK-hQw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="470.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="466"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NU4-Jj-AGM">
-                                <rect key="frame" x="0.0" y="48" width="414" height="422.5"/>
+                                <rect key="frame" x="0.0" y="48" width="414" height="418"/>
                                 <color key="backgroundColor" name="secondaryBackground"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -920,13 +909,13 @@
             <size key="intrinsicContentSize" width="796" height="19"/>
         </designable>
         <designable name="DtS-LT-Qg0">
-            <size key="intrinsicContentSize" width="83" height="41"/>
+            <size key="intrinsicContentSize" width="85.5" height="36"/>
         </designable>
         <designable name="NQD-Sy-tME">
             <size key="intrinsicContentSize" width="141.5" height="33.5"/>
         </designable>
         <designable name="qWM-6b-OYy">
-            <size key="intrinsicContentSize" width="75" height="26.5"/>
+            <size key="intrinsicContentSize" width="113" height="36"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
