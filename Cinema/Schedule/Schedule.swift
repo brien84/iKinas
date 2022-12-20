@@ -10,9 +10,26 @@ import ComposableArchitecture
 import SwiftUI
 
 struct Schedule: ReducerProtocol {
+    struct Datasource: Equatable {
+        let date: Date
+        let movies: [Movie]
+
+        init(date: Date = Date(), movies: [Movie] = []) {
+            self.date = date
+            self.movies = movies
+        }
+    }
 
     struct State: Equatable {
+        var datasource: Datasource = Datasource()
 
+        var date: Date {
+            datasource.date
+        }
+
+        var movies: [Movie] {
+            datasource.movies
+        }
     }
 
     enum Action: Equatable {
@@ -27,5 +44,5 @@ struct Schedule: ReducerProtocol {
             }
         }
     }
-    
+
 }
