@@ -15,6 +15,7 @@ private extension ExitButtonView {
     }
 
     enum Action: Equatable {
+        case closeSettings
         case saveSettings
     }
 }
@@ -28,6 +29,8 @@ private extension Settings.State {
 private extension ExitButtonView.Action {
     var action: Settings.Action {
         switch self {
+        case .closeSettings:
+            return .closeSettings
         case .saveSettings:
             return .saveSettings
         }
@@ -44,9 +47,8 @@ struct ExitButtonView: View {
             Button(
                 action: {
                     viewStore.send(.saveSettings)
-                    DispatchQueue.main.async {
-                        presentationMode.wrappedValue.dismiss()
-                    }
+                    viewStore.send(.closeSettings)
+                    presentationMode.wrappedValue.dismiss()
                 },
                 label: {
                     Image(systemName: "xmark")
