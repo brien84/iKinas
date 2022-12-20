@@ -21,4 +21,10 @@ final class MainHostingController: UIHostingController<MainView> {
             rootView: MainView(store: store)
         )
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        view.backgroundColor = .secondaryBackground
+    }
 }
