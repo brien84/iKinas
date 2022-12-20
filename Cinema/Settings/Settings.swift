@@ -16,7 +16,6 @@ struct Settings: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case closeSettings
         case didLoadSettings(City, OrderedSet<Venue>)
         case didSelectCity(City)
         case didSelectVenue(Venue)
@@ -28,9 +27,6 @@ struct Settings: ReducerProtocol {
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-
-        case .closeSettings:
-            return .none
 
         case .didLoadSettings(let city, let venues):
             state.selectedCity = city
