@@ -16,10 +16,9 @@ final class MovieViewController: UIViewController {
 
     @IBOutlet private weak var poster: NetworkImageView!
     @IBOutlet private weak var movieTitle: CustomFontLabel!
+    @IBOutlet private weak var details: CustomFontLabel!
+
     @IBOutlet private weak var originalTitle: CustomFontLabel!
-    @IBOutlet private weak var year: CustomFontLabel!
-    @IBOutlet private weak var ageRating: CustomFontLabel!
-    @IBOutlet private weak var duration: CustomFontLabel!
     @IBOutlet private weak var plot: CustomFontLabel!
     @IBOutlet private weak var venueImage: VenueImageView!
     @IBOutlet private weak var time: CustomFontLabel!
@@ -75,10 +74,25 @@ final class MovieViewController: UIViewController {
     @IBAction private func showingsButtonDidTap(_ sender: UIBarButtonItem) {
         UIView.animate(withDuration: .stdAnimation) { [self] in
             scrollView.setContentOffset(.zero, animated: false)
+        } completion: { [self] _ in
+            performSegue(withIdentifier: "showShowingsVC", sender: nil)
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showShowingsVC" {
+            guard let vc = segue.destination as? ShowingsViewController else { return }
+
+            // Copy current back button appearance.
+            guard let leftButton = navigationItem.leftBarButtonItem else { return }
+            guard let leftButtonImage = leftButton.backgroundImage(for: .normal, barMetrics: .default) else { return }
+            guard let vcLeftButton = vc.navigationItem.leftBarButtonItem else { return }
+            vcLeftButton.setBackgroundImage(size: leftButtonImage.size, color: .secondaryBackground, alpha: 1.0)
+            vcLeftButton.imageInsets = leftButton.imageInsets
+
+            vc.movie = movie
+        }
+
         if segue.identifier == "showWebVC" {
             guard let vc = segue.destination as? WebViewController else { return }
             guard let showing = showing else { return }
@@ -92,9 +106,7 @@ final class MovieViewController: UIViewController {
         poster.url = movie?.poster
         movieTitle.text = movie?.title
         originalTitle.text = movie?.originalTitle
-        year.text = movie?.year
-        ageRating.text = movie?.ageRating
-        duration.text = movie?.duration
+        details.text = "\(movie?.year ?? "") • \(movie?.ageRating ?? "") • \(movie?.duration ?? "")".uppercased()
         plot.text = movie?.plot
 
         genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -273,6 +285,28 @@ extension MovieViewController: UIScrollViewDelegate {
         } else {
             poster.alpha = 1.0
         }
+    }
+}
+
+extension MovieViewController: UINavigationControllerDelegate {
+    func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationController.Operation,
+        from fromVC: UIViewController,
+        to toVC: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
+
+        if type(of: toVC) == MovieViewController.self || type(of: toVC) == ShowingsViewController.self {
+            if operation == .push {
+                return ShowingsViewTransitionAnimator(isPushing: true)
+            }
+
+            if operation == .pop {
+                return ShowingsViewTransitionAnimator(isPushing: false)
+            }
+        }
+
+        return nil
     }
 }
 
