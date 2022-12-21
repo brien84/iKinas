@@ -30,19 +30,37 @@ struct Schedule: ReducerProtocol {
         var movies: [Movie] {
             datasource.movies
         }
+
+        var movieList = MovieList.State()
+        var showingList = ShowingList.State()
     }
 
     enum Action: Equatable {
-        case none
+        case movieList(action: MovieList.Action)
+        case showingList(action: ShowingList.Action)
     }
 
+    @Dependency(\.mainQueue) var mainQueue
+    @Dependency(\.uuid) var uuid
+
     var body: some ReducerProtocol<State, Action> {
-        Reduce { _, action in
+        Scope(state: \.showingList, action: /Action.showingList) {
+            ShowingList()
+        }
+
+        Scope(state: \.movieList, action: /Action.movieList) {
+            MovieList()
+        }
+
+        Reduce { state, action in
             switch action {
-            case .none:
+
+            case .movieList:
+                return .none
+
+            case .showingList:
                 return .none
             }
         }
     }
-
 }
