@@ -52,6 +52,9 @@ struct ShowingItemView: View {
 
                 }
                 .padding(.padding)
+                .onTapGesture {
+                    viewStore.send(.didSelectShowing(viewStore.showing))
+                }
 
             }
         }
