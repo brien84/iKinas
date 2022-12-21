@@ -14,6 +14,8 @@ struct MovieList: ReducerProtocol {
     struct State: Equatable {
         var movieItems: IdentifiedArrayOf<MovieItem.State> = []
         var selectedMovie: Movie?
+
+        var requiresScrollToTop = false
     }
 
     enum Action: Equatable {

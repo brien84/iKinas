@@ -66,24 +66,34 @@ extension MovieListHost: TransitionTableViewDelegate {
 
 struct MovieListView: View {
     let store: StoreOf<MovieList>
+    let scrollToTopID = "top"
 
     var body: some View {
-        WithViewStore(store) { _ in
+        WithViewStore(store) { viewStore in
             GeometryReader { proxy in
                 ZStack {
                     Color.primaryBackground
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack {
-                            ForEachStore(
-                                store.scope(state: \.movieItems, action: MovieList.Action.movieItem(id:action:))
-                            ) {
-                                MovieItemView(store: $0)
-                                    .frame(width: proxy.size.height / .heightMultiplier, height: proxy.size.height)
+                    ScrollViewReader { scrollProxy in
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack {
+                                ForEachStore(
+                                    store.scope(state: \.movieItems, action: MovieList.Action.movieItem(id:action:))
+                                ) {
+                                    MovieItemView(store: $0)
+                                        .frame(width: proxy.size.height / .heightMultiplier, height: proxy.size.height)
+                                }
+                            }
+                            .padding(.horizontal, .horizontalPadding)
+                            .id(scrollToTopID)
+                        }
+                        .onChange(of: viewStore.requiresScrollToTop) { newValue in
+                            if newValue {
+                                scrollProxy.scrollTo(scrollToTopID, anchor: .leading)
                             }
                         }
-                        .padding(.horizontal, .horizontalPadding)
                     }
+
                 }
             }
         }
