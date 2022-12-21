@@ -70,6 +70,7 @@
 		298337412564676A0072347E /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298337402564676A0072347E /* LoadingView.xib */; };
 		29882D24258E8F2D00CC1873 /* TransitionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29882D23258E8F2D00CC1873 /* TransitionTableView.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
+		2991622F29524CE80084464C /* LabelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622E29524CE80084464C /* LabelViews.swift */; };
 		299C267A2502DCFD0074E795 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299C26792502DCFC0074E795 /* Fonts.swift */; };
 		299C267C2502DDB30074E795 /* CustomFontLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299C267B2502DDB30074E795 /* CustomFontLabel.swift */; };
 		299D135824C766F00012755A /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299D135724C766F00012755A /* MovieViewController.swift */; };
@@ -161,6 +162,7 @@
 		298337402564676A0072347E /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
 		29882D23258E8F2D00CC1873 /* TransitionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionTableView.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		2991622E29524CE80084464C /* LabelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViews.swift; sourceTree = "<group>"; };
 		299C26792502DCFC0074E795 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		299C267B2502DDB30074E795 /* CustomFontLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFontLabel.swift; sourceTree = "<group>"; };
 		299D135724C766F00012755A /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
@@ -334,6 +336,7 @@
 			children = (
 				291525EF294FACB100192153 /* Schedule.swift */,
 				296FE04B295061C60015F7AA /* ScheduleView.swift */,
+				2991622E29524CE80084464C /* LabelViews.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -648,6 +651,7 @@
 				299C267C2502DDB30074E795 /* CustomFontLabel.swift in Sources */,
 				291525F0294FACB100192153 /* Schedule.swift in Sources */,
 				2915259B294CE58C00192153 /* MovieList.swift in Sources */,
+				2991622F29524CE80084464C /* LabelViews.swift in Sources */,
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
 				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
