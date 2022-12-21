@@ -16,7 +16,10 @@ struct MainView: View {
         WithViewStore(store) { viewStore in
             ZStack {
                 VStack(spacing: .zero) {
-
+                    DateSelectorView(store: store.scope(
+                        state: \.dateSelector,
+                        action: Main.Action.dateSelector
+                    ))
                 }
                 .edgesIgnoringSafeArea(.bottom)
             }

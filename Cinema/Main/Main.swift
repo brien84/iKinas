@@ -11,20 +11,26 @@ import ComposableArchitecture
 struct Main: ReducerProtocol {
 
     struct State: Equatable {
-
+        var dateSelector = DateSelector.State()
     }
 
     enum Action: Equatable {
-        case none
+        case dateSelector(action: DateSelector.Action)
     }
 
+    @Dependency(\.mainQueue) var mainQueue
+    @Dependency(\.movieClient) var movieClient
+
     var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.dateSelector, action: /Action.dateSelector) {
+            DateSelector()
+        }
+
 
         Reduce { state, action in
             switch action {
-            case .none:
+            case .dateSelector:
                 return .none
-
             }
         }
 
