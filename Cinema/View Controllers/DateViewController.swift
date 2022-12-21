@@ -146,12 +146,6 @@ final class DateViewController: UITableViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "embedMovieListHost" {
-            guard let vc = segue.destination as? MovieListHost else { return }
-            delegate = vc
-            transitionTableView?.transitionDelegate = vc
-        }
-
         if segue.identifier == "showMovieVC" {
             guard let vc = segue.destination as? MovieViewController else { return }
             guard let indexPath = tableView.indexPathForSelectedRow else { return }
