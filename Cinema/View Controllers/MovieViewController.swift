@@ -38,11 +38,6 @@ final class MovieViewController: UIViewController {
         super.viewDidLoad()
 
         scrollView.delegate = self
-        navigationController?.delegate = self
-
-        // Set `backgroundColor` in code, because of iOS12 bug, where when
-        // a custom color is selected in storyboard it cannot be changed.
-        view.backgroundColor = .secondaryBackground
 
         setLabels()
     }
@@ -74,34 +69,16 @@ final class MovieViewController: UIViewController {
 
     @IBAction private func backButtonDidTap(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
-
-        // Resets `navigationBar` appearance.
-        navigationBar?.adjustVerticalTitlePosition(0)
-        navigationBar?.setBackgroundImage(color: .secondaryBackground)
+        navigationBar?.isHidden = true
     }
 
     @IBAction private func showingsButtonDidTap(_ sender: UIBarButtonItem) {
         UIView.animate(withDuration: .stdAnimation) { [self] in
             scrollView.setContentOffset(.zero, animated: false)
-        } completion: { [self] _ in
-            performSegue(withIdentifier: "showShowingsVC", sender: nil)
         }
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showShowingsVC" {
-            guard let vc = segue.destination as? ShowingsViewController else { return }
-
-            // Copy current back button appearance.
-            guard let leftButton = navigationItem.leftBarButtonItem else { return }
-            guard let leftButtonImage = leftButton.backgroundImage(for: .normal, barMetrics: .default) else { return }
-            guard let vcLeftButton = vc.navigationItem.leftBarButtonItem else { return }
-            vcLeftButton.setBackgroundImage(size: leftButtonImage.size, color: .secondaryBackground, alpha: 1.0)
-            vcLeftButton.imageInsets = leftButton.imageInsets
-
-            vc.movie = movie
-        }
-
         if segue.identifier == "showWebVC" {
             guard let vc = segue.destination as? WebViewController else { return }
             guard let showing = showing else { return }
@@ -261,28 +238,28 @@ extension MovieViewController: UIScrollViewDelegate {
 
         if currentDistance > navigationBar.frame.height {
             leftButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 1.0)
-            leftButton.imageInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: 0)
+            leftButton.imageInsets.left = inset
 
             rightButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 1.0)
-            rightButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: inset)
+            rightButton.imageInsets.right = inset
         }
 
         if navigationBar.frame.height >= currentDistance {
             let percentage = currentDistance / navigationBar.frame.height
 
             leftButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: percentage)
-            leftButton.imageInsets = UIEdgeInsets(top: 0, left: inset * percentage, bottom: 0, right: 0)
+            leftButton.imageInsets.left = inset * percentage
 
             rightButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: percentage)
-            rightButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: inset * percentage)
+            rightButton.imageInsets.right = inset * percentage
         }
 
         if 0 > currentDistance {
             leftButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 0.0)
-            leftButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            leftButton.imageInsets.left = .zero
 
             rightButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 0.0)
-            rightButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            rightButton.imageInsets.right = .zero
         }
     }
 
@@ -299,30 +276,17 @@ extension MovieViewController: UIScrollViewDelegate {
     }
 }
 
-extension MovieViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation,
-                              from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-
-        if type(of: toVC) == MovieViewController.self || type(of: toVC) == ShowingsViewController.self {
-            if operation == .push {
-                return ShowingsViewTransitionAnimator(isPushing: true)
-            }
-
-            if operation == .pop {
-                return ShowingsViewTransitionAnimator(isPushing: false)
-            }
-        }
-
-        return nil
-    }
-}
-
 private extension UINavigationBar {
     func setTitleAlpha(_ alpha: CGFloat) {
-        self.standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
-                                                       .font: Fonts.getFont(.navigationBar)]
-        self.scrollEdgeAppearance?.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
-                                                          .font: Fonts.getFont(.navigationBar)]
+        self.standardAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
+            .font: Fonts.getFont(.navigationBar)
+        ]
+
+        self.scrollEdgeAppearance?.titleTextAttributes = [
+            .foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
+            .font: Fonts.getFont(.navigationBar)
+        ]
     }
 
     func adjustVerticalTitlePosition(_ offset: CGFloat) {
