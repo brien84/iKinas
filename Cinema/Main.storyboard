@@ -49,9 +49,6 @@
                                 </label>
                                 <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PsW-bU-O7w">
                                     <rect key="frame" x="0.0" y="52" width="414" height="466"/>
-                                    <connections>
-                                        <segue destination="JuK-0O-Yfe" kind="embed" identifier="embedMovieListHost" id="LMf-XB-oro"/>
-                                    </connections>
                                 </containerView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seansai" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qWM-6b-OYy" customClass="CustomFontLabel" customModule="iKinas" customModuleProvider="target">
                                     <rect key="frame" x="16" y="526" width="382" height="36"/>
@@ -816,18 +813,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lW2-Sk-9ta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2794" y="720"/>
-        </scene>
-        <!--Movie List Host-->
-        <scene sceneID="cRj-WO-Ysj">
-            <objects>
-                <hostingController id="JuK-0O-Yfe" customClass="MovieListHost" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
-                    <connections>
-                        <segue destination="Ygy-k3-LEc" kind="show" identifier="showMovieVC" id="y5i-Gz-aWF"/>
-                    </connections>
-                </hostingController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yr9-jk-QiF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1416" y="611"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uCH-Wk-0el">

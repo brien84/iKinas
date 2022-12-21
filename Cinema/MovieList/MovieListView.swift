@@ -6,63 +6,8 @@
 //  Copyright © 2022 Marius. All rights reserved.
 //
 
-import Combine
 import ComposableArchitecture
 import SwiftUI
-
-private let segueIdentifier = "showMovieVC"
-
-final class MovieListHost: UIHostingController<MovieListView> {
-    let viewStore: ViewStoreOf<MovieList>
-    var cancellables: Set<AnyCancellable> = []
-
-    required init?(coder aDecoder: NSCoder) {
-        let store = Store(initialState: MovieList.State(), reducer: MovieList())
-        self.viewStore = ViewStore(store)
-
-        super.init(
-            coder: aDecoder,
-            rootView: MovieListView(store: store)
-        )
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        viewStore.publisher.selectedMovie.sink { movie in
-            if movie != nil {
-                self.performSegue(withIdentifier: segueIdentifier, sender: nil)
-            }
-        }
-        .store(in: &self.cancellables)
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        viewStore.send(.didDeselectMovie)
-    }
-
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == segueIdentifier {
-            guard let vc = segue.destination as? MovieViewController else { return }
-            vc.movie = viewStore.selectedMovie
-        }
-    }
-}
-
-extension MovieListHost: DateViewControllerDelegate {
-    func dateVC(_ dateVC: DateViewController, didUpdate datasource: [Movie]) {
-        let movies = datasource.sorted { $0.title < $1.title }
-        viewStore.send(.update(movies: movies))
-    }
-}
-
-extension MovieListHost: TransitionTableViewDelegate {
-    func prepareForTransition(animated isAnimated: Bool, completion: (() -> Void)?) {
-        completion?()
-    }
-}
 
 struct MovieListView: View {
     let store: StoreOf<MovieList>
