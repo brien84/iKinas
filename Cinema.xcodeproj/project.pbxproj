@@ -35,6 +35,7 @@
 		292E7ED3256176DA0077F2FF /* MovieFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */; };
 		2932FB7F24D35D62009AEDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2932FB7E24D35D62009AEDD1 /* Main.storyboard */; };
 		2948398424D1F85500133940 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948398324D1F85500133940 /* DateViewController.swift */; };
+		2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C7FD29532AAC007F60A4 /* MovieClient.swift */; };
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
 		29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */; };
 		29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */; };
@@ -129,6 +130,7 @@
 		292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetcherTests.swift; sourceTree = "<group>"; };
 		2932FB7E24D35D62009AEDD1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2948398324D1F85500133940 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
+		2956C7FD29532AAC007F60A4 /* MovieClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClient.swift; sourceTree = "<group>"; };
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorTests.swift; sourceTree = "<group>"; };
@@ -391,6 +393,7 @@
 				296FE0582950E9AA0015F7AA /* Main.swift */,
 				2991622A295226190084464C /* MainView.swift */,
 				296FE05A2951F33E0015F7AA /* MainHostingController.swift */,
+				2956C7FD29532AAC007F60A4 /* MovieClient.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -653,6 +656,7 @@
 				2915259B294CE58C00192153 /* MovieList.swift in Sources */,
 				2991622F29524CE80084464C /* LabelViews.swift in Sources */,
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
+				2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */,
 				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
 				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageViewV2.swift in Sources */,
