@@ -14,6 +14,22 @@ struct MainView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
+            PassiveNavigationLink(
+                isActive: viewStore.binding(
+                    get: \.isNavigationToSettingsActive,
+                    send: Main.Action.setNavigationToSettings(isActive:)
+                ),
+                destination: {
+                    IfLetStore(
+                        store.scope(
+                            state: \.settings,
+                            action: Main.Action.settings
+                        ),
+                        then: SettingsView.init(store:)
+                    )
+                }
+            )
+
             ZStack {
                 VStack(spacing: .zero) {
                     DateSelectorView(store: store.scope(
@@ -25,7 +41,26 @@ struct MainView: View {
             }
         }
     }
+}
 
+private struct PassiveNavigationLink<Destination>: View where Destination: View {
+    let isActive: Binding<Bool>
+    let destination: () -> Destination
+
+    var body: some View {
+        NavigationLink(
+            isActive: isActive,
+            destination: {
+                destination()
+            },
+            label: {
+                EmptyView()
+            }
+        )
+        .buttonStyle(.plain)
+        .disabled(true)
+        .hidden()
+    }
 }
 
 struct MainView_Previews: PreviewProvider {

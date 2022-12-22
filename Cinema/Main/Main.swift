@@ -12,10 +12,17 @@ struct Main: ReducerProtocol {
 
     struct State: Equatable {
         var dateSelector = DateSelector.State()
+        var settings: Settings.State?
+
+        var isNavigationToSettingsActive: Bool {
+            settings != nil
+        }
     }
 
     enum Action: Equatable {
         case dateSelector(action: DateSelector.Action)
+        case settings(action: Settings.Action)
+        case setNavigationToSettings(isActive: Bool)
     }
 
     @Dependency(\.mainQueue) var mainQueue
@@ -26,12 +33,23 @@ struct Main: ReducerProtocol {
             DateSelector()
         }
 
-
         Reduce { state, action in
             switch action {
+
             case .dateSelector:
                 return .none
+
+            case .settings:
+                return .none
+
+            case .setNavigationToSettings(let isActive):
+                state.settings = isActive ? Settings.State() : nil
+                return .none
+
             }
+        }
+        .ifLet(\.settings, action: /Action.settings) {
+            Settings()
         }
 
     }
