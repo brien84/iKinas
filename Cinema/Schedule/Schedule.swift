@@ -36,6 +36,8 @@ struct Schedule: ReducerProtocol {
     }
 
     enum Action: Equatable {
+        case settingsButtonDidTap
+
         case movieList(action: MovieList.Action)
         case showingList(action: ShowingList.Action)
     }
@@ -54,6 +56,9 @@ struct Schedule: ReducerProtocol {
 
         Reduce { state, action in
             switch action {
+
+            case .settingsButtonDidTap:
+                return .none
 
             case .movieList:
                 return .none

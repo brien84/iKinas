@@ -25,7 +25,10 @@ struct ScheduleView: View {
 
                             HStack {
                                 LargeDateLabel(date: viewStore.date)
-                                    .padding(.horizontal, 8)
+
+                                SettingsButton {
+                                    viewStore.send(.settingsButtonDidTap)
+                                }.hidden(!Calendar.current.isDateInToday(viewStore.date))
                             }
 
                             Divider()
@@ -55,6 +58,20 @@ struct ScheduleView: View {
                 }
             }
         }
+    }
+}
+
+private struct SettingsButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: "gearshape")
+                .font(.title2)
+                .foregroundColor(.primaryElement)
+        }.padding(.horizontal, 8)
     }
 }
 
