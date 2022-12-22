@@ -37,6 +37,7 @@ final class MovieViewController: UIViewController {
         super.viewDidLoad()
 
         scrollView.delegate = self
+        navigationController?.delegate = self
 
         setLabels()
     }
