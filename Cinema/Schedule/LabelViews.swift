@@ -26,7 +26,7 @@ struct SmallDateLabel: View {
         Text(date.smallLabelFormat)
             .textCase(.uppercase)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.caption2)
+            .font(.caption.bold())
             .foregroundColor(.secondaryElement)
     }
 }
@@ -38,7 +38,7 @@ struct SectionLabel: View {
         Text(text)
             .foregroundColor(.primaryElement)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .font(.title2.bold())
+            .font(.title.bold())
     }
 }
 
