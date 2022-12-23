@@ -14,22 +14,20 @@ struct ShowingListView: View {
 
     var body: some View {
         WithViewStore(store) { _ in
-            LazyVStack(spacing: .verticalSpacing) {
+            LazyVStack(spacing: .zero) {
                 ForEachStore(
                     store.scope(state: \.showingItems, action: ShowingList.Action.showingItem(id:action:))
                 ) {
                     ShowingItemView(store: $0)
-                        .padding(.horizontal, .horizontalPadding)
+                        .padding(.horizontal)
+
+                    Divider()
+                        .padding()
                 }
             }
         }
 
     }
-}
-
-private extension CGFloat {
-    static let horizontalPadding: CGFloat = 8
-    static let verticalSpacing: CGFloat = 8
 }
 
 struct ShowingListView_Previews: PreviewProvider {
@@ -39,8 +37,13 @@ struct ShowingListView_Previews: PreviewProvider {
     static let store = Store(initialState: ShowingList.State(showings: showings), reducer: ShowingList())
 
     static var previews: some View {
-        ShowingListView(store: store)
-            .preferredColorScheme(.dark)
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            ShowingListView(store: store)
+                .preferredColorScheme(.dark)
+        }
     }
 }
 
