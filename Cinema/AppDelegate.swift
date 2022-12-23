@@ -23,11 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Opens `SettingsView` if the app is started for the first time or if UI tests commence.
         #warning("Review this!")
         if UserDefaults.standard.isFirstLaunch() || CommandLine.arguments.contains("ui-testing") {
-            let vc = SettingsViewHost(
-                rootView: SettingsView(store: Store(initialState: Settings.State(), reducer: Settings()))
-            )
 
-            navController?.pushViewController(vc, animated: false)
         }
 
         return true
