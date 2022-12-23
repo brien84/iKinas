@@ -12,6 +12,8 @@ import SwiftUI
 struct ShowingItemView: View {
     let store: StoreOf<ShowingItem>
 
+    @State private var isBeingPressed = false
+
     var body: some View {
         WithViewStore(store) { viewStore in
             ZStack {
@@ -37,12 +39,17 @@ struct ShowingItemView: View {
                     }
 
                 }
-                .padding(.padding)
-                .onTapGesture {
-                    viewStore.send(.didSelectShowing(viewStore.showing))
-                }
-
+                .opacity(isBeingPressed ? CGFloat.longPressOpacity : 1)
+                .scaleEffect(isBeingPressed ? .longPressScaleEffect : 1)
             }
+            .onTapGesture {
+                viewStore.send(.didSelectShowing(viewStore.showing))
+            }
+            .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
+                withAnimation(.longPressSpring) {
+                    isBeingPressed = isPressing
+                }
+            })
         }
     }
 }
@@ -81,11 +88,20 @@ private struct ShowingTitleView: View {
     }
 }
 
+private extension Animation {
+    static let longPressSpring = Animation.spring(
+        response: 0.5,
+        dampingFraction: 0.5
+    )
+}
+
 private extension CGFloat {
     static let cornerRadius: CGFloat = 10
     static let height: CGFloat = 75
     static let width: CGFloat = 75
-    static let padding: CGFloat = 8
+
+    static let longPressOpacity: CGFloat = 0.95
+    static let longPressScaleEffect: CGFloat = 0.95
 }
 
 struct ShowingItemView_Previews: PreviewProvider {
