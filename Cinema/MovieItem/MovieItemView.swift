@@ -28,12 +28,13 @@ struct MovieItemView: View {
                 VStack {
                     Spacer()
 
-                    ZStack(alignment: .leading) {
+                    ZStack(alignment: .topLeading) {
                         Text(viewStore.movie.title)
-                            .font(.headline)
+                            .font(.callout.bold())
+                            .foregroundColor(.primaryElement)
 
                         Text(String(repeating: "Placeholder", count: 10))
-                            .font(.headline)
+                            .font(.callout.bold())
                             .hidden()
                     }
                     .lineLimit(2)
@@ -68,11 +69,10 @@ private extension Animation {
 }
 
 private extension CGFloat {
-    static let cornerRadius: CGFloat = 10
+    static let cornerRadius: CGFloat = 20
     static let imageAspectRatio: CGFloat = 2/3
     static let longPressOpacity: CGFloat = 0.95
     static let longPressScaleEffect: CGFloat = 0.95
-
 }
 
 private struct VisualEffectView: UIViewRepresentable {
