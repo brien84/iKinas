@@ -59,27 +59,29 @@ struct VenueListView: View {
                                 Spacer()
 
                                 Image(systemName: "checkmark")
-                                    .foregroundColor(isDisabled ? .gray : Color(.tertiaryElement))
+                                    .foregroundColor(isDisabled ? .secondaryElement : .tertiaryElement)
                                     .hidden(!viewStore.selectedVenues.contains(venue))
-                                    .accessibilityIdentifier(getVenueCheckmarkID(viewStore.selectedCity, venue))
                             }
                         }
                     )
                     .padding()
                     .padding(.horizontal)
                     .disabled(isDisabled)
-                    .accessibilityIdentifier(getVenueButtonID(viewStore.selectedCity, venue))
                 }
             }
             .transition(.verticalScaleAndOpacity)
             .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.primaryBackground))
+                RoundedRectangle(cornerRadius: .cornerRadius)
+                    .fill(Color.secondaryBackground)
                     .padding(.horizontal)
             )
 
         }
     }
+}
+
+private extension CGFloat {
+    static let cornerRadius: CGFloat = 10
 }
 
 private struct VerticalScaleAndOpacity: ViewModifier {
@@ -105,22 +107,15 @@ private extension AnyTransition {
     }
 }
 
-// MARK: - UI Test IDs
-
-private extension VenueListView {
-    func getVenueButtonID(_ city: City, _ venue: Venue) -> String {
-        "SettingsView-VenueListView-VenueButton-\(city.rawValue)-\(venue.rawValue)"
-    }
-
-    func getVenueCheckmarkID(_ city: City, _ venue: Venue) -> String {
-        "SettingsView-VenueListView-VenueCheckmark-\(city.rawValue)-\(venue.rawValue)"
-    }
-}
-
 // MARK: - Previews
 
 struct VenueListView_Previews: PreviewProvider {
     static var previews: some View {
-        VenueListView(store: Store(initialState: Settings.State(), reducer: Settings()))
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            VenueListView(store: Store(initialState: Settings.State(), reducer: Settings()))
+        }
     }
 }

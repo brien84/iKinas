@@ -49,26 +49,24 @@ struct ExitButtonView: View {
                 label: {
                     Image(systemName: "xmark")
                         .resizable()
-                        .frame(width: 12, height: 12)
-                        .padding(24)
-                        .font(Font.title3.weight(.bold))
-                        .foregroundColor(Color(.secondaryElement))
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: .width)
+                        .font(.title3.bold())
+                        .padding(.padding)
+                        .foregroundColor(.secondaryElement)
                         .background(
                             Circle()
-                                .fill(Color(.primaryBackground))
-                                .frame(width: 30)
+                                .fill(Color.secondaryBackground)
                         )
                 }
             )
-            .accessibilityIdentifier(id)
         }
     }
 }
 
-// MARK: - UI Test IDs
-
-private extension ExitButtonView {
-    var id: String { "SettingsView-ExitButtonView" }
+private extension CGFloat {
+    static let width: CGFloat = 12
+    static let padding = width
 }
 
 // MARK: - Previews

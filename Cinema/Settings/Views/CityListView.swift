@@ -50,10 +50,9 @@ struct CityListView: View {
                             Text(city.description)
                                 .padding()
                                 .font(.title2)
-                                .foregroundColor(Color(city == viewStore.selectedCity ? .tertiaryElement : .secondaryElement))
+                                .foregroundColor(city == viewStore.selectedCity ? .tertiaryElement : .primaryElement)
                         }
                     )
-                    .accessibilityIdentifier(getCityButtonID(city))
 
                     if city == viewStore.selectedCity {
                         VenueListView(store: store)
@@ -64,18 +63,15 @@ struct CityListView: View {
     }
 }
 
-// MARK: - UI Test IDs
-
-private extension CityListView {
-    func getCityButtonID(_ city: City) -> String {
-        "SettingsView-CityListView-CityButton-\(city.rawValue)"
-    }
-}
-
 // MARK: - Previews
 
 struct CityListView_Previews: PreviewProvider {
     static var previews: some View {
-        CityListView(store: Store(initialState: Settings.State(), reducer: Settings()))
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            CityListView(store: Store(initialState: Settings.State(), reducer: Settings()))
+        }
     }
 }

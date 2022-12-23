@@ -43,7 +43,7 @@ struct SettingsView: View {
     var body: some View {
         WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
             ZStack {
-                Color(.secondaryBackground)
+                Color(.primaryBackground)
                     .ignoresSafeArea()
 
                 VStack {
@@ -56,11 +56,9 @@ struct SettingsView: View {
                 .modifier(Scale320X568Screen())
             }
             .overlay(
-                VStack(alignment: .trailing) {
-                    ExitButtonView(store: store)
-
-                    Color.clear
-                }
+                ExitButtonView(store: store)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .padding()
             )
             .onAppear {
                 viewStore.send(.loadSettings)
