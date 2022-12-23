@@ -46,19 +46,19 @@ struct DateSelectorView: View {
                         }
                         .padding(.horizontal)
                     }
+                    .padding(.vertical)
                 }
             }
             .disabled(viewStore.isDisabled)
-            .padding(.vertical)
-            .frame(height: .height)
-            .background(Color.secondaryBackground)
+            .background(Color.primaryBackground)
+            .fixedSize(horizontal: false, vertical: true)
+
         }
     }
 }
 
 private extension CGFloat {
     static let horizontalSpacing: CGFloat = 24
-    static let height: CGFloat = 60
 }
 
 private extension Date {
