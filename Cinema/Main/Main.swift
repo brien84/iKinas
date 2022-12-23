@@ -13,6 +13,7 @@ struct Main: ReducerProtocol {
     struct State: Equatable {
         var dateSelector = DateSelector.State()
         var settings: Settings.State?
+        var requiresToFetchMovies = true
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
@@ -20,9 +21,9 @@ struct Main: ReducerProtocol {
     }
 
     enum Action: Equatable {
+        case fetchMovies
         case dateSelector(action: DateSelector.Action)
-        case settings(action: Settings.Action)
-        case setNavigationToSettings(isActive: Bool)
+        case movieClient(Result<[Movie], MovieClient.Failure>)
     }
 
     @Dependency(\.mainQueue) var mainQueue
@@ -36,6 +37,11 @@ struct Main: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
+            case .fetchMovies:
+                return movieClient.fetch()
+                    .receive(on: mainQueue)
+                    .catchToEffect(Action.movieClient)
+
             case .dateSelector:
                 return .none
 
@@ -45,6 +51,24 @@ struct Main: ReducerProtocol {
             case .setNavigationToSettings(let isActive):
                 state.settings = isActive ? Settings.State() : nil
                 return .none
+
+            case .movieClient(let result):
+                switch result {
+                case .success(let movies):
+                    let datasource = Schedule.Datasource(
+                        date: state.dateSelector.selectedDate,
+                        movies: movies
+                    )
+                    return Effect(value: .schedule(action: .datasourceNeedsUpdate(datasource)))
+                case .failure(let error):
+                    switch error {
+                    case .requiresUpdate:
+                        print("requiresUpdate")
+                    case .network, .decoding:
+                        print("network error!")
+                    }
+                    return .none
+                }
 
             }
         }

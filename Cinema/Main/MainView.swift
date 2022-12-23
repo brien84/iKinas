@@ -31,6 +31,9 @@ struct MainView: View {
             )
 
             ZStack {
+                Color.primaryBackground
+                    .edgesIgnoringSafeArea(.bottom)
+
                 VStack(spacing: .zero) {
                     DateSelectorView(store: store.scope(
                         state: \.dateSelector,
@@ -38,6 +41,13 @@ struct MainView: View {
                     ))
                 }
                 .edgesIgnoringSafeArea(.bottom)
+            }
+            .onAppear {
+                if viewStore.requiresToFetchMovies {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        viewStore.send(.fetchMovies)
+                    }
+                }
             }
         }
     }
