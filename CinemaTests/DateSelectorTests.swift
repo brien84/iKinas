@@ -33,43 +33,6 @@ final class DateSelectorTests: XCTestCase {
         }
     }
 
-    func testSelectingDatePostsNotification() async {
-        let store = TestStore(
-            initialState: DateSelector.State(),
-            reducer: DateSelector()
-        )
-
-        let date = store.state.restOfTheWeek[4]
-
-        expectation(forNotification: .dateDidChange, object: nil, handler: { notification in
-            guard let info = notification.userInfo as? [String: Date] else { return false }
-            guard let receivedDate = info[NotificationCenter.selectedDateKey] else { return false }
-            XCTAssertEqual(date, receivedDate)
-            return true
-        })
-
-        await store.send(.didSelect(date: date)) {
-            $0.selectedDate = date
-        }
-
-        waitForExpectations(timeout: 0.5)
-    }
-
-    func testSelectingAlreadySelectedDateDoesNotPostNotification() async {
-        let store = TestStore(
-            initialState: DateSelector.State(),
-            reducer: DateSelector()
-        )
-
-        let expectation = expectation(forNotification: .dateDidChange, object: nil, handler: nil)
-        expectation.isInverted = true
-
-        let date = store.state.today
-        await store.send(.didSelect(date: date))
-
-        waitForExpectations(timeout: 0.5)
-    }
-
     func testTogglingIsDisabledProperty() async {
         let store = TestStore(
             initialState: DateSelector.State(),
