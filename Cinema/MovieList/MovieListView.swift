@@ -29,7 +29,7 @@ struct MovieListView: View {
                                         .frame(width: proxy.size.height / .heightMultiplier, height: proxy.size.height)
                                 }
                             }
-                            .padding(.horizontal, .horizontalPadding)
+                            .padding(.horizontal)
                             .id(scrollToTopID)
                         }
                         .onChange(of: viewStore.requiresScrollToTop) { newValue in
@@ -47,7 +47,7 @@ struct MovieListView: View {
 
 private extension CGFloat {
     static let heightMultiplier: CGFloat = 1.5
-    static let horizontalPadding: CGFloat = 8
+    static let horizontalPadding: CGFloat = 16
 }
 
 // MARK: - Previews
