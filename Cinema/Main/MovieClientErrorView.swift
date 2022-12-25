@@ -32,6 +32,8 @@ struct MovieClientErrorView: View {
             Color.primaryBackground
                 .ignoresSafeArea()
 
+            // Using `GeometryReader` to place an `Image` exactly at the center of the screen,
+            // so it aligns perfectly between transitions with `LoadingView`.
             GeometryReader { proxy in
                 let midPoint = CGPoint(
                     x: proxy.frame(in: .local).midX,
