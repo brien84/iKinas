@@ -23,7 +23,8 @@ struct Main: ReducerProtocol {
     enum Action: Equatable {
         case fetchMovies
         case dateSelector(action: DateSelector.Action)
-        case movieClient(Result<[Movie], MovieClient.Failure>)
+        case settings(action: Settings.Action)
+        case movieClient(Result<[Movie], MovieClient.Error>)
     }
 
     @Dependency(\.mainQueue) var mainQueue
@@ -48,18 +49,10 @@ struct Main: ReducerProtocol {
             case .settings:
                 return .none
 
-            case .setNavigationToSettings(let isActive):
-                state.settings = isActive ? Settings.State() : nil
-                return .none
-
             case .movieClient(let result):
                 switch result {
                 case .success(let movies):
-                    let datasource = Schedule.Datasource(
-                        date: state.dateSelector.selectedDate,
-                        movies: movies
-                    )
-                    return Effect(value: .schedule(action: .datasourceNeedsUpdate(datasource)))
+                    return .none
                 case .failure(let error):
                     switch error {
                     case .requiresUpdate:

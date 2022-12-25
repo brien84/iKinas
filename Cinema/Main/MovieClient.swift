@@ -11,9 +11,9 @@ import Foundation
 import XCTestDynamicOverlay
 
 struct MovieClient {
-    var fetch: () -> Effect<[Movie], Failure>
+    var fetch: () -> Effect<[Movie], MovieClient.Error>
 
-    enum Failure: Error, Equatable {
+    enum Error: Swift.Error, Equatable {
         case decoding
         case network
         case requiresUpdate
@@ -31,30 +31,31 @@ extension MovieClient: DependencyKey {
     static let liveValue = Self(
         fetch: {
             URLSession.shared.dataTaskPublisher(for: constructURLRequest())
+                .delay(for: .seconds(1.0), scheduler: RunLoop.main)
                 .mapError { _ in
-                    return Failure.network
+                    return MovieClient.Error.network
                 }
                 .tryMap { data, response in
                     guard let response = response as? HTTPURLResponse
-                    else { throw Failure.network }
+                    else { throw MovieClient.Error.network }
 
                     if response.statusCode == 469 {
-                        throw Failure.requiresUpdate
+                        throw MovieClient.Error.requiresUpdate
                     }
 
                     do {
                         return try decoder.decode([Movie].self, from: data)
                     } catch {
                         print(error.localizedDescription)
-                        throw Failure.decoding
+                        throw MovieClient.Error.decoding
                     }
                 }
                 .mapError { error in
-                    if let error = error as? Failure {
+                    if let error = error as? MovieClient.Error {
                         return error
                     } else {
                         assert(true, "Unrecognized error received: \(error). Defaulting to Failure.network.")
-                        return Failure.network
+                        return MovieClient.Error.network
                     }
                 }
                 .eraseToEffect()
