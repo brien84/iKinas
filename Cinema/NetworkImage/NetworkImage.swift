@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct NetworkImage: ReducerProtocol {
-    static let defaultImage = UIImage(named: "defaultPoster")
+    static let defaultImage = UIImage(named: "posterDefault")
 
     struct State: Equatable {
         var id: UUID
