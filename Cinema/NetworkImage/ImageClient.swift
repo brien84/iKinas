@@ -52,7 +52,7 @@ extension ImageClient: DependencyKey {
     static let previewValue = Self(
         fetch: { _ -> Effect<UIImage, ImageClient.Failure> in
             Effect(value: UIImage(named: "posterPreview")!)
-                .delay(for: .seconds(3), scheduler: RunLoop.main)
+                .delay(for: .seconds(1), scheduler: RunLoop.main)
                 .eraseToEffect()
         }
     )
