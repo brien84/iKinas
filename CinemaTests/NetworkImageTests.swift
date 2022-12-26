@@ -19,7 +19,7 @@ final class NetworkImageTests: XCTestCase {
             reducer: NetworkImage()
         )
 
-        let testImage = UIImage(named: "preview")!
+        let testImage = UIImage(named: "posterPreview")!
 
         let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
@@ -71,7 +71,7 @@ final class NetworkImageTests: XCTestCase {
             reducer: NetworkImage()
         )
 
-        let testImage = UIImage(named: "preview")!
+        let testImage = UIImage(named: "posterPreview")!
 
         let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
