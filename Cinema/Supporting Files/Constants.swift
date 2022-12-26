@@ -17,17 +17,6 @@ extension Color {
     static let secondaryBackground = Color("secondaryBackground")
 }
 
-extension Notification.Name {
-    static let dateDidChange = Notification.Name("DateDidChangeNotification")
-    static let dateViewControlsStateDidChange = Notification.Name("DateViewControlsStateDidChangeNotification")
-    static let settingsDidChange = Notification.Name("SettingsDidChangeNotification")
-}
-
-extension NotificationCenter {
-    static let dateViewControlsIsEnabledKey = "dateViewControlsIsEnabled"
-    static let selectedDateKey = "selectedDate"
-}
-
 extension TimeInterval {
     static let stdAnimation = 0.4
 }
