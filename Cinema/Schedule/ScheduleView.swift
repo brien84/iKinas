@@ -64,6 +64,10 @@ struct ScheduleView: View {
                                     .blur(radius: viewStore.isTransitioning ? 7 : 0)
                                     .scaleEffect(x: viewStore.isTransitioning ? 0.98 : 1, anchor: .leading)
                                 }
+
+                                if viewStore.movieList.movieItems.isEmpty {
+                                    EmptyErrorView()
+                                }
                             }
 
                         }
@@ -91,6 +95,31 @@ private struct SettingsButton: View {
             Image(systemName: "gearshape")
                 .font(.title2)
                 .foregroundColor(.primaryElement)
+        }
+    }
+}
+
+private struct EmptyErrorView: View {
+    @State var width: CGFloat = 200
+    @State var name = "empty"
+
+    var body: some View {
+        ZStack {
+            Color.primaryBackground
+
+            VStack {
+                Text("nieko nerodo")
+                    .font(.largeTitle.bold())
+                    .foregroundColor(.primaryElement)
+                    .offset(y: 48)
+
+                Image(name)
+                    .padding()
+
+                Text("pasirinkite kitą dieną")
+                    .font(.body)
+                    .foregroundColor(.secondaryElement)
+            }
         }
     }
 }
