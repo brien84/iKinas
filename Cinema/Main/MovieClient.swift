@@ -64,7 +64,7 @@ extension MovieClient: DependencyKey {
 
     static let previewValue = Self(
         fetch: {
-            Effect(value: Array(repeating: Movie(), count: 5))
+            Effect(value: Array(repeating: Movie(showings: [Showing()]), count: 5))
         }
     )
 
