@@ -31,8 +31,6 @@
 		291A0A2625CB247000FE145A /* ShowingsViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */; };
 		292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */; };
 		292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC8255F15430077F2FF /* Models+Testable.swift */; };
-		292E7ECE2561754D0077F2FF /* MovieFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7ECD2561754D0077F2FF /* MovieFetcher.swift */; };
-		292E7ED3256176DA0077F2FF /* MovieFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */; };
 		2932FB7F24D35D62009AEDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2932FB7E24D35D62009AEDD1 /* Main.storyboard */; };
 		2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C7FD29532AAC007F60A4 /* MovieClient.swift */; };
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
@@ -56,7 +54,6 @@
 		2979ECEE29504802009B743E /* ShowingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2979ECED29504802009B743E /* ShowingItem.swift */; };
 		297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826A26AEF98C0053F706 /* VenueImageView.swift */; };
 		297C826D26B01DA30053F706 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826C26B01DA30053F706 /* Venue.swift */; };
-		297CA050259CEE4F00EE95F0 /* DateViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */; };
 		29817F6B293BB60600E59D42 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6A293BB60600E59D42 /* ComposableArchitecture */; };
 		29817F6D293BB60600E59D42 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6C293BB60600E59D42 /* Dependencies */; };
 		29817F78293BC1E800E59D42 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F77293BC1E800E59D42 /* Settings.swift */; };
@@ -125,8 +122,6 @@
 		291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTransitionAnimator.swift; sourceTree = "<group>"; };
 		292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Testable.swift"; sourceTree = "<group>"; };
 		292E7EC8255F15430077F2FF /* Models+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Testable.swift"; sourceTree = "<group>"; };
-		292E7ECD2561754D0077F2FF /* MovieFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetcher.swift; sourceTree = "<group>"; };
-		292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetcherTests.swift; sourceTree = "<group>"; };
 		2932FB7E24D35D62009AEDD1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2956C7FD29532AAC007F60A4 /* MovieClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClient.swift; sourceTree = "<group>"; };
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
@@ -150,7 +145,6 @@
 		2979ECED29504802009B743E /* ShowingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingItem.swift; sourceTree = "<group>"; };
 		297C826A26AEF98C0053F706 /* VenueImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueImageView.swift; sourceTree = "<group>"; };
 		297C826C26B01DA30053F706 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
-		297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewControllerTests.swift; sourceTree = "<group>"; };
 		29817F77293BC1E800E59D42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		29817F79293BCE5F00E59D42 /* SettingsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsClient.swift; sourceTree = "<group>"; };
 		29817F7B293BD70100E59D42 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -267,7 +261,6 @@
 				29B4D94A23F1EC0600BD9783 /* City.swift */,
 				2904C7A6233825D800407B64 /* DateTracker.swift */,
 				2904C79D2336A69100407B64 /* Movie.swift */,
-				292E7ECD2561754D0077F2FF /* MovieFetcher.swift */,
 				2904C79F2336A69B00407B64 /* Showing.swift */,
 				297C826C26B01DA30053F706 /* Venue.swift */,
 			);
@@ -439,25 +432,15 @@
 				296FE05329509FA50015F7AA /* ShowingListTests.swift */,
 				29B9C968237F42B30035EF0B /* Models Tests */,
 				292E7EAF255DD2560077F2FF /* Supporting Files */,
-				29B9C967237F42B00035EF0B /* View Controllers Tests */,
 				29B9C961237F42A30035EF0B /* Info.plist */,
 			);
 			path = CinemaTests;
-			sourceTree = "<group>";
-		};
-		29B9C967237F42B00035EF0B /* View Controllers Tests */ = {
-			isa = PBXGroup;
-			children = (
-				297CA04F259CEE4F00EE95F0 /* DateViewControllerTests.swift */,
-			);
-			path = "View Controllers Tests";
 			sourceTree = "<group>";
 		};
 		29B9C968237F42B30035EF0B /* Models Tests */ = {
 			isa = PBXGroup;
 			children = (
 				29B9C96A237F44770035EF0B /* DateTrackerTests.swift */,
-				292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */,
 			);
 			path = "Models Tests";
 			sourceTree = "<group>";
@@ -673,7 +656,6 @@
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
 				29817F78293BC1E800E59D42 /* Settings.swift in Sources */,
 				2904C79E2336A69100407B64 /* Movie.swift in Sources */,
-				292E7ECE2561754D0077F2FF /* MovieFetcher.swift in Sources */,
 				296FE04E295095190015F7AA /* ShowingItemView.swift in Sources */,
 				2904C7A32336B09100407B64 /* Extensions.swift in Sources */,
 				299D135824C766F00012755A /* MovieViewController.swift in Sources */,
@@ -699,9 +681,7 @@
 				296FE050295097B00015F7AA /* ShowingItemTests.swift in Sources */,
 				29817F7E293C00CE00E59D42 /* SettingsTests.swift in Sources */,
 				291525E7294F141800192153 /* MovieListTests.swift in Sources */,
-				297CA050259CEE4F00EE95F0 /* DateViewControllerTests.swift in Sources */,
 				29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */,
-				292E7ED3256176DA0077F2FF /* MovieFetcherTests.swift in Sources */,
 				292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */,
 				296FE05D2951F3BF0015F7AA /* MainTests.swift in Sources */,
 				296FE0562950A8930015F7AA /* ScheduleTests.swift in Sources */,
