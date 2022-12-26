@@ -39,22 +39,28 @@ final class Movie: Codable {
         self.plot = plot
         self.poster = poster
         self.showings = showings
+
+        self.showings = showings.map { showing -> Showing in
+            let showing = showing
+            showing.parentMovie = self
+            return showing
+        }
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        title = try values.decode(String.self, forKey: .title)
-        originalTitle = try values.decode(String.self, forKey: .originalTitle)
-        year = try values.decode(String.self, forKey: .year)
-        ageRating = try values.decode(String.self, forKey: .ageRating)
-        duration = try values.decode(String.self, forKey: .duration)
-        genres = try values.decode([String].self, forKey: .genres)
-        plot = try values.decode(String.self, forKey: .plot)
-        poster = try values.decode(URL.self, forKey: .poster)
-        showings = try values.decode([Showing].self, forKey: .showings)
+        self.title = try values.decode(String.self, forKey: .title)
+        self.originalTitle = try values.decode(String.self, forKey: .originalTitle)
+        self.year = try values.decode(String.self, forKey: .year)
+        self.ageRating = try values.decode(String.self, forKey: .ageRating)
+        self.duration = try values.decode(String.self, forKey: .duration)
+        self.genres = try values.decode([String].self, forKey: .genres)
+        self.plot = try values.decode(String.self, forKey: .plot)
+        self.poster = try values.decode(URL.self, forKey: .poster)
+        self.showings = try values.decode([Showing].self, forKey: .showings)
 
-        showings = showings.map { showing -> Showing in
+        self.showings = showings.map { showing -> Showing in
             let showing = showing
             showing.parentMovie = self
             return showing
