@@ -30,6 +30,8 @@ struct LoadingViewV2: View {
     }
 }
 
+// MARK: - Previews
+
 struct LoadingViewV2_Previews: PreviewProvider {
     static var previews: some View {
         LoadingViewV2()

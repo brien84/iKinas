@@ -58,10 +58,9 @@ private struct ShowingTitleView: View {
     private let title: String
     private let originalTitle: String
 
-    #warning("Fix force unwrap!")
     init(showing: Showing) {
-        self.title = showing.parentMovie!.title
-        self.originalTitle = showing.parentMovie!.originalTitle
+        self.title = showing.parentMovie?.title ?? ""
+        self.originalTitle = showing.parentMovie?.originalTitle ?? ""
     }
 
     var body: some View {
@@ -104,23 +103,25 @@ private extension CGFloat {
     static let longPressScaleEffect: CGFloat = 0.95
 }
 
+// MARK: - Previews
+
 struct ShowingItemView_Previews: PreviewProvider {
     static let movies = [
-        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "A", count: 10)),
-        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "A", count: 50)),
-        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 10)),
-        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 50)),
-        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 10)),
-        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 50))
+        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "A", count: 10), showings: [Showing()]),
+        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "A", count: 50), showings: [Showing()]),
+        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 10), showings: [Showing()]),
+        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 50), showings: [Showing()]),
+        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 10), showings: [Showing()]),
+        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 50), showings: [Showing()])
     ]
 
     static let items = [
-        ShowingItem.State(id: UUID(), showing: Showing(parentMovie: movies[0])),
-        ShowingItem.State(id: UUID(), showing: Showing(parentMovie: movies[1])),
-        ShowingItem.State(id: UUID(), showing: Showing(parentMovie: movies[2])),
-        ShowingItem.State(id: UUID(), showing: Showing(parentMovie: movies[3])),
-        ShowingItem.State(id: UUID(), showing: Showing(parentMovie: movies[4])),
-        ShowingItem.State(id: UUID(), showing: Showing(parentMovie: movies[5]))
+        ShowingItem.State(id: UUID(), showing: movies[0].showings[0]),
+        ShowingItem.State(id: UUID(), showing: movies[1].showings[0]),
+        ShowingItem.State(id: UUID(), showing: movies[2].showings[0]),
+        ShowingItem.State(id: UUID(), showing: movies[3].showings[0]),
+        ShowingItem.State(id: UUID(), showing: movies[4].showings[0]),
+        ShowingItem.State(id: UUID(), showing: movies[5].showings[0])
     ]
 
     static var previews: some View {

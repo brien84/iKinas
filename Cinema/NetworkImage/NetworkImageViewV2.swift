@@ -34,6 +34,8 @@ struct NetworkImageViewV2: View {
     }
 }
 
+// MARK: - Previews
+
 struct NetworkImageViewV2Previews: PreviewProvider {
     static let store = Store(
         initialState: NetworkImage.State(url: URL(string: "previ.ew")!),
@@ -42,12 +44,12 @@ struct NetworkImageViewV2Previews: PreviewProvider {
 
     static var previews: some View {
         ZStack {
-            Color.gray
+            Color.primaryBackground
+                .ignoresSafeArea()
 
             NetworkImageViewV2(store: store)
                 .frame(width: 200, height: 300)
                 .preferredColorScheme(.dark)
         }
-
     }
 }

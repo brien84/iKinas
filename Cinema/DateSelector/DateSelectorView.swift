@@ -85,6 +85,7 @@ struct DateSelectorView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.green
+                .ignoresSafeArea()
 
             DateSelectorView(store: Store(initialState: DateSelector.State(), reducer: DateSelector()))
                 .preferredColorScheme(.dark)

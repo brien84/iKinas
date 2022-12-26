@@ -100,9 +100,6 @@ private struct SettingsButton: View {
 }
 
 private struct EmptyErrorView: View {
-    @State var width: CGFloat = 200
-    @State var name = "empty"
-
     var body: some View {
         ZStack {
             Color.primaryBackground
@@ -113,7 +110,7 @@ private struct EmptyErrorView: View {
                     .foregroundColor(.primaryElement)
                     .offset(y: 48)
 
-                Image(name)
+                Image("empty")
                     .padding()
 
                 Text("pasirinkite kitą dieną")
@@ -124,11 +121,33 @@ private struct EmptyErrorView: View {
     }
 }
 
+// MARK: - Previews
+
 struct ScheduleView_Previews: PreviewProvider {
-    static let store = Store(initialState: Schedule.State(), reducer: Schedule())
+    static let movie = Movie(showings: Array(repeating: Showing(), count: 15))
+    static let movieList = MovieList.State(movies: [movie])
+    static let showingList = ShowingList.State(showings: movie.showings)
+    static let store = Store(initialState: Schedule.State(movieList: movieList, showingList: showingList), reducer: Schedule())
 
     static var previews: some View {
-        ScheduleView(store: store)
-            .preferredColorScheme(.dark)
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            ScheduleView(store: store)
+                .preferredColorScheme(.dark)
+        }
+    }
+}
+
+private extension MovieList.State {
+    init(movies: [Movie]) {
+        self.movieItems = IdentifiedArray(uniqueElements: movies.map { MovieItem.State(id: UUID(), movie: $0) })
+    }
+}
+
+private extension ShowingList.State {
+    init(showings: [Showing]) {
+        self.showingItems = IdentifiedArray(uniqueElements: showings.map { ShowingItem.State(id: UUID(), showing: $0) })
     }
 }

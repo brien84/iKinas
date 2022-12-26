@@ -85,6 +85,8 @@ extension CGFloat {
     static let buttonPadding: CGFloat = 8
 }
 
+// MARK: - Previews
+
 struct MovieClientErrorView_Previews: PreviewProvider {
     static var previews: some View {
         MovieClientErrorView(.network) { }

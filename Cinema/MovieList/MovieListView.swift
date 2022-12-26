@@ -61,9 +61,14 @@ struct MovieListView_Previews: PreviewProvider {
     )
 
     static var previews: some View {
-        MovieListView(store: store)
-            .frame(height: 300)
-            .preferredColorScheme(.dark)
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            MovieListView(store: store)
+                .frame(height: 300)
+                .preferredColorScheme(.dark)
+        }
     }
 }
 

@@ -87,6 +87,8 @@ private struct VisualEffectView: UIViewRepresentable {
     }
 }
 
+// MARK: - Previews
+
 struct MovieItemView_Previews: PreviewProvider {
     static let store = Store(
         initialState: MovieItem.State(id: UUID(), movie: Movie()),
@@ -96,5 +98,6 @@ struct MovieItemView_Previews: PreviewProvider {
     static var previews: some View {
         MovieItemView(store: store)
             .frame(width: 200, height: 300)
+            .preferredColorScheme(.dark)
     }
 }

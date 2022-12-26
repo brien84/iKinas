@@ -93,11 +93,18 @@ private struct PassiveNavigationLink<Destination>: View where Destination: View 
     }
 }
 
+// MARK: - Previews
+
 struct MainView_Previews: PreviewProvider {
     static let store = Store(initialState: Main.State(), reducer: Main())
 
     static var previews: some View {
-        MainView(store: store)
-            .preferredColorScheme(.dark)
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            MainView(store: store)
+                .preferredColorScheme(.dark)
+        }
     }
 }

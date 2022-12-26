@@ -51,10 +51,10 @@ struct LabelViews_Previews: PreviewProvider {
 
             VStack(spacing: .zero) {
                 LargeDateLabel(date: Date())
-                LargeDateLabel(date: Date(timeIntervalSinceNow: 60000))
+                LargeDateLabel(date: Date(timeIntervalSinceNow: 84000))
                 Divider().padding(16)
                 SmallDateLabel(date: Date())
-                SmallDateLabel(date: Date(timeIntervalSinceNow: 60000))
+                SmallDateLabel(date: Date(timeIntervalSinceNow: 84000))
                 Divider().padding(16)
                 SectionLabel(text: "Labels")
             }

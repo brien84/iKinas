@@ -26,24 +26,25 @@ struct ShowingListView: View {
                 }
             }
         }
-
     }
 }
 
-struct ShowingListView_Previews: PreviewProvider {
-    static let movie = Movie()
-    static let showings = Array(repeating: Showing(parentMovie: movie), count: 5)
+// MARK: - Previews
 
-    static let store = Store(initialState: ShowingList.State(showings: showings), reducer: ShowingList())
+struct ShowingListView_Previews: PreviewProvider {
+    static let movie = Movie(showings: Array(repeating: Showing(), count: 16))
+    static let store = Store(initialState: ShowingList.State(showings: movie.showings), reducer: ShowingList())
 
     static var previews: some View {
         ZStack {
             Color.primaryBackground
                 .ignoresSafeArea()
 
-            ShowingListView(store: store)
-                .preferredColorScheme(.dark)
+            ScrollView {
+                ShowingListView(store: store)
+            }
         }
+        .preferredColorScheme(.dark)
     }
 }
 
