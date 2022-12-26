@@ -28,8 +28,6 @@
 		291525F0294FACB100192153 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EF294FACB100192153 /* Schedule.swift */; };
 		291525F3294FB7EC00192153 /* ShowingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525F2294FB7EC00192153 /* ShowingList.swift */; };
 		291A0A2625CB247000FE145A /* ShowingsViewTransitionAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */; };
-		292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */; };
-		292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7EC8255F15430077F2FF /* Models+Testable.swift */; };
 		2932FB7F24D35D62009AEDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2932FB7E24D35D62009AEDD1 /* Main.storyboard */; };
 		2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C7FD29532AAC007F60A4 /* MovieClient.swift */; };
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
@@ -117,8 +115,6 @@
 		291525EF294FACB100192153 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		291525F2294FB7EC00192153 /* ShowingList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingList.swift; sourceTree = "<group>"; };
 		291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingsViewTransitionAnimator.swift; sourceTree = "<group>"; };
-		292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLSession+Testable.swift"; sourceTree = "<group>"; };
-		292E7EC8255F15430077F2FF /* Models+Testable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Models+Testable.swift"; sourceTree = "<group>"; };
 		2932FB7E24D35D62009AEDD1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		2956C7FD29532AAC007F60A4 /* MovieClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClient.swift; sourceTree = "<group>"; };
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
@@ -344,15 +340,6 @@
 			path = MovieList;
 			sourceTree = "<group>";
 		};
-		292E7EAF255DD2560077F2FF /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				292E7EC8255F15430077F2FF /* Models+Testable.swift */,
-				292E7EC0255F0F080077F2FF /* URLSession+Testable.swift */,
-			);
-			path = "Supporting Files";
-			sourceTree = "<group>";
-		};
 		29602B0F294B6BEC00FBE1A4 /* DateSelector */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,7 +412,6 @@
 				29817F7D293C00CE00E59D42 /* SettingsTests.swift */,
 				296FE04F295097B00015F7AA /* ShowingItemTests.swift */,
 				296FE05329509FA50015F7AA /* ShowingListTests.swift */,
-				292E7EAF255DD2560077F2FF /* Supporting Files */,
 				29B9C961237F42A30035EF0B /* Info.plist */,
 			);
 			path = CinemaTests;
@@ -659,14 +645,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				291525E9294F145900192153 /* NetworkImageTests.swift in Sources */,
-				292E7EC1255F0F080077F2FF /* URLSession+Testable.swift in Sources */,
 				296FE05429509FA50015F7AA /* ShowingListTests.swift in Sources */,
 				291525E5294F137D00192153 /* MovieItemTests.swift in Sources */,
 				296FE050295097B00015F7AA /* ShowingItemTests.swift in Sources */,
 				29817F7E293C00CE00E59D42 /* SettingsTests.swift in Sources */,
 				291525E7294F141800192153 /* MovieListTests.swift in Sources */,
 				29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */,
-				292E7EC9255F15430077F2FF /* Models+Testable.swift in Sources */,
 				296FE05D2951F3BF0015F7AA /* MainTests.swift in Sources */,
 				296FE0562950A8930015F7AA /* ScheduleTests.swift in Sources */,
 			);
