@@ -34,7 +34,6 @@
 		292E7ECE2561754D0077F2FF /* MovieFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7ECD2561754D0077F2FF /* MovieFetcher.swift */; };
 		292E7ED3256176DA0077F2FF /* MovieFetcherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */; };
 		2932FB7F24D35D62009AEDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2932FB7E24D35D62009AEDD1 /* Main.storyboard */; };
-		2948398424D1F85500133940 /* DateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2948398324D1F85500133940 /* DateViewController.swift */; };
 		2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C7FD29532AAC007F60A4 /* MovieClient.swift */; };
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
 		29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */; };
@@ -69,7 +68,6 @@
 		29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F84293CAB3400E59D42 /* ExitButtonView.swift */; };
 		29833739256466FA0072347E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29833738256466FA0072347E /* LoadingView.swift */; };
 		298337412564676A0072347E /* LoadingView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 298337402564676A0072347E /* LoadingView.xib */; };
-		29882D24258E8F2D00CC1873 /* TransitionTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29882D23258E8F2D00CC1873 /* TransitionTableView.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
 		2991622F29524CE80084464C /* LabelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622E29524CE80084464C /* LabelViews.swift */; };
 		299C267A2502DCFD0074E795 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299C26792502DCFC0074E795 /* Fonts.swift */; };
@@ -80,7 +78,6 @@
 		29B9C96B237F44770035EF0B /* DateTrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B9C96A237F44770035EF0B /* DateTrackerTests.swift */; };
 		29C1EA8A2958EE78007B629B /* MovieClientErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C1EA892958EE78007B629B /* MovieClientErrorView.swift */; };
 		29C1EA8C2958EF8C007B629B /* LoadingViewV2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C1EA8B2958EF8C007B629B /* LoadingViewV2.swift */; };
-		29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DA934F24DC8FEF004C145B /* DateViewCell.swift */; };
 		29E99C2E2402F5E7003A4141 /* CinemaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -131,7 +128,6 @@
 		292E7ECD2561754D0077F2FF /* MovieFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetcher.swift; sourceTree = "<group>"; };
 		292E7ED2256176DA0077F2FF /* MovieFetcherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieFetcherTests.swift; sourceTree = "<group>"; };
 		2932FB7E24D35D62009AEDD1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		2948398324D1F85500133940 /* DateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewController.swift; sourceTree = "<group>"; };
 		2956C7FD29532AAC007F60A4 /* MovieClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClient.swift; sourceTree = "<group>"; };
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
@@ -164,7 +160,6 @@
 		29817F84293CAB3400E59D42 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		29833738256466FA0072347E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		298337402564676A0072347E /* LoadingView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingView.xib; sourceTree = "<group>"; };
-		29882D23258E8F2D00CC1873 /* TransitionTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransitionTableView.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		2991622E29524CE80084464C /* LabelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelViews.swift; sourceTree = "<group>"; };
 		299C26792502DCFC0074E795 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
@@ -177,7 +172,6 @@
 		29B9C96A237F44770035EF0B /* DateTrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTrackerTests.swift; sourceTree = "<group>"; };
 		29C1EA892958EE78007B629B /* MovieClientErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClientErrorView.swift; sourceTree = "<group>"; };
 		29C1EA8B2958EF8C007B629B /* LoadingViewV2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingViewV2.swift; sourceTree = "<group>"; };
-		29DA934F24DC8FEF004C145B /* DateViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewCell.swift; sourceTree = "<group>"; };
 		29E99C2B2402F5E7003A4141 /* CinemaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinemaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaUITests.swift; sourceTree = "<group>"; };
 		29E99C2F2402F5E7003A4141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -260,7 +254,6 @@
 		2904C7942336A0EB00407B64 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				2948398324D1F85500133940 /* DateViewController.swift */,
 				299D135724C766F00012755A /* MovieViewController.swift */,
 				2965635225BC4DC400A14651 /* ShowingsViewController.swift */,
 				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
@@ -291,7 +284,6 @@
 				298337402564676A0072347E /* LoadingView.xib */,
 				2904D09E2358CFB000407B64 /* NetworkImageView.swift */,
 				291A0A2525CB247000FE145A /* ShowingsViewTransitionAnimator.swift */,
-				29882D23258E8F2D00CC1873 /* TransitionTableView.swift */,
 				297C826A26AEF98C0053F706 /* VenueImageView.swift */,
 			);
 			path = Views;
@@ -310,7 +302,6 @@
 		2904C7BD233BE80300407B64 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				29DA934F24DC8FEF004C145B /* DateViewCell.swift */,
 				2965636825BD65BB00A14651 /* ShowingsViewContainerCell.swift */,
 				2965636025BCCE6A00A14651 /* ShowingsViewDateCell.swift */,
 				2965637025BDEEB800A14651 /* ShowingsViewTimeCell.swift */,
@@ -653,7 +644,6 @@
 				291525EB294F336600192153 /* ImageClient.swift in Sources */,
 				2965636125BCCE6A00A14651 /* ShowingsViewDateCell.swift in Sources */,
 				29833739256466FA0072347E /* LoadingView.swift in Sources */,
-				29882D24258E8F2D00CC1873 /* TransitionTableView.swift in Sources */,
 				291525E1294E4E0D00192153 /* MovieItemView.swift in Sources */,
 				29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */,
 				2991622B295226190084464C /* MainView.swift in Sources */,
@@ -664,7 +654,6 @@
 				2991622F29524CE80084464C /* LabelViews.swift in Sources */,
 				2904C7A7233825D800407B64 /* DateTracker.swift in Sources */,
 				2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */,
-				29DA935024DC8FEF004C145B /* DateViewCell.swift in Sources */,
 				297C826B26AEF98C0053F706 /* VenueImageView.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageViewV2.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
@@ -681,7 +670,6 @@
 				29817F81293CA68100E59D42 /* CityListView.swift in Sources */,
 				291525DF294E4D3C00192153 /* MovieItem.swift in Sources */,
 				2904D09F2358CFB000407B64 /* NetworkImageView.swift in Sources */,
-				2948398424D1F85500133940 /* DateViewController.swift in Sources */,
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
 				29817F78293BC1E800E59D42 /* Settings.swift in Sources */,
 				2904C79E2336A69100407B64 /* Movie.swift in Sources */,
