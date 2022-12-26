@@ -14,23 +14,23 @@ struct MainView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            PassiveNavigationLink(
-                isActive: viewStore.binding(
-                    get: \.isNavigationToSettingsActive,
-                    send: Main.Action.setNavigationToSettings(isActive:)
-                ),
-                destination: {
-                    IfLetStore(
-                        store.scope(
-                            state: \.settings,
-                            action: Main.Action.settings
-                        ),
-                        then: SettingsView.init(store:)
-                    )
-                }
-            )
-
             ZStack {
+                PassiveNavigationLink(
+                    isActive: viewStore.binding(
+                        get: \.isNavigationToSettingsActive,
+                        send: Main.Action.setNavigationToSettings(isActive:)
+                    ),
+                    destination: {
+                        IfLetStore(
+                            store.scope(
+                                state: \.settings,
+                                action: Main.Action.settings
+                            ),
+                            then: SettingsView.init(store:)
+                        )
+                    }
+                )
+
                 Color.primaryBackground
                     .edgesIgnoringSafeArea(.bottom)
 
@@ -39,14 +39,22 @@ struct MainView: View {
                         state: \.dateSelector,
                         action: Main.Action.dateSelector
                     ))
+
+                    Divider()
+
+                    ScheduleView(store: store.scope(
+                        state: \.schedule,
+                        action: Main.Action.schedule
+                    ))
                 }
-                .edgesIgnoringSafeArea(.bottom)
+
+                if viewStore.requiresToFetchMovies {
+                    LoadingViewV2()
+                }
             }
             .onAppear {
                 if viewStore.requiresToFetchMovies {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        viewStore.send(.fetchMovies)
-                    }
+                    viewStore.send(.fetchMovies)
                 }
             }
         }
