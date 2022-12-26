@@ -18,28 +18,26 @@ final class Showing: Codable {
 
     init(
         city: City = .vilnius,
-        date: Date = Date(),
+        date: Date = Date(timeIntervalSinceNow: 60),
         venue: Venue = .forum,
         is3D: Bool = false,
-        url: URL = URL(string: "https://movies.ioys.lt/")!,
-        parentMovie: Movie? = Movie()
+        url: URL = URL(string: "https://movies.ioys.lt/")!
     ) {
         self.city = city
         self.date = date
         self.venue = venue
         self.is3D = is3D
         self.url = url
-        self.parentMovie = parentMovie
     }
 
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
-        city = try values.decode(City.self, forKey: .city)
-        date = try values.decode(Date.self, forKey: .date)
-        venue = try values.decode(Venue.self, forKey: .venue)
-        is3D = try values.decode(Bool.self, forKey: .is3D)
-        url = try values.decode(URL.self, forKey: .url)
+        self.city = try values.decode(City.self, forKey: .city)
+        self.date = try values.decode(Date.self, forKey: .date)
+        self.venue = try values.decode(Venue.self, forKey: .venue)
+        self.is3D = try values.decode(Bool.self, forKey: .is3D)
+        self.url = try values.decode(URL.self, forKey: .url)
     }
 
     private enum CodingKeys: String, CodingKey {
@@ -53,7 +51,7 @@ final class Showing: Codable {
 
 extension Showing {
     func isShown(on date: Date) -> Bool {
-        // Is `self.date` in the past.
+        // Check if `self.date` is in the past.
         if self.date < Date() { return false }
 
         let calendar = Calendar.current
@@ -62,7 +60,8 @@ extension Showing {
 }
 
 extension Showing: Comparable {
-    /// Compares by `date` with`parentMovie.title` and `venue` tie-breaks.
+    /// `Showing` are compared based on their `date` property value. In the event of a tie,
+    /// the `parentMovie.title` and `venue` properties are used as tie-breakers.
     static func < (lhs: Showing, rhs: Showing) -> Bool {
         if lhs.date != rhs.date {
             return lhs.date < rhs.date
