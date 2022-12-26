@@ -51,6 +51,18 @@ struct MainView: View {
                 if viewStore.requiresToFetchMovies {
                     LoadingViewV2()
                 }
+
+                if viewStore.movieClientError == .network {
+                    MovieClientErrorView(.network) {
+                        viewStore.send(.fetchMovies)
+                    }
+                }
+
+                if viewStore.movieClientError == .requiresUpdate {
+                    MovieClientErrorView(.requiresUpdate) {
+                        UIApplication.shared.open(.appStore)
+                    }
+                }
             }
             .onAppear {
                 if viewStore.requiresToFetchMovies {

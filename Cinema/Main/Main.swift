@@ -23,6 +23,8 @@ struct Main: ReducerProtocol {
 
         var selectedMovie: Movie?
         var selectedShowing: Showing?
+
+        var movieClientError: MovieClient.Error?
     }
 
     enum Action: Equatable {
@@ -59,6 +61,7 @@ struct Main: ReducerProtocol {
 
             case .fetchMovies:
                 state.requiresToFetchMovies = true
+                state.movieClientError = nil
                 return movieClient.fetch()
                     .receive(on: mainQueue)
                     .catchToEffect(Action.movieClient)
@@ -117,10 +120,11 @@ struct Main: ReducerProtocol {
                 case .failure(let error):
                     switch error {
                     case .requiresUpdate:
-                        return .none
+                        state.movieClientError = .requiresUpdate
                     case .network, .decoding:
-                        return .none
+                        state.movieClientError = .network
                     }
+                    return .none
                 }
 
             }
