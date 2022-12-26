@@ -31,11 +31,19 @@ struct Schedule: ReducerProtocol {
             datasource.movies
         }
 
+        var isTransitioning = false
+        var requiresScrollToTop = false
+
         var movieList = MovieList.State()
         var showingList = ShowingList.State()
     }
 
     enum Action: Equatable {
+        case datasourceNeedsUpdate(Datasource)
+        case beginTransition(Datasource)
+        case updateDatasource(Datasource)
+        case endTransition
+
         case settingsButtonDidTap
 
         case movieList(action: MovieList.Action)
@@ -57,6 +65,35 @@ struct Schedule: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
+            case .datasourceNeedsUpdate(let datasource):
+                return Effect(value: .beginTransition(datasource))
+                    .delay(for: .seconds(0.01), scheduler: mainQueue)
+                    .eraseToEffect()
+                    .animation(.easeInOut(duration: 0.3))
+
+            case .beginTransition(let datasource):
+                state.isTransitioning = true
+                return Effect(value: .updateDatasource(datasource))
+                    .delay(for: .seconds(0.3), scheduler: mainQueue)
+                    .eraseToEffect()
+
+            case .updateDatasource(let datasource):
+                state.datasource = datasource
+                state.requiresScrollToTop = true
+                state.movieList.requiresScrollToTop = true
+                state.movieList.movieItems = getMovieItems(from: state.datasource)
+                state.showingList.showingItems = getShowingItems(from: state.datasource)
+                return Effect(value: .endTransition)
+                    .delay(for: .seconds(0.01), scheduler: mainQueue)
+                    .eraseToEffect()
+                    .animation(.easeInOut(duration: 0.4))
+
+            case .endTransition:
+                state.requiresScrollToTop = false
+                state.movieList.requiresScrollToTop = false
+                state.isTransitioning = false
+                return .none
+
             case .settingsButtonDidTap:
                 return .none
 
@@ -67,5 +104,26 @@ struct Schedule: ReducerProtocol {
                 return .none
             }
         }
+    }
+
+    private func getMovieItems(from datasource: Datasource) -> IdentifiedArrayOf<MovieItem.State> {
+        let showings = datasource.movies.flatMap { movie in
+            movie.showings.filter { $0.isShown(on: datasource.date) }
+        }
+
+        let parentMovies = Array(Set(showings.compactMap { $0.parentMovie })).sorted { $0.title < $1.title }
+        let movieItems = parentMovies.map { MovieItem.State(id: uuid(), movie: $0) }
+
+        return IdentifiedArray(uniqueElements: movieItems)
+    }
+
+    private func getShowingItems(from datasource: Datasource) -> IdentifiedArrayOf<ShowingItem.State> {
+        let showings = datasource.movies.flatMap { movie in
+            movie.showings.filter { $0.isShown(on: datasource.date) }
+        }.sorted()
+
+        let showingItems = showings.map { ShowingItem.State(id: uuid(), showing: $0) }
+
+        return IdentifiedArray(uniqueElements: showingItems)
     }
 }

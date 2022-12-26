@@ -21,41 +21,61 @@ struct ScheduleView: View {
                     ScrollView {
                         VStack(spacing: 8) {
                             SmallDateLabel(date: viewStore.date)
-                                .padding([.top, .horizontal], 8)
+                                .padding([.top, .horizontal])
+                                .scaleEffect(viewStore.isTransitioning ? 0.75 : 1)
+                                .id("top")
 
                             HStack {
                                 LargeDateLabel(date: viewStore.date)
+                                    .scaleEffect(viewStore.isTransitioning ? 0.75 : 1)
 
                                 SettingsButton {
                                     viewStore.send(.settingsButtonDidTap)
                                 }.hidden(!Calendar.current.isDateInToday(viewStore.date))
-                            }
+                            }.padding(.horizontal)
 
                             Divider()
 
                             ZStack {
                                 VStack {
                                     SectionLabel(text: "Filmai")
-                                        .padding(.horizontal, 8)
+                                        .padding(.horizontal)
 
                                     MovieListView(store: store.scope(
                                         state: \.movieList,
                                         action: Schedule.Action.movieList
                                     ))
-                                    .frame(height: 320)
+                                    // Instead of using a `GeometryReader` view to retrieve
+                                    // the width value of the screen, it is more efficient
+                                    // to use the `UIScreen` object, since the view always
+                                    // takes up the entire width of the screen.
+                                    .frame(height: UIScreen.main.bounds.width * 0.95)
+                                    .blur(radius: viewStore.isTransitioning ? 7 : 0)
+                                    .scaleEffect(y: viewStore.isTransitioning ? 0.99 : 1, anchor: .center)
+                                    .offset(y: viewStore.isTransitioning ? -5 : 0 )
 
                                     SectionLabel(text: "Seansai")
-                                        .padding(.horizontal, 8)
+                                        .padding(.horizontal)
 
                                     ShowingListView(store: store.scope(
                                         state: \.showingList,
                                         action: Schedule.Action.showingList
                                     ))
+                                    .blur(radius: viewStore.isTransitioning ? 7 : 0)
+                                    .scaleEffect(x: viewStore.isTransitioning ? 0.98 : 1, anchor: .leading)
                                 }
                             }
+
+                        }
+                    }
+                    .opacity(viewStore.isTransitioning ? 0 : 1)
+                    .onChange(of: viewStore.requiresScrollToTop) { newValue in
+                        if newValue {
+                            scrollProxy.scrollTo("top")
                         }
                     }
                 }
+
             }
         }
     }
@@ -71,7 +91,7 @@ private struct SettingsButton: View {
             Image(systemName: "gearshape")
                 .font(.title2)
                 .foregroundColor(.primaryElement)
-        }.padding(.horizontal, 8)
+        }
     }
 }
 
