@@ -17,6 +17,7 @@ private extension SettingsView {
     enum Action: Equatable {
         case didSelectCity(City)
         case loadSettings
+        case saveSettings
     }
 }
 
@@ -33,12 +34,20 @@ private extension SettingsView.Action {
             return .didSelectCity(city)
         case .loadSettings:
             return .loadSettings
+        case .saveSettings:
+            return .saveSettings
         }
     }
 }
 
 struct SettingsView: View {
-    let store: StoreOf<Settings>
+    @Environment(\.presentationMode) var presentationMode
+
+    private let store: StoreOf<Settings>
+
+    init(store: StoreOf<Settings>) {
+        self.store = store
+    }
 
     var body: some View {
         WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
@@ -56,9 +65,12 @@ struct SettingsView: View {
                 .modifier(Scale320X568Screen())
             }
             .overlay(
-                ExitButtonView(store: store)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
-                    .padding()
+                ExitButtonView {
+                    viewStore.send(.saveSettings)
+                    presentationMode.wrappedValue.dismiss()
+                }
+                .padding()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
             )
             .onAppear {
                 viewStore.send(.loadSettings)
