@@ -17,15 +17,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         let navController = window?.rootViewController as? UINavigationController
-        navController?.navigationBar.setBackgroundImage(color: .secondaryBackground)
+
+        navController?.navigationBar.isHidden = true
 
         // Opens `SettingsView` if the app is started for the first time or if UI tests commence.
+        #warning("Review this!")
         if UserDefaults.standard.isFirstLaunch() || CommandLine.arguments.contains("ui-testing") {
-            let vc = SettingsViewHost(
-                rootView: SettingsView(store: Store(initialState: Settings.State(), reducer: Settings()))
-            )
 
-            navController?.pushViewController(vc, animated: false)
         }
 
         return true

@@ -9,22 +9,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-final class SettingsViewHost: UIHostingController<SettingsView> {
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        DispatchQueue.main.async {
-            self.navigationController?.isNavigationBarHidden = true
-        }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        self.navigationController?.isNavigationBarHidden = false
-    }
-}
-
 private extension SettingsView {
     struct State: Equatable {
         var selectedCity: City
@@ -59,7 +43,7 @@ struct SettingsView: View {
     var body: some View {
         WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
             ZStack {
-                Color(.secondaryBackground)
+                Color(.primaryBackground)
                     .ignoresSafeArea()
 
                 VStack {
@@ -72,11 +56,9 @@ struct SettingsView: View {
                 .modifier(Scale320X568Screen())
             }
             .overlay(
-                VStack(alignment: .trailing) {
-                    ExitButtonView(store: store)
-
-                    Color.clear
-                }
+                ExitButtonView(store: store)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .padding()
             )
             .onAppear {
                 viewStore.send(.loadSettings)

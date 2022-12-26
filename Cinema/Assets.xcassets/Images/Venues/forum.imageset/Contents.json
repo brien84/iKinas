@@ -1,17 +1,16 @@
 {
   "images" : [
     {
-      "filename" : "forum-gold@1x.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "forum-gold@2x.png",
+      "filename" : "forum@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "forum-gold@3x.png",
+      "filename" : "forum@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

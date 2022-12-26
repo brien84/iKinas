@@ -16,10 +16,9 @@ final class MovieViewController: UIViewController {
 
     @IBOutlet private weak var poster: NetworkImageView!
     @IBOutlet private weak var movieTitle: CustomFontLabel!
+    @IBOutlet private weak var details: CustomFontLabel!
+
     @IBOutlet private weak var originalTitle: CustomFontLabel!
-    @IBOutlet private weak var year: CustomFontLabel!
-    @IBOutlet private weak var ageRating: CustomFontLabel!
-    @IBOutlet private weak var duration: CustomFontLabel!
     @IBOutlet private weak var plot: CustomFontLabel!
     @IBOutlet private weak var venueImage: VenueImageView!
     @IBOutlet private weak var time: CustomFontLabel!
@@ -39,10 +38,6 @@ final class MovieViewController: UIViewController {
 
         scrollView.delegate = self
         navigationController?.delegate = self
-
-        // Set `backgroundColor` in code, because of iOS12 bug, where when
-        // a custom color is selected in storyboard it cannot be changed.
-        view.backgroundColor = .secondaryBackground
 
         setLabels()
     }
@@ -74,10 +69,7 @@ final class MovieViewController: UIViewController {
 
     @IBAction private func backButtonDidTap(_ sender: UIBarButtonItem) {
         navigationController?.popViewController(animated: true)
-
-        // Resets `navigationBar` appearance.
-        navigationBar?.adjustVerticalTitlePosition(0)
-        navigationBar?.setBackgroundImage(color: .secondaryBackground)
+        navigationBar?.isHidden = true
     }
 
     @IBAction private func showingsButtonDidTap(_ sender: UIBarButtonItem) {
@@ -115,9 +107,7 @@ final class MovieViewController: UIViewController {
         poster.url = movie?.poster
         movieTitle.text = movie?.title
         originalTitle.text = movie?.originalTitle
-        year.text = movie?.year
-        ageRating.text = movie?.ageRating
-        duration.text = movie?.duration
+        details.text = "\(movie?.year ?? "") • \(movie?.ageRating ?? "") • \(movie?.duration ?? "")".uppercased()
         plot.text = movie?.plot
 
         genresStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
@@ -261,28 +251,28 @@ extension MovieViewController: UIScrollViewDelegate {
 
         if currentDistance > navigationBar.frame.height {
             leftButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 1.0)
-            leftButton.imageInsets = UIEdgeInsets(top: 0, left: inset, bottom: 0, right: 0)
+            leftButton.imageInsets.left = inset
 
             rightButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 1.0)
-            rightButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: inset)
+            rightButton.imageInsets.right = inset
         }
 
         if navigationBar.frame.height >= currentDistance {
             let percentage = currentDistance / navigationBar.frame.height
 
             leftButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: percentage)
-            leftButton.imageInsets = UIEdgeInsets(top: 0, left: inset * percentage, bottom: 0, right: 0)
+            leftButton.imageInsets.left = inset * percentage
 
             rightButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: percentage)
-            rightButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: inset * percentage)
+            rightButton.imageInsets.right = inset * percentage
         }
 
         if 0 > currentDistance {
             leftButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 0.0)
-            leftButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            leftButton.imageInsets.left = .zero
 
             rightButton.setBackgroundImage(size: size, color: .secondaryBackground, alpha: 0.0)
-            rightButton.imageInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+            rightButton.imageInsets.right = .zero
         }
     }
 
@@ -300,8 +290,12 @@ extension MovieViewController: UIScrollViewDelegate {
 }
 
 extension MovieViewController: UINavigationControllerDelegate {
-    func navigationController(_ navigationController: UINavigationController, animationControllerFor operation: UINavigationController.Operation,
-                              from fromVC: UIViewController, to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+    func navigationController(
+        _ navigationController: UINavigationController,
+        animationControllerFor operation: UINavigationController.Operation,
+        from fromVC: UIViewController,
+        to toVC: UIViewController
+    ) -> UIViewControllerAnimatedTransitioning? {
 
         if type(of: toVC) == MovieViewController.self || type(of: toVC) == ShowingsViewController.self {
             if operation == .push {
@@ -319,10 +313,15 @@ extension MovieViewController: UINavigationControllerDelegate {
 
 private extension UINavigationBar {
     func setTitleAlpha(_ alpha: CGFloat) {
-        self.standardAppearance.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
-                                                       .font: Fonts.getFont(.navigationBar)]
-        self.scrollEdgeAppearance?.titleTextAttributes = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
-                                                          .font: Fonts.getFont(.navigationBar)]
+        self.standardAppearance.titleTextAttributes = [
+            .foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
+            .font: Fonts.getFont(.navigationBar)
+        ]
+
+        self.scrollEdgeAppearance?.titleTextAttributes = [
+            .foregroundColor: UIColor.primaryElement.withAlphaComponent(alpha),
+            .font: Fonts.getFont(.navigationBar)
+        ]
     }
 
     func adjustVerticalTitlePosition(_ offset: CGFloat) {

@@ -14,7 +14,8 @@ private let timesViewReuseID = "showingsViewTimeCell"
 
 final class ShowingsViewController: UIViewController {
     var movie: Movie?
-    private let dates = DateTracker.dates
+
+    private let dates = Date().futureDatesIn(days: 10)
 
     @IBOutlet private weak var poster: NetworkImageView!
     @IBOutlet private weak var containersView: UICollectionView!
@@ -214,5 +215,31 @@ extension ShowingsViewController: UIScrollViewDelegate {
             guard let indexPath = datesViewCenterIndexPath else { return }
             datesViewScrollToItem(at: indexPath)
         }
+    }
+}
+
+extension Date {
+    /// Creates array of `Date` by adding one day to the date provided number of times.
+    ///
+    /// - Example:
+    ///     ```
+    ///     let dates = futureDatesIn(after: 2)
+    ///     print(dates)
+    ///     // Prints "[2020-02-22 16:37:31 +0000,
+    ///     //          2020-02-23 16:37:31 +0000,
+    ///     //          2020-02-24 16:37:31 +0000]"
+    ///     ```
+    fileprivate func futureDatesIn(days: Int) -> [Date] {
+        var date = self
+        guard let endDate = Calendar.current.date(byAdding: .day, value: days, to: date) else { return [] }
+        var dates = [Date]()
+
+        while date <= endDate {
+            dates.append(date)
+            guard let newDate = Calendar.current.date(byAdding: .day, value: 1, to: date) else { return [] }
+            date = newDate
+        }
+
+        return dates
     }
 }

@@ -17,11 +17,6 @@ extension Color {
     static let secondaryBackground = Color("secondaryBackground")
 }
 
-extension Notification.Name {
-    static let SettingsDidChange = Notification.Name("SettingsDidChangeNotification")
-    static let DateDidChange = Notification.Name("DateDidChangeNotification")
-}
-
 extension TimeInterval {
     static let stdAnimation = 0.4
 }
