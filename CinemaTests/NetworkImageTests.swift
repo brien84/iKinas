@@ -65,6 +65,20 @@ final class NetworkImageTests: XCTestCase {
         }
     }
 
+    func testPassingOptionalURLJustSetsDefaultImage() async {
+        let store = TestStore(
+            initialState: NetworkImage.State(url: nil),
+            reducer: NetworkImage()
+        )
+
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
+        await store.send(.fetch) {
+            $0.image = NetworkImage.defaultImage
+        }
+    }
+
     func testStartingFetchingCancelsInFlightFetchingEffects() async {
         let store = TestStore(
             initialState: NetworkImage.State(url: URL(string: "test.com")!),
