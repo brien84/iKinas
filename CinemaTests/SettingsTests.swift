@@ -71,12 +71,19 @@ final class SettingsTests: XCTestCase {
             reducer: Settings()
         )
 
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
         store.dependencies.settingsClient.save = { city, venues in
             XCTAssertEqual(city, .kaunas)
             XCTAssertEqual(venues, [.forum])
         }
 
         await store.send(.saveSettings)
+
+        await mainQueue.advance(by: .seconds(1))
+
+        await store.finish()
     }
 
 }
