@@ -23,6 +23,7 @@ struct Settings: ReducerProtocol {
         case saveSettings
     }
 
+    @Dependency(\.mainQueue) var mainQueue
     @Dependency(\.settingsClient) var settingsClient
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -56,7 +57,8 @@ struct Settings: ReducerProtocol {
             return .fireAndForget { [city = state.selectedCity, venues = state.selectedVenues] in
                 await settingsClient.save(city, venues)
             }
-
+            .receive(on: mainQueue)
+            .eraseToEffect()
         }
     }
 }
