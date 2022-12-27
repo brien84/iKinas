@@ -16,9 +16,9 @@ struct NetworkImage: ReducerProtocol {
         var id: UUID
         var image: UIImage?
         var isFetching = false
-        var url: URL
+        var url: URL?
 
-        init(id: UUID = UUID(), url: URL) {
+        init(id: UUID = UUID(), url: URL?) {
             self.id = id
             self.url = url
         }
@@ -35,8 +35,14 @@ struct NetworkImage: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .fetch:
+            guard let url = state.url
+            else {
+                state.image = Self.defaultImage
+                return .none
+            }
+
             state.isFetching = true
-            return imageClient.fetch(state.url)
+            return imageClient.fetch(url)
                 .receive(on: mainQueue)
                 .catchToEffect(Action.imageClient)
                 .cancellable(id: state.id, cancelInFlight: true)
