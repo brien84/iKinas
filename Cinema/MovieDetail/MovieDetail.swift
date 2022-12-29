@@ -12,17 +12,18 @@ import SwiftUI
 struct MovieDetail: ReducerProtocol {
 
     struct State: Equatable {
-
+        var titleViewOverlapPercentage: CGFloat = 0
     }
 
     enum Action: Equatable {
-        case none
+        case updateTitleViewOverlap(percentage: CGFloat)
     }
 
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
-            case .none:
+            case .updateTitleViewOverlap(percentage: let percentage):
+                state.titleViewOverlapPercentage = percentage
                 return .none
             }
         }
