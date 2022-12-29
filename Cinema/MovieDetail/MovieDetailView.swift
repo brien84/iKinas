@@ -15,6 +15,7 @@ struct MovieDetailView: View {
     @State private var posterFrame: CGRect = CGRect()
     @State private var titleViewFrame: CGRect = CGRect()
     @State private var safeArea: EdgeInsets = EdgeInsets()
+    @State private var posterOverlap: CGFloat = 0
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -24,24 +25,30 @@ struct MovieDetailView: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: .zero) {
-                        Poster()
+                        PosterView()
+                            .scaleEffect(posterScale)
+                            .offset(y: -posterOffset)
+                            .opacity(posterOpacity)
                             .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
                             TitleView()
+                                .opacity(titleViewOpacity)
                                 .background(FrameGetter(frame: $titleViewFrame))
 
                             BodyView()
                         }
+                        .offset(y: -posterOverlap)
                     }
                 }
+                .padding(.bottom, -posterOverlap)
             }
             .ignoresSafeArea(edges: .top)
             .background(SafeAreaGetter(insets: $safeArea))
             .onChange(of: titleViewFrame) { _ in
                 let distance = titleViewFrame.minY.distance(to: safeArea.top)
 
-                if distance <= .zero {
+                if distance <= 0 {
                     viewStore.send(.updateTitleViewOverlap(percentage: .zero))
                     return
                 }
@@ -54,11 +61,63 @@ struct MovieDetailView: View {
                     viewStore.send(.updateTitleViewOverlap(percentage: percentage))
                 }
             }
+            .onChange(of: titleViewFrame.height) { newValue in
+                let height = round(newValue * 1000) / 1000.0
+                let overlap = height + posterOverlapConstant
+
+                if overlap != posterOverlap {
+                    posterOverlap = overlap
+                }
+            }
         }
     }
 }
 
-struct Poster: View {
+extension MovieDetailView {
+    // Minimum `PosterView` overlap value.
+    private var posterOverlapConstant: CGFloat {
+        60
+    }
+
+    // When `PosterView` is not overlapped `TitleView` opacity is zero.
+    private var titleViewOpacity: CGFloat {
+        1 - posterFrame.minY / posterOverlapConstant
+    }
+
+    // Scales the `PosterView` when scrolling downwards after the `PosterView` is no longer overlapped.
+    private var posterScale: CGFloat {
+        if posterFrame.minY > posterOverlapConstant {
+            return (posterFrame.height - posterOverlapConstant + posterFrame.minY) / posterFrame.height
+        }
+
+        return 1
+    }
+
+    // Keeps the `PosterView` stuck to the top of the screen when scrolling downwards.
+    private var posterOffset: CGFloat {
+        guard posterFrame.minY > .zero else { return .zero }
+
+        if posterFrame.minY < posterOverlapConstant {
+            return posterFrame.minY
+        }
+
+        if posterFrame.minY > .zero {
+            return (posterFrame.minY + posterOverlapConstant) * 0.5
+        }
+
+        return .zero
+    }
+
+    // When the top edge of the `TitleView` reaches the bottom edge of the navigation bar,
+    // the opacity of the `PosterView` is zero.
+    private var posterOpacity: CGFloat {
+        let totalDistance = posterFrame.height - titleViewFrame.height - safeArea.top - posterOverlapConstant
+        let currentDistance = safeArea.top.distance(to: titleViewFrame.minY)
+        return currentDistance / totalDistance
+    }
+}
+
+struct PosterView: View {
     var body: some View {
         Image("posterPreview")
             .resizable()
@@ -82,7 +141,7 @@ struct TitleView: View {
                 Text("2021 • N-18 • 112 min")
                     .font(.footnote)
             }
-            .foregroundColor(.white)
+            .foregroundColor(.primaryElement)
             .padding()
 
         }
