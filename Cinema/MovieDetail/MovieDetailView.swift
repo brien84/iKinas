@@ -12,6 +12,10 @@ import SwiftUI
 struct MovieDetailView: View {
     let store: StoreOf<MovieDetail>
 
+    @State private var posterFrame: CGRect = CGRect()
+    @State private var titleViewFrame: CGRect = CGRect()
+    @State private var safeArea: EdgeInsets = EdgeInsets()
+
     var body: some View {
         WithViewStore(store) { _ in
             ZStack {
@@ -21,9 +25,11 @@ struct MovieDetailView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: .zero) {
                         Poster()
+                            .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
                             TitleView()
+                                .background(FrameGetter(frame: $titleViewFrame))
 
                             BodyView()
                         }
@@ -31,6 +37,7 @@ struct MovieDetailView: View {
                 }
             }
             .ignoresSafeArea(edges: .top)
+            .background(SafeAreaGetter(insets: $safeArea))
         }
     }
 }
@@ -73,5 +80,41 @@ struct BodyView: View {
 
             Text(String(repeating: "X", count: 3000))
         }
+    }
+}
+
+struct FrameGetter: View {
+    @Binding var frame: CGRect
+
+    var body: some View {
+        GeometryReader { proxy in
+            self.makeView(proxy: proxy)
+        }
+    }
+
+    func makeView(proxy: GeometryProxy) -> some View {
+        DispatchQueue.main.async {
+            frame = proxy.frame(in: .global)
+        }
+
+        return Color.clear
+    }
+}
+
+struct SafeAreaGetter: View {
+    @Binding var insets: EdgeInsets
+
+    var body: some View {
+        GeometryReader { proxy in
+            self.makeView(proxy: proxy)
+        }
+    }
+
+    func makeView(proxy: GeometryProxy) -> some View {
+        DispatchQueue.main.async {
+            insets = proxy.safeAreaInsets
+        }
+
+        return Color.clear
     }
 }
