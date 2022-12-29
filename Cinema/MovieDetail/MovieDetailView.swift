@@ -17,7 +17,7 @@ struct MovieDetailView: View {
     @State private var safeArea: EdgeInsets = EdgeInsets()
 
     var body: some View {
-        WithViewStore(store) { _ in
+        WithViewStore(store) { viewStore in
             ZStack {
                 Color.primaryBackground
                     .ignoresSafeArea()
@@ -38,6 +38,22 @@ struct MovieDetailView: View {
             }
             .ignoresSafeArea(edges: .top)
             .background(SafeAreaGetter(insets: $safeArea))
+            .onChange(of: titleViewFrame) { _ in
+                let distance = titleViewFrame.minY.distance(to: safeArea.top)
+
+                if distance <= .zero {
+                    viewStore.send(.updateTitleViewOverlap(percentage: .zero))
+                    return
+                }
+
+                let percentage = distance / titleViewFrame.height
+
+                if percentage > 1 {
+                    viewStore.send(.updateTitleViewOverlap(percentage: 1))
+                } else {
+                    viewStore.send(.updateTitleViewOverlap(percentage: percentage))
+                }
+            }
         }
     }
 }
