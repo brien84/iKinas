@@ -12,6 +12,10 @@ import SwiftUI
 struct MovieDetail: ReducerProtocol {
 
     struct State: Equatable {
+        let movie: Movie
+        let showing: Showing?
+
+        // The percentage of the `TitleView` that is overlapped by the navigation bar.
         var titleViewOverlapPercentage: CGFloat = 0
     }
 
