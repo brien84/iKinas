@@ -25,7 +25,7 @@ struct MovieDetailView: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: .zero) {
-                        PosterView()
+                        PosterView(store: store)
                             .scaleEffect(posterScale)
                             .offset(y: -posterOffset)
                             .opacity(posterOpacity)
@@ -118,11 +118,15 @@ extension MovieDetailView {
 }
 
 struct PosterView: View {
+    let store: StoreOf<MovieDetail>
+
     var body: some View {
-        Image("posterPreview")
-            .resizable()
-            .frame(maxWidth: .infinity)
-            .aspectRatio(2/3, contentMode: .fit)
+        NetworkImageViewV2(store: store.scope(
+            state: \.networkImage,
+            action: MovieDetail.Action.networkImage
+        ))
+        .frame(maxWidth: .infinity)
+        .aspectRatio(2/3, contentMode: .fit)
     }
 }
 
