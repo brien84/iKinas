@@ -20,7 +20,9 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
                 systemName: "chevron.left",
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
-            primaryAction: UIAction { _ in }
+            primaryAction: UIAction { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
         )
 
         return button
@@ -56,18 +58,23 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         navigationItem.rightBarButtonItem = rightButton
 
         viewStore.publisher.titleViewOverlapPercentage.sink { [self] percentage in
+            // Sets `navigationBar` opacity.
             navigationBar?.setBackgroundImage(color: .primaryBackground, alpha: percentage)
 
+            // Sets the background opacity of the bar buttons in the `navigationItem`.
             leftButton.setBackgroundImage(size: .barButtonBackground, color: .primaryBackground, alpha: 1 - percentage)
             rightButton.setBackgroundImage(size: .barButtonBackground, color: .primaryBackground, alpha: 1 - percentage)
 
+            // Sets the horizontal inset of the bar buttons in the `navigationItem`.
             leftButton.imageInsets.left = .maximumBarButtonInset * (1 - percentage)
             rightButton.imageInsets.right = .maximumBarButtonInset * (1 - percentage)
 
+            // Sets `navigationBar` title opacity.
             let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(percentage)]
             navigationBar?.standardAppearance.titleTextAttributes = attributes
             navigationBar?.scrollEdgeAppearance?.titleTextAttributes = attributes
 
+            // Sets `navigationBar` title vertical offset.
             navigationBar?.standardAppearance.titlePositionAdjustment.vertical = .navBarTitleMaximumVerticalOffset * (1 - percentage)
             navigationBar?.scrollEdgeAppearance?.titlePositionAdjustment.vertical = .navBarTitleMaximumVerticalOffset * (1 - percentage)
         }
