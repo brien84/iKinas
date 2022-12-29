@@ -50,6 +50,8 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
 
@@ -72,19 +74,24 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         .store(in: &self.cancellables)
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        UIView.animate(withDuration: .stdAnimation / 2) { [self] in
-            navigationController?.setNavigationBarHidden(false, animated: true)
+        DispatchQueue.main.async { [self] in
             navigationItem.hidesBackButton = true
+            navigationController?.setNavigationBarHidden(false, animated: true)
         }
     }
 
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
 
-        navigationController?.navigationBar.isHidden = true
         cancellables.removeAll()
     }
 }
@@ -95,6 +102,17 @@ private extension MovieDetailHostingController {
     }
 }
 
+extension MovieDetailHostingController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Smoothly hides `navigationBar` just before `interactivePopGesture` begins.
+        UIView.animate(withDuration: .hideNavigationBarDuration) { [self] in
+            navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+
+        return true
+    }
+}
+
 private extension CGFloat {
     static let maximumBarButtonInset: CGFloat = 10
     static let navBarTitleMaximumVerticalOffset: CGFloat = 30
@@ -102,6 +120,10 @@ private extension CGFloat {
 
 private extension CGSize {
     static let barButtonBackground: CGSize = CGSize(width: 33, height: 33)
+}
+
+private extension TimeInterval {
+    static let hideNavigationBarDuration: TimeInterval = 0.15
 }
 
 private extension UIBarButtonItem {
