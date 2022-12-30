@@ -130,28 +130,6 @@ struct PosterView: View {
     }
 }
 
-struct TitleView: View {
-    var body: some View {
-        ZStack {
-            Color.blue.opacity(0.8)
-
-            VStack {
-                Text("Pavadinimas")
-                    .font(.title)
-
-                Text("Title")
-                    .font(.title2)
-
-                Text("2021 • N-18 • 112 min")
-                    .font(.footnote)
-            }
-            .foregroundColor(.primaryElement)
-            .padding()
-
-        }
-    }
-}
-
 struct BodyView: View {
     var body: some View {
         ZStack {
