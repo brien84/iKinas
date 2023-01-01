@@ -14,30 +14,39 @@ struct MovieDetail: ReducerProtocol {
     struct State: Equatable {
         let movie: Movie
         let showing: Showing?
+        var detailShowings: DetailShowings.State
         var networkImage: NetworkImage.State
+
+        // The percentage of the `TitleView` that is overlapped by the navigation bar.
+        var titleViewOverlapPercentage: CGFloat = 0
 
         init(movie: Movie, showing: Showing? = nil) {
             self.movie = movie
             self.showing = showing
+            self.detailShowings = DetailShowings.State(movie: movie)
             self.networkImage = NetworkImage.State(url: movie.poster)
         }
-
-        // The percentage of the `TitleView` that is overlapped by the navigation bar.
-        var titleViewOverlapPercentage: CGFloat = 0
     }
 
     enum Action: Equatable {
+        case detailShowings(DetailShowings.Action)
         case networkImage(NetworkImage.Action)
         case updateTitleViewOverlap(percentage: CGFloat)
     }
 
     var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.detailShowings, action: /Action.detailShowings) {
+            DetailShowings()
+        }
+
         Scope(state: \.networkImage, action: /Action.networkImage) {
             NetworkImage()
         }
 
         Reduce { state, action in
             switch action {
+            case .detailShowings:
+                return .none
             case .networkImage:
                 return .none
             case .updateTitleViewOverlap(percentage: let percentage):
