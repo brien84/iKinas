@@ -54,6 +54,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
 
         navigationController?.interactivePopGestureRecognizer?.delegate = self
 
+        navigationItem.title = viewStore.movie.title
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
 
