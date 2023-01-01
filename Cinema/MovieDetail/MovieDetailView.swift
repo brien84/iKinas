@@ -139,39 +139,3 @@ struct BodyView: View {
         }
     }
 }
-
-struct FrameGetter: View {
-    @Binding var frame: CGRect
-
-    var body: some View {
-        GeometryReader { proxy in
-            self.makeView(proxy: proxy)
-        }
-    }
-
-    func makeView(proxy: GeometryProxy) -> some View {
-        DispatchQueue.main.async {
-            frame = proxy.frame(in: .global)
-        }
-
-        return Color.clear
-    }
-}
-
-struct SafeAreaGetter: View {
-    @Binding var insets: EdgeInsets
-
-    var body: some View {
-        GeometryReader { proxy in
-            self.makeView(proxy: proxy)
-        }
-    }
-
-    func makeView(proxy: GeometryProxy) -> some View {
-        DispatchQueue.main.async {
-            insets = proxy.safeAreaInsets
-        }
-
-        return Color.clear
-    }
-}
