@@ -32,11 +32,11 @@ struct MovieDetailView: View {
                             .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
-                            TitleView()
+                            TitleView(movie: viewStore.movie)
                                 .opacity(titleViewOpacity)
                                 .background(FrameGetter(frame: $titleViewFrame))
 
-                            BodyView()
+                            BodyView(store: store)
                         }
                         .offset(y: -posterOverlap)
                     }
@@ -127,15 +127,5 @@ struct PosterView: View {
         ))
         .frame(maxWidth: .infinity)
         .aspectRatio(2/3, contentMode: .fit)
-    }
-}
-
-struct BodyView: View {
-    var body: some View {
-        ZStack {
-            Color.orange
-
-            Text(String(repeating: "X", count: 3000))
-        }
     }
 }
