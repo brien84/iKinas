@@ -13,7 +13,7 @@ struct PosterView: View {
     let store: StoreOf<MovieDetail>
 
     var body: some View {
-        NetworkImageViewV2(store: store.scope(
+        NetworkImageView(store: store.scope(
             state: \.networkImage,
             action: MovieDetail.Action.networkImage
         ))
