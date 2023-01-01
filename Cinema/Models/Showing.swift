@@ -51,7 +51,7 @@ final class Showing: Codable {
 
 extension Showing {
     func isShown(on date: Date) -> Bool {
-        // Check if `self.date` is in the past.
+        // Check if `self.date` is not in the past.
         if self.date < Date() { return false }
 
         let calendar = Calendar.current
