@@ -44,7 +44,8 @@ struct DetailShowingsView: View {
                 }
                 .transition(.verticalScaleAndOpacity)
             }
-            .padding()
+            .padding(.horizontal)
+            .padding(.bottom, Self.bottomPadding)
         }
     }
 }
@@ -97,6 +98,7 @@ private extension Date {
 
 private extension DetailShowingsView {
     static let verticalSpacing: CGFloat = 16
+    static let bottomPadding: CGFloat = 8
 }
 
 private extension ShowingView {
