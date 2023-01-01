@@ -20,7 +20,7 @@ struct ShowingItemView: View {
                 Color.primaryBackground
 
                 HStack {
-                    NetworkImageViewV2(store: store.scope(
+                    NetworkImageView(store: store.scope(
                         state: \.networkImage,
                         action: ShowingItem.Action.networkImage
                     ))

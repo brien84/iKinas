@@ -1,5 +1,5 @@
 //
-//  NetworkImageViewV2.swift
+//  NetworkImageView.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-18.
@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct NetworkImageViewV2: View {
+struct NetworkImageView: View {
     let store: StoreOf<NetworkImage>
 
     var body: some View {
@@ -36,7 +36,7 @@ struct NetworkImageViewV2: View {
 
 // MARK: - Previews
 
-struct NetworkImageViewV2Previews: PreviewProvider {
+struct NetworkImageViewPreviews: PreviewProvider {
     static let store = Store(
         initialState: NetworkImage.State(url: URL(string: "previ.ew")!),
         reducer: NetworkImage()
@@ -47,7 +47,7 @@ struct NetworkImageViewV2Previews: PreviewProvider {
             Color.primaryBackground
                 .ignoresSafeArea()
 
-            NetworkImageViewV2(store: store)
+            NetworkImageView(store: store)
                 .frame(width: 200, height: 300)
                 .preferredColorScheme(.dark)
         }

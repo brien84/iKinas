@@ -19,7 +19,7 @@ struct MovieItemView: View {
             ZStack {
                 Color.primaryBackground
 
-                NetworkImageViewV2(store: store.scope(
+                NetworkImageView(store: store.scope(
                     state: \.networkImage,
                     action: MovieItem.Action.networkImage
                 ))
