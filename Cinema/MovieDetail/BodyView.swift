@@ -33,6 +33,11 @@ struct BodyView: View {
                     Divider()
                         .padding(.horizontal)
                         .padding(.vertical, Self.verticalPadding)
+
+                    DetailShowingsView(store: store.scope(
+                        state: \.detailShowings,
+                        action: MovieDetail.Action.detailShowings
+                    ))
                 }
             }
         }
