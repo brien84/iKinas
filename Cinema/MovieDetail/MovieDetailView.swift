@@ -117,15 +117,13 @@ extension MovieDetailView {
     }
 }
 
-struct PosterView: View {
-    let store: StoreOf<MovieDetail>
+// MARK: - Previews
 
-    var body: some View {
-        NetworkImageViewV2(store: store.scope(
-            state: \.networkImage,
-            action: MovieDetail.Action.networkImage
-        ))
-        .frame(maxWidth: .infinity)
-        .aspectRatio(2/3, contentMode: .fit)
+struct MovieDetailView_Previews: PreviewProvider {
+    static let store = Store(initialState: MovieDetail.State(movie: Movie()), reducer: MovieDetail())
+
+    static var previews: some View {
+        MovieDetailView(store: store)
+            .preferredColorScheme(.dark)
     }
 }
