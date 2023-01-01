@@ -6,14 +6,19 @@
 //  Copyright © 2022 Marius. All rights reserved.
 //
 
-import Dependencies
+import ComposableArchitecture
 import Foundation
 import OrderedCollections
 import XCTestDynamicOverlay
 
 struct SettingsClient {
-    var load: @Sendable () async -> (City, OrderedSet<Venue>)
-    var save: @Sendable (City, OrderedSet<Venue>) async -> Void
+    var load: () -> Effect<SettingsClient.Settings, Never>
+    var save: (City, OrderedSet<Venue>) -> Effect<Void, Never>
+
+    struct Settings: Equatable {
+        let city: City
+        let venues: OrderedSet<Venue>
+    }
 }
 
 extension SettingsClient: DependencyKey {
@@ -23,35 +28,25 @@ extension SettingsClient: DependencyKey {
                 let rawValue = UserDefaults.standard.string(forKey: UserDefaults.cityKey),
                 let city = City(rawValue: rawValue)
             else {
-                return (.vilnius, City.vilnius.venues)
+                return Effect(value: SettingsClient.Settings(city: .vilnius, venues: City.vilnius.venues))
             }
 
             guard
                 let rawValues = UserDefaults.standard.array(forKey: UserDefaults.venuesKey) as? [String]
             else {
-                return (city, city.venues)
+                return Effect(value: SettingsClient.Settings(city: city, venues: city.venues))
             }
 
             let venues = OrderedSet(rawValues.compactMap { Venue(rawValue: $0) })
 
-            return (city, venues)
+            return Effect(value: SettingsClient.Settings(city: city, venues: venues))
         },
         save: { city, venues in
-            UserDefaults.standard.set(city.rawValue, forKey: UserDefaults.cityKey)
-            UserDefaults.standard.set(venues.map { $0.rawValue }, forKey: UserDefaults.venuesKey)
+            .fireAndForget {
+                UserDefaults.standard.set(city.rawValue, forKey: UserDefaults.cityKey)
+                UserDefaults.standard.set(venues.map { $0.rawValue }, forKey: UserDefaults.venuesKey)
+            }
         }
-    )
-}
-
-extension SettingsClient: TestDependencyKey {
-    static let previewValue = Self(
-        load: { (City.vilnius, City.vilnius.venues) },
-        save: { _, _ in }
-    )
-
-    static let testValue =  Self(
-        load: unimplemented("\(Self.self).load"),
-        save: unimplemented("\(Self.self).save")
     )
 }
 
@@ -60,4 +55,21 @@ extension DependencyValues {
         get { self[SettingsClient.self] }
         set { self[SettingsClient.self] = newValue }
     }
+}
+
+extension SettingsClient: TestDependencyKey {
+    static let previewValue = Self(
+        load: {
+            let settings = SettingsClient.Settings(city: .vilnius, venues: City.vilnius.venues)
+            return Effect(value: settings)
+        },
+        save: { _, _ in
+            return Effect(value: ())
+        }
+    )
+
+    static let testValue =  Self(
+        load: unimplemented("\(Self.self).load"),
+        save: unimplemented("\(Self.self).save")
+    )
 }

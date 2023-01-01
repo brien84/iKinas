@@ -16,23 +16,17 @@ struct Settings: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case didLoadSettings(City, OrderedSet<Venue>)
         case didSelectCity(City)
         case didSelectVenue(Venue)
         case loadSettings
         case saveSettings
+        case settingsClient(Result<SettingsClient.Settings, Never>)
     }
 
-    @Dependency(\.mainQueue) var mainQueue
     @Dependency(\.settingsClient) var settingsClient
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
-
-        case .didLoadSettings(let city, let venues):
-            state.selectedCity = city
-            state.selectedVenues = venues
-            return .none
 
         case .didSelectCity(let city):
             state.selectedCity = city
@@ -48,17 +42,19 @@ struct Settings: ReducerProtocol {
             return .none
 
         case .loadSettings:
-            return .task {
-                let (city, venues) = await settingsClient.load()
-                return .didLoadSettings(city, venues)
-            }
+            return settingsClient.load()
+                .catchToEffect(Action.settingsClient)
 
         case .saveSettings:
-            return .fireAndForget { [city = state.selectedCity, venues = state.selectedVenues] in
-                await settingsClient.save(city, venues)
-            }
-            .receive(on: mainQueue)
-            .eraseToEffect()
+            let city = state.selectedCity
+            let venues = state.selectedVenues
+            return settingsClient.save(city, venues)
+                .fireAndForget()
+
+        case .settingsClient(.success(let settings)):
+            state.selectedCity = settings.city
+            state.selectedVenues = settings.venues
+            return .none
         }
     }
 }
