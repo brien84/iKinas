@@ -80,31 +80,10 @@ struct VenueListView: View {
     }
 }
 
+// MARK: - Constants
+
 private extension CGFloat {
     static let cornerRadius: CGFloat = 10
-}
-
-private struct VerticalScaleAndOpacity: ViewModifier {
-    private var amount: CGFloat
-
-    init(_ amount: CGFloat) {
-        self.amount = amount
-    }
-
-    func body(content: Content) -> some View {
-        content
-            .scaleEffect(y: amount, anchor: .top)
-            .opacity(amount)
-    }
-}
-
-private extension AnyTransition {
-    static var verticalScaleAndOpacity: AnyTransition {
-        .modifier(
-            active: VerticalScaleAndOpacity(0),
-            identity: VerticalScaleAndOpacity(1)
-        )
-    }
 }
 
 // MARK: - Previews
