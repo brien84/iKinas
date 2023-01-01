@@ -49,7 +49,7 @@ struct MainView: View {
                 }
 
                 if viewStore.requiresToFetchMovies {
-                    LoadingViewV2()
+                    LoadingView()
                 }
 
                 if viewStore.movieClientError == .network {

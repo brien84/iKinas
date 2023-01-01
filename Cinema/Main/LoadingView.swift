@@ -1,5 +1,5 @@
 //
-//  LoadingViewV2.swift
+//  LoadingView.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct LoadingViewV2: View {
+struct LoadingView: View {
     @State private var image = 0
 
     private let timer = Timer.publish(every: 0.03, on: .main, in: .common).autoconnect()
@@ -32,9 +32,9 @@ struct LoadingViewV2: View {
 
 // MARK: - Previews
 
-struct LoadingViewV2_Previews: PreviewProvider {
+struct LoadingView_Previews: PreviewProvider {
     static var previews: some View {
-        LoadingViewV2()
+        LoadingView()
             .preferredColorScheme(.dark)
     }
 }
