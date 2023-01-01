@@ -14,9 +14,17 @@ struct DetailShowings: ReducerProtocol {
     struct Section: Equatable, Identifiable {
         let id = UUID()
         let date: Date
+        let showingItems: IdentifiedArrayOf<ShowingItem>
 
-        init(date: Date) {
+        init(date: Date, showings: [Showing]) {
             self.date = date
+            let showingItems = showings.sorted().map { ShowingItem(showing: $0) }
+            self.showingItems = IdentifiedArrayOf(uniqueElements: showingItems)
+        }
+
+        struct ShowingItem: Equatable, Identifiable {
+            let id = UUID()
+            let showing: Showing
         }
     }
 
@@ -37,7 +45,7 @@ struct DetailShowings: ReducerProtocol {
             }
 
             let sections = uniqueDates.map { date in
-                Section(date: date)
+                Section(date: date, showings: movie.showings.filter { $0.isShown(on: date) })
             }.sorted(by: { $0.date < $1.date })
 
             self.sections = IdentifiedArrayOf(uniqueElements: sections)
@@ -47,6 +55,7 @@ struct DetailShowings: ReducerProtocol {
 
     enum Action: Equatable {
         case didSelectSection(Section)
+        case didSelectShowing(Showing)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -54,6 +63,10 @@ struct DetailShowings: ReducerProtocol {
             switch action {
             case .didSelectSection(let section):
                 state.selectedSection = section
+                return .none
+
+            case .didSelectShowing(let showing):
+                print(showing)
                 return .none
             }
         }
