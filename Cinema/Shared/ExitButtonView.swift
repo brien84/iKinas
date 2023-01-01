@@ -32,6 +32,8 @@ struct ExitButtonView: View {
     }
 }
 
+// MARK: - Constants
+
 private extension CGFloat {
     static let width: CGFloat = 12
     static let padding: CGFloat = 10

@@ -204,7 +204,6 @@
 			isa = PBXGroup;
 			children = (
 				2904C7632336982B00407B64 /* AppDelegate.swift */,
-				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 				29602B0F294B6BEC00FBE1A4 /* DateSelector */,
 				29BFAF87295F43B200655325 /* DetailShowings */,
 				296FE0572950E9840015F7AA /* Main */,
@@ -241,8 +240,6 @@
 		2904C7A12336B07700407B64 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				2904C7B5233BC6F700407B64 /* Constants.swift */,
-				2904C7A22336B09100407B64 /* Extensions.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -347,7 +344,6 @@
 			isa = PBXGroup;
 			children = (
 				29817F80293CA68100E59D42 /* CityListView.swift */,
-				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
 				29817F7B293BD70100E59D42 /* SettingsView.swift */,
 				29817F82293CA6CB00E59D42 /* VenueListView.swift */,
 			);
@@ -383,7 +379,11 @@
 		29BFAF8C2961AE3C00655325 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				2904C7B5233BC6F700407B64 /* Constants.swift */,
+				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
+				2904C7A22336B09100407B64 /* Extensions.swift */,
 				29BFAF8D2961AE6200655325 /* GetterViews.swift */,
+				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
