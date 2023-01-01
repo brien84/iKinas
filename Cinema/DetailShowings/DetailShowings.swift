@@ -7,22 +7,53 @@
 //
 
 import ComposableArchitecture
-import SwiftUI
+import Foundation
 
 struct DetailShowings: ReducerProtocol {
 
-    struct State: Equatable {
+    struct Section: Equatable, Identifiable {
+        let id = UUID()
+        let date: Date
 
+        init(date: Date) {
+            self.date = date
+        }
+    }
+
+    struct State: Equatable {
+        let sections: IdentifiedArrayOf<Section>
+        var selectedSection: Section?
+
+        init(movie: Movie) {
+            let allDates = movie.showings.compactMap { showing -> Date? in
+                guard showing.date > Date() else { return nil }
+                return Calendar.current.startOfDay(for: showing.date)
+            }
+
+            var uniqueDates = Array(Set(allDates)).sorted()
+
+            if uniqueDates.count > 8 {
+                uniqueDates = Array(uniqueDates.dropLast(uniqueDates.count - 8))
+            }
+
+            let sections = uniqueDates.map { date in
+                Section(date: date)
+            }.sorted(by: { $0.date < $1.date })
+
+            self.sections = IdentifiedArrayOf(uniqueElements: sections)
+            self.selectedSection = sections.first
+        }
     }
 
     enum Action: Equatable {
-        case none
+        case didSelectSection(Section)
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
-            case .none:
+            case .didSelectSection(let section):
+                state.selectedSection = section
                 return .none
             }
         }
