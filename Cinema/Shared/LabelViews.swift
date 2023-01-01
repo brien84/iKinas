@@ -56,8 +56,8 @@ struct LabelViews_Previews: PreviewProvider {
                 SmallDateLabel(date: Date())
                 SmallDateLabel(date: Date(timeIntervalSinceNow: 84000))
                 Divider().padding(16)
-                SectionLabel(text: "Labels")
-            }
+                SectionLabel(text: "Section")
+            }.padding(.horizontal)
         }.preferredColorScheme(.dark)
     }
 }

@@ -218,7 +218,6 @@
 				29817F76293BC1D100E59D42 /* Settings */,
 				2979ECEC295047EB009B743E /* ShowingItem */,
 				291525F1294FB7BA00192153 /* ShowingList */,
-				2904C7A12336B07700407B64 /* Supporting Files */,
 				29BFAF8C2961AE3C00655325 /* Shared */,
 				2904C76D2336982D00407B64 /* Assets.xcassets */,
 				2904C7722336982D00407B64 /* Info.plist */,
@@ -237,13 +236,6 @@
 				297C826C26B01DA30053F706 /* Venue.swift */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		2904C7A12336B07700407B64 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		291525BB294E071600192153 /* NetworkImage */ = {
@@ -270,7 +262,6 @@
 			children = (
 				291525EF294FACB100192153 /* Schedule.swift */,
 				296FE04B295061C60015F7AA /* ScheduleView.swift */,
-				2991622E29524CE80084464C /* LabelViews.swift */,
 			);
 			path = Schedule;
 			sourceTree = "<group>";
@@ -386,6 +377,7 @@
 				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
 				2904C7A22336B09100407B64 /* Extensions.swift */,
 				29BFAF8D2961AE6200655325 /* GetterViews.swift */,
+				2991622E29524CE80084464C /* LabelViews.swift */,
 				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 			);
 			path = Shared;
