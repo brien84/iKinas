@@ -17,5 +17,32 @@ struct PosterView: View {
             state: \.networkImage,
             action: MovieDetail.Action.networkImage
         ))
+        .frame(
+            width: UIScreen.main.bounds.width,
+            height: UIScreen.main.bounds.width * Self.heightToWidthRatio
+        )
+        .aspectRatio(contentMode: .fit)
+    }
+}
+
+// MARK: - Constants
+
+private extension PosterView {
+    static let heightToWidthRatio: CGFloat = 1.5
+}
+
+// MARK: - Previews
+
+struct PosterView_Previews: PreviewProvider {
+    static let store = Store(initialState: MovieDetail.State(movie: Movie()), reducer: MovieDetail())
+
+    static var previews: some View {
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            PosterView(store: store)
+                .preferredColorScheme(.dark)
+        }
     }
 }
