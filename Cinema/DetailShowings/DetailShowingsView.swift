@@ -74,6 +74,7 @@ private struct ShowingView: View {
         }
         .opacity(isBeingPressed ? Self.longPressOpacity : 1)
         .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
+        .onTapGesture { }
         .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
             withAnimation(Self.springAnimation) {
                 isBeingPressed = isPressing
