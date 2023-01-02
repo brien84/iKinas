@@ -127,7 +127,7 @@ private extension CGFloat {
 }
 
 private extension CGSize {
-    static let barButtonBackground: CGSize = CGSize(width: 40, height: 40)
+    static let barButtonBackground: CGSize = CGSize(width: 36, height: 36)
 }
 
 private extension TimeInterval {
