@@ -25,28 +25,28 @@ struct ShowingItemView: View {
                         action: ShowingItem.Action.networkImage
                     ))
                     .aspectRatio(contentMode: .fill)
-                    .frame(width: .width, height: .height)
-                    .clipShape(RoundedRectangle(cornerRadius: .cornerRadius))
+                    .frame(width: Self.width, height: Self.height)
+                    .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
 
                     ShowingTitleView(showing: viewStore.showing)
 
                     VStack(alignment: .trailing) {
                         Text(viewStore.showing.date.asString(.timeOfDay))
                             .foregroundColor(.primaryElement)
-                            .font(.title3)
+                            .font(.title3.bold())
 
                         Image(viewStore.showing.venue.rawValue)
                     }
 
                 }
-                .opacity(isBeingPressed ? CGFloat.longPressOpacity : 1)
-                .scaleEffect(isBeingPressed ? .longPressScaleEffect : 1)
+                .opacity(isBeingPressed ? Self.longPressOpacity : 1)
+                .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
             }
             .onTapGesture {
                 viewStore.send(.didSelectShowing(viewStore.showing))
             }
             .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
-                withAnimation(.longPressSpring) {
+                withAnimation(Self.longPressAnimation) {
                     isBeingPressed = isPressing
                 }
             })
@@ -87,17 +87,17 @@ private struct ShowingTitleView: View {
     }
 }
 
-private extension Animation {
-    static let longPressSpring = Animation.spring(
-        response: 0.5,
-        dampingFraction: 0.5
-    )
-}
+// MARK: - Constants
 
-private extension CGFloat {
+private extension ShowingItemView {
     static let cornerRadius: CGFloat = 10
     static let height: CGFloat = 75
     static let width: CGFloat = 75
+
+    static let longPressAnimation: Animation = .spring(
+        response: 0.5,
+        dampingFraction: 0.5
+    )
 
     static let longPressOpacity: CGFloat = 0.95
     static let longPressScaleEffect: CGFloat = 0.95
