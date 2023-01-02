@@ -31,9 +31,16 @@ struct ShowingItemView: View {
                     ShowingTitleView(showing: viewStore.showing)
 
                     VStack(alignment: .trailing) {
-                        Text(viewStore.showing.date.asString(.timeOfDay))
-                            .foregroundColor(.primaryElement)
-                            .font(.title3.bold())
+                        HStack {
+                            Image(systemName: "view.3d")
+                                .font(.title3)
+                                .foregroundColor(.tertiaryElement)
+                                .hidden(!viewStore.showing.is3D)
+
+                            Text(viewStore.showing.date.asString(.timeOfDay))
+                                .font(.title3.bold())
+                                .foregroundColor(.primaryElement)
+                        }
 
                         Image(viewStore.showing.venue.rawValue)
                     }
@@ -107,12 +114,12 @@ private extension ShowingItemView {
 
 struct ShowingItemView_Previews: PreviewProvider {
     static let movies = [
-        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "A", count: 10), showings: [Showing()]),
-        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "A", count: 50), showings: [Showing()]),
-        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 10), showings: [Showing()]),
-        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 50), showings: [Showing()]),
-        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 10), showings: [Showing()]),
-        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 50), showings: [Showing()])
+        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "A", count: 10), showings: [Showing(is3D: true)]),
+        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "A", count: 50), showings: [Showing(is3D: true)]),
+        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 10), showings: [Showing(is3D: true)]),
+        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 50), showings: [Showing(is3D: true)]),
+        Movie(title: String(repeating: "A", count: 50), originalTitle: String(repeating: "B", count: 10), showings: [Showing(is3D: true)]),
+        Movie(title: String(repeating: "A", count: 10), originalTitle: String(repeating: "B", count: 50), showings: [Showing(is3D: true)])
     ]
 
     static let items = [
