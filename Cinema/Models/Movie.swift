@@ -80,6 +80,13 @@ final class Movie: Codable {
     }
 }
 
+extension Movie: Comparable {
+    static func < (lhs: Movie, rhs: Movie) -> Bool {
+        let locale = Locale(identifier: "lt")
+        return lhs.title.compare(rhs.title, locale: locale) == .orderedAscending
+    }
+}
+
 extension Movie: Hashable {
     static func == (lhs: Movie, rhs: Movie) -> Bool {
         return lhs.title == rhs.title

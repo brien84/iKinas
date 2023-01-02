@@ -66,11 +66,11 @@ extension Showing: Comparable {
         if lhs.date != rhs.date {
             return lhs.date < rhs.date
         } else {
-            guard let lhsTitle = lhs.parentMovie?.title else { return false }
-            guard let rhsTitle = rhs.parentMovie?.title else { return true }
+            guard let lhsMovie = lhs.parentMovie else { return false }
+            guard let rhsMovie = rhs.parentMovie else { return true }
 
-            if lhsTitle != rhsTitle {
-                return lhsTitle < rhsTitle
+            if lhsMovie != rhsMovie {
+                return lhsMovie < rhsMovie
             } else {
                 return lhs.venue.rawValue < rhs.venue.rawValue
             }
@@ -78,6 +78,6 @@ extension Showing: Comparable {
     }
 
     static func == (lhs: Showing, rhs: Showing) -> Bool {
-        lhs.date == rhs.date && lhs.parentMovie?.title == rhs.parentMovie?.title && lhs.venue == rhs.venue
+        lhs.date == rhs.date && lhs.parentMovie == rhs.parentMovie && lhs.venue == rhs.venue
     }
 }
