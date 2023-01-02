@@ -56,8 +56,8 @@ struct SettingsView: View {
                     .ignoresSafeArea()
 
                 VStack {
-                    Text("Pasirinkite miestą")
-                        .font(.largeTitle)
+                    Text("Pasirinkite teatrus")
+                        .font(.title)
                         .foregroundColor(.primaryElement)
 
                     CityListView(store: store)
