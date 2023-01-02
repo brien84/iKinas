@@ -52,13 +52,16 @@ private struct GenresView: View {
             ForEach(genres, id: \.self) { genre in
                 ZStack {
                     RoundedRectangle(cornerRadius: Self.cornerRadius)
-                        .stroke()
+                        .stroke(style: .init(lineWidth: Self.strokeLineWidth))
+                        .foregroundColor(.secondaryElement)
 
                     Text(genre)
                         .font(.caption2)
+                        .foregroundColor(.primaryElement)
                         .padding(.horizontal, Self.horizontalPadding)
                         .padding(.vertical, Self.verticalPadding)
                 }
+
                 .fixedSize(horizontal: true, vertical: true)
             }
         }
@@ -75,6 +78,7 @@ private struct JustifiedTextView: UIViewRepresentable {
         label.lineBreakMode = .byTruncatingTail
         label.textAlignment = .justified
         label.textColor = .primaryElement
+        label.font = UIFont.preferredFont(forTextStyle: .body)
 
         return label
     }
@@ -95,7 +99,8 @@ private extension BodyView {
 private extension GenresView {
     static let cornerRadius: CGFloat = 4
     static let horizontalPadding: CGFloat = 8
-    static let verticalPadding: CGFloat = 4
+    static let strokeLineWidth: CGFloat = 0.5
+    static let verticalPadding: CGFloat = 5
 }
 
 // MARK: - Previews
