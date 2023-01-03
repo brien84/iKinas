@@ -13,6 +13,8 @@ struct MovieClientErrorView: View {
     private let buttonText: String
     let action: () -> Void
 
+    @State private var didAppear = false
+
     init(_ error: MovieClient.Error, action: @escaping () -> Void) {
         switch error {
         case .requiresUpdate:
@@ -45,7 +47,8 @@ struct MovieClientErrorView: View {
                     .foregroundColor(.primaryElement)
                     .multilineTextAlignment(.center)
                     .position(midPoint)
-                    .offset(y: .textYOffset)
+                    .offset(y: Self.textYOffset)
+                    .opacity(didAppear ? 1 : 0)
 
                 Image("empty")
                     .frame(maxWidth: .infinity)
@@ -59,28 +62,36 @@ struct MovieClientErrorView: View {
                 } label: {
                     Text(buttonText)
                         .font(Font.footnote.weight(.semibold))
-                        .foregroundColor(.secondaryElement)
-                        .padding(.buttonPadding)
+                        .foregroundColor(.primaryElement)
+                        .padding(Self.buttonPadding)
                         .background(
-                            RoundedRectangle(cornerRadius: .buttonCornerRadius)
-                                .strokeBorder(Color.secondaryElement, lineWidth: .buttonLineWidth)
+                            RoundedRectangle(cornerRadius: Self.buttonCornerRadius)
+                                .strokeBorder(Color.secondaryElement, lineWidth: Self.buttonLineWidth)
                                 .background(
-                                    RoundedRectangle(cornerRadius: .buttonCornerRadius).fill(Color.primaryBackground)
+                                    RoundedRectangle(cornerRadius: Self.buttonCornerRadius).fill(Color.primaryBackground)
                                 )
                         )
                 }
                 .position(midPoint)
-                .offset(y: .buttonYOffset)
+                .offset(y: Self.buttonYOffset)
+                .opacity(didAppear ? 1 : 0)
+            }
+        }
+        .onAppear {
+            withAnimation {
+                didAppear = true
             }
         }
     }
 }
 
-extension CGFloat {
+// MARK: - Constants
+
+extension MovieClientErrorView {
     static let textYOffset: CGFloat = -88
     static let buttonYOffset: CGFloat = 104
 
-    static let buttonCornerRadius: CGFloat = 5
+    static let buttonCornerRadius: CGFloat = 8
     static let buttonLineWidth: CGFloat = 0.5
     static let buttonPadding: CGFloat = 8
 }
