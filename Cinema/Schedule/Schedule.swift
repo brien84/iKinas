@@ -67,7 +67,7 @@ struct Schedule: ReducerProtocol {
 
             case .datasourceNeedsUpdate(let datasource):
                 return Effect(value: .beginTransition(datasource))
-                    .delay(for: .seconds(0.01), scheduler: mainQueue)
+                    .delay(for: .milliseconds(10), scheduler: mainQueue)
                     .eraseToEffect()
                     .animation(.easeInOut(duration: 0.3))
 
@@ -84,7 +84,7 @@ struct Schedule: ReducerProtocol {
                 state.movieList.movieItems = getMovieItems(from: state.datasource)
                 state.showingList.showingItems = getShowingItems(from: state.datasource)
                 return Effect(value: .endTransition)
-                    .delay(for: .seconds(0.01), scheduler: mainQueue)
+                    .delay(for: .milliseconds(10), scheduler: mainQueue)
                     .eraseToEffect()
                     .animation(.easeInOut(duration: 0.4))
 
@@ -111,7 +111,7 @@ struct Schedule: ReducerProtocol {
             movie.showings.filter { $0.isShown(on: datasource.date) }
         }
 
-        let parentMovies = Array(Set(showings.compactMap { $0.parentMovie })).sorted { $0.title < $1.title }
+        let parentMovies = Array(Set(showings.compactMap { $0.parentMovie })).sorted()
         let movieItems = parentMovies.map { MovieItem.State(id: uuid(), movie: $0) }
 
         return IdentifiedArray(uniqueElements: movieItems)

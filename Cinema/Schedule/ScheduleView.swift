@@ -27,20 +27,20 @@ struct ScheduleView: View {
                             VStack(spacing: .zero) {
                                 SmallDateLabel(date: viewStore.date)
                                     .padding([.top, .horizontal])
-                                    .scaleEffect(viewStore.isTransitioning ? 0.75 : 1)
+                                    .transitionDateLabel(viewStore.isTransitioning)
 
                                 HStack {
                                     LargeDateLabel(date: viewStore.date)
-                                        .scaleEffect(viewStore.isTransitioning ? 0.75 : 1)
+                                        .transitionDateLabel(viewStore.isTransitioning)
 
                                     SettingsButton {
                                         viewStore.send(.settingsButtonDidTap)
                                     }.hidden(!Calendar.current.isDateInToday(viewStore.date))
                                 }
                                 .padding(.horizontal)
-                                .padding(.vertical, 8)
+                                .padding(.vertical, Self.verticalPadding)
                             }
-                            .id("top")
+                            .id(Self.scrollToTopID)
                             .background(FrameGetter(frame: $dateFrame))
 
                             Divider()
@@ -49,6 +49,8 @@ struct ScheduleView: View {
                                 VStack {
                                     SectionLabel(text: "Filmai")
                                         .padding(.horizontal)
+                                        .padding(.top, Self.verticalPadding)
+                                        .transitionSectionLabel(viewStore.isTransitioning)
 
                                     MovieListView(store: store.scope(
                                         state: \.movieList,
@@ -58,21 +60,19 @@ struct ScheduleView: View {
                                     // the width value of the screen, it is more efficient
                                     // to use the `UIScreen` object, since the view always
                                     // takes up the entire width of the screen.
-                                    .frame(height: UIScreen.main.bounds.width * 0.95)
-                                    .blur(radius: viewStore.isTransitioning ? 7 : 0)
-                                    .scaleEffect(y: viewStore.isTransitioning ? 0.99 : 1, anchor: .center)
-                                    .offset(y: viewStore.isTransitioning ? -5 : 0 )
+                                    .frame(height: UIScreen.main.bounds.width * Self.heightToWidthRatio)
+                                    .transitionMovieListView(viewStore.isTransitioning)
 
                                     SectionLabel(text: "Seansai")
                                         .padding(.horizontal)
+                                        .transitionSectionLabel(viewStore.isTransitioning)
 
                                     ShowingListView(store: store.scope(
                                         state: \.showingList,
                                         action: Schedule.Action.showingList
                                     ))
-                                    .blur(radius: viewStore.isTransitioning ? 7 : 0)
-                                    .scaleEffect(x: viewStore.isTransitioning ? 0.98 : 1, anchor: .leading)
-                                }.padding(.top, 8)
+                                    .transitionShowingListView(viewStore.isTransitioning)
+                                }
 
                                 if viewStore.movieList.movieItems.isEmpty {
                                     DatasourceErrorView()
@@ -80,15 +80,15 @@ struct ScheduleView: View {
                                             width: backgroundFrame.width,
                                             height: backgroundFrame.height - dateFrame.height
                                         )
+                                        .transitionalBlur(viewStore.isTransitioning)
                                 }
                             }
                         }
-
                     }
-                    .opacity(viewStore.isTransitioning ? 0 : 1)
+                    .opacity(viewStore.isTransitioning ? .zero : 1)
                     .onChange(of: viewStore.requiresScrollToTop) { newValue in
                         if newValue {
-                            scrollProxy.scrollTo("top")
+                            scrollProxy.scrollTo(Self.scrollToTopID)
                         }
                     }
                 }
@@ -109,6 +109,42 @@ private struct SettingsButton: View {
                 .font(.title2)
                 .foregroundColor(.primaryElement)
         }
+    }
+}
+
+// MARK: - Constants
+
+private extension ScheduleView {
+    static let heightToWidthRatio: CGFloat = 0.96
+    static let scrollToTopID: String = "upandaway"
+    static let verticalPadding: CGFloat = 8
+}
+
+// MARK: - Transitions
+
+private extension View {
+    func transitionalBlur(_ isTransitioning: Bool) -> some View {
+        blur(radius: isTransitioning ? 6 : 0)
+    }
+
+    func transitionDateLabel(_ isTransitioning: Bool) -> some View {
+        scaleEffect(isTransitioning ? 0.75 : 1)
+    }
+
+    func transitionMovieListView(_ isTransitioning: Bool) -> some View {
+        transitionalBlur(isTransitioning)
+            .scaleEffect(y: isTransitioning ? 0.98 : 1, anchor: .center)
+            .offset(y: isTransitioning ? -5 : 0 )
+    }
+
+    func transitionSectionLabel(_ isTransitioning: Bool) -> some View {
+        transitionalBlur(isTransitioning)
+            .offset(x: isTransitioning ? 4 : 0)
+    }
+
+    func transitionShowingListView(_ isTransitioning: Bool) -> some View {
+        transitionalBlur(isTransitioning)
+            .scaleEffect(x: isTransitioning ? 0.98 : 1, anchor: .leading)
     }
 }
 
