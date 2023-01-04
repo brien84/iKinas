@@ -39,7 +39,6 @@ struct DateSelector: ReducerProtocol {
 
     enum Action: Equatable {
         case didSelect(date: Date)
-        case setDisabled(Bool)
     }
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
@@ -55,10 +54,6 @@ struct DateSelector: ReducerProtocol {
 
             state.selectedDate = date
 
-            return .none
-
-        case .setDisabled(let isDisabled):
-            state.isDisabled = isDisabled
             return .none
         }
     }

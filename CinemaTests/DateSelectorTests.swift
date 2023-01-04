@@ -33,17 +33,4 @@ final class DateSelectorTests: XCTestCase {
         }
     }
 
-    func testTogglingIsDisabledProperty() async {
-        let store = TestStore(
-            initialState: DateSelector.State(),
-            reducer: DateSelector()
-        )
-
-        let isDisabled = store.state.isDisabled
-
-        await store.send(.setDisabled(!isDisabled)) {
-            $0.isDisabled = !isDisabled
-        }
-    }
-
 }
