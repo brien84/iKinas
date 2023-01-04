@@ -18,7 +18,7 @@ struct TitleView: View {
             VStack(spacing: Self.spacing) {
                 Text(movie.title)
                     .lineLimit(2)
-                    .font(.title2.bold())
+                    .font(.title.weight(.semibold))
                     .frame(maxWidth: .infinity, alignment: .leading)
 
                 if movie.title != movie.originalTitle {
@@ -30,7 +30,7 @@ struct TitleView: View {
 
                 Text("\(movie.year) • \(movie.ageRating) • \(movie.duration.uppercased())")
                     .lineLimit(1)
-                    .font(.footnote)
+                    .font(.footnote.weight(.light))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .foregroundColor(.primaryElement)
