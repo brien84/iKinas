@@ -84,7 +84,12 @@ struct Main: ReducerProtocol {
                 state.selectedShowing = showing
                 return .none
 
+            case .schedule(action: .beginTransition):
+                state.dateSelector.isDisabled = true
+                return .none
+
             case .schedule(action: .endTransition):
+                state.dateSelector.isDisabled = false
                 if state.requiresToFetchMovies {
                     state.requiresToFetchMovies = false
                 }
