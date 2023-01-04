@@ -23,6 +23,15 @@ struct BodyView: View {
                         .padding(.horizontal)
                         .padding(.vertical, Self.verticalPadding)
 
+                    if let showing = viewStore.showing {
+                        Divider()
+                            .padding(.horizontal)
+
+                        ShowingView(showing: showing) {
+                            print(showing)
+                        }
+                    }
+
                     Divider()
                         .padding(.horizontal)
                         .padding(.bottom, Self.verticalPadding)
@@ -60,6 +69,33 @@ private struct GenresView: View {
     }
 }
 
+private struct ShowingView: View {
+    let showing: Showing
+    let action: () -> Void
+
+    var body: some View {
+        HStack {
+            Image(showing.venue.rawValue)
+
+            Spacer()
+
+            Text(showing.date.asString(.timeOfDay))
+                .font(.title3.weight(.semibold))
+
+            Button {
+                action()
+            } label: {
+                Image(systemName: "cart.circle")
+                    .font(.title3)
+                    .imageScale(.large)
+                    .foregroundColor(.tertiaryElement)
+            }
+        }
+        .padding(.horizontal, Self.horizontalPadding)
+        .padding(.vertical, Self.verticalPadding)
+    }
+}
+
 private struct JustifiedTextView: UIViewRepresentable {
     let text: String
 
@@ -93,6 +129,11 @@ private extension GenresView {
     static let horizontalPadding: CGFloat = 8
     static let strokeLineWidth: CGFloat = 0.5
     static let verticalPadding: CGFloat = 5
+}
+
+private extension ShowingView {
+    static let horizontalPadding: CGFloat = 32
+    static let verticalPadding: CGFloat = 24
 }
 
 // MARK: - Previews
