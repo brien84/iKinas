@@ -33,12 +33,12 @@ struct ShowingItemView: View {
                     VStack(alignment: .trailing) {
                         HStack {
                             Image(systemName: "view.3d")
-                                .font(.title3)
+                                .font(.title3.weight(.light))
                                 .foregroundColor(.tertiaryElement)
                                 .hidden(!viewStore.showing.is3D)
 
                             Text(viewStore.showing.date.asString(.timeOfDay))
-                                .font(.title3.bold())
+                                .font(.title3.weight(.medium))
                                 .foregroundColor(.primaryElement)
                         }
 
