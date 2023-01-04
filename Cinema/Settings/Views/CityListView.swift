@@ -49,7 +49,7 @@ struct CityListView: View {
                         label: {
                             Text(city.description)
                                 .padding()
-                                .font(.title3)
+                                .font(.title2)
                                 .foregroundColor(city == viewStore.selectedCity ? .tertiaryElement : .secondaryElement)
                         }
                     )
