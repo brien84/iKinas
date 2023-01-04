@@ -29,15 +29,7 @@ struct BodyView: View {
 
                     JustifiedTextView(text: viewStore.movie.plot)
                         .padding(.horizontal, Self.horizontalPadding)
-
-                    Divider()
-                        .padding(.horizontal)
-                        .padding(.vertical, Self.verticalPadding)
-
-                    DetailShowingsView(store: store.scope(
-                        state: \.detailShowings,
-                        action: MovieDetail.Action.detailShowings
-                    ))
+                        .padding(.bottom, Self.verticalPadding)
                 }
             }
         }
@@ -113,7 +105,7 @@ struct BodyView_Previews: PreviewProvider {
     ]
 
     static let movie = Movie(showings: showings)
-    static let store = Store(initialState: MovieDetail.State(movie: movie), reducer: MovieDetail())
+    static let store = Store(initialState: MovieDetail.State(movie: movie, showing: movie.showings.first), reducer: MovieDetail())
 
     static var previews: some View {
         ZStack {
