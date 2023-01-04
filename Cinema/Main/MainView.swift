@@ -65,8 +65,12 @@ struct MainView: View {
                 }
             }
             .onAppear {
-                if viewStore.requiresToFetchMovies {
-                    viewStore.send(.fetchMovies)
+                if UserDefaults.standard.isFirstLaunch() {
+                    viewStore.send(.setNavigationToSettings(isActive: true))
+                } else {
+                    if viewStore.requiresToFetchMovies {
+                        viewStore.send(.fetchMovies)
+                    }
                 }
             }
         }
