@@ -11,7 +11,6 @@ import SwiftUI
 
 struct MovieListView: View {
     let store: StoreOf<MovieList>
-    let scrollToTopID = "top"
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -26,15 +25,15 @@ struct MovieListView: View {
                                     store.scope(state: \.movieItems, action: MovieList.Action.movieItem(id:action:))
                                 ) {
                                     MovieItemView(store: $0)
-                                        .frame(width: proxy.size.height / .heightMultiplier, height: proxy.size.height)
+                                        .frame(width: proxy.size.height / Self.widthToHeightRatio, height: proxy.size.height)
                                 }
                             }
                             .padding(.horizontal)
-                            .id(scrollToTopID)
+                            .id(Self.scrollToTopID)
                         }
                         .onChange(of: viewStore.requiresScrollToTop) { newValue in
                             if newValue {
-                                scrollProxy.scrollTo(scrollToTopID, anchor: .leading)
+                                scrollProxy.scrollTo(Self.scrollToTopID, anchor: .leading)
                             }
                         }
                     }
@@ -45,9 +44,11 @@ struct MovieListView: View {
     }
 }
 
-private extension CGFloat {
-    static let heightMultiplier: CGFloat = 1.5
-    static let horizontalPadding: CGFloat = 16
+// MARK: - Constants
+
+private extension MovieListView {
+    static let scrollToTopID: String = "upandaway"
+    static let widthToHeightRatio: CGFloat = 1.5
 }
 
 // MARK: - Previews

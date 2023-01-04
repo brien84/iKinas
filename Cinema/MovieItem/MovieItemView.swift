@@ -23,7 +23,7 @@ struct MovieItemView: View {
                     state: \.networkImage,
                     action: MovieItem.Action.networkImage
                 ))
-                .aspectRatio(.imageAspectRatio, contentMode: .fit)
+                .aspectRatio(Self.imageAspectRatio, contentMode: .fit)
 
                 VStack {
                     Spacer()
@@ -46,33 +46,19 @@ struct MovieItemView: View {
                     )
                 }
             }
-            .clipShape(RoundedRectangle(cornerRadius: .cornerRadius, style: .continuous))
-            .opacity(isBeingPressed ? CGFloat.longPressOpacity : 1)
-            .scaleEffect(isBeingPressed ? .longPressScaleEffect : 1)
+            .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous))
+            .opacity(isBeingPressed ? Self.longPressOpacity : 1)
+            .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
             .onTapGesture {
                 viewStore.send(.didSelectMovie(viewStore.movie))
             }
             .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
-                withAnimation(.longPressSpring) {
+                withAnimation(Self.longPressAnimation) {
                     isBeingPressed = isPressing
                 }
             })
         }
     }
-}
-
-private extension Animation {
-    static let longPressSpring = Animation.spring(
-        response: 0.5,
-        dampingFraction: 0.5
-    )
-}
-
-private extension CGFloat {
-    static let cornerRadius: CGFloat = 20
-    static let imageAspectRatio: CGFloat = 2/3
-    static let longPressOpacity: CGFloat = 0.95
-    static let longPressScaleEffect: CGFloat = 0.95
 }
 
 private struct VisualEffectView: UIViewRepresentable {
@@ -85,6 +71,21 @@ private struct VisualEffectView: UIViewRepresentable {
     func updateUIView(_ uiView: UIVisualEffectView, context: UIViewRepresentableContext<Self>) {
         uiView.effect = effect
     }
+}
+
+// MARK: - Constants
+
+private extension MovieItemView {
+    static let cornerRadius: CGFloat = 20
+    static let imageAspectRatio: CGFloat = 2/3
+
+    static let longPressAnimation: Animation = .spring(
+        response: 0.5,
+        dampingFraction: 0.5
+    )
+
+    static let longPressOpacity: CGFloat = 0.95
+    static let longPressScaleEffect: CGFloat = 0.95
 }
 
 // MARK: - Previews

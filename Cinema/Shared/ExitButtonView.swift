@@ -20,12 +20,13 @@ struct ExitButtonView: View {
                 Image(systemName: "xmark")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: .width)
+                    .frame(width: Self.width)
                     .font(.title3.bold())
-                    .padding(.padding)
+                    .padding(Self.padding)
                     .foregroundColor(.secondaryElement)
                     .background(
-                        Circle().fill(Color.secondaryBackground)
+                        Circle()
+                            .fill(Color.secondaryBackground)
                     )
             }
         )
@@ -34,7 +35,7 @@ struct ExitButtonView: View {
 
 // MARK: - Constants
 
-private extension CGFloat {
+private extension ExitButtonView {
     static let width: CGFloat = 12
     static let padding: CGFloat = 10
 }

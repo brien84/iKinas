@@ -71,7 +71,7 @@ struct VenueListView: View {
             }
             .transition(.verticalScaleAndOpacity)
             .background(
-                RoundedRectangle(cornerRadius: .cornerRadius)
+                RoundedRectangle(cornerRadius: Self.cornerRadius)
                     .fill(Color.secondaryBackground)
                     .padding(.horizontal)
             )
@@ -82,7 +82,7 @@ struct VenueListView: View {
 
 // MARK: - Constants
 
-private extension CGFloat {
+private extension VenueListView {
     static let cornerRadius: CGFloat = 10
 }
 
