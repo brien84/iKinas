@@ -5,7 +5,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -18,51 +17,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9Js-Lx-LJ8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2141" y="-735"/>
-        </scene>
-        <!--Web View Controller-->
-        <scene sceneID="5BK-LY-9LK">
-            <objects>
-                <viewController id="g5h-Z4-x8A" customClass="WebViewController" customModule="iKinas" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="GU7-aK-hQw">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <wkWebView contentMode="scaleToFill" allowsBackForwardNavigationGestures="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NU4-Jj-AGM">
-                                <rect key="frame" x="0.0" y="48" width="414" height="848"/>
-                                <color key="backgroundColor" name="secondaryBackground"/>
-                                <wkWebViewConfiguration key="configuration">
-                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
-                                    <wkPreferences key="preferences"/>
-                                </wkWebViewConfiguration>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="string" keyPath="accessibilityIdentifier" value="webVCView"/>
-                                </userDefinedRuntimeAttributes>
-                            </wkWebView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="Ngg-Qf-x8b"/>
-                        <color key="backgroundColor" name="secondaryBackground"/>
-                        <constraints>
-                            <constraint firstItem="NU4-Jj-AGM" firstAttribute="top" secondItem="Ngg-Qf-x8b" secondAttribute="top" id="Msh-D3-um0"/>
-                            <constraint firstItem="Ngg-Qf-x8b" firstAttribute="trailing" secondItem="NU4-Jj-AGM" secondAttribute="trailing" id="NO8-aC-KhS"/>
-                            <constraint firstAttribute="bottom" secondItem="NU4-Jj-AGM" secondAttribute="bottom" id="TK6-C9-dev"/>
-                            <constraint firstItem="NU4-Jj-AGM" firstAttribute="leading" secondItem="Ngg-Qf-x8b" secondAttribute="leading" id="lyo-4N-AlU"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="Sud-3z-mCU">
-                        <barButtonItem key="leftBarButtonItem" systemItem="done" id="AKs-Jv-1My">
-                            <color key="tintColor" name="primaryElement"/>
-                            <connections>
-                                <action selector="doneButtonDidTap:" destination="g5h-Z4-x8A" id="6Ql-wt-qE7"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="webView" destination="NU4-Jj-AGM" id="u4G-e1-Yjh"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lW2-Sk-9ta" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="3138" y="-735"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="uCH-Wk-0el">
@@ -90,9 +44,6 @@
     <resources>
         <namedColor name="primaryElement">
             <color red="0.96862745098039216" green="0.96862745098039216" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
-        <namedColor name="secondaryBackground">
-            <color red="0.035294117647058823" green="0.043137254901960784" blue="0.047058823529411764" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
