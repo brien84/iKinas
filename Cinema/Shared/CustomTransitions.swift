@@ -8,6 +8,17 @@
 
 import SwiftUI
 
+private struct TrailingSlideIn: ViewModifier {
+    var isActive: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .blur(radius: isActive ? 10 : 00)
+            .offset(x: isActive ? 500 : 0, y: 0)
+            .opacity(isActive ? 0.7 : 1)
+    }
+}
+
 private struct VerticalScaleAndOpacity: ViewModifier {
     private var amount: CGFloat
 
@@ -23,6 +34,13 @@ private struct VerticalScaleAndOpacity: ViewModifier {
 }
 
 extension AnyTransition {
+    static var trailingSlideIn: AnyTransition {
+        .modifier(
+            active: TrailingSlideIn(isActive: true),
+            identity: TrailingSlideIn(isActive: false)
+        )
+    }
+
     static var verticalScaleAndOpacity: AnyTransition {
         .modifier(
             active: VerticalScaleAndOpacity(0.01),
