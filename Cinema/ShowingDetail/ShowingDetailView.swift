@@ -24,7 +24,21 @@ struct ShowingDetailView: View {
                         Color.primaryBackground
                             .edgesIgnoringSafeArea(.bottom)
 
-
+                        ScrollView(.vertical, showsIndicators: false) {
+                            LazyVGrid(columns: columns) {
+                                ForEach(viewStore.showingItems) { item in
+                                    ShowingView(showing: item.showing)
+                                        .transition(.opacity)
+                                        .simultaneousGesture(
+                                            TapGesture().onEnded { _ in
+                                                viewStore.send(.didSelectShowing(item.showing))
+                                            }
+                                        )
+                                }
+                            }
+                            .padding()
+                        }
+                        .id(viewStore.selectedDate)
                     }
                 }
                 .padding(.bottom)
@@ -76,6 +90,48 @@ private struct ShowingDateSelector: View {
     }
 }
 
+private struct ShowingView: View {
+    let showing: Showing
+
+    @State private var isBeingPressed = false
+
+    var body: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
+                .strokeBorder(Color.primaryElement, lineWidth: Self.lineWidth)
+                .background(
+                    RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
+                        .fill(Color.secondaryBackground)
+                )
+
+            VStack {
+                Text(showing.date.asString(.timeOfDay))
+                    .font(.title3.weight(.medium))
+                    .foregroundColor(.primaryElement)
+                    .frame(maxWidth: .infinity)
+                    .overlay(
+                        Text("3D")
+                            .font(.title3)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .foregroundColor(.tertiaryElement)
+                            .hidden(!showing.is3D)
+                    )
+
+                Image(showing.venue.rawValue)
+            }
+            .padding(Self.padding)
+        }
+        .opacity(isBeingPressed ? Self.longPressOpacity : 1)
+        .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
+        .onTapGesture { }
+        .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
+            withAnimation(Self.springAnimation) {
+                isBeingPressed = isPressing
+            }
+        })
+    }
+}
+
 private extension Date {
     var shortWeekdayFormat: String {
         if Calendar.current.isDateInToday(self) { return "ŠND" }
@@ -111,6 +167,19 @@ private extension ShowingDateSelector {
         .primaryBackground.opacity(0.7),
         .primaryBackground.opacity(0.75)
     ])
+}
+
+private extension ShowingView {
+    static let cornerRadius: CGFloat = 15
+    static let lineWidth: CGFloat = 2
+    static let longPressOpacity: CGFloat = 0.95
+    static let longPressScaleEffect: CGFloat = 0.95
+    static let padding: CGFloat = 8
+
+    static let springAnimation: Animation = .spring(
+        response: 0.5,
+        dampingFraction: 0.5
+    )
 }
 
 // MARK: - Previews
