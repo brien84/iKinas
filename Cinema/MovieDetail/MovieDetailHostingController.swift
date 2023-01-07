@@ -13,6 +13,7 @@ import SwiftUI
 final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     private var cancellables: Set<AnyCancellable> = []
     private let viewStore: ViewStoreOf<MovieDetail>
+    private var currentTitleViewOverlapPercentage: CGFloat = 0
 
     private lazy var leftButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -21,7 +22,12 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
             primaryAction: UIAction { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
+                if self?.viewStore.showingDetail == nil {
+                    self?.navigationController?.popViewController(animated: true)
+                } else {
+                    self?.viewStore.send(.toggleShowingDetail, animation: Self.toggleShowingDetailAnimation)
+                    self?.hideRightBarButton(false)
+                }
             }
         )
 
@@ -34,7 +40,12 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
                 systemName: "ticket",
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
-            primaryAction: UIAction { _ in }
+            primaryAction: UIAction { [weak self] _ in
+                if self?.viewStore.showingDetail == nil {
+                    self?.viewStore.send(.toggleShowingDetail, animation: Self.toggleShowingDetailAnimation)
+                    self?.hideRightBarButton(true)
+                }
+            }
         )
 
         return button
@@ -58,17 +69,29 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
 
+        viewStore.publisher.openedURL.sink { [self] url in
+            if let url {
+                let vc = WebViewController(url: url)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
+        .store(in: &self.cancellables)
+
         viewStore.publisher.titleViewOverlapPercentage.sink { [self] percentage in
+            currentTitleViewOverlapPercentage = percentage
+
             // Sets `navigationBar` opacity.
             navigationBar?.setBackgroundImage(color: .primaryBackground, alpha: percentage)
 
             // Sets the background opacity of the bar buttons in the `navigationItem`.
-            leftButton.setBackgroundImage(size: .barButtonBackground, color: .primaryBackground, alpha: 1 - percentage)
-            rightButton.setBackgroundImage(size: .barButtonBackground, color: .primaryBackground, alpha: 1 - percentage)
+            if viewStore.showingDetail == nil {
+                leftButton.setBackgroundImage(size: Self.barButtonBackground, color: .primaryBackground, alpha: 1 - percentage)
+                rightButton.setBackgroundImage(size: Self.barButtonBackground, color: .primaryBackground, alpha: 1 - percentage)
+            }
 
             // Sets the horizontal inset of the bar buttons in the `navigationItem`.
-            leftButton.imageInsets.left = .maximumBarButtonInset * (1 - percentage)
-            rightButton.imageInsets.right = .maximumBarButtonInset * (1 - percentage)
+            leftButton.imageInsets.left = Self.maximumBarButtonInset * (1 - percentage)
+            rightButton.imageInsets.right = Self.maximumBarButtonInset * (1 - percentage)
 
             // Sets `navigationBar` title opacity.
             let attributes: [NSAttributedString.Key: Any] = [.foregroundColor: UIColor.primaryElement.withAlphaComponent(percentage)]
@@ -76,14 +99,19 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
             navigationBar?.scrollEdgeAppearance?.titleTextAttributes = attributes
 
             // Sets `navigationBar` title vertical offset.
-            navigationBar?.standardAppearance.titlePositionAdjustment.vertical = .navBarTitleMaximumVerticalOffset * (1 - percentage)
-            navigationBar?.scrollEdgeAppearance?.titlePositionAdjustment.vertical = .navBarTitleMaximumVerticalOffset * (1 - percentage)
+            navigationBar?.standardAppearance.titlePositionAdjustment.vertical = Self.navBarTitleMaximumVerticalOffset * (1 - percentage)
+            navigationBar?.scrollEdgeAppearance?.titlePositionAdjustment.vertical = Self.navBarTitleMaximumVerticalOffset * (1 - percentage)
         }
         .store(in: &self.cancellables)
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+
+        if viewStore.openedURL != nil {
+            viewStore.send(.updateTitleViewOverlap(percentage: currentTitleViewOverlapPercentage + .leastNonzeroMagnitude))
+            viewStore.send(.openURL(nil))
+        }
 
         navigationController?.setNavigationBarHidden(true, animated: false)
     }
@@ -100,7 +128,19 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        cancellables.removeAll()
+        if viewStore.openedURL == nil {
+            cancellables.removeAll()
+        }
+    }
+
+    private func hideRightBarButton(_ isHidden: Bool) {
+        if isHidden {
+            rightButton.tintColor = .clear
+            rightButton.setBackgroundImage(size: Self.barButtonBackground, color: .primaryBackground, alpha: .zero)
+        } else {
+            rightButton.tintColor = .primaryElement
+            rightButton.setBackgroundImage(size: Self.barButtonBackground, color: .primaryBackground, alpha: 1 - currentTitleViewOverlapPercentage)
+        }
     }
 }
 
@@ -113,7 +153,7 @@ private extension MovieDetailHostingController {
 extension MovieDetailHostingController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         // Smoothly hides `navigationBar` just before `interactivePopGesture` begins.
-        UIView.animate(withDuration: .hideNavigationBarDuration) { [self] in
+        UIView.animate(withDuration: Self.hideNavigationBarDuration) { [self] in
             navigationController?.setNavigationBarHidden(true, animated: true)
         }
 
@@ -121,17 +161,14 @@ extension MovieDetailHostingController: UIGestureRecognizerDelegate {
     }
 }
 
-private extension CGFloat {
+// MARK: - Constants
+
+private extension MovieDetailHostingController {
+    static let barButtonBackground: CGSize = CGSize(width: 36, height: 36)
+    static let hideNavigationBarDuration: TimeInterval = 0.15
     static let maximumBarButtonInset: CGFloat = 10
     static let navBarTitleMaximumVerticalOffset: CGFloat = 30
-}
-
-private extension CGSize {
-    static let barButtonBackground: CGSize = CGSize(width: 36, height: 36)
-}
-
-private extension TimeInterval {
-    static let hideNavigationBarDuration: TimeInterval = 0.15
+    static let toggleShowingDetailAnimation: Animation = .spring(response: 0.4, dampingFraction: 1.0)
 }
 
 private extension UIBarButtonItem {
