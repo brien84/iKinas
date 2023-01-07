@@ -42,6 +42,15 @@ struct MovieDetailView: View {
                     }
                 }
                 .padding(.bottom, -posterOverlap)
+                .disabled(viewStore.showingDetail != nil)
+
+                IfLetStore(
+                    store.scope(
+                        state: \.showingDetail,
+                        action: MovieDetail.Action.showingDetail
+                    ),
+                    then: ShowingDetailView.init(store:)
+                )
             }
             .ignoresSafeArea(edges: .top)
             .background(SafeAreaGetter(insets: $safeArea))
@@ -73,19 +82,19 @@ struct MovieDetailView: View {
     }
 }
 
-extension MovieDetailView {
+private extension MovieDetailView {
     // Minimum `PosterView` overlap value.
-    private var posterOverlapConstant: CGFloat {
+    var posterOverlapConstant: CGFloat {
         60
     }
 
     // When `PosterView` is not overlapped `TitleView` opacity is zero.
-    private var titleViewOpacity: CGFloat {
+    var titleViewOpacity: CGFloat {
         1 - posterFrame.minY / posterOverlapConstant
     }
 
     // Scales the `PosterView` when scrolling downwards after the `PosterView` is no longer overlapped.
-    private var posterScale: CGFloat {
+    var posterScale: CGFloat {
         if posterFrame.minY > posterOverlapConstant {
             return (posterFrame.height - posterOverlapConstant + posterFrame.minY) / posterFrame.height
         }
@@ -94,7 +103,7 @@ extension MovieDetailView {
     }
 
     // Keeps the `PosterView` stuck to the top of the screen when scrolling downwards.
-    private var posterOffset: CGFloat {
+    var posterOffset: CGFloat {
         guard posterFrame.minY > .zero else { return .zero }
 
         if posterFrame.minY < posterOverlapConstant {
@@ -110,7 +119,7 @@ extension MovieDetailView {
 
     // When the top edge of the `TitleView` reaches the bottom edge of the navigation bar,
     // the opacity of the `PosterView` is zero.
-    private var posterOpacity: CGFloat {
+    var posterOpacity: CGFloat {
         let totalDistance = posterFrame.height - titleViewFrame.height - safeArea.top - posterOverlapConstant
         let currentDistance = safeArea.top.distance(to: titleViewFrame.minY)
         return currentDistance / totalDistance
