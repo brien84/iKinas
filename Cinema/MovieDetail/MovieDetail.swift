@@ -14,6 +14,7 @@ struct MovieDetail: ReducerProtocol {
     struct State: Equatable {
         let movie: Movie
         let showing: Showing?
+        var showingDetail: ShowingDetail.State?
         var networkImage: NetworkImage.State
 
         // The percentage of the `TitleView` that is overlapped by the navigation bar.
@@ -28,6 +29,8 @@ struct MovieDetail: ReducerProtocol {
 
     enum Action: Equatable {
         case networkImage(NetworkImage.Action)
+        case showingDetail(ShowingDetail.Action)
+        case toggleShowingDetail
         case updateTitleViewOverlap(percentage: CGFloat)
     }
 
@@ -40,10 +43,25 @@ struct MovieDetail: ReducerProtocol {
             switch action {
             case .networkImage:
                 return .none
+
+            case .showingDetail:
+                return .none
+
+            case .toggleShowingDetail:
+                if state.showingDetail == nil {
+                    state.showingDetail = ShowingDetail.State(movie: state.movie)
+                } else {
+                    state.showingDetail = nil
+                }
+                return .none
+
             case .updateTitleViewOverlap(percentage: let percentage):
                 state.titleViewOverlapPercentage = percentage
                 return .none
             }
+        }
+        .ifLet(\.showingDetail, action: /Action.showingDetail) {
+            ShowingDetail()
         }
     }
 
