@@ -17,10 +17,6 @@ extension Color {
     static let secondaryBackground = Color("secondaryBackground")
 }
 
-extension TimeInterval {
-    static let stdAnimation = 0.4
-}
-
 extension UIColor {
     static let primaryElement = UIColor(named: "primaryElement")!
     static let secondaryElement = UIColor(named: "secondaryElement")!
@@ -30,11 +26,6 @@ extension UIColor {
 }
 
 extension UIImage {
-    static let arrowLeft = UIImage(named: "arrowLeft")!
-    static let arrowRight = UIImage(named: "arrowRight")!
-    static let settings = UIImage(named: "settings")!
-    static let navTicket = UIImage(named: "navTicket")
-
     static let apollo = UIImage(named: "apollo")!
     static let atlantis = UIImage(named: "atlantis")!
     static let cinamon = UIImage(named: "cinamon")!
