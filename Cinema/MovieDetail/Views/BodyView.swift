@@ -28,7 +28,7 @@ struct BodyView: View {
                             .padding(.horizontal)
 
                         ShowingView(showing: showing) {
-                            print(showing)
+                            viewStore.send(.openURL(viewStore.showing?.url))
                         }
                     }
 
@@ -80,7 +80,7 @@ private struct ShowingView: View {
             Spacer()
 
             Text(showing.date.asString(.timeOfDay))
-                .font(.title3.weight(.semibold))
+                .font(.title3.weight(.medium))
 
             Button {
                 action()
