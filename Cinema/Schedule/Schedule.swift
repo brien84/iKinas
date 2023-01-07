@@ -46,8 +46,8 @@ struct Schedule: ReducerProtocol {
 
         case settingsButtonDidTap
 
-        case movieList(action: MovieList.Action)
-        case showingList(action: ShowingList.Action)
+        case movieList(MovieList.Action)
+        case showingList(ShowingList.Action)
     }
 
     @Dependency(\.mainQueue) var mainQueue

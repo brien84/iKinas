@@ -31,9 +31,9 @@ struct Main: ReducerProtocol {
         case deselect
         case fetchMovies
 
-        case dateSelector(action: DateSelector.Action)
-        case schedule(action: Schedule.Action)
-        case settings(action: Settings.Action)
+        case dateSelector(DateSelector.Action)
+        case schedule(Schedule.Action)
+        case settings(Settings.Action)
         case setNavigationToSettings(isActive: Bool)
 
         case movieClient(Result<[Movie], MovieClient.Error>)
@@ -71,24 +71,24 @@ struct Main: ReducerProtocol {
                     date: date,
                     movies: state.schedule.movies
                 )
-                return Effect(value: .schedule(action: .datasourceNeedsUpdate(datasource)))
+                return Effect(value: .schedule(.datasourceNeedsUpdate(datasource)))
 
             case .dateSelector:
                 return .none
 
-            case .schedule(action: .movieList(action: .movieItem(id: _, action: .didSelectMovie(let movie)))):
+            case .schedule(.movieList(.movieItem(id: _, action: .didSelectMovie(let movie)))):
                 state.selectedMovie = movie
                 return .none
 
-            case .schedule(action: .showingList(action: .showingItem(id: _, action: .didSelectShowing(let showing)))):
+            case .schedule(.showingList(.showingItem(id: _, action: .didSelectShowing(let showing)))):
                 state.selectedShowing = showing
                 return .none
 
-            case .schedule(action: .beginTransition):
+            case .schedule(.beginTransition):
                 state.dateSelector.isDisabled = true
                 return .none
 
-            case .schedule(action: .endTransition):
+            case .schedule(.endTransition):
                 state.dateSelector.isDisabled = false
                 if state.requiresToFetchMovies {
                     state.requiresToFetchMovies = false
@@ -96,14 +96,14 @@ struct Main: ReducerProtocol {
 
                 return .none
 
-            case .schedule(action: .settingsButtonDidTap):
+            case .schedule(.settingsButtonDidTap):
                 state.settings = Settings.State()
                 return .none
 
             case .schedule:
                 return .none
 
-            case .settings(action: .saveSettings):
+            case .settings(.saveSettings):
                 state.requiresToFetchMovies = true
                 return .none
 
@@ -121,7 +121,7 @@ struct Main: ReducerProtocol {
                         date: state.dateSelector.selectedDate,
                         movies: movies
                     )
-                    return Effect(value: .schedule(action: .datasourceNeedsUpdate(datasource)))
+                    return Effect(value: .schedule(.datasourceNeedsUpdate(datasource)))
                 case .failure(let error):
                     switch error {
                     case .requiresUpdate:
