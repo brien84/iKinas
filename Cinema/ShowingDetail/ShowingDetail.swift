@@ -41,6 +41,7 @@ struct ShowingDetail: ReducerProtocol {
 
     enum Action: Equatable {
         case didSelectDate(Date)
+        case didSelectShowing(Showing)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -50,6 +51,9 @@ struct ShowingDetail: ReducerProtocol {
                 state.selectedDate = date
                 let showings = state.movie.showings.filter { $0.isShown(on: date) }.sorted()
                 state.showingItems = IdentifiedArray(uniqueElements: showings.map { ShowingItem(showing: $0) })
+                return .none
+
+            case .didSelectShowing:
                 return .none
             }
         }
