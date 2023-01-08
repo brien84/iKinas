@@ -23,6 +23,7 @@ extension UIColor {
     static let tertiaryElement = UIColor(named: "tertiaryElement")!
     static let primaryBackground = UIColor(named: "primaryBackground")!
     static let secondaryBackground = UIColor(named: "secondaryBackground")!
+    static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
 }
 
 extension UIImage {
