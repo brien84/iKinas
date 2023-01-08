@@ -14,6 +14,15 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     private var cancellables: Set<AnyCancellable> = []
     private let viewStore: ViewStoreOf<MovieDetail>
     private var currentTitleViewOverlapPercentage: CGFloat = 0
+    private var isInteractivePopInProgress = false {
+        didSet {
+            if isInteractivePopInProgress {
+                viewStore.send(.toggleScrollDisabled(true))
+            } else {
+                viewStore.send(.toggleScrollDisabled(false))
+            }
+        }
+    }
 
     private lazy var leftButton: UIBarButtonItem = {
         let button = UIBarButtonItem(
@@ -119,6 +128,8 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        isInteractivePopInProgress = false
+
         DispatchQueue.main.async { [self] in
             navigationItem.hidesBackButton = true
             navigationController?.setNavigationBarHidden(false, animated: true)
@@ -152,9 +163,10 @@ private extension MovieDetailHostingController {
 
 extension MovieDetailHostingController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        // Smoothly hides `navigationBar` just before `interactivePopGesture` begins.
-        UIView.animate(withDuration: Self.hideNavigationBarDuration) { [self] in
-            navigationController?.setNavigationBarHidden(true, animated: true)
+
+        DispatchQueue.main.async {
+            self.isInteractivePopInProgress = true
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
 
         return true
@@ -165,7 +177,6 @@ extension MovieDetailHostingController: UIGestureRecognizerDelegate {
 
 private extension MovieDetailHostingController {
     static let barButtonBackground: CGSize = CGSize(width: 36, height: 36)
-    static let hideNavigationBarDuration: TimeInterval = 0.15
     static let maximumBarButtonInset: CGFloat = 10
     static let navBarTitleMaximumVerticalOffset: CGFloat = 30
     static let toggleShowingDetailAnimation: Animation = .spring(response: 0.4, dampingFraction: 1.0)

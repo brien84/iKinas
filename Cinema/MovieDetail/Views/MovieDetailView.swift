@@ -42,7 +42,7 @@ struct MovieDetailView: View {
                     }
                 }
                 .padding(.bottom, -posterOverlap)
-                .disabled(viewStore.showingDetail != nil)
+                .disabled(viewStore.showingDetail != nil || viewStore.isScrollDisabled)
 
                 IfLetStore(
                     store.scope(
