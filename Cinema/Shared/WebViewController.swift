@@ -47,7 +47,14 @@ final class WebViewController: UIViewController, WKUIDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .primaryBackground
+        // Apollo website use transparent background, therefore view
+        // background color needs to be adjusted for better visibility.
+        if request.url?.absoluteString.contains(Venue.apollo.rawValue) ?? false {
+            view.backgroundColor = .tertiaryBackground
+        } else {
+            view.backgroundColor = .primaryBackground
+        }
+
         webView.isOpaque = false
 
         webView.load(request)
