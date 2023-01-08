@@ -12,7 +12,7 @@ struct LargeDateLabel: View {
     let date: Date
 
     var body: some View {
-        Text(date.largeLabelFormat)
+        Text(date.toString(.dayOfWeek))
             .foregroundColor(.primaryElement)
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.largeTitle.bold())
@@ -23,7 +23,7 @@ struct SmallDateLabel: View {
     let date: Date
 
     var body: some View {
-        Text(date.smallLabelFormat)
+        Text(date.toString(.monthAndDay))
             .textCase(.uppercase)
             .frame(maxWidth: .infinity, alignment: .leading)
             .font(.caption.bold())
@@ -59,26 +59,5 @@ struct LabelViews_Previews: PreviewProvider {
                 SectionLabel(text: "Section")
             }.padding(.horizontal)
         }.preferredColorScheme(.dark)
-    }
-}
-
-private extension Date {
-    var largeLabelFormat: String {
-        if Calendar.current.isDateInToday(self) { return "Šiandien" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "lt")
-        dateFormatter.dateFormat = "EEEE"
-        return dateFormatter.string(from: self).capitalized
-    }
-
-    var smallLabelFormat: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "lt")
-        if Calendar.current.isDateInToday(self) {
-            dateFormatter.dateFormat = "EEEE, MMMM d"
-        } else {
-            dateFormatter.dateFormat = "MMMM d"
-        }
-        return dateFormatter.string(from: self)
     }
 }

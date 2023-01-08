@@ -37,7 +37,7 @@ struct ShowingItemView: View {
                                 .foregroundColor(.tertiaryElement)
                                 .hidden(!viewStore.showing.is3D)
 
-                            Text(viewStore.showing.date.asString(.timeOfDay))
+                            Text(viewStore.showing.date.toString(.timeOfDay))
                                 .font(.title3.weight(.medium))
                                 .foregroundColor(.primaryElement)
                         }

@@ -79,7 +79,7 @@ private struct ShowingView: View {
 
             Spacer()
 
-            Text(showing.date.asString(.timeOfDay))
+            Text(showing.date.toString(.timeOfDay))
                 .font(.title3.weight(.medium))
 
             Button {
@@ -139,13 +139,7 @@ private extension ShowingView {
 // MARK: - Previews
 
 struct BodyView_Previews: PreviewProvider {
-    static let showings = [
-        Showing(date: Date(timeIntervalSinceNow: 60)),
-        Showing(date: Date(timeIntervalSinceNow: 86400)),
-        Showing(date: Date(timeIntervalSinceNow: 2 * 86400))
-    ]
-
-    static let movie = Movie(showings: showings)
+    static let movie = Movie(showings: [Showing()])
     static let store = Store(initialState: MovieDetail.State(movie: movie, showing: movie.showings.first), reducer: MovieDetail())
 
     static var previews: some View {

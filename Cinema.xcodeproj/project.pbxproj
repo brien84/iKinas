@@ -70,6 +70,7 @@
 		29DDA575295DC125000C4322 /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DDA574295DC125000C4322 /* MovieDetailView.swift */; };
 		29DDA577295DCA2C000C4322 /* MovieDetailHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DDA576295DCA2C000C4322 /* MovieDetailHostingController.swift */; };
 		29E99C2E2402F5E7003A4141 /* CinemaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */; };
+		29F3D6AD296AFE5300495BBD /* Extensions+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -157,6 +158,7 @@
 		29E99C2B2402F5E7003A4141 /* CinemaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CinemaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaUITests.swift; sourceTree = "<group>"; };
 		29E99C2F2402F5E7003A4141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Date.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +395,7 @@
 				2904C7B5233BC6F700407B64 /* Constants.swift */,
 				29BFAF8F2961BCE700655325 /* CustomTransitions.swift */,
 				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
+				29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */,
 				2904C7A22336B09100407B64 /* Extensions.swift */,
 				29BFAF8D2961AE6200655325 /* GetterViews.swift */,
 				2991622E29524CE80084464C /* LabelViews.swift */,
@@ -603,6 +606,7 @@
 				2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageView.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
+				29F3D6AD296AFE5300495BBD /* Extensions+Date.swift in Sources */,
 				29DDA573295DBFA4000C4322 /* MovieDetail.swift in Sources */,
 				29BFAF8E2961AE6200655325 /* GetterViews.swift in Sources */,
 				29C1EA8A2958EE78007B629B /* MovieClientErrorView.swift in Sources */,

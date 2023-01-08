@@ -9,33 +9,6 @@
 import SwiftUI
 import UIKit
 
-extension Date {
-    enum StringFormat {
-        case dateAndTime
-        case monthAndDay
-        case timeOfDay
-    }
-
-    /// Converts `Date` to `String`.
-    func asString(_ format: StringFormat = .dateAndTime) -> String {
-        let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "lt")
-
-        switch format {
-        case .dateAndTime:
-            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        case .monthAndDay:
-            if Calendar.current.isDateInToday(self) { return "Šiandien" }
-            if Calendar.current.isDateInTomorrow(self) { return "Rytoj" }
-            formatter.dateFormat = "MMMM d"
-        case .timeOfDay:
-            formatter.dateFormat = "HH:mm"
-        }
-
-        return formatter.string(from: self)
-    }
-}
-
 extension UIColor {
     /// Creates `UIImage` filled with `UIColor`.
     func image(size: CGSize, isEclipse: Bool = false) -> UIImage {

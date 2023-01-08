@@ -33,11 +33,11 @@ struct DateSelectorView: View {
                                     viewStore.send(.didSelect(date: date))
                                 } label: {
                                     VStack {
-                                        Text(date.shortWeekdayFormat)
+                                        Text(date.toString(.shortDayOfWeek))
                                             .font(.caption.weight(.bold))
                                             .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .primaryElement)
 
-                                        Text(date.shortDateFormat)
+                                        Text(date.toString(.shortMonthAndDay))
                                             .font(.caption2)
                                             .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .secondaryElement)
                                     }
@@ -52,26 +52,7 @@ struct DateSelectorView: View {
             .disabled(viewStore.isDisabled)
             .background(Color.primaryBackground)
             .fixedSize(horizontal: false, vertical: true)
-
         }
-    }
-}
-
-private extension Date {
-    var shortWeekdayFormat: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "lt")
-        dateFormatter.shortWeekdaySymbols = ["SEK", "PIR", "ANT", "TRE", "KET", "PEN", "ŠEŠ"]
-        dateFormatter.dateFormat = "EEE"
-        return dateFormatter.string(from: self)
-    }
-
-    var shortDateFormat: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "lt")
-        dateFormatter.shortMonthSymbols = ["Sau", "Vas", "Kov", "Bal", "Geg", "Bir", "Lie", "Rgp", "Rgs", "Spa", "Lap", "Gru"]
-        dateFormatter.dateFormat = "MMM d"
-        return dateFormatter.string(from: self)
     }
 }
 

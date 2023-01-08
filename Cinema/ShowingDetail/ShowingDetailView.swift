@@ -71,9 +71,9 @@ private struct ShowingDateSelector: View {
                             } label: {
                                 ZStack {
                                     VStack(spacing: .zero) {
-                                        Text(date.shortWeekdayFormat)
+                                        Text(date.toString(.shortDayOfWeek))
                                             .font(.footnote.weight(.medium))
-                                        Text(date.shortDateFormat)
+                                        Text(date.toString(.shortMonthAndDay))
                                             .font(.footnote)
                                     }
                                     .foregroundColor(viewStore.selectedDate == date ? .tertiaryElement : .primaryElement)
@@ -105,7 +105,7 @@ private struct ShowingView: View {
                 )
 
             VStack {
-                Text(showing.date.asString(.timeOfDay))
+                Text(showing.date.toString(.timeOfDay))
                     .font(.title3.weight(.medium))
                     .foregroundColor(.primaryElement)
                     .frame(maxWidth: .infinity)
@@ -129,25 +129,6 @@ private struct ShowingView: View {
                 isBeingPressed = isPressing
             }
         })
-    }
-}
-
-private extension Date {
-    var shortWeekdayFormat: String {
-        if Calendar.current.isDateInToday(self) { return "ŠND" }
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "lt")
-        dateFormatter.shortWeekdaySymbols = ["SEK", "PIR", "ANT", "TRE", "KET", "PEN", "ŠEŠ"]
-        dateFormatter.dateFormat = "EEE"
-        return dateFormatter.string(from: self)
-    }
-
-    var shortDateFormat: String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "lt")
-        dateFormatter.shortMonthSymbols = ["Sau", "Vas", "Kov", "Bal", "Geg", "Bir", "Lie", "Rgp", "Rgs", "Spa", "Lap", "Gru"]
-        dateFormatter.dateFormat = "MMM d"
-        return dateFormatter.string(from: self)
     }
 }
 
