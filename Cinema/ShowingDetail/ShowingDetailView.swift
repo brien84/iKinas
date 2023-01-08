@@ -41,14 +41,12 @@ struct ShowingDetailView: View {
                         .id(viewStore.selectedDate)
                     }
                 }
-                .padding(.bottom)
                 .frame(height: proxy.size.height * Self.heightMultiplier)
                 .position(
                     x: proxy.frame(in: .local).midX,
                     y: proxy.frame(in: .local).midY + proxy.size.height * Self.framePositionYMultiplier
                 )
             }
-            .ignoresSafeArea(edges: .vertical)
             .transition(.trailingSlideIn)
             .zIndex(Self.zIndex)
         }
@@ -184,7 +182,7 @@ struct ShowingDetailView_Previews: PreviewProvider {
 
     static var previews: some View {
         ZStack {
-            Color.primaryBackground
+            Color.green
                 .ignoresSafeArea()
 
             ShowingDetailView(store: store)
