@@ -92,8 +92,6 @@ private struct ShowingDateSelector: View {
 private struct ShowingView: View {
     let showing: Showing
 
-    @State private var isBeingPressed = false
-
     var body: some View {
         ShrinkOnPressView {
             ZStack {

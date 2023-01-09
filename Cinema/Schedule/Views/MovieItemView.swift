@@ -12,8 +12,6 @@ import SwiftUI
 struct MovieItemView: View {
     let store: StoreOf<MovieItem>
 
-    @State private var isBeingPressed = false
-
     var body: some View {
         WithViewStore(store) { viewStore in
             ShrinkOnPressView {

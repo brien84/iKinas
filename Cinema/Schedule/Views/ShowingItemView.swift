@@ -12,8 +12,6 @@ import SwiftUI
 struct ShowingItemView: View {
     let store: StoreOf<ShowingItem>
 
-    @State private var isBeingPressed = false
-
     var body: some View {
         WithViewStore(store) { viewStore in
             ShrinkOnPressView {
