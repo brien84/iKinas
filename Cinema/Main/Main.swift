@@ -76,7 +76,7 @@ struct Main: ReducerProtocol {
             case .dateSelector:
                 return .none
 
-            case .schedule(.movieList(.movieItem(id: _, action: .didSelectMovie(let movie)))):
+            case .schedule(.movieItem(id: _, action: .didSelectMovie(let movie))):
                 state.selectedMovie = movie
                 return .none
 

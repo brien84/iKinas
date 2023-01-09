@@ -34,7 +34,7 @@ struct Schedule: ReducerProtocol {
         var isTransitioning = false
         var requiresScrollToTop = false
 
-        var movieList = MovieList.State()
+        var movieItems: IdentifiedArrayOf<MovieItem.State> = []
         var showingList = ShowingList.State()
     }
 
@@ -46,7 +46,7 @@ struct Schedule: ReducerProtocol {
 
         case settingsButtonDidTap
 
-        case movieList(MovieList.Action)
+        case movieItem(id: MovieItem.State.ID, action: MovieItem.Action)
         case showingList(ShowingList.Action)
     }
 
@@ -56,10 +56,6 @@ struct Schedule: ReducerProtocol {
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.showingList, action: /Action.showingList) {
             ShowingList()
-        }
-
-        Scope(state: \.movieList, action: /Action.movieList) {
-            MovieList()
         }
 
         Reduce { state, action in
@@ -80,8 +76,7 @@ struct Schedule: ReducerProtocol {
             case .updateDatasource(let datasource):
                 state.datasource = datasource
                 state.requiresScrollToTop = true
-                state.movieList.requiresScrollToTop = true
-                state.movieList.movieItems = getMovieItems(from: state.datasource)
+                state.movieItems = getMovieItems(from: state.datasource)
                 state.showingList.showingItems = getShowingItems(from: state.datasource)
                 return Effect(value: .endTransition)
                     .delay(for: .milliseconds(10), scheduler: mainQueue)
@@ -90,19 +85,22 @@ struct Schedule: ReducerProtocol {
 
             case .endTransition:
                 state.requiresScrollToTop = false
-                state.movieList.requiresScrollToTop = false
                 state.isTransitioning = false
+                return .none
+
+            case .movieItem:
                 return .none
 
             case .settingsButtonDidTap:
                 return .none
 
-            case .movieList:
-                return .none
-
             case .showingList:
                 return .none
+
             }
+        }
+        .forEach(\.movieItems, action: /Action.movieItem(id:action:)) {
+            MovieItem()
         }
     }
 

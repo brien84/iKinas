@@ -9,11 +9,38 @@
 import ComposableArchitecture
 import SwiftUI
 
+private extension MovieListView {
+    struct State: Equatable {
+        var movieItems: IdentifiedArrayOf<MovieItem.State> = []
+        var requiresScrollToTop = false
+
+    }
+
+    enum Action: Equatable {
+        case movieItem(id: MovieItem.State.ID, action: MovieItem.Action)
+    }
+}
+
+private extension Schedule.State {
+    var state: MovieListView.State {
+        .init(movieItems: self.movieItems, requiresScrollToTop: self.requiresScrollToTop)
+    }
+}
+
+private extension MovieListView.Action {
+    var action: Schedule.Action {
+        switch self {
+        case .movieItem(let id, let action):
+            return .movieItem(id: id, action: action)
+        }
+    }
+}
+
 struct MovieListView: View {
-    let store: StoreOf<MovieList>
+    let store: StoreOf<Schedule>
 
     var body: some View {
-        WithViewStore(store) { viewStore in
+        WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
             GeometryReader { proxy in
                 ZStack {
                     Color.primaryBackground
@@ -22,7 +49,7 @@ struct MovieListView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             LazyHStack {
                                 ForEachStore(
-                                    store.scope(state: \.movieItems, action: MovieList.Action.movieItem(id:action:))
+                                    store.scope(state: \.movieItems, action: Schedule.Action.movieItem(id:action:))
                                 ) {
                                     MovieItemView(store: $0)
                                         .frame(width: proxy.size.height / Self.widthToHeightRatio, height: proxy.size.height)
@@ -54,12 +81,12 @@ private extension MovieListView {
 // MARK: - Previews
 
 struct MovieListView_Previews: PreviewProvider {
-    static let movies = Array(repeating: Movie(), count: 5)
+    static let items = {
+        let movies = Array(repeating: Movie(), count: 5)
+        return IdentifiedArray(uniqueElements: movies.map { MovieItem.State(id: UUID(), movie: $0) })
+    }()
 
-    static let store = Store(
-        initialState: MovieList.State(movies: movies),
-        reducer: MovieList()
-    )
+    static let store = Store(initialState: Schedule.State(movieItems: items), reducer: Schedule())
 
     static var previews: some View {
         ZStack {
@@ -70,11 +97,5 @@ struct MovieListView_Previews: PreviewProvider {
                 .frame(height: 300)
                 .preferredColorScheme(.dark)
         }
-    }
-}
-
-private extension MovieList.State {
-    init(movies: [Movie]) {
-        self.movieItems = IdentifiedArray(uniqueElements: movies.map { MovieItem.State(id: UUID(), movie: $0) })
     }
 }

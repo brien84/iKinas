@@ -52,16 +52,13 @@ struct ScheduleView: View {
                                         .padding(.top, Self.verticalPadding)
                                         .transitionSectionLabel(viewStore.isTransitioning)
 
-                                    MovieListView(store: store.scope(
-                                        state: \.movieList,
-                                        action: Schedule.Action.movieList
-                                    ))
-                                    // Instead of using a `GeometryReader` view to retrieve
-                                    // the width value of the screen, it is more efficient
-                                    // to use the `UIScreen` object, since the view always
-                                    // takes up the entire width of the screen.
-                                    .frame(height: UIScreen.main.bounds.width * Self.heightToWidthRatio)
-                                    .transitionMovieListView(viewStore.isTransitioning)
+                                    MovieListView(store: store)
+                                        // Instead of using a `GeometryReader` view to retrieve
+                                        // the width value of the screen, it is more efficient
+                                        // to use the `UIScreen` object, since the view always
+                                        // takes up the entire width of the screen.
+                                        .frame(height: UIScreen.main.bounds.width * Self.heightToWidthRatio)
+                                        .transitionMovieListView(viewStore.isTransitioning)
 
                                     SectionLabel(text: "Seansai")
                                         .padding(.horizontal)
@@ -74,7 +71,7 @@ struct ScheduleView: View {
                                     .transitionShowingListView(viewStore.isTransitioning)
                                 }
 
-                                if viewStore.movieList.movieItems.isEmpty {
+                                if viewStore.movieItems.isEmpty {
                                     DatasourceErrorView()
                                         .frame(
                                             width: backgroundFrame.width,
@@ -152,9 +149,8 @@ private extension View {
 
 struct ScheduleView_Previews: PreviewProvider {
     static let movie = Movie(showings: Array(repeating: Showing(), count: 15))
-    static let movieList = MovieList.State(movies: [movie])
     static let showingList = ShowingList.State(showings: movie.showings)
-    static let store = Store(initialState: Schedule.State(movieList: movieList, showingList: showingList), reducer: Schedule())
+    static let store = Store(initialState: Schedule.State(movieItems: [MovieItem.State(id: UUID(), movie: movie)], showingList: showingList), reducer: Schedule())
 
     static var previews: some View {
         ZStack {
@@ -164,12 +160,6 @@ struct ScheduleView_Previews: PreviewProvider {
             ScheduleView(store: store)
                 .preferredColorScheme(.dark)
         }
-    }
-}
-
-private extension MovieList.State {
-    init(movies: [Movie]) {
-        self.movieItems = IdentifiedArray(uniqueElements: movies.map { MovieItem.State(id: UUID(), movie: $0) })
     }
 }
 
