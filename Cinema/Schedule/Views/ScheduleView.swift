@@ -64,11 +64,8 @@ struct ScheduleView: View {
                                         .padding(.horizontal)
                                         .transitionSectionLabel(viewStore.isTransitioning)
 
-                                    ShowingListView(store: store.scope(
-                                        state: \.showingList,
-                                        action: Schedule.Action.showingList
-                                    ))
-                                    .transitionShowingListView(viewStore.isTransitioning)
+                                    ShowingListView(store: store)
+                                        .transitionShowingListView(viewStore.isTransitioning)
                                 }
 
                                 if viewStore.movieItems.isEmpty {
@@ -149,8 +146,12 @@ private extension View {
 
 struct ScheduleView_Previews: PreviewProvider {
     static let movie = Movie(showings: Array(repeating: Showing(), count: 15))
-    static let showingList = ShowingList.State(showings: movie.showings)
-    static let store = Store(initialState: Schedule.State(movieItems: [MovieItem.State(id: UUID(), movie: movie)], showingList: showingList), reducer: Schedule())
+
+    static let showingItems = {
+        IdentifiedArray(uniqueElements: movie.showings.map { ShowingItem.State(id: UUID(), showing: $0) })
+    }()
+
+    static let store = Store(initialState: Schedule.State(movieItems: [MovieItem.State(id: UUID(), movie: movie)], showingItems: showingItems), reducer: Schedule())
 
     static var previews: some View {
         ZStack {
@@ -160,11 +161,5 @@ struct ScheduleView_Previews: PreviewProvider {
             ScheduleView(store: store)
                 .preferredColorScheme(.dark)
         }
-    }
-}
-
-private extension ShowingList.State {
-    init(showings: [Showing]) {
-        self.showingItems = IdentifiedArray(uniqueElements: showings.map { ShowingItem.State(id: UUID(), showing: $0) })
     }
 }

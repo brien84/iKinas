@@ -35,7 +35,7 @@ struct Schedule: ReducerProtocol {
         var requiresScrollToTop = false
 
         var movieItems: IdentifiedArrayOf<MovieItem.State> = []
-        var showingList = ShowingList.State()
+        var showingItems: IdentifiedArrayOf<ShowingItem.State> = []
     }
 
     enum Action: Equatable {
@@ -44,20 +44,16 @@ struct Schedule: ReducerProtocol {
         case updateDatasource(Datasource)
         case endTransition
 
-        case settingsButtonDidTap
-
         case movieItem(id: MovieItem.State.ID, action: MovieItem.Action)
-        case showingList(ShowingList.Action)
+        case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
+
+        case settingsButtonDidTap
     }
 
     @Dependency(\.mainQueue) var mainQueue
     @Dependency(\.uuid) var uuid
 
     var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.showingList, action: /Action.showingList) {
-            ShowingList()
-        }
-
         Reduce { state, action in
             switch action {
 
@@ -77,7 +73,7 @@ struct Schedule: ReducerProtocol {
                 state.datasource = datasource
                 state.requiresScrollToTop = true
                 state.movieItems = getMovieItems(from: state.datasource)
-                state.showingList.showingItems = getShowingItems(from: state.datasource)
+                state.showingItems = getShowingItems(from: state.datasource)
                 return Effect(value: .endTransition)
                     .delay(for: .milliseconds(10), scheduler: mainQueue)
                     .eraseToEffect()
@@ -91,16 +87,19 @@ struct Schedule: ReducerProtocol {
             case .movieItem:
                 return .none
 
-            case .settingsButtonDidTap:
+            case .showingItem:
                 return .none
 
-            case .showingList:
+            case .settingsButtonDidTap:
                 return .none
 
             }
         }
         .forEach(\.movieItems, action: /Action.movieItem(id:action:)) {
             MovieItem()
+        }
+        .forEach(\.showingItems, action: /Action.showingItem(id:action:)) {
+            ShowingItem()
         }
     }
 

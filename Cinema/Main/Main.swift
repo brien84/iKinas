@@ -80,7 +80,7 @@ struct Main: ReducerProtocol {
                 state.selectedMovie = movie
                 return .none
 
-            case .schedule(.showingList(.showingItem(id: _, action: .didSelectShowing(let showing)))):
+            case .schedule(.showingItem(id: _, action: .didSelectShowing(let showing))):
                 state.selectedShowing = showing
                 return .none
 
