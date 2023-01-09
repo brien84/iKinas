@@ -9,6 +9,7 @@
 import Foundation
 
 final class Movie: Codable {
+    let id: UUID
     let title: String
     let originalTitle: String
     let year: String
@@ -20,6 +21,7 @@ final class Movie: Codable {
     var showings: [Showing]
 
     init(
+        id: UUID = UUID(),
         title: String = "Filmo Pavadinimas",
         originalTitle: String = "Movie Title",
         year: String = "2017",
@@ -30,6 +32,7 @@ final class Movie: Codable {
         poster: URL = URL(string: "https://movies.ioys.lt/posters/example.png")!,
         showings: [Showing] = []
     ) {
+        self.id = id
         self.title = title
         self.originalTitle = originalTitle
         self.year = year
@@ -50,6 +53,7 @@ final class Movie: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
+        self.id = try values.decode(UUID.self, forKey: .id)
         self.title = try values.decode(String.self, forKey: .title)
         self.originalTitle = try values.decode(String.self, forKey: .originalTitle)
         self.year = try values.decode(String.self, forKey: .year)
@@ -68,6 +72,7 @@ final class Movie: Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
+        case id
         case title
         case originalTitle
         case year
@@ -87,11 +92,13 @@ extension Movie: Comparable {
     }
 }
 
-extension Movie: Hashable {
+extension Movie: Equatable {
     static func == (lhs: Movie, rhs: Movie) -> Bool {
         return lhs.title == rhs.title
     }
+}
 
+extension Movie: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(title)
     }

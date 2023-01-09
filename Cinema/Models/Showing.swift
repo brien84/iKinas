@@ -8,7 +8,8 @@
 
 import Foundation
 
-final class Showing: Codable {
+final class Showing: Codable, Identifiable {
+    let id: UUID
     let city: City
     let date: Date
     let venue: Venue
@@ -17,12 +18,14 @@ final class Showing: Codable {
     weak var parentMovie: Movie?
 
     init(
+        id: UUID = UUID(),
         city: City = .vilnius,
         date: Date = Date(timeIntervalSinceNow: 60),
         venue: Venue = .forum,
         is3D: Bool = false,
         url: URL = URL(string: "https://movies.ioys.lt/")!
     ) {
+        self.id = id
         self.city = city
         self.date = date
         self.venue = venue
@@ -33,6 +36,7 @@ final class Showing: Codable {
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
 
+        self.id = try values.decode(UUID.self, forKey: .id)
         self.city = try values.decode(City.self, forKey: .city)
         self.date = try values.decode(Date.self, forKey: .date)
         self.venue = try values.decode(Venue.self, forKey: .venue)
@@ -41,6 +45,7 @@ final class Showing: Codable {
     }
 
     private enum CodingKeys: String, CodingKey {
+        case id
         case city
         case date
         case venue
@@ -76,7 +81,9 @@ extension Showing: Comparable {
             }
         }
     }
+}
 
+extension Showing: Equatable {
     static func == (lhs: Showing, rhs: Showing) -> Bool {
         lhs.date == rhs.date && lhs.parentMovie == rhs.parentMovie && lhs.venue == rhs.venue
     }
