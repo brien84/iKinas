@@ -82,7 +82,8 @@ private struct ShowingDateSelector: View {
                     }
                     .padding(.horizontal)
                 }
-            }.fixedSize(horizontal: false, vertical: true)
+            }
+            .fixedSize(horizontal: false, vertical: true)
 
         }
     }
@@ -94,39 +95,33 @@ private struct ShowingView: View {
     @State private var isBeingPressed = false
 
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
-                .strokeBorder(Color.primaryElement, lineWidth: Self.lineWidth)
-                .background(
-                    RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
-                        .fill(Color.secondaryBackground)
-                )
-
-            VStack {
-                Text(showing.date.toString(.timeOfDay))
-                    .font(.title3.weight(.medium))
-                    .foregroundColor(.primaryElement)
-                    .frame(maxWidth: .infinity)
-                    .overlay(
-                        Text("3D")
-                            .font(.title3)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .foregroundColor(.tertiaryElement)
-                            .hidden(!showing.is3D)
+        ShrinkOnPressView {
+            ZStack {
+                RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
+                    .strokeBorder(Color.primaryElement, lineWidth: Self.lineWidth)
+                    .background(
+                        RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
+                            .fill(Color.secondaryBackground)
                     )
 
-                Image(showing.venue.rawValue)
+                VStack {
+                    Text(showing.date.toString(.timeOfDay))
+                        .font(.title3.weight(.medium))
+                        .foregroundColor(.primaryElement)
+                        .frame(maxWidth: .infinity)
+                        .overlay(
+                            Text("3D")
+                                .font(.title3)
+                                .frame(maxWidth: .infinity, alignment: .trailing)
+                                .foregroundColor(.tertiaryElement)
+                                .hidden(!showing.is3D)
+                        )
+
+                    Image(showing.venue.rawValue)
+                }
+                .padding(Self.padding)
             }
-            .padding(Self.padding)
         }
-        .opacity(isBeingPressed ? Self.longPressOpacity : 1)
-        .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
-        .onTapGesture { }
-        .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
-            withAnimation(Self.springAnimation) {
-                isBeingPressed = isPressing
-            }
-        })
     }
 }
 
@@ -151,14 +146,7 @@ private extension ShowingDateSelector {
 private extension ShowingView {
     static let cornerRadius: CGFloat = 15
     static let lineWidth: CGFloat = 2
-    static let longPressOpacity: CGFloat = 0.95
-    static let longPressScaleEffect: CGFloat = 0.95
     static let padding: CGFloat = 8
-
-    static let springAnimation: Animation = .spring(
-        response: 0.5,
-        dampingFraction: 0.5
-    )
 }
 
 // MARK: - Previews

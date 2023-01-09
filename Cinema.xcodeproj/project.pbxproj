@@ -71,6 +71,7 @@
 		29DDA577295DCA2C000C4322 /* MovieDetailHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DDA576295DCA2C000C4322 /* MovieDetailHostingController.swift */; };
 		29E99C2E2402F5E7003A4141 /* CinemaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */; };
 		29F3D6AD296AFE5300495BBD /* Extensions+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */; };
+		29F3D6AF296C07B200495BBD /* ShrinkOnPressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -159,6 +160,7 @@
 		29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CinemaUITests.swift; sourceTree = "<group>"; };
 		29E99C2F2402F5E7003A4141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+Date.swift"; sourceTree = "<group>"; };
+		29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrinkOnPressView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -395,10 +397,11 @@
 				2904C7B5233BC6F700407B64 /* Constants.swift */,
 				29BFAF8F2961BCE700655325 /* CustomTransitions.swift */,
 				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
-				29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */,
 				2904C7A22336B09100407B64 /* Extensions.swift */,
+				29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */,
 				29BFAF8D2961AE6200655325 /* GetterViews.swift */,
 				2991622E29524CE80084464C /* LabelViews.swift */,
+				29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */,
 				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 			);
 			path = Shared;
@@ -616,6 +619,7 @@
 				29817F83293CA6CB00E59D42 /* VenueListView.swift in Sources */,
 				296FE0522950988C0015F7AA /* ShowingListView.swift in Sources */,
 				297C826D26B01DA30053F706 /* Venue.swift in Sources */,
+				29F3D6AF296C07B200495BBD /* ShrinkOnPressView.swift in Sources */,
 				29817F81293CA68100E59D42 /* CityListView.swift in Sources */,
 				291525DF294E4D3C00192153 /* MovieItem.swift in Sources */,
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,

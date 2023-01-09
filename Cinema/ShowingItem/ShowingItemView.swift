@@ -16,47 +16,41 @@ struct ShowingItemView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ZStack {
-                Color.primaryBackground
+            ShrinkOnPressView {
+                ZStack {
+                    Color.primaryBackground
 
-                HStack {
-                    NetworkImageView(store: store.scope(
-                        state: \.networkImage,
-                        action: ShowingItem.Action.networkImage
-                    ))
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: Self.width, height: Self.height)
-                    .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
+                    HStack {
+                        NetworkImageView(store: store.scope(
+                            state: \.networkImage,
+                            action: ShowingItem.Action.networkImage
+                        ))
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: Self.width, height: Self.height)
+                        .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
 
-                    ShowingTitleView(showing: viewStore.showing)
+                        ShowingTitleView(showing: viewStore.showing)
 
-                    VStack(alignment: .trailing) {
-                        HStack {
-                            Image(systemName: "view.3d")
-                                .font(.title3.weight(.light))
-                                .foregroundColor(.tertiaryElement)
-                                .hidden(!viewStore.showing.is3D)
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Image(systemName: "view.3d")
+                                    .font(.title3.weight(.light))
+                                    .foregroundColor(.tertiaryElement)
+                                    .hidden(!viewStore.showing.is3D)
 
-                            Text(viewStore.showing.date.toString(.timeOfDay))
-                                .font(.title3.weight(.medium))
-                                .foregroundColor(.primaryElement)
+                                Text(viewStore.showing.date.toString(.timeOfDay))
+                                    .font(.title3.weight(.medium))
+                                    .foregroundColor(.primaryElement)
+                            }
+
+                            Image(viewStore.showing.venue.rawValue)
                         }
-
-                        Image(viewStore.showing.venue.rawValue)
                     }
-
                 }
-                .opacity(isBeingPressed ? Self.longPressOpacity : 1)
-                .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
-            }
-            .onTapGesture {
-                viewStore.send(.didSelectShowing(viewStore.showing))
-            }
-            .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
-                withAnimation(Self.longPressAnimation) {
-                    isBeingPressed = isPressing
+                .onTapGesture {
+                    viewStore.send(.didSelectShowing(viewStore.showing))
                 }
-            })
+            }
         }
     }
 }
@@ -100,14 +94,6 @@ private extension ShowingItemView {
     static let cornerRadius: CGFloat = 10
     static let height: CGFloat = 75
     static let width: CGFloat = 75
-
-    static let longPressAnimation: Animation = .spring(
-        response: 0.5,
-        dampingFraction: 0.5
-    )
-
-    static let longPressOpacity: CGFloat = 0.95
-    static let longPressScaleEffect: CGFloat = 0.95
 }
 
 // MARK: - Previews

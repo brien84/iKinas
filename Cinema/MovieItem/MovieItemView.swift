@@ -16,47 +16,42 @@ struct MovieItemView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ZStack {
-                Color.primaryBackground
+            ShrinkOnPressView {
+                ZStack {
+                    Color.primaryBackground
 
-                NetworkImageView(store: store.scope(
-                    state: \.networkImage,
-                    action: MovieItem.Action.networkImage
-                ))
-                .aspectRatio(Self.imageAspectRatio, contentMode: .fit)
+                    NetworkImageView(store: store.scope(
+                        state: \.networkImage,
+                        action: MovieItem.Action.networkImage
+                    ))
+                    .aspectRatio(Self.imageAspectRatio, contentMode: .fit)
 
-                VStack {
-                    Spacer()
+                    VStack {
+                        Spacer()
 
-                    ZStack(alignment: .topLeading) {
-                        Text(viewStore.movie.title)
-                            .font(.callout.bold())
-                            .foregroundColor(.primaryElement)
+                        ZStack(alignment: .topLeading) {
+                            Text(viewStore.movie.title)
+                                .font(.callout.bold())
+                                .foregroundColor(.primaryElement)
 
-                        Text(String(repeating: "Placeholder", count: 10))
-                            .font(.callout.bold())
-                            .hidden()
+                            Text(String(repeating: "Placeholder", count: 10))
+                                .font(.callout.bold())
+                                .hidden()
+                        }
+                        .lineLimit(2)
+                        .foregroundColor(.primaryElement)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(
+                            VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                        )
                     }
-                    .lineLimit(2)
-                    .foregroundColor(.primaryElement)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding()
-                    .background(
-                        VisualEffectView(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
-                    )
+                }
+                .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous))
+                .onTapGesture {
+                    viewStore.send(.didSelectMovie(viewStore.movie))
                 }
             }
-            .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous))
-            .opacity(isBeingPressed ? Self.longPressOpacity : 1)
-            .scaleEffect(isBeingPressed ? Self.longPressScaleEffect : 1)
-            .onTapGesture {
-                viewStore.send(.didSelectMovie(viewStore.movie))
-            }
-            .onLongPressGesture(perform: { }, onPressingChanged: { isPressing in
-                withAnimation(Self.longPressAnimation) {
-                    isBeingPressed = isPressing
-                }
-            })
         }
     }
 }
@@ -78,14 +73,6 @@ private struct VisualEffectView: UIViewRepresentable {
 private extension MovieItemView {
     static let cornerRadius: CGFloat = 20
     static let imageAspectRatio: CGFloat = 2/3
-
-    static let longPressAnimation: Animation = .spring(
-        response: 0.5,
-        dampingFraction: 0.5
-    )
-
-    static let longPressOpacity: CGFloat = 0.95
-    static let longPressScaleEffect: CGFloat = 0.95
 }
 
 // MARK: - Previews
