@@ -18,6 +18,7 @@ struct MovieDetail: ReducerProtocol {
         var openedURL: URL?
         let showing: Showing?
         var showingDetail: ShowingDetail.State?
+        var isShowingDetailPresented: Bool { self.showingDetail != nil }
 
         // The percentage of the `TitleView` that is overlapped by the navigation bar.
         var titleViewOverlapPercentage: CGFloat = 0
@@ -34,8 +35,8 @@ struct MovieDetail: ReducerProtocol {
         case networkImage(NetworkImage.Action)
         case openURL(URL?)
         case showingDetail(ShowingDetail.Action)
-        case toggleShowingDetail
         case updateTitleViewOverlap(percentage: CGFloat)
+        case setShowingDetail(isPresented: Bool)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -57,19 +58,25 @@ struct MovieDetail: ReducerProtocol {
                 return .none
 
             case .showingDetail(.didSelectShowing(let showing)):
-                state.openedURL = showing.url
+                state.showingDetail = nil
+                return EffectTask(value: .openURL(showing.url))
+                    .delay(for: .milliseconds(10), scheduler: RunLoop.main)
+                    .eraseToEffect()
+
+            case .showingDetail(.exitButtonDidTap):
+                state.showingDetail = nil
                 return .none
 
             case .showingDetail:
                 return .none
 
-            case .toggleShowingDetail:
-                if state.showingDetail == nil {
-                    state.showingDetail = ShowingDetail.State(movie: state.movie)
-                } else {
-                    state.showingDetail = nil
-                }
+            case .setShowingDetail(isPresented: true):
+                state.showingDetail = ShowingDetail.State(movie: state.movie)
                 return .none
+
+            case .setShowingDetail(isPresented: false):
+                  state.showingDetail = nil
+                  return .none
 
             case .updateTitleViewOverlap(percentage: let percentage):
                 state.titleViewOverlapPercentage = percentage

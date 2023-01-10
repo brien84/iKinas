@@ -42,8 +42,14 @@ struct MovieDetailView: View {
                     }
                 }
                 .padding(.bottom, -posterOverlap)
-                .disabled(viewStore.showingDetail != nil || viewStore.isScrollDisabled)
-
+                .disabled(viewStore.isScrollDisabled)
+            }
+            .sheet(
+                isPresented: viewStore.binding(
+                    get: \.isShowingDetailPresented,
+                    send: MovieDetail.Action.setShowingDetail(isPresented:)
+                )
+            ) {
                 IfLetStore(
                     store.scope(
                         state: \.showingDetail,

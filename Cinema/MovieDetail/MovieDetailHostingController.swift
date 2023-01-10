@@ -31,12 +31,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
             primaryAction: UIAction { [weak self] _ in
-                if self?.viewStore.showingDetail == nil {
-                    self?.navigationController?.popViewController(animated: true)
-                } else {
-                    self?.viewStore.send(.toggleShowingDetail, animation: Self.toggleShowingDetailAnimation)
-                    self?.hideRightBarButton(false)
-                }
+                self?.navigationController?.popViewController(animated: true)
             }
         )
 
@@ -50,10 +45,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
             primaryAction: UIAction { [weak self] _ in
-                if self?.viewStore.showingDetail == nil {
-                    self?.viewStore.send(.toggleShowingDetail, animation: Self.toggleShowingDetailAnimation)
-                    self?.hideRightBarButton(true)
-                }
+                self?.viewStore.send(.setShowingDetail(isPresented: true))
             }
         )
 
@@ -141,16 +133,6 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
 
         if viewStore.openedURL == nil {
             cancellables.removeAll()
-        }
-    }
-
-    private func hideRightBarButton(_ isHidden: Bool) {
-        if isHidden {
-            rightButton.tintColor = .clear
-            rightButton.setBackgroundImage(size: Self.barButtonBackground, color: .primaryBackground, alpha: .zero)
-        } else {
-            rightButton.tintColor = .primaryElement
-            rightButton.setBackgroundImage(size: Self.barButtonBackground, color: .primaryBackground, alpha: 1 - currentTitleViewOverlapPercentage)
         }
     }
 }
