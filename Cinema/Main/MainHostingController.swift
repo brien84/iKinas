@@ -29,22 +29,12 @@ final class MainHostingController: UIHostingController<MainView> {
 
         view.backgroundColor = .primaryBackground
 
-        viewStore.publisher.selectedMovie
-            .sink { movie in
-                if let movie {
-                    let store = Store(initialState: MovieDetail.State(movie: movie, showing: nil), reducer: MovieDetail())
-                    let vc = MovieDetailHostingController(store: store)
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-            }.store(in: &self.cancellables)
-
-        viewStore.publisher.selectedShowing
-            .sink { showing in
-                if let showing, let movie = showing.parentMovie {
-                    let store = Store(initialState: MovieDetail.State(movie: movie, showing: showing), reducer: MovieDetail())
-                    let vc = MovieDetailHostingController(store: store)
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
+        viewStore.publisher.movieDetail
+            .sink { state in
+                guard let state else { return }
+                let store = Store(initialState: state, reducer: MovieDetail())
+                let vc = MovieDetailHostingController(store: store)
+                self.navigationController?.pushViewController(vc, animated: true)
             }.store(in: &self.cancellables)
     }
 
@@ -55,8 +45,8 @@ final class MainHostingController: UIHostingController<MainView> {
             navigationController?.setNavigationBarHidden(true, animated: false)
         }
 
-        if viewStore.selectedMovie != nil || viewStore.selectedShowing != nil {
-            viewStore.send(.deselect)
+        if viewStore.movieDetail != nil {
+            viewStore.send(.setNavigationToMovieDetail(isActive: false))
         }
     }
 

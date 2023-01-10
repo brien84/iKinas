@@ -12,6 +12,7 @@ struct Main: ReducerProtocol {
 
     struct State: Equatable {
         var dateSelector = DateSelector.State()
+        var movieDetail: MovieDetail.State?
         var schedule = Schedule.State()
         var settings: Settings.State?
 
@@ -21,19 +22,16 @@ struct Main: ReducerProtocol {
             settings != nil
         }
 
-        var selectedMovie: Movie?
-        var selectedShowing: Showing?
-
         var movieClientError: MovieClient.Error?
     }
 
     enum Action: Equatable {
-        case deselect
         case fetchMovies
 
         case dateSelector(DateSelector.Action)
         case schedule(Schedule.Action)
         case settings(Settings.Action)
+        case setNavigationToMovieDetail(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
 
         case movieClient(Result<[Movie], MovieClient.Error>)
@@ -54,11 +52,6 @@ struct Main: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
-            case .deselect:
-                state.selectedMovie = nil
-                state.selectedShowing = nil
-                return .none
-
             case .fetchMovies:
                 state.requiresToFetchMovies = true
                 state.movieClientError = nil
@@ -77,11 +70,12 @@ struct Main: ReducerProtocol {
                 return .none
 
             case .schedule(.movieItem(id: _, action: .didSelectMovie(let movie))):
-                state.selectedMovie = movie
+                state.movieDetail = MovieDetail.State(movie: movie, showing: nil)
                 return .none
 
             case .schedule(.showingItem(id: _, action: .didSelectShowing(let showing))):
-                state.selectedShowing = showing
+                guard let movie = showing.parentMovie else { return .none }
+                state.movieDetail = MovieDetail.State(movie: movie, showing: showing)
                 return .none
 
             case .schedule(.beginTransition):
@@ -108,6 +102,12 @@ struct Main: ReducerProtocol {
                 return .none
 
             case .settings:
+                return .none
+
+            case .setNavigationToMovieDetail(let isActive):
+                if !isActive {
+                    state.movieDetail = nil
+                }
                 return .none
 
             case .setNavigationToSettings(let isActive):
