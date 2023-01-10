@@ -26,14 +26,6 @@ extension UIColor {
     static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
 }
 
-extension UIImage {
-    static let apollo = UIImage(named: "apollo")!
-    static let atlantis = UIImage(named: "atlantis")!
-    static let cinamon = UIImage(named: "cinamon")!
-    static let forum = UIImage(named: "forum")!
-    static let multikino = UIImage(named: "multikino")!
-}
-
 extension URL {
     static let appStore = URL(string: "https://apps.apple.com/app/id1501977644")!
 
