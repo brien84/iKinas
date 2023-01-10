@@ -26,12 +26,12 @@ struct ShowingDetailView: View {
 
                         ScrollView(.vertical, showsIndicators: false) {
                             LazyVGrid(columns: columns) {
-                                ForEach(viewStore.showingItems) { item in
-                                    ShowingView(showing: item.showing)
+                                ForEach(viewStore.state.getShowings(at: viewStore.selectedDate)) { showing in
+                                    ShowingView(showing: showing)
                                         .transition(.opacity)
                                         .simultaneousGesture(
                                             TapGesture().onEnded { _ in
-                                                viewStore.send(.didSelectShowing(item.showing))
+                                                viewStore.send(.didSelectShowing(showing))
                                             }
                                         )
                                 }

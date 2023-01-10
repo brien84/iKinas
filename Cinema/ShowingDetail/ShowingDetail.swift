@@ -11,16 +11,10 @@ import Foundation
 
 struct ShowingDetail: ReducerProtocol {
 
-    struct ShowingItem: Equatable, Identifiable {
-        let id: UUID = UUID()
-        let showing: Showing
-    }
-
     struct State: Equatable {
         let dates: [Date]
         let movie: Movie
         var selectedDate: Date
-        var showingItems: IdentifiedArrayOf<ShowingItem>
 
         init(movie: Movie) {
             let allDates = movie.showings.compactMap { showing -> Date? in
@@ -32,10 +26,17 @@ struct ShowingDetail: ReducerProtocol {
 
             self.movie = movie
             self.dates = uniqueDates
-            self.selectedDate = dates[0]
 
-            let showings = movie.showings.filter { $0.isShown(on: uniqueDates[0]) }.sorted()
-            self.showingItems = IdentifiedArray(uniqueElements: showings.map { ShowingItem(showing: $0) })
+            if !dates.isEmpty {
+                self.selectedDate = dates[0]
+            } else {
+                self.selectedDate = Date()
+            }
+        }
+
+        func getShowings(at date: Date) -> IdentifiedArrayOf<Showing> {
+            let showings = movie.showings.filter { $0.isShown(on: date) }.sorted()
+            return IdentifiedArray(uniqueElements: showings)
         }
     }
 
@@ -49,8 +50,6 @@ struct ShowingDetail: ReducerProtocol {
             switch action {
             case .didSelectDate(let date):
                 state.selectedDate = date
-                let showings = state.movie.showings.filter { $0.isShown(on: date) }.sorted()
-                state.showingItems = IdentifiedArray(uniqueElements: showings.map { ShowingItem(showing: $0) })
                 return .none
 
             case .didSelectShowing:
