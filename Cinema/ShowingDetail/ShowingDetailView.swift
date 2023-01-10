@@ -18,7 +18,7 @@ struct ShowingDetailView: View {
         WithViewStore(store) { viewStore in
             GeometryReader { proxy in
                 VStack(spacing: .zero) {
-                    ShowingDateSelector(store: store)
+                    ShowingDateSelectorView(store: store)
 
                     ZStack {
                         Color.primaryBackground
@@ -49,42 +49,6 @@ struct ShowingDetailView: View {
             }
             .transition(.trailingSlideIn)
             .zIndex(Self.zIndex)
-        }
-    }
-}
-
-private struct ShowingDateSelector: View {
-    let store: StoreOf<ShowingDetail>
-
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            ZStack {
-                LinearGradient(gradient: Self.backgroundGradient, startPoint: .top, endPoint: .bottom)
-
-                ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack(spacing: .zero) {
-                        ForEach(viewStore.dates, id: \.self) { date in
-                            Button {
-                                viewStore.send(.didSelectDate(date), animation: .easeInOut)
-                            } label: {
-                                ZStack {
-                                    VStack(spacing: .zero) {
-                                        Text(date.toString(.shortDayOfWeek))
-                                            .font(.footnote.weight(.medium))
-                                        Text(date.toString(.shortMonthAndDay))
-                                            .font(.footnote)
-                                    }
-                                    .foregroundColor(viewStore.selectedDate == date ? .tertiaryElement : .primaryElement)
-                                }
-                            }
-                            .padding()
-                        }
-                    }
-                    .padding(.horizontal)
-                }
-            }
-            .fixedSize(horizontal: false, vertical: true)
-
         }
     }
 }
