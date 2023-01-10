@@ -40,8 +40,3 @@ extension URL {
     static let api = URL(string: "https://movies.ioys.lt/")!
     // static let api = URL(string: "http://localhost:8080/")!
 }
-
-extension UserDefaults {
-    static let cityKey = "UserDefaultsCityKey"
-    static let venuesKey = "UserDefaultsVenuesKey"
-}
