@@ -61,17 +61,17 @@ private struct ShowingView: View {
                     )
 
                 VStack {
-                    Text(showing.date.toString(.timeOfDay))
-                        .font(.title3.weight(.medium))
-                        .foregroundColor(.primaryElement)
-                        .frame(maxWidth: .infinity)
-                        .overlay(
-                            Text("3D")
-                                .font(.title3)
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(.tertiaryElement)
-                                .hidden(!showing.is3D)
-                        )
+                    ZStack(alignment: .topTrailing) {
+                        Text(showing.date.toString(.timeOfDay))
+                            .font(.title2.weight(.medium))
+                            .foregroundColor(.primaryElement)
+                            .frame(maxWidth: .infinity)
+
+                        Image(systemName: "view.3d")
+                            .font(.body.weight(.medium))
+                            .foregroundColor(.tertiaryElement)
+                            .hidden(!showing.is3D)
+                    }
 
                     Image(showing.venue.rawValue)
                 }
