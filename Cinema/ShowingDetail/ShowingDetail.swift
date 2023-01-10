@@ -13,19 +13,18 @@ struct ShowingDetail: ReducerProtocol {
 
     struct State: Equatable {
         let dates: [Date]
-        let movie: Movie
         var selectedDate: Date
+        let showings: [Showing]
 
         init(movie: Movie) {
-            let allDates = movie.showings.compactMap { showing -> Date? in
+            self.showings = movie.showings
+
+            let allDates = self.showings.compactMap { showing -> Date? in
                 guard showing.date > Date() else { return nil }
                 return Calendar.current.startOfDay(for: showing.date)
             }
 
-            let uniqueDates = Array(Set(allDates)).sorted()
-
-            self.movie = movie
-            self.dates = uniqueDates
+            self.dates = Array(Set(allDates)).sorted()
 
             if !dates.isEmpty {
                 self.selectedDate = dates[0]
@@ -35,7 +34,7 @@ struct ShowingDetail: ReducerProtocol {
         }
 
         func getShowings(at date: Date) -> IdentifiedArrayOf<Showing> {
-            let showings = movie.showings.filter { $0.isShown(on: date) }.sorted()
+            let showings = showings.filter { $0.isShown(on: date) }.sorted()
             return IdentifiedArray(uniqueElements: showings)
         }
     }
