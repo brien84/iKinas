@@ -43,6 +43,7 @@ struct ShowingDetail: ReducerProtocol {
     enum Action: Equatable {
         case didSelectDate(Date)
         case didSelectShowing(Showing)
+        case exitButtonDidTap
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -53,6 +54,9 @@ struct ShowingDetail: ReducerProtocol {
                 return .none
 
             case .didSelectShowing:
+                return .none
+
+            case .exitButtonDidTap:
                 return .none
             }
         }
