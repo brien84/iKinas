@@ -12,103 +12,36 @@ import SwiftUI
 struct ShowingDetailView: View {
     let store: StoreOf<ShowingDetail>
 
-    private let columns = [GridItem(.flexible(), spacing: Self.columnSpacing), GridItem(.flexible())]
-
     var body: some View {
         WithViewStore(store) { viewStore in
-            GeometryReader { proxy in
-                VStack(spacing: .zero) {
-                    ShowingDateSelectorView(store: store)
-
-                    ZStack {
-                        Color.primaryBackground
-                            .edgesIgnoringSafeArea(.bottom)
-
-                        ScrollView(.vertical, showsIndicators: false) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(viewStore.state.getShowings(at: viewStore.selectedDate)) { showing in
-                                    ShowingView(showing: showing)
-                                        .transition(.opacity)
-                                        .simultaneousGesture(
-                                            TapGesture().onEnded { _ in
-                                                viewStore.send(.didSelectShowing(showing))
-                                            }
-                                        )
-                                }
-                            }
-                            .padding()
-                        }
-                        .id(viewStore.selectedDate)
-                    }
-                }
-                .frame(height: proxy.size.height * Self.heightMultiplier)
-                .position(
-                    x: proxy.frame(in: .local).midX,
-                    y: proxy.frame(in: .local).midY + proxy.size.height * Self.framePositionYMultiplier
-                )
-            }
-            .transition(.trailingSlideIn)
-            .zIndex(Self.zIndex)
-        }
-    }
-}
-
-private struct ShowingView: View {
-    let showing: Showing
-
-    var body: some View {
-        ShrinkOnPressView {
             ZStack {
-                RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
-                    .strokeBorder(Color.primaryElement, lineWidth: Self.lineWidth)
-                    .background(
-                        RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
-                            .fill(Color.secondaryBackground)
-                    )
+                Color.primaryBackground
 
-                VStack {
-                    Text(showing.date.toString(.timeOfDay))
-                        .font(.title3.weight(.medium))
+                VStack(spacing: .zero) {
+                    Text("Seansai")
+                        .font(.headline)
                         .foregroundColor(.primaryElement)
+                        .padding()
                         .frame(maxWidth: .infinity)
                         .overlay(
-                            Text("3D")
-                                .font(.title3)
-                                .frame(maxWidth: .infinity, alignment: .trailing)
-                                .foregroundColor(.tertiaryElement)
-                                .hidden(!showing.is3D)
+                            ExitButtonView {
+                                viewStore.send(.exitButtonDidTap)
+                            }
+                            .frame(alignment: .trailing)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal)
                         )
 
-                    Image(showing.venue.rawValue)
+                    if viewStore.dates.isEmpty {
+                        ShowingDetailErrorView()
+                    } else {
+                        ShowingDateSelectorView(store: store)
+                        ShowingDetailTabView(store: store)
+                    }
                 }
-                .padding(Self.padding)
             }
         }
     }
-}
-
-// MARK: - Constants
-
-private extension ShowingDetailView {
-    static let columnSpacing: CGFloat = 16
-    static let heightMultiplier: CGFloat = 0.6
-    static let framePositionYMultiplier = (1 - Self.heightMultiplier) * 0.5
-    static let zIndex: CGFloat = 100
-}
-
-private extension ShowingDateSelector {
-    static let backgroundGradient = Gradient(colors: [
-        .primaryBackground.opacity(0.6),
-        .primaryBackground.opacity(0.65),
-        .primaryBackground.opacity(0.7),
-        .primaryBackground.opacity(0.75)
-    ])
-}
-
-private extension ShowingView {
-    static let cornerRadius: CGFloat = 15
-    static let lineWidth: CGFloat = 2
-    static let padding: CGFloat = 8
 }
 
 // MARK: - Previews
@@ -131,12 +64,11 @@ struct ShowingDetailView_Previews: PreviewProvider {
     )
 
     static var previews: some View {
-        ZStack {
-            Color.green
-                .ignoresSafeArea()
-
-            ShowingDetailView(store: store)
-        }
-        .preferredColorScheme(.dark)
+        Color.green
+            .ignoresSafeArea()
+            .sheet(isPresented: .constant(true)) {
+                ShowingDetailView(store: store)
+            }
+            .preferredColorScheme(.dark)
     }
 }
