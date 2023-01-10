@@ -322,6 +322,27 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		29958963296E1CFE00AF0231 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				2904C7A22336B09100407B64 /* Extensions.swift */,
+				29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */,
+				29958961296E1BA500AF0231 /* Extensions+UserDefaults.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		29958964296E1D1C00AF0231 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
+				29BFAF8D2961AE6200655325 /* GetterViews.swift */,
+				2991622E29524CE80084464C /* LabelViews.swift */,
+				29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		29B1BAE6296743BF00A60E20 /* ShowingDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -352,14 +373,9 @@
 			children = (
 				2904C7B5233BC6F700407B64 /* Constants.swift */,
 				29BFAF8F2961BCE700655325 /* CustomTransitions.swift */,
-				29817F84293CAB3400E59D42 /* ExitButtonView.swift */,
-				2904C7A22336B09100407B64 /* Extensions.swift */,
-				29F3D6AC296AFE5300495BBD /* Extensions+Date.swift */,
-				29BFAF8D2961AE6200655325 /* GetterViews.swift */,
-				2991622E29524CE80084464C /* LabelViews.swift */,
-				29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */,
 				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
-				29958961296E1BA500AF0231 /* Extensions+UserDefaults.swift */,
+				29958963296E1CFE00AF0231 /* Extensions */,
+				29958964296E1D1C00AF0231 /* Views */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
