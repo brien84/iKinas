@@ -26,27 +26,35 @@ struct DateSelectorView: View {
 
                     Divider()
 
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        LazyHStack(spacing: Self.horizontalSpacing) {
-                            ForEach(viewStore.restOfTheWeek, id: \.self) { date in
-                                Button {
-                                    viewStore.send(.didSelect(date: date))
-                                } label: {
-                                    VStack {
-                                        Text(date.toString(.shortDayOfWeek))
-                                            .font(.caption.weight(.bold))
-                                            .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .primaryElement)
+                    ScrollViewReader { proxy in
+                        ScrollView(.horizontal, showsIndicators: false) {
+                            LazyHStack(spacing: Self.horizontalSpacing) {
+                                ForEach(viewStore.restOfTheWeek, id: \.self) { date in
+                                    Button {
+                                        viewStore.send(.didSelect(date: date))
+                                    } label: {
+                                        VStack {
+                                            Text(date.toString(.shortDayOfWeek))
+                                                .font(.caption.weight(.bold))
+                                                .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .primaryElement)
 
-                                        Text(date.toString(.shortMonthAndDay))
-                                            .font(.caption2)
-                                            .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .secondaryElement)
+                                            Text(date.toString(.shortMonthAndDay))
+                                                .font(.caption2)
+                                                .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .secondaryElement)
+                                        }
                                     }
+                                    .id(date)
                                 }
                             }
+                            .padding(.horizontal)
                         }
-                        .padding(.horizontal)
+                        .padding(.vertical)
+                        .onChange(of: viewStore.selectedDate) { newValue in
+                            withAnimation {
+                                proxy.scrollTo(newValue, anchor: .center)
+                            }
+                        }
                     }
-                    .padding(.vertical)
                 }
             }
             .disabled(viewStore.isDisabled)
