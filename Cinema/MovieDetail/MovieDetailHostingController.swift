@@ -165,7 +165,7 @@ extension MovieDetailHostingController: UIGestureRecognizerDelegate {
 
 private extension UIBarButtonItem {
     func setBackgroundImage(size: CGSize, color: UIColor, alpha: CGFloat) {
-        let image = color.withAlphaComponent(alpha).image(size: size, isEclipse: true)
+        let image = color.withAlphaComponent(alpha).renderEllipseImage(size: size)
         self.setBackgroundImage(image, for: .normal, barMetrics: .default)
     }
 }
@@ -181,7 +181,7 @@ extension UINavigationBar {
         let color = color.withAlphaComponent(alpha)
 
         // `UINavigationBar` will size the image to fill.
-        appearance.backgroundImage = color.image(size: CGSize(width: 1, height: 1))
+        appearance.backgroundImage = color.renderRectImage(size: .init(width: 1, height: 1))
 
         self.standardAppearance = appearance
         self.scrollEdgeAppearance = appearance

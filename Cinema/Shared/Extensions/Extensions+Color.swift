@@ -26,17 +26,19 @@ extension UIColor {
 }
 
 extension UIColor {
-    /// Creates `UIImage` filled with `UIColor`.
-    func image(size: CGSize, isEclipse: Bool = false) -> UIImage {
+    func renderEllipseImage(size: CGSize) -> UIImage {
         UIGraphicsImageRenderer(size: size).image { rendererContext in
             let rect = CGRect(origin: .zero, size: size)
             self.setFill()
+            rendererContext.cgContext.fillEllipse(in: rect)
+        }
+    }
 
-            if isEclipse {
-                rendererContext.cgContext.fillEllipse(in: rect)
-            } else {
-                rendererContext.fill(rect)
-            }
+    func renderRectImage(size: CGSize) -> UIImage {
+        UIGraphicsImageRenderer(size: size).image { rendererContext in
+            let rect = CGRect(origin: .zero, size: size)
+            self.setFill()
+            rendererContext.fill(rect)
         }
     }
 }
