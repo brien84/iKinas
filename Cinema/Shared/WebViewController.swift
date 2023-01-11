@@ -69,12 +69,6 @@ final class WebViewController: UIViewController, WKUIDelegate {
         navigationItem.rightBarButtonItem = rightButton
     }
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        navigationController?.navigationBar.setBackgroundImage(color: .primaryBackground, alpha: 1)
-    }
-
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
