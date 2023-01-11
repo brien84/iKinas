@@ -70,7 +70,9 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
 
-        viewStore.publisher.openedURL.sink { [self] url in
+        viewStore.publisher.openedURL
+            .delay(for: .milliseconds(10), scheduler: RunLoop.main)
+            .sink { [self] url in
             if let url {
                 let vc = WebViewController(url: url)
                 self.navigationController?.pushViewController(vc, animated: true)

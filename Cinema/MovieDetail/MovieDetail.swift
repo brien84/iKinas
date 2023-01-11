@@ -18,7 +18,7 @@ struct MovieDetail: ReducerProtocol {
         var openedURL: URL?
         let showing: Showing?
         var showingDetail: ShowingDetail.State?
-        var isShowingDetailPresented: Bool { self.showingDetail != nil }
+        var isShowingDetailPresented = false
 
         // The percentage of the `TitleView` that is overlapped by the navigation bar.
         var titleViewOverlapPercentage: CGFloat = 0
@@ -58,25 +58,25 @@ struct MovieDetail: ReducerProtocol {
                 return .none
 
             case .showingDetail(.didSelectShowing(let showing)):
-                state.showingDetail = nil
-                return EffectTask(value: .openURL(showing.url))
-                    .delay(for: .milliseconds(10), scheduler: RunLoop.main)
-                    .eraseToEffect()
+                state.isShowingDetailPresented = false
+                state.openedURL = showing.url
+                return .none
 
             case .showingDetail(.exitButtonDidTap):
-                state.showingDetail = nil
+                state.isShowingDetailPresented = false
                 return .none
 
             case .showingDetail:
                 return .none
 
             case .setShowingDetail(isPresented: true):
+                state.isShowingDetailPresented = true
                 state.showingDetail = ShowingDetail.State(movie: state.movie)
                 return .none
 
             case .setShowingDetail(isPresented: false):
-                  state.showingDetail = nil
-                  return .none
+                state.isShowingDetailPresented = false
+                return .none
 
             case .updateTitleViewOverlap(percentage: let percentage):
                 state.titleViewOverlapPercentage = percentage
