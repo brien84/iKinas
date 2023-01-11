@@ -1,14 +1,16 @@
 //
-//  DatasourceErrorView.swift
+//  EmptyErrorView.swift
 //  Cinema
 //
-//  Created by Marius on 2023-01-03.
+//  Created by Marius on 2023-01-11.
 //  Copyright © 2023 Marius. All rights reserved.
 //
 
 import SwiftUI
 
-struct DatasourceErrorView: View {
+struct EmptyErrorView: View {
+    let title: String
+    let subtitle: String
 
     var body: some View {
         ZStack {
@@ -21,7 +23,7 @@ struct DatasourceErrorView: View {
                     y: proxy.frame(in: .local).midY
                 )
 
-                Text("nieko nerodo")
+                Text(title)
                     .font(.largeTitle.bold())
                     .foregroundColor(.primaryElement)
                     .position(midPoint)
@@ -32,7 +34,7 @@ struct DatasourceErrorView: View {
                     .position(midPoint)
                     .offset(y: Self.imageYOffset)
 
-                Text("pasirinkite kitą dieną")
+                Text(subtitle)
                     .font(.body)
                     .foregroundColor(.secondaryElement)
                     .position(midPoint)
@@ -45,7 +47,7 @@ struct DatasourceErrorView: View {
 
 // MARK: - Constants
 
-extension DatasourceErrorView {
+extension EmptyErrorView {
     static let imageYOffset: CGFloat = -16
     static let subtitleYOffset: CGFloat = 80
     static let titleYOffset: CGFloat = -88
@@ -53,9 +55,12 @@ extension DatasourceErrorView {
 
 // MARK: - Previews
 
-struct DatasourceErrorView_Previews: PreviewProvider {
+struct EmptyErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        DatasourceErrorView()
-            .preferredColorScheme(.dark)
+        EmptyErrorView(
+            title: "data not found",
+            subtitle: "please retry!"
+        )
+        .preferredColorScheme(.dark)
     }
 }

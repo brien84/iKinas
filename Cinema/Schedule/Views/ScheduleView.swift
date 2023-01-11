@@ -66,7 +66,7 @@ struct ScheduleView: View {
                                 }
 
                                 if viewStore.movieItems.isEmpty {
-                                    DatasourceErrorView()
+                                    EmptyErrorView(title: "nieko nerodo", subtitle: "pasirinkite kitą dieną")
                                         .frame(
                                             width: backgroundFrame.width,
                                             height: backgroundFrame.height - dateFrame.height

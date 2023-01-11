@@ -33,7 +33,7 @@ struct ShowingDetailView: View {
                         )
 
                     if viewStore.dates.isEmpty {
-                        ShowingDetailErrorView()
+                        EmptyErrorView(title: "seansų nėra", subtitle: "pasirinkite kitą filmą")
                     } else {
                         ShowingDateSelectorView(store: store)
                         ShowingDetailTabView(store: store)
