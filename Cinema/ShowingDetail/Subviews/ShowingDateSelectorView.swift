@@ -46,7 +46,7 @@ struct ShowingDateSelectorView: View {
                         LazyHStack(spacing: .zero) {
                             ForEach(viewStore.dates, id: \.self) { date in
                                 Button {
-                                    viewStore.send(.didSelectDate(date), animation: .easeInOut)
+                                    viewStore.send(.didSelectDate(date))
                                 } label: {
                                     ZStack {
                                         VStack(spacing: .zero) {
