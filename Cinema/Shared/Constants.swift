@@ -9,26 +9,8 @@
 import SwiftUI
 import UIKit
 
-extension Color {
-    static let primaryElement = Color("primaryElement")
-    static let secondaryElement = Color("secondaryElement")
-    static let tertiaryElement = Color("tertiaryElement")
-    static let primaryBackground = Color("primaryBackground")
-    static let secondaryBackground = Color("secondaryBackground")
-}
-
-extension UIColor {
-    static let primaryElement = UIColor(named: "primaryElement")!
-    static let secondaryElement = UIColor(named: "secondaryElement")!
-    static let tertiaryElement = UIColor(named: "tertiaryElement")!
-    static let primaryBackground = UIColor(named: "primaryBackground")!
-    static let secondaryBackground = UIColor(named: "secondaryBackground")!
-    static let tertiaryBackground = UIColor(named: "tertiaryBackground")!
-}
-
 extension URL {
-    static let appStore = URL(string: "https://apps.apple.com/app/id1501977644")!
-
-    static let api = URL(string: "https://movies.ioys.lt/")!
     // static let api = URL(string: "http://localhost:8080/")!
+    static let api = URL(string: "https://movies.ioys.lt/")!
+    static let appStore = URL(string: "https://apps.apple.com/app/id1501977644")!
 }

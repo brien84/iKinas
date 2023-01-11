@@ -9,22 +9,6 @@
 import SwiftUI
 import UIKit
 
-extension UIColor {
-    /// Creates `UIImage` filled with `UIColor`.
-    func image(size: CGSize, isEclipse: Bool = false) -> UIImage {
-        UIGraphicsImageRenderer(size: size).image { rendererContext in
-            let rect = CGRect(origin: .zero, size: size)
-            self.setFill()
-
-            if isEclipse {
-                rendererContext.cgContext.fillEllipse(in: rect)
-            } else {
-                rendererContext.fill(rect)
-            }
-        }
-    }
-}
-
 extension UINavigationBar {
     func setBackgroundImage(color: UIColor, alpha: CGFloat = 1.0) {
         let appearance = UINavigationBarAppearance()
