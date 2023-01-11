@@ -1,13 +1,12 @@
 //
-//  Constants.swift
+//  Extensions+URL.swift
 //  Cinema
 //
-//  Created by Marius on 25/09/2019.
-//  Copyright © 2019 Marius. All rights reserved.
+//  Created by Marius on 2023-01-11.
+//  Copyright © 2023 Marius. All rights reserved.
 //
 
-import SwiftUI
-import UIKit
+import Foundation
 
 extension URL {
     // static let api = URL(string: "http://localhost:8080/")!
