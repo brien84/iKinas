@@ -53,13 +53,13 @@ struct MainView: View {
                 }
 
                 if viewStore.movieClientError == .network {
-                    MovieClientErrorView(.network) {
+                    LoadingErrorView(.network) {
                         viewStore.send(.fetchMovies)
                     }
                 }
 
                 if viewStore.movieClientError == .requiresUpdate {
-                    MovieClientErrorView(.requiresUpdate) {
+                    LoadingErrorView(.requiresUpdate) {
                         UIApplication.shared.open(.appStore)
                     }
                 }

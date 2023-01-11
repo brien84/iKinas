@@ -1,5 +1,5 @@
 //
-//  MovieClientErrorView.swift
+//  LoadingErrorView.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-25.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MovieClientErrorView: View {
+struct LoadingErrorView: View {
     private let text: String
     private let buttonText: String
     let action: () -> Void
@@ -87,7 +87,7 @@ struct MovieClientErrorView: View {
 
 // MARK: - Constants
 
-extension MovieClientErrorView {
+extension LoadingErrorView {
     static let textYOffset: CGFloat = -88
     static let buttonYOffset: CGFloat = 104
 
@@ -98,12 +98,12 @@ extension MovieClientErrorView {
 
 // MARK: - Previews
 
-struct MovieClientErrorView_Previews: PreviewProvider {
+struct LoadingErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        MovieClientErrorView(.network) { }
+        LoadingErrorView(.network) { }
             .preferredColorScheme(.dark)
 
-        MovieClientErrorView(.requiresUpdate) { }
+        LoadingErrorView(.requiresUpdate) { }
             .preferredColorScheme(.dark)
     }
 }
