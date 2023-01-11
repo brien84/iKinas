@@ -26,7 +26,6 @@ struct ScheduleView: View {
                         VStack(spacing: .zero) {
                             VStack(spacing: .zero) {
                                 SmallDateLabel(date: viewStore.date)
-                                    .padding([.top, .horizontal])
                                     .transitionDateLabel(viewStore.isTransitioning)
 
                                 HStack {
@@ -48,7 +47,6 @@ struct ScheduleView: View {
                             ZStack {
                                 VStack {
                                     SectionLabel(text: "Filmai")
-                                        .padding(.horizontal)
                                         .padding(.top, Self.verticalPadding)
                                         .transitionSectionLabel(viewStore.isTransitioning)
 
@@ -61,7 +59,6 @@ struct ScheduleView: View {
                                         .transitionMovieListView(viewStore.isTransitioning)
 
                                     SectionLabel(text: "Seansai")
-                                        .padding(.horizontal)
                                         .transitionSectionLabel(viewStore.isTransitioning)
 
                                     ShowingListView(store: store)
@@ -89,6 +86,42 @@ struct ScheduleView: View {
 
             }
         }
+    }
+}
+
+private struct LargeDateLabel: View {
+    let date: Date
+
+    var body: some View {
+        Text(date.toString(.dayOfWeek))
+            .font(.largeTitle.bold())
+            .foregroundColor(.primaryElement)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+private struct SmallDateLabel: View {
+    let date: Date
+
+    var body: some View {
+        Text(date.toString(.monthAndDay))
+            .textCase(.uppercase)
+            .font(.caption.bold())
+            .foregroundColor(.secondaryElement)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding([.top, .horizontal])
+    }
+}
+
+private struct SectionLabel: View {
+    let text: String
+
+    var body: some View {
+        Text(text)
+            .font(.title.bold())
+            .foregroundColor(.primaryElement)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
     }
 }
 
