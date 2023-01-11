@@ -77,26 +77,6 @@ struct MainView: View {
     }
 }
 
-private struct PassiveNavigationLink<Destination>: View where Destination: View {
-    let isActive: Binding<Bool>
-    let destination: () -> Destination
-
-    var body: some View {
-        NavigationLink(
-            isActive: isActive,
-            destination: {
-                destination()
-            },
-            label: {
-                EmptyView()
-            }
-        )
-        .buttonStyle(.plain)
-        .disabled(true)
-        .hidden()
-    }
-}
-
 // MARK: - Previews
 
 struct MainView_Previews: PreviewProvider {
