@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OrderedCollections
 
 extension UserDefaults {
     static let cityKey = "UserDefaultsCityKey"
@@ -34,17 +35,17 @@ extension UserDefaults {
         return city
     }
 
-    func readVenues() -> [Venue] {
+    func readVenues() -> OrderedSet<Venue> {
         guard let rawValues = self.array(forKey: Self.venuesKey) as? [String]
-        else { return Array(self.readCity().venues) }
+        else { return self.readCity().venues }
 
-        let venues = rawValues.compactMap { Venue(rawValue: $0) }
-        guard !venues.isEmpty else { return Array(self.readCity().venues) }
+        let venues = OrderedSet(rawValues.compactMap { Venue(rawValue: $0) })
+        guard !venues.isEmpty else { return self.readCity().venues }
 
         return venues
     }
 
-    func save(city: City, venues: [Venue]) {
+    func save(city: City, venues: OrderedSet<Venue>) {
         self.set(city.rawValue, forKey: Self.cityKey)
         self.set(venues.map { $0.rawValue }, forKey: Self.venuesKey)
     }

@@ -24,27 +24,13 @@ struct SettingsClient {
 extension SettingsClient: DependencyKey {
     static let liveValue = Self(
         load: {
-            guard
-                let rawValue = UserDefaults.standard.string(forKey: UserDefaults.cityKey),
-                let city = City(rawValue: rawValue)
-            else {
-                return Effect(value: SettingsClient.Settings(city: .vilnius, venues: City.vilnius.venues))
-            }
-
-            guard
-                let rawValues = UserDefaults.standard.array(forKey: UserDefaults.venuesKey) as? [String]
-            else {
-                return Effect(value: SettingsClient.Settings(city: city, venues: city.venues))
-            }
-
-            let venues = OrderedSet(rawValues.compactMap { Venue(rawValue: $0) })
-
+            let city = UserDefaults.standard.readCity()
+            let venues = UserDefaults.standard.readVenues()
             return Effect(value: SettingsClient.Settings(city: city, venues: venues))
         },
         save: { city, venues in
             .fireAndForget {
-                UserDefaults.standard.set(city.rawValue, forKey: UserDefaults.cityKey)
-                UserDefaults.standard.set(venues.map { $0.rawValue }, forKey: UserDefaults.venuesKey)
+                UserDefaults.standard.save(city: city, venues: venues)
             }
         }
     )
