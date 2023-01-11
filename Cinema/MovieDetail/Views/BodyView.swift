@@ -80,7 +80,7 @@ private struct ShowingView: View {
             Spacer()
 
             Text(showing.date.toString(.timeOfDay))
-                .font(.title3.weight(.medium))
+                .font(.title2.weight(.medium))
                 .foregroundColor(.primaryElement)
 
             Button {
