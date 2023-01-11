@@ -80,6 +80,29 @@ struct VenueListView: View {
     }
 }
 
+private struct VerticalScaleAndOpacity: ViewModifier {
+    private var amount: CGFloat
+
+    init(_ amount: CGFloat) {
+        self.amount = amount
+    }
+
+    func body(content: Content) -> some View {
+        content
+            .scaleEffect(y: amount, anchor: .top)
+            .opacity(amount)
+    }
+}
+
+private extension AnyTransition {
+    static var verticalScaleAndOpacity: AnyTransition {
+        .modifier(
+            active: VerticalScaleAndOpacity(0.01),
+            identity: VerticalScaleAndOpacity(1)
+        )
+    }
+}
+
 // MARK: - Constants
 
 private extension VenueListView {
