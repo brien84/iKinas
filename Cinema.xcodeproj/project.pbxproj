@@ -370,7 +370,6 @@
 		29BFAF8C2961AE3C00655325 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 				29958963296E1CFE00AF0231 /* Extensions */,
 				29958964296E1D1C00AF0231 /* Views */,
 			);
@@ -382,6 +381,7 @@
 			children = (
 				29DDA572295DBFA4000C4322 /* MovieDetail.swift */,
 				29DDA576295DCA2C000C4322 /* MovieDetailHostingController.swift */,
+				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 				2923004429620C21006537F6 /* Views */,
 			);
 			path = MovieDetail;
