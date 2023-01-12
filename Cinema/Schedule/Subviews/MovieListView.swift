@@ -11,9 +11,8 @@ import SwiftUI
 
 private extension MovieListView {
     struct State: Equatable {
+        var didUpdateDatasource = false
         var movieItems: IdentifiedArrayOf<MovieItem.State> = []
-        var requiresScrollToTop = false
-
     }
 
     enum Action: Equatable {
@@ -23,7 +22,7 @@ private extension MovieListView {
 
 private extension Schedule.State {
     var state: MovieListView.State {
-        .init(movieItems: self.movieItems, requiresScrollToTop: self.requiresScrollToTop)
+        .init(didUpdateDatasource: self.didUpdateDatasource, movieItems: self.movieItems)
     }
 }
 
@@ -58,8 +57,9 @@ struct MovieListView: View {
                             .padding(.horizontal)
                             .id(Self.scrollToTopID)
                         }
-                        .onChange(of: viewStore.requiresScrollToTop) { newValue in
-                            if newValue {
+                        .onChange(of: viewStore.didUpdateDatasource) { newValue in
+                            guard newValue else { return }
+                            DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
                                 scrollProxy.scrollTo(Self.scrollToTopID, anchor: .leading)
                             }
                         }
@@ -74,6 +74,7 @@ struct MovieListView: View {
 // MARK: - Constants
 
 private extension MovieListView {
+    static let scrollToTopDelay: CGFloat = 0.3
     static let scrollToTopID: String = "upandaway"
     static let widthToHeightRatio: CGFloat = 1.5
 }

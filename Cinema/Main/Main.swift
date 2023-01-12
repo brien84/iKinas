@@ -52,6 +52,14 @@ struct Main: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
+            case .dateSelector(.didSelect(date: let date)):
+                state.schedule.datasource.date = date
+                state.dateSelector.isDisabled = true
+                return .none
+
+            case .dateSelector:
+                return .none
+
             case .fetchMovies:
                 state.requiresToFetchMovies = true
                 state.movieClientError = nil
@@ -59,15 +67,22 @@ struct Main: ReducerProtocol {
                     .receive(on: mainQueue)
                     .catchToEffect(Action.movieClient)
 
-            case .dateSelector(.didSelect(date: let date)):
-                let datasource = Schedule.Datasource(
-                    date: date,
-                    movies: state.schedule.movies
-                )
-                return Effect(value: .schedule(.datasourceNeedsUpdate(datasource)))
+            case .movieClient(let result):
+                switch result {
+                case .success(let movies):
+                    state.schedule.datasource.movies = movies
+                    state.dateSelector.isDisabled = true
+                    return .none
 
-            case .dateSelector:
-                return .none
+                case .failure(let error):
+                    switch error {
+                    case .requiresUpdate:
+                        state.movieClientError = .requiresUpdate
+                    case .network, .decoding:
+                        state.movieClientError = .network
+                    }
+                    return .none
+                }
 
             case .schedule(.movieItem(id: _, action: .didSelectMovie(let movie))):
                 state.movieDetail = MovieDetail.State(movie: movie, showing: nil)
@@ -78,30 +93,16 @@ struct Main: ReducerProtocol {
                 state.movieDetail = MovieDetail.State(movie: movie, showing: showing)
                 return .none
 
-            case .schedule(.beginTransition):
-                state.dateSelector.isDisabled = true
-                return .none
-
-            case .schedule(.endTransition):
-                state.dateSelector.isDisabled = false
-                if state.requiresToFetchMovies {
-                    state.requiresToFetchMovies = false
-                }
-
-                return .none
-
             case .schedule(.settingsButtonDidTap):
                 state.settings = Settings.State()
                 return .none
 
+            case .schedule(.transitionDidEnd):
+                state.dateSelector.isDisabled = false
+                state.requiresToFetchMovies = false
+                return .none
+
             case .schedule:
-                return .none
-
-            case .settings(.saveSettings):
-                state.requiresToFetchMovies = true
-                return .none
-
-            case .settings:
                 return .none
 
             case .setNavigationToMovieDetail(let isActive):
@@ -114,23 +115,12 @@ struct Main: ReducerProtocol {
                 state.settings = isActive ? Settings.State() : nil
                 return .none
 
-            case .movieClient(let result):
-                switch result {
-                case .success(let movies):
-                    let datasource = Schedule.Datasource(
-                        date: state.dateSelector.selectedDate,
-                        movies: movies
-                    )
-                    return Effect(value: .schedule(.datasourceNeedsUpdate(datasource)))
-                case .failure(let error):
-                    switch error {
-                    case .requiresUpdate:
-                        state.movieClientError = .requiresUpdate
-                    case .network, .decoding:
-                        state.movieClientError = .network
-                    }
-                    return .none
-                }
+            case .settings(.saveSettings):
+                state.requiresToFetchMovies = true
+                return .none
+
+            case .settings:
+                return .none
 
             }
         }

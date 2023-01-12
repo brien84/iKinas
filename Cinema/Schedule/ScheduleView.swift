@@ -15,6 +15,8 @@ struct ScheduleView: View {
     @State private var backgroundFrame: CGRect = CGRect()
     @State private var dateFrame: CGRect = CGRect()
 
+    @State private var isTransitioning = false
+
     var body: some View {
         WithViewStore(store) { viewStore in
             ZStack {
@@ -25,16 +27,17 @@ struct ScheduleView: View {
                     ScrollView {
                         VStack(spacing: .zero) {
                             VStack(spacing: .zero) {
-                                SmallDateLabel(date: viewStore.date)
-                                    .transitionDateLabel(viewStore.isTransitioning)
+                                SmallDateLabel(date: viewStore.selectedDate)
+                                    .transitionDateLabel(isTransitioning)
 
                                 HStack {
-                                    LargeDateLabel(date: viewStore.date)
-                                        .transitionDateLabel(viewStore.isTransitioning)
+                                    LargeDateLabel(date: viewStore.selectedDate)
+                                        .transitionDateLabel(isTransitioning)
 
                                     SettingsButton {
                                         viewStore.send(.settingsButtonDidTap)
-                                    }.hidden(!Calendar.current.isDateInToday(viewStore.date))
+                                    }
+                                    .hidden(!Calendar.current.isDateInToday(viewStore.selectedDate))
                                 }
                                 .padding(.horizontal)
                                 .padding(.vertical, Self.verticalPadding)
@@ -48,7 +51,7 @@ struct ScheduleView: View {
                                 VStack {
                                     SectionLabel(text: "Filmai")
                                         .padding(.top, Self.verticalPadding)
-                                        .transitionSectionLabel(viewStore.isTransitioning)
+                                        .transitionSectionLabel(isTransitioning)
 
                                     MovieListView(store: store)
                                         // Instead of using a `GeometryReader` view to retrieve
@@ -56,13 +59,13 @@ struct ScheduleView: View {
                                         // to use the `UIScreen` object, since the view always
                                         // takes up the entire width of the screen.
                                         .frame(height: UIScreen.main.bounds.width * Self.heightToWidthRatio)
-                                        .transitionMovieListView(viewStore.isTransitioning)
+                                        .transitionMovieListView(isTransitioning)
 
                                     SectionLabel(text: "Seansai")
-                                        .transitionSectionLabel(viewStore.isTransitioning)
+                                        .transitionSectionLabel(isTransitioning)
 
                                     ShowingListView(store: store)
-                                        .transitionShowingListView(viewStore.isTransitioning)
+                                        .transitionShowingListView(isTransitioning)
                                 }
 
                                 if viewStore.movieItems.isEmpty {
@@ -71,15 +74,27 @@ struct ScheduleView: View {
                                             width: backgroundFrame.width,
                                             height: backgroundFrame.height - dateFrame.height
                                         )
-                                        .transitionalBlur(viewStore.isTransitioning)
+                                        .transitionalBlur(isTransitioning)
                                 }
                             }
                         }
                     }
-                    .opacity(viewStore.isTransitioning ? .zero : 1)
-                    .onChange(of: viewStore.requiresScrollToTop) { newValue in
-                        if newValue {
+                    .transitionScheduleView(isTransitioning)
+                    .onChange(of: viewStore.didUpdateDatasource) { newValue in
+                        guard newValue else { return }
+
+                        withAnimation(.easeInOut(duration: Self.beginTransitionDuration)) {
+                            isTransitioning = true
+                        }
+
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Self.beginTransitionDuration) {
+                            viewStore.send(.applyDatasource)
                             scrollProxy.scrollTo(Self.scrollToTopID)
+
+                            withAnimation(.easeInOut(duration: Self.endTransitionDuration)) {
+                                isTransitioning = false
+                                viewStore.send(.transitionDidEnd)
+                            }
                         }
                     }
                 }
@@ -144,6 +159,8 @@ private struct SettingsButton: View {
 private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.96
     static let scrollToTopID: String = "upandaway"
+    static let beginTransitionDuration: CGFloat = 0.3
+    static let endTransitionDuration: CGFloat = 0.4
     static let verticalPadding: CGFloat = 8
 }
 
@@ -162,6 +179,10 @@ private extension View {
         transitionalBlur(isTransitioning)
             .scaleEffect(y: isTransitioning ? 0.98 : 1, anchor: .center)
             .offset(y: isTransitioning ? -5 : 0 )
+    }
+
+    func transitionScheduleView(_ isTransitioning: Bool) -> some View {
+        opacity(isTransitioning ? 0 : 1)
     }
 
     func transitionSectionLabel(_ isTransitioning: Bool) -> some View {

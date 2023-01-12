@@ -11,43 +11,29 @@ import SwiftUI
 
 struct Schedule: ReducerProtocol {
     struct Datasource: Equatable {
-        let date: Date
-        let movies: [Movie]
-
-        init(date: Date = Date(), movies: [Movie] = []) {
-            self.date = date
-            self.movies = movies
-        }
+        var date: Date = Date()
+        var movies: [Movie] = []
     }
 
     struct State: Equatable {
-        var datasource: Datasource = Datasource()
-
-        var date: Date {
-            datasource.date
+        var datasource: Datasource = Datasource() {
+            didSet {
+                didUpdateDatasource = true
+            }
         }
 
-        var movies: [Movie] {
-            datasource.movies
-        }
-
-        var isTransitioning = false
-        var requiresScrollToTop = false
-
+        var didUpdateDatasource = false
         var movieItems: IdentifiedArrayOf<MovieItem.State> = []
         var showingItems: IdentifiedArrayOf<ShowingItem.State> = []
+        var selectedDate = Date()
     }
 
     enum Action: Equatable {
-        case datasourceNeedsUpdate(Datasource)
-        case beginTransition(Datasource)
-        case updateDatasource(Datasource)
-        case endTransition
-
+        case applyDatasource
         case movieItem(id: MovieItem.State.ID, action: MovieItem.Action)
         case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
-
         case settingsButtonDidTap
+        case transitionDidEnd
     }
 
     @Dependency(\.mainQueue) var mainQueue
@@ -57,31 +43,10 @@ struct Schedule: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
-            case .datasourceNeedsUpdate(let datasource):
-                return Effect(value: .beginTransition(datasource))
-                    .delay(for: .milliseconds(10), scheduler: mainQueue)
-                    .eraseToEffect()
-                    .animation(.easeInOut(duration: 0.3))
-
-            case .beginTransition(let datasource):
-                state.isTransitioning = true
-                return Effect(value: .updateDatasource(datasource))
-                    .delay(for: .seconds(0.3), scheduler: mainQueue)
-                    .eraseToEffect()
-
-            case .updateDatasource(let datasource):
-                state.datasource = datasource
-                state.requiresScrollToTop = true
+            case .applyDatasource:
+                state.selectedDate = state.datasource.date
                 state.movieItems = getMovieItems(from: state.datasource)
                 state.showingItems = getShowingItems(from: state.datasource)
-                return Effect(value: .endTransition)
-                    .delay(for: .milliseconds(10), scheduler: mainQueue)
-                    .eraseToEffect()
-                    .animation(.easeInOut(duration: 0.4))
-
-            case .endTransition:
-                state.requiresScrollToTop = false
-                state.isTransitioning = false
                 return .none
 
             case .movieItem:
@@ -91,6 +56,10 @@ struct Schedule: ReducerProtocol {
                 return .none
 
             case .settingsButtonDidTap:
+                return .none
+
+            case .transitionDidEnd:
+                state.didUpdateDatasource = false
                 return .none
 
             }
