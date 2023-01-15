@@ -13,8 +13,18 @@ import XCTest
 @MainActor
 final class MovieDetailTests: XCTestCase {
 
-    func test() async {
-        XCTAssertTrue(true)
+    func testSettingWebViewURL() async {
+        let showing = Showing()
+        let movie = Movie(showings: [showing])
+
+        let store = TestStore(
+            initialState: MovieDetail.State(movie: movie),
+            reducer: MovieDetail()
+        )
+
+        await store.send(.setWebView(url: showing.url)) {
+            $0.webViewURL = showing.url
+        }
     }
 
 }
