@@ -48,21 +48,31 @@ struct ShowingDateSelectorView: View {
                                 Button {
                                     viewStore.send(.didSelectDate(date))
                                 } label: {
+                                    let isSelected = date == viewStore.selectedDate
+
                                     ZStack {
+                                        RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
+                                            .fill(Color.tertiaryElement)
+                                            .opacity(isSelected ? 1 : 0)
+
                                         VStack(spacing: .zero) {
                                             Text(date.toString(.shortDayOfWeek))
-                                                .font(.footnote.weight(.medium))
+                                                .font(.footnote.weight(isSelected ? .bold : .medium))
+                                                .foregroundColor(isSelected ? .primaryElement : .secondaryElement)
+
                                             Text(date.toString(.shortMonthAndDay))
-                                                .font(.footnote)
+                                                .font(.footnote.weight(isSelected ? .bold : .medium))
+                                                .foregroundColor(isSelected ? .primaryElement : .secondaryElement)
                                         }
-                                        .foregroundColor(viewStore.selectedDate == date ? .tertiaryElement : .primaryElement)
+                                        .padding(.horizontal, Self.buttonHorizontalPadding)
+                                        .padding(.vertical, Self.buttonVerticalPadding)
                                     }
                                 }
-                                .padding()
                                 .id(date)
                             }
                         }
                         .padding(.horizontal)
+                        .padding(.vertical, Self.verticalPadding)
                     }
                     .onChange(of: viewStore.selectedDate) { newValue in
                         withAnimation {
@@ -74,6 +84,15 @@ struct ShowingDateSelectorView: View {
             .fixedSize(horizontal: false, vertical: true)
         }
     }
+}
+
+// MARK: - Constants
+
+private extension ShowingDateSelectorView {
+    static let buttonHorizontalPadding: CGFloat = 12
+    static let buttonVerticalPadding: CGFloat = 8
+    static let cornerRadius: CGFloat = 16
+    static let verticalPadding: CGFloat = 4
 }
 
 // MARK: - Previews
