@@ -70,7 +70,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
 
-        viewStore.publisher.openedURL
+        viewStore.publisher.webViewURL
             .delay(for: .milliseconds(10), scheduler: RunLoop.main)
             .sink { [self] url in
             if let url {
@@ -92,8 +92,8 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
 
         updateNavigationBarAppearance(overlap: lastTitleViewOverlapPercentage)
 
-        if viewStore.openedURL != nil {
-            viewStore.send(.openURL(nil))
+        if viewStore.webViewURL != nil {
+            viewStore.send(.setWebView(url: nil))
         }
 
         navigationController?.setNavigationBarHidden(true, animated: false)
@@ -119,7 +119,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if viewStore.openedURL == nil {
+        if viewStore.webViewURL == nil {
             cancellables.removeAll()
         }
     }

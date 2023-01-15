@@ -15,7 +15,7 @@ struct MovieDetail: ReducerProtocol {
         var isScrollDisabled = false
         let movie: Movie
         var networkImage: NetworkImage.State
-        var openedURL: URL?
+        var webViewURL: URL?
         let showing: Showing?
         var showingDetail: ShowingDetail.State?
         var isShowingDetailPresented = false
@@ -26,14 +26,14 @@ struct MovieDetail: ReducerProtocol {
         init(movie: Movie, showing: Showing? = nil) {
             self.movie = movie
             self.showing = showing
-            self.networkImage = NetworkImage.State(url: movie.poster)
+            self.networkImage = NetworkImage.State(id: movie.id, url: movie.poster)
         }
     }
 
     enum Action: Equatable {
         case toggleScrollDisabled(Bool)
         case networkImage(NetworkImage.Action)
-        case openURL(URL?)
+        case setWebView(url: URL?)
         case showingDetail(ShowingDetail.Action)
         case updateTitleViewOverlap(percentage: CGFloat)
         case setShowingDetail(isPresented: Bool)
@@ -53,13 +53,13 @@ struct MovieDetail: ReducerProtocol {
             case .networkImage:
                 return .none
 
-            case .openURL(let url):
-                state.openedURL = url
+            case .setWebView(url: let url):
+                state.webViewURL = url
                 return .none
 
             case .showingDetail(.didSelectShowing(let showing)):
                 state.isShowingDetailPresented = false
-                state.openedURL = showing.url
+                state.webViewURL = showing.url
                 return .none
 
             case .showingDetail(.exitButtonDidTap):
