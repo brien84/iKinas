@@ -24,20 +24,26 @@ struct ShowingDetailTabView: View {
                     send: ShowingDetail.Action.didSelectDate)
                 ) {
                     ForEach(viewStore.dates, id: \.self) { date in
-                        ScrollView(.vertical, showsIndicators: false) {
-                            LazyVGrid(columns: columns) {
-                                ForEach(viewStore.state.getShowings(at: date)) { showing in
-                                    ShowingView(showing: showing)
-                                        .simultaneousGesture(
-                                            TapGesture().onEnded { _ in
-                                                viewStore.send(.didSelectShowing(showing))
-                                            }
-                                        )
+                        ScrollViewReader { proxy in
+                            ScrollView(.vertical, showsIndicators: false) {
+                                LazyVGrid(columns: columns) {
+                                    ForEach(viewStore.state.getShowings(at: date)) { showing in
+                                        ShowingView(showing: showing)
+                                            .simultaneousGesture(
+                                                TapGesture().onEnded { _ in
+                                                    viewStore.send(.didSelectShowing(showing))
+                                                }
+                                            )
+                                    }
                                 }
+                                .padding()
+                                .id(Self.scrollToTopID)
                             }
-                            .padding()
+                            .tag(date)
+                            .onDisappear {
+                                proxy.scrollTo(Self.scrollToTopID, anchor: .top)
+                            }
                         }
-                        .tag(date)
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
@@ -85,6 +91,7 @@ private struct ShowingView: View {
 
 private extension ShowingDetailTabView {
     static let columnSpacing: CGFloat = 16
+    static let scrollToTopID: String = "upandaway"
 }
 
 private extension ShowingView {
