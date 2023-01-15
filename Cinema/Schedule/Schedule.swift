@@ -36,7 +36,6 @@ struct Schedule: ReducerProtocol {
         case transitionDidEnd
     }
 
-    @Dependency(\.mainQueue) var mainQueue
     @Dependency(\.uuid) var uuid
 
     var body: some ReducerProtocol<State, Action> {
