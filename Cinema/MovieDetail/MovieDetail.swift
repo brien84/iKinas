@@ -12,16 +12,16 @@ import SwiftUI
 struct MovieDetail: ReducerProtocol {
 
     struct State: Equatable {
+        var networkImage: NetworkImage.State
+        var showingDetail: ShowingDetail.State?
+
         var isScrollingEnabled = true
         let movie: Movie
-        var networkImage: NetworkImage.State
-        var webViewURL: URL?
         let showing: Showing?
-        var showingDetail: ShowingDetail.State?
-        var isNavigationToShowingDetailActive = false
-
-        // The percentage of the `TitleView` that is overlapped by the navigation bar.
         var titleViewOverlapPercentage: CGFloat = 0
+        var webViewURL: URL?
+
+        var isNavigationToShowingDetailActive = false
 
         init(movie: Movie, showing: Showing? = nil) {
             self.movie = movie
@@ -31,11 +31,13 @@ struct MovieDetail: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case toggleScrolling(isEnabled: Bool)
         case networkImage(NetworkImage.Action)
-        case setWebView(url: URL?)
         case showingDetail(ShowingDetail.Action)
+
+        case setWebView(url: URL?)
+        case toggleScrolling(isEnabled: Bool)
         case updateTitleViewOverlap(percentage: CGFloat)
+
         case setNavigationToShowingDetail(isActive: Bool)
     }
 
@@ -46,15 +48,8 @@ struct MovieDetail: ReducerProtocol {
 
         Reduce { state, action in
             switch action {
-            case .toggleScrolling(isEnabled: let isEnabled):
-                state.isScrollingEnabled = isEnabled
-                return .none
 
             case .networkImage:
-                return .none
-
-            case .setWebView(url: let url):
-                state.webViewURL = url
                 return .none
 
             case .showingDetail(.didSelectShowing(let showing)):
@@ -69,6 +64,18 @@ struct MovieDetail: ReducerProtocol {
             case .showingDetail:
                 return .none
 
+            case .setWebView(url: let url):
+                state.webViewURL = url
+                return .none
+
+            case .toggleScrolling(isEnabled: let isEnabled):
+                state.isScrollingEnabled = isEnabled
+                return .none
+
+            case .updateTitleViewOverlap(percentage: let percentage):
+                state.titleViewOverlapPercentage = percentage
+                return .none
+
             case .setNavigationToShowingDetail(isActive: let isActive):
                 if isActive {
                     state.isNavigationToShowingDetailActive = true
@@ -79,9 +86,6 @@ struct MovieDetail: ReducerProtocol {
 
                 return .none
 
-            case .updateTitleViewOverlap(percentage: let percentage):
-                state.titleViewOverlapPercentage = percentage
-                return .none
             }
         }
         .ifLet(\.showingDetail, action: /Action.showingDetail) {
