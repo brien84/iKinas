@@ -13,6 +13,87 @@ import XCTest
 @MainActor
 final class MainTests: XCTestCase {
 
+    func testChangingSelectedDate() async {
+        let store = TestStore(
+            initialState: Main.State(),
+            reducer: Main()
+        )
+
+        let date = store.state.dateSelector.today
+
+        await store.send(.dateSelector(.didSelect(date: date))) {
+            $0.schedule.datasource.date = date
+            $0.dateSelector.isDisabled = true
+        }
+    }
+
+    func testSelectingMovie() async {
+        let movie = Movie()
+        let movieItems = IdentifiedArray(uniqueElements: [MovieItem.State(id: movie.id, movie: movie)])
+
+        let store = TestStore(
+            initialState: Main.State(schedule: Schedule.State(movieItems: movieItems)),
+            reducer: Main()
+        )
+
+        await store.send(.schedule(.movieItem(id: movie.id, action: .didSelectMovie(movie)))) {
+            $0.movieDetail = MovieDetail.State(movie: movie, showing: nil)
+        }
+    }
+
+    func testSelectingShowing() async {
+        let showing = Showing()
+        let movie = Movie(showings: [showing])
+        let showingItems = IdentifiedArray(uniqueElements: [ShowingItem.State(id: showing.id, showing: showing)])
+
+        let store = TestStore(
+            initialState: Main.State(schedule: Schedule.State(showingItems: showingItems)),
+            reducer: Main()
+        )
+
+        await store.send(.schedule(.showingItem(id: showing.id, action: .didSelectShowing(showing)))) {
+            $0.movieDetail = MovieDetail.State(movie: movie, showing: showing)
+        }
+    }
+
+    func testHandlingSettingsButtonTap() async {
+        let store = TestStore(
+            initialState: Main.State(),
+            reducer: Main()
+        )
+
+        await store.send(.schedule(.settingsButtonDidTap)) {
+            $0.settings = Settings.State()
+        }
+    }
+
+    func testHandlingEndOfScheduleTransition() async {
+        let store = TestStore(
+            initialState: Main.State(),
+            reducer: Main()
+        )
+
+        await store.send(.schedule(.transitionDidEnd)) {
+            $0.dateSelector.isDisabled = false
+            $0.requiresToFetchMovies = false
+        }
+    }
+
+    func testSavingSettingsRefetchesMovies() async {
+        let store = TestStore(
+            initialState: Main.State(settings: Settings.State(), requiresToFetchMovies: false),
+            reducer: Main()
+        )
+
+        store.dependencies.settingsClient.save = { _, _ in
+            .fireAndForget { XCTAssert(true) }
+        }
+
+        await store.send(.settings(.saveSettings)) {
+            $0.requiresToFetchMovies = true
+        }
+    }
+
     func testFetchingMoviesSuccessfully() async {
         let store = TestStore(
             initialState: Main.State(
