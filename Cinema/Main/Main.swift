@@ -16,25 +16,25 @@ struct Main: ReducerProtocol {
         var schedule = Schedule.State()
         var settings: Settings.State?
 
+        var movieClientError: MovieClient.Error?
         var requiresToFetchMovies = true
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
         }
-
-        var movieClientError: MovieClient.Error?
     }
 
     enum Action: Equatable {
-        case fetchMovies
-
         case dateSelector(DateSelector.Action)
+        case movieDetail(MovieDetail.Action)
         case schedule(Schedule.Action)
         case settings(Settings.Action)
+
+        case fetchMovies
+        case movieClient(Result<[Movie], MovieClient.Error>)
+
         case setNavigationToMovieDetail(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
-
-        case movieClient(Result<[Movie], MovieClient.Error>)
     }
 
     @Dependency(\.mainQueue) var mainQueue
@@ -60,29 +60,8 @@ struct Main: ReducerProtocol {
             case .dateSelector:
                 return .none
 
-            case .fetchMovies:
-                state.requiresToFetchMovies = true
-                state.movieClientError = nil
-                return movieClient.fetch()
-                    .receive(on: mainQueue)
-                    .catchToEffect(Action.movieClient)
-
-            case .movieClient(let result):
-                switch result {
-                case .success(let movies):
-                    state.schedule.datasource.movies = movies
-                    state.dateSelector.isDisabled = true
-                    return .none
-
-                case .failure(let error):
-                    switch error {
-                    case .requiresUpdate:
-                        state.movieClientError = .requiresUpdate
-                    case .network, .decoding:
-                        state.movieClientError = .network
-                    }
-                    return .none
-                }
+            case .movieDetail:
+                return .none
 
             case .schedule(.movieItem(id: _, action: .didSelectMovie(let movie))):
                 state.movieDetail = MovieDetail.State(movie: movie, showing: nil)
@@ -105,16 +84,6 @@ struct Main: ReducerProtocol {
             case .schedule:
                 return .none
 
-            case .setNavigationToMovieDetail(let isActive):
-                if !isActive {
-                    state.movieDetail = nil
-                }
-                return .none
-
-            case .setNavigationToSettings(let isActive):
-                state.settings = isActive ? Settings.State() : nil
-                return .none
-
             case .settings(.saveSettings):
                 state.requiresToFetchMovies = true
                 return .none
@@ -122,10 +91,48 @@ struct Main: ReducerProtocol {
             case .settings:
                 return .none
 
+            case .fetchMovies:
+                state.requiresToFetchMovies = true
+                state.movieClientError = nil
+                return movieClient.fetch()
+                    .receive(on: mainQueue)
+                    .catchToEffect(Action.movieClient)
+
+            case .movieClient(let result):
+                switch result {
+                case .success(let movies):
+                    state.schedule.datasource.movies = movies
+                    state.dateSelector.isDisabled = true
+                    return .none
+                case .failure(let error):
+                    switch error {
+                    case .network, .decoding:
+                        state.movieClientError = .network
+                    case .requiresUpdate:
+                        state.movieClientError = .requiresUpdate
+                    }
+                    return .none
+                }
+
+            case .setNavigationToMovieDetail(let isActive):
+                if !isActive {
+                    state.movieDetail = nil
+                }
+                return .none
+
+            case .setNavigationToSettings(let isActive):
+                if !isActive {
+                    state.settings = nil
+                }
+                return .none
+
             }
         }
         .ifLet(\.settings, action: /Action.settings) {
             Settings()
+        }
+        .ifLet(\.movieDetail, action: /Action.movieDetail) {
+            MovieDetail()
         }
 
     }
