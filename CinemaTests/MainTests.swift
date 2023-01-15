@@ -13,8 +13,92 @@ import XCTest
 @MainActor
 final class MainTests: XCTestCase {
 
-    func test() async {
-        XCTAssertTrue(true)
+    func testFetchingMoviesSuccessfully() async {
+        let store = TestStore(
+            initialState: Main.State(
+                movieClientError: .network,
+                requiresToFetchMovies: false
+            ),
+            reducer: Main()
+        )
+
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
+        let movies = [Movie()]
+
+        store.dependencies.movieClient.fetch = {
+            Effect(value: movies)
+        }
+
+        await store.send(.fetchMovies) {
+            $0.requiresToFetchMovies = true
+            $0.movieClientError = nil
+        }
+
+        await mainQueue.advance(by: .seconds(1))
+
+        await store.receive(.movieClient(.success(movies))) {
+            $0.schedule.datasource.movies = movies
+            $0.schedule.didUpdateDatasource = true
+            $0.dateSelector.isDisabled = true
+        }
+    }
+
+    func testEncounteringNetworkErrorWhileFetchingMovies() async {
+        let store = TestStore(
+            initialState: Main.State(
+                movieClientError: .network,
+                requiresToFetchMovies: false
+            ),
+            reducer: Main()
+        )
+
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
+        store.dependencies.movieClient.fetch = {
+            Effect(error: .network)
+        }
+
+        await store.send(.fetchMovies) {
+            $0.requiresToFetchMovies = true
+            $0.movieClientError = nil
+        }
+
+        await mainQueue.advance(by: .seconds(1))
+
+        await store.receive(.movieClient(.failure(.network))) {
+            $0.movieClientError = .network
+        }
+    }
+
+    func testEncounteringRequiresUpdateErrorWhileFetchingMovies() async {
+        let store = TestStore(
+            initialState: Main.State(
+                movieClientError: .network,
+                requiresToFetchMovies: false
+            ),
+            reducer: Main()
+        )
+
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
+        store.dependencies.movieClient.fetch = {
+            Effect(error: .requiresUpdate)
+        }
+
+        await store.send(.fetchMovies) {
+            $0.requiresToFetchMovies = true
+            $0.movieClientError = nil
+        }
+
+        await mainQueue.advance(by: .seconds(1))
+
+        await store.receive(.movieClient(.failure(.requiresUpdate))) {
+            $0.movieClientError = .requiresUpdate
+        }
     }
 
 }
