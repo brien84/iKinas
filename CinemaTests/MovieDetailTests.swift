@@ -88,4 +88,14 @@ final class MovieDetailTests: XCTestCase {
         }
     }
 
+    func testUpdatingTitleViewOverlapPercentage() async {
+        let store = TestStore(
+            initialState: MovieDetail.State(movie: Movie()),
+            reducer: MovieDetail()
+        )
+
+        await store.send(.updateTitleViewOverlap(percentage: 0.67)) {
+            $0.titleViewOverlapPercentage = 0.67
+        }
+    }
 }
