@@ -15,7 +15,7 @@ final class NetworkImageTests: XCTestCase {
 
     func testFetchingImageSuccessfully() async {
         let store = TestStore(
-            initialState: NetworkImage.State(url: URL(string: "test.com")!),
+            initialState: NetworkImage.State(id: UUID(), url: URL(string: "test.com")!),
             reducer: NetworkImage()
         )
 
@@ -42,7 +42,7 @@ final class NetworkImageTests: XCTestCase {
 
     func testFetchingImageUnsuccessfully() async {
         let store = TestStore(
-            initialState: NetworkImage.State(url: URL(string: "test.com")!),
+            initialState: NetworkImage.State(id: UUID(), url: URL(string: "test.com")!),
             reducer: NetworkImage()
         )
 
@@ -67,7 +67,7 @@ final class NetworkImageTests: XCTestCase {
 
     func testPassingOptionalURLJustSetsDefaultImage() async {
         let store = TestStore(
-            initialState: NetworkImage.State(url: nil),
+            initialState: NetworkImage.State(id: UUID(), url: nil),
             reducer: NetworkImage()
         )
 
@@ -81,7 +81,7 @@ final class NetworkImageTests: XCTestCase {
 
     func testStartingFetchingCancelsInFlightFetchingEffects() async {
         let store = TestStore(
-            initialState: NetworkImage.State(url: URL(string: "test.com")!),
+            initialState: NetworkImage.State(id: UUID(), url: URL(string: "test.com")!),
             reducer: NetworkImage()
         )
 

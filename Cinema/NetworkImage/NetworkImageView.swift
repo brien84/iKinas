@@ -38,7 +38,7 @@ struct NetworkImageView: View {
 
 struct NetworkImageViewPreviews: PreviewProvider {
     static let store = Store(
-        initialState: NetworkImage.State(url: URL(string: "previ.ew")!),
+        initialState: NetworkImage.State(id: UUID(), url: URL(string: "previ.ew")!),
         reducer: NetworkImage()
     )
 

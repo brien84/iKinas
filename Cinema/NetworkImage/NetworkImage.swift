@@ -18,7 +18,7 @@ struct NetworkImage: ReducerProtocol {
         var isFetching = false
         var url: URL?
 
-        init(id: UUID = UUID(), url: URL?) {
+        init(id: UUID, url: URL?) {
             self.id = id
             self.url = url
         }
