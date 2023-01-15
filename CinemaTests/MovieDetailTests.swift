@@ -13,6 +13,21 @@ import XCTest
 @MainActor
 final class MovieDetailTests: XCTestCase {
 
+    func testTogglingScrolling() async {
+        let store = TestStore(
+            initialState: MovieDetail.State(movie: Movie()),
+            reducer: MovieDetail()
+        )
+
+        await store.send(.toggleScrolling(isEnabled: false)) {
+            $0.isScrollingEnabled = false
+        }
+
+        await store.send(.toggleScrolling(isEnabled: true)) {
+            $0.isScrollingEnabled = true
+        }
+    }
+
     func testSettingWebViewURL() async {
         let showing = Showing()
         let movie = Movie(showings: [showing])
