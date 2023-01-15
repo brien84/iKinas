@@ -28,7 +28,7 @@ struct BodyView: View {
                             .padding(.horizontal)
 
                         ShowingView(showing: showing) {
-                            viewStore.send(.openURL(viewStore.showing?.url))
+                            viewStore.send(.setWebView(url: viewStore.showing?.url))
                         }
                     }
 
