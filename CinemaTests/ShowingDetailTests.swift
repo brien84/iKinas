@@ -13,8 +13,19 @@ import XCTest
 @MainActor
 final class ShowingDetailTests: XCTestCase {
 
-    func test() async {
-        XCTAssertTrue(true)
+    func testSelectingDate() async {
+        let showings = [Showing(), Showing(date: Date(timeIntervalSinceNow: 2 * 86400))]
+
+        let store = TestStore(
+            initialState: ShowingDetail.State(movie: Movie(showings: showings)),
+            reducer: ShowingDetail()
+        )
+
+        let date = store.state.dates.last!
+
+        await store.send(.didSelectDate(date)) {
+            $0.selectedDate = date
+        }
     }
 
 }
