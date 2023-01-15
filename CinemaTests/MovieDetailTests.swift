@@ -27,4 +27,65 @@ final class MovieDetailTests: XCTestCase {
         }
     }
 
+    func testSelectingShowing() async {
+        let showing = Showing()
+        let movie = Movie(showings: [showing])
+
+        let store = TestStore(
+            initialState: MovieDetail.State(movie: movie),
+            reducer: MovieDetail()
+        )
+
+        await store.send(.setNavigationToShowingDetail(isActive: true)) {
+            $0.isNavigationToShowingDetailActive = true
+            $0.showingDetail = ShowingDetail.State(movie: movie)
+            $0.showingDetail?.selectedDate = Calendar.current.startOfDay(for: showing.date)
+        }
+
+        await store.send(.showingDetail(.didSelectShowing(showing))) {
+            $0.isNavigationToShowingDetailActive = false
+            $0.webViewURL = showing.url
+        }
+    }
+
+    func testTappingShowingDetailExitButton() async {
+        let showing = Showing()
+        let movie = Movie(showings: [showing])
+
+        let store = TestStore(
+            initialState: MovieDetail.State(movie: movie),
+            reducer: MovieDetail()
+        )
+
+        await store.send(.setNavigationToShowingDetail(isActive: true)) {
+            $0.isNavigationToShowingDetailActive = true
+            $0.showingDetail = ShowingDetail.State(movie: movie)
+            $0.showingDetail?.selectedDate = Calendar.current.startOfDay(for: showing.date)
+        }
+
+        await store.send(.showingDetail(.exitButtonDidTap)) {
+            $0.isNavigationToShowingDetailActive = false
+        }
+    }
+
+    func testSettingNavigationToMovieDetail() async {
+        let showing = Showing()
+        let movie = Movie(showings: [showing])
+
+        let store = TestStore(
+            initialState: MovieDetail.State(movie: movie),
+            reducer: MovieDetail()
+        )
+
+        await store.send(.setNavigationToShowingDetail(isActive: true)) {
+            $0.isNavigationToShowingDetailActive = true
+            $0.showingDetail = ShowingDetail.State(movie: movie)
+            $0.showingDetail?.selectedDate = Calendar.current.startOfDay(for: showing.date)
+        }
+
+        await store.send(.setNavigationToShowingDetail(isActive: false)) {
+            $0.isNavigationToShowingDetailActive = false
+        }
+    }
+
 }
