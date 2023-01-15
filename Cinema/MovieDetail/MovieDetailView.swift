@@ -42,7 +42,7 @@ struct MovieDetailView: View {
                     }
                 }
                 .padding(.bottom, -posterOverlap)
-                .disabled(viewStore.isScrollDisabled)
+                .disabled(!viewStore.isScrollingEnabled)
             }
             .sheet(
                 isPresented: viewStore.binding(

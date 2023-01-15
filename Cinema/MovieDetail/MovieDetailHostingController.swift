@@ -17,9 +17,9 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     private var isInteractivePopInProgress = false {
         didSet {
             if isInteractivePopInProgress {
-                viewStore.send(.toggleScrollDisabled(true))
+                viewStore.send(.toggleScrolling(isEnabled: false))
             } else {
-                viewStore.send(.toggleScrollDisabled(false))
+                viewStore.send(.toggleScrolling(isEnabled: true))
             }
         }
     }

@@ -12,7 +12,7 @@ import SwiftUI
 struct MovieDetail: ReducerProtocol {
 
     struct State: Equatable {
-        var isScrollDisabled = false
+        var isScrollingEnabled = true
         let movie: Movie
         var networkImage: NetworkImage.State
         var webViewURL: URL?
@@ -31,7 +31,7 @@ struct MovieDetail: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case toggleScrollDisabled(Bool)
+        case toggleScrolling(isEnabled: Bool)
         case networkImage(NetworkImage.Action)
         case setWebView(url: URL?)
         case showingDetail(ShowingDetail.Action)
@@ -46,8 +46,8 @@ struct MovieDetail: ReducerProtocol {
 
         Reduce { state, action in
             switch action {
-            case .toggleScrollDisabled(let isDisabled):
-                state.isScrollDisabled = isDisabled
+            case .toggleScrolling(isEnabled: let isEnabled):
+                state.isScrollingEnabled = isEnabled
                 return .none
 
             case .networkImage:
