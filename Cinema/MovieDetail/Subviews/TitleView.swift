@@ -30,7 +30,7 @@ struct TitleView: View {
 
                 Text("\(movie.year) • \(movie.ageRating) • \(movie.duration.uppercased())")
                     .lineLimit(1)
-                    .font(.footnote.weight(.light))
+                    .font(.footnote.weight(.medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             .foregroundColor(.primaryElement)
