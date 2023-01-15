@@ -101,4 +101,26 @@ final class MainTests: XCTestCase {
         }
     }
 
+    func testNavigationToMovieDetail() async {
+        let store = TestStore(
+            initialState: Main.State(movieDetail: MovieDetail.State(movie: Movie())),
+            reducer: Main()
+        )
+
+        await store.send(.setNavigationToMovieDetail(isActive: false)) {
+            $0.movieDetail = nil
+        }
+    }
+
+    func testNavigationToSettings() async {
+        let store = TestStore(
+            initialState: Main.State(settings: Settings.State()),
+            reducer: Main()
+        )
+
+        await store.send(.setNavigationToSettings(isActive: false)) {
+            $0.settings = nil
+        }
+    }
+
 }
