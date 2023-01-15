@@ -39,7 +39,7 @@ struct DateSelectorView: View {
                                                 .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .primaryElement)
 
                                             Text(date.toString(.shortMonthAndDay))
-                                                .font(.caption2)
+                                                .font(.caption)
                                                 .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .secondaryElement)
                                         }
                                     }
