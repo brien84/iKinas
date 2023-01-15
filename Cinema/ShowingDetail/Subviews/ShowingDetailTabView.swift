@@ -18,7 +18,6 @@ struct ShowingDetailTabView: View {
         WithViewStore(store) { viewStore in
             ZStack {
                 Color.primaryBackground
-                    .edgesIgnoringSafeArea(.bottom)
 
                 TabView(selection: viewStore.binding(
                     get: \.selectedDate,
@@ -43,6 +42,7 @@ struct ShowingDetailTabView: View {
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
             }
+            .edgesIgnoringSafeArea(.bottom)
         }
     }
 }
