@@ -46,8 +46,8 @@ struct MovieDetailView: View {
             }
             .sheet(
                 isPresented: viewStore.binding(
-                    get: \.isShowingDetailPresented,
-                    send: MovieDetail.Action.setShowingDetail(isPresented:)
+                    get: \.isNavigationToShowingDetailActive,
+                    send: MovieDetail.Action.setNavigationToShowingDetail(isActive:)
                 )
             ) {
                 IfLetStore(

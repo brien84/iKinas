@@ -18,7 +18,7 @@ struct MovieDetail: ReducerProtocol {
         var webViewURL: URL?
         let showing: Showing?
         var showingDetail: ShowingDetail.State?
-        var isShowingDetailPresented = false
+        var isNavigationToShowingDetailActive = false
 
         // The percentage of the `TitleView` that is overlapped by the navigation bar.
         var titleViewOverlapPercentage: CGFloat = 0
@@ -36,7 +36,7 @@ struct MovieDetail: ReducerProtocol {
         case setWebView(url: URL?)
         case showingDetail(ShowingDetail.Action)
         case updateTitleViewOverlap(percentage: CGFloat)
-        case setShowingDetail(isPresented: Bool)
+        case setNavigationToShowingDetail(isActive: Bool)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -58,24 +58,25 @@ struct MovieDetail: ReducerProtocol {
                 return .none
 
             case .showingDetail(.didSelectShowing(let showing)):
-                state.isShowingDetailPresented = false
+                state.isNavigationToShowingDetailActive = false
                 state.webViewURL = showing.url
                 return .none
 
             case .showingDetail(.exitButtonDidTap):
-                state.isShowingDetailPresented = false
+                state.isNavigationToShowingDetailActive = false
                 return .none
 
             case .showingDetail:
                 return .none
 
-            case .setShowingDetail(isPresented: true):
-                state.isShowingDetailPresented = true
-                state.showingDetail = ShowingDetail.State(movie: state.movie)
-                return .none
+            case .setNavigationToShowingDetail(isActive: let isActive):
+                if isActive {
+                    state.isNavigationToShowingDetailActive = true
+                    state.showingDetail = ShowingDetail.State(movie: state.movie)
+                } else {
+                    state.isNavigationToShowingDetailActive = false
+                }
 
-            case .setShowingDetail(isPresented: false):
-                state.isShowingDetailPresented = false
                 return .none
 
             case .updateTitleViewOverlap(percentage: let percentage):
