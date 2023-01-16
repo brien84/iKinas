@@ -8,6 +8,7 @@
 
 import Combine
 import ComposableArchitecture
+import SafariServices
 import SwiftUI
 
 final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
@@ -74,8 +75,8 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
             .delay(for: .milliseconds(10), scheduler: RunLoop.main)
             .sink { [self] url in
             if let url {
-                let vc = WebViewController(url: url)
-                self.navigationController?.pushViewController(vc, animated: true)
+                let vc = SFSafariViewController(url: url)
+                present(vc, animated: true, completion: nil)
             }
         }
         .store(in: &self.cancellables)
@@ -108,12 +109,6 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
             navigationItem.hidesBackButton = true
             navigationController?.setNavigationBarHidden(false, animated: true)
         }
-    }
-
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-
-        updateNavigationBarAppearance(overlap: 1)
     }
 
     override func viewDidDisappear(_ animated: Bool) {

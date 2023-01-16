@@ -25,7 +25,6 @@
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
 		29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */; };
 		29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */; };
-		2961EA2D25CC9EFB00ED23C8 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */; };
 		2961EA3325CD9EEC00ED23C8 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2961EA3225CD9EEC00ED23C8 /* WebKit.framework */; };
 		296FE04C295061C60015F7AA /* ScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE04B295061C60015F7AA /* ScheduleView.swift */; };
 		296FE04E295095190015F7AA /* ShowingItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE04D295095190015F7AA /* ShowingItemView.swift */; };
@@ -111,7 +110,6 @@
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
 		29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorTests.swift; sourceTree = "<group>"; };
-		2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		2961EA3225CD9EEC00ED23C8 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		296FE04B295061C60015F7AA /* ScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleView.swift; sourceTree = "<group>"; };
 		296FE04D295095190015F7AA /* ShowingItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingItemView.swift; sourceTree = "<group>"; };
@@ -387,7 +385,6 @@
 				29DDA572295DBFA4000C4322 /* MovieDetail.swift */,
 				29DDA576295DCA2C000C4322 /* MovieDetailHostingController.swift */,
 				29DDA574295DC125000C4322 /* MovieDetailView.swift */,
-				2961EA2C25CC9EFB00ED23C8 /* WebViewController.swift */,
 				2923004429620C21006537F6 /* Subviews */,
 			);
 			path = MovieDetail;
@@ -597,7 +594,6 @@
 				2995895C296D67E500AF0231 /* ShowingDateSelectorView.swift in Sources */,
 				296FE05B2951F33E0015F7AA /* MainHostingController.swift in Sources */,
 				298BBF132961F67800C2EA8C /* BodyView.swift in Sources */,
-				2961EA2D25CC9EFB00ED23C8 /* WebViewController.swift in Sources */,
 				291525E3294E61A700192153 /* MovieListView.swift in Sources */,
 				296FE04C295061C60015F7AA /* ScheduleView.swift in Sources */,
 				291525EB294F336600192153 /* ImageClient.swift in Sources */,
