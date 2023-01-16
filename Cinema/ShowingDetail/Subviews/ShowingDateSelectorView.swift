@@ -52,18 +52,16 @@ struct ShowingDateSelectorView: View {
 
                                     ZStack {
                                         RoundedRectangle(cornerRadius: Self.cornerRadius, style: .continuous)
-                                            .fill(Color.tertiaryElement)
+                                            .fill(Color.secondaryBackground)
                                             .opacity(isSelected ? 1 : 0)
 
                                         VStack(spacing: .zero) {
                                             Text(date.toString(.shortDayOfWeek))
-                                                .font(.footnote.weight(isSelected ? .bold : .medium))
-                                                .foregroundColor(isSelected ? .primaryElement : .secondaryElement)
 
                                             Text(date.toString(.shortMonthAndDay))
-                                                .font(.footnote.weight(isSelected ? .bold : .medium))
-                                                .foregroundColor(isSelected ? .primaryElement : .secondaryElement)
                                         }
+                                        .font(.footnote.weight(.medium))
+                                        .foregroundColor(isSelected ? .tertiaryElement : .secondaryElement)
                                         .padding(.horizontal, Self.buttonHorizontalPadding)
                                         .padding(.vertical, Self.buttonVerticalPadding)
                                     }
