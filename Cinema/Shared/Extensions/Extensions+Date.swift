@@ -62,33 +62,37 @@ extension Date {
         case timeOfDay
     }
 
-    func toString(_ format: DateFormat) -> String {
+    private static var formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "lt")
+        return formatter
+    }()
+
+    func toString(_ format: DateFormat) -> String {
         let isToday = Calendar.current.isDateInToday(self)
 
         switch format {
         case .dayOfWeek:
             if isToday { return "Šiandien" }
-            formatter.weekdaySymbols = formatter.weekdaySymbols.map { $0.capitalized }
-            formatter.dateFormat = "EEEE"
+            Self.formatter.weekdaySymbols = Self.formatter.weekdaySymbols.map { $0.capitalized }
+            Self.formatter.dateFormat = "EEEE"
 
         case .monthAndDay:
-            formatter.dateFormat = isToday ? "EEEE, MMMM d" : "MMMM d"
+            Self.formatter.dateFormat = isToday ? "EEEE, MMMM d" : "MMMM d"
 
         case .shortDayOfWeek:
             if isToday { return "ŠND" }
-            formatter.shortWeekdaySymbols = ["SEK", "PIR", "ANT", "TRE", "KET", "PEN", "ŠEŠ"]
-            formatter.dateFormat = "EEE"
+            Self.formatter.shortWeekdaySymbols = ["SEK", "PIR", "ANT", "TRE", "KET", "PEN", "ŠEŠ"]
+            Self.formatter.dateFormat = "EEE"
 
         case .shortMonthAndDay:
-            formatter.shortMonthSymbols = ["Sau", "Vas", "Kov", "Bal", "Geg", "Bir", "Lie", "Rgp", "Rgs", "Spa", "Lap", "Gru"]
-            formatter.dateFormat = "MMM d"
+            Self.formatter.shortMonthSymbols = ["Sau", "Vas", "Kov", "Bal", "Geg", "Bir", "Lie", "Rgp", "Rgs", "Spa", "Lap", "Gru"]
+            Self.formatter.dateFormat = "MMM d"
 
         case .timeOfDay:
-            formatter.dateFormat = "HH:mm"
+            Self.formatter.dateFormat = "HH:mm"
         }
 
-        return formatter.string(from: self)
+        return Self.formatter.string(from: self)
     }
 }
