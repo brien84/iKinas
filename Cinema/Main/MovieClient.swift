@@ -31,7 +31,7 @@ extension MovieClient: DependencyKey {
     static let liveValue = Self(
         fetch: {
             URLSession.shared.dataTaskPublisher(for: constructURLRequest())
-                .delay(for: .seconds(1.0), scheduler: RunLoop.main)
+                .delay(for: .seconds(0.75), scheduler: RunLoop.main)
                 .mapError { _ in
                     return MovieClient.Error.network
                 }
