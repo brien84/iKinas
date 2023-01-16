@@ -18,8 +18,8 @@ struct MovieDetail: ReducerProtocol {
         var isScrollingEnabled = true
         let movie: Movie
         let showing: Showing?
+        var showingURL: URL?
         var titleViewOverlapPercentage: CGFloat = 0
-        var webViewURL: URL?
 
         var isNavigationToShowingDetailActive = false
 
@@ -34,7 +34,7 @@ struct MovieDetail: ReducerProtocol {
         case networkImage(NetworkImage.Action)
         case showingDetail(ShowingDetail.Action)
 
-        case setWebView(url: URL?)
+        case setShowingURL(URL?)
         case toggleScrolling(isEnabled: Bool)
         case updateTitleViewOverlap(percentage: CGFloat)
 
@@ -54,7 +54,7 @@ struct MovieDetail: ReducerProtocol {
 
             case .showingDetail(.didSelectShowing(let showing)):
                 state.isNavigationToShowingDetailActive = false
-                state.webViewURL = showing.url
+                state.showingURL = showing.url
                 return .none
 
             case .showingDetail(.exitButtonDidTap):
@@ -64,8 +64,8 @@ struct MovieDetail: ReducerProtocol {
             case .showingDetail:
                 return .none
 
-            case .setWebView(url: let url):
-                state.webViewURL = url
+            case .setShowingURL(let url):
+                state.showingURL = url
                 return .none
 
             case .toggleScrolling(isEnabled: let isEnabled):

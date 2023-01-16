@@ -28,7 +28,7 @@ final class MovieDetailTests: XCTestCase {
         }
     }
 
-    func testSettingWebViewURL() async {
+    func testSettingShowingURL() async {
         let showing = Showing()
         let movie = Movie(showings: [showing])
 
@@ -37,8 +37,8 @@ final class MovieDetailTests: XCTestCase {
             reducer: MovieDetail()
         )
 
-        await store.send(.setWebView(url: showing.url)) {
-            $0.webViewURL = showing.url
+        await store.send(.setShowingURL(showing.url)) {
+            $0.showingURL = showing.url
         }
     }
 
@@ -59,7 +59,7 @@ final class MovieDetailTests: XCTestCase {
 
         await store.send(.showingDetail(.didSelectShowing(showing))) {
             $0.isNavigationToShowingDetailActive = false
-            $0.webViewURL = showing.url
+            $0.showingURL = showing.url
         }
     }
 
