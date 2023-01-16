@@ -41,7 +41,9 @@ struct ShowingDetailTabView: View {
                             }
                             .tag(date)
                             .onDisappear {
-                                proxy.scrollTo(Self.scrollToTopID, anchor: .top)
+                                DispatchQueue.main.async {
+                                    proxy.scrollTo(Self.scrollToTopID, anchor: .top)
+                                }
                             }
                         }
                     }
