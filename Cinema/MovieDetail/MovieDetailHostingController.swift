@@ -76,6 +76,8 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
             .sink { [self] url in
             if let url {
                 let vc = SFSafariViewController(url: url)
+                vc.preferredBarTintColor = .primaryBackground
+                vc.preferredControlTintColor = .primaryElement
                 present(vc, animated: true, completion: nil)
             }
         }
