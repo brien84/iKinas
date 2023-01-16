@@ -37,7 +37,7 @@ struct ScheduleView: View {
                                     SettingsButton {
                                         viewStore.send(.settingsButtonDidTap)
                                     }
-                                    .hidden(!Calendar.current.isDateInToday(viewStore.selectedDate))
+                                    .opacity(Calendar.current.isDateInToday(viewStore.selectedDate) ? 1 : 0)
                                 }
                                 .padding(.horizontal)
                                 .padding(.vertical, Self.verticalPadding)

@@ -78,7 +78,7 @@ private struct ShowingView: View {
                         Image(systemName: "view.3d")
                             .font(.body.weight(.medium))
                             .foregroundColor(.tertiaryElement)
-                            .hidden(!showing.is3D)
+                            .opacity(showing.is3D ? 1 : 0)
                     }
 
                     Image(showing.venue.rawValue)

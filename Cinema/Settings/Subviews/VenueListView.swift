@@ -60,7 +60,7 @@ struct VenueListView: View {
 
                                 Image(systemName: "checkmark")
                                     .foregroundColor(isDisabled ? .secondaryElement : .tertiaryElement)
-                                    .hidden(!viewStore.selectedVenues.contains(venue))
+                                    .opacity(viewStore.selectedVenues.contains(venue) ? 1 : 0)
                             }
                         }
                     )

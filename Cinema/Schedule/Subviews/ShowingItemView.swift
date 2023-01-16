@@ -34,7 +34,7 @@ struct ShowingItemView: View {
                                 Image(systemName: "view.3d")
                                     .font(.body.weight(.medium))
                                     .foregroundColor(.tertiaryElement)
-                                    .hidden(!viewStore.showing.is3D)
+                                    .opacity(viewStore.showing.is3D ? 1 : 0)
 
                                 Text(viewStore.showing.date.toString(.timeOfDay))
                                     .font(.title2.weight(.medium))
