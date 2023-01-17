@@ -68,7 +68,7 @@ private struct ShowingView: View {
                             .fill(Color.secondaryBackground)
                     )
 
-                VStack {
+                VStack(spacing: Self.spacing) {
                     ZStack(alignment: .topTrailing) {
                         Text(showing.date.toString(.timeOfDay))
                             .font(.title2.weight(.medium))
@@ -100,6 +100,7 @@ private extension ShowingView {
     static let cornerRadius: CGFloat = 15
     static let lineWidth: CGFloat = 2
     static let padding: CGFloat = 8
+    static let spacing: CGFloat = 8
 }
 
 // MARK: - Previews
