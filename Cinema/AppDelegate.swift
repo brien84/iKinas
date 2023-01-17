@@ -21,3 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
 }
+
+extension CommandLine {
+    static var isUITesting: Bool {
+        Self.arguments.contains("ui-testing")
+    }
+}

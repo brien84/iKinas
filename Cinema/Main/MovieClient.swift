@@ -7,7 +7,7 @@
 //
 
 import ComposableArchitecture
-import Foundation
+import SwiftUI
 import XCTestDynamicOverlay
 
 struct MovieClient {
@@ -30,35 +30,39 @@ extension DependencyValues {
 extension MovieClient: DependencyKey {
     static let liveValue = Self(
         fetch: {
-            URLSession.shared.dataTaskPublisher(for: constructURLRequest())
-                .delay(for: .seconds(0.75), scheduler: RunLoop.main)
-                .mapError { _ in
-                    return MovieClient.Error.network
-                }
-                .tryMap { data, response in
-                    guard let response = response as? HTTPURLResponse
-                    else { throw MovieClient.Error.network }
-
-                    if response.statusCode == 469 {
-                        throw MovieClient.Error.requiresUpdate
-                    }
-
-                    do {
-                        return try decoder.decode([Movie].self, from: data)
-                    } catch {
-                        print(error.localizedDescription)
-                        throw MovieClient.Error.decoding
-                    }
-                }
-                .mapError { error in
-                    if let error = error as? MovieClient.Error {
-                        return error
-                    } else {
-                        assert(true, "Unrecognized error received: \(error). Defaulting to Failure.network.")
+            if CommandLine.isUITesting {
+                return Effect(value: uiTestMovies)
+            } else {
+                return URLSession.shared.dataTaskPublisher(for: constructURLRequest())
+                    .delay(for: .seconds(0.75), scheduler: RunLoop.main)
+                    .mapError { _ in
                         return MovieClient.Error.network
                     }
-                }
-                .eraseToEffect()
+                    .tryMap { data, response in
+                        guard let response = response as? HTTPURLResponse
+                        else { throw MovieClient.Error.network }
+
+                        if response.statusCode == 469 {
+                            throw MovieClient.Error.requiresUpdate
+                        }
+
+                        do {
+                            return try decoder.decode([Movie].self, from: data)
+                        } catch {
+                            print(error.localizedDescription)
+                            throw MovieClient.Error.decoding
+                        }
+                    }
+                    .mapError { error in
+                        if let error = error as? MovieClient.Error {
+                            return error
+                        } else {
+                            assert(true, "Unrecognized error received: \(error). Defaulting to Failure.network.")
+                            return MovieClient.Error.network
+                        }
+                    }
+                    .eraseToEffect()
+            }
         }
     )
 
@@ -71,6 +75,12 @@ extension MovieClient: DependencyKey {
     static let testValue = Self(
         fetch: unimplemented("\(Self.self).fetch")
     )
+
+    private static let decoder: JSONDecoder = {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        return decoder
+    }()
 
     private static func constructURLRequest() -> URLRequest {
         let city = UserDefaults.standard.readCity()
@@ -89,8 +99,15 @@ extension MovieClient: DependencyKey {
     }
 }
 
-private let decoder: JSONDecoder = {
-    let decoder = JSONDecoder()
-    decoder.dateDecodingStrategy = .iso8601
-    return decoder
-}()
+extension MovieClient {
+    private static let uiTestMovies = {
+        let today = Date()
+        let tommorow = today.addingTimeInterval(86400)
+
+        return [Movie(showings: [
+            Showing(date: today),
+            Showing(date: today),
+            Showing(date: tommorow)
+        ])]
+    }()
+}

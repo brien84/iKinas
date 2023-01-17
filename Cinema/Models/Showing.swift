@@ -23,7 +23,7 @@ final class Showing: Codable, Identifiable {
         date: Date = Date(timeIntervalSinceNow: 60),
         venue: Venue = .forum,
         is3D: Bool = false,
-        url: URL = URL(string: "https://movies.ioys.lt/")!
+        url: URL = URL(string: "https://www.ioys.lt/iKinas/")!
     ) {
         self.id = id
         self.city = city
@@ -56,8 +56,11 @@ final class Showing: Codable, Identifiable {
 
 extension Showing {
     func isShown(on date: Date) -> Bool {
-        // Check if `self.date` is not in the past.
-        if self.date < Date() { return false }
+        // Validates that the `self.date` is not in the past, with
+        // the exception of during UI tests to simplify data mocking.
+        if !CommandLine.isUITesting {
+            if self.date < Date() { return false }
+        }
 
         let calendar = Calendar.current
         return calendar.isDate(self.date, inSameDayAs: date)

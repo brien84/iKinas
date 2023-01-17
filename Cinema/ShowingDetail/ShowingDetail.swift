@@ -20,7 +20,9 @@ struct ShowingDetail: ReducerProtocol {
             self.showings = movie.showings
 
             let allDates = self.showings.compactMap { showing -> Date? in
-                guard showing.date > Date() else { return nil }
+                if !CommandLine.isUITesting {
+                    guard showing.date > Date() else { return nil }
+                }
                 return Calendar.current.startOfDay(for: showing.date)
             }
 
