@@ -123,6 +123,8 @@ struct Main: ReducerProtocol {
             case .setNavigationToSettings(let isActive):
                 if !isActive {
                     state.settings = nil
+                } else {
+                    state.settings = Settings.State()
                 }
                 return .none
 
