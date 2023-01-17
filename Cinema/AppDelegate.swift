@@ -26,4 +26,8 @@ extension CommandLine {
     static var isUITesting: Bool {
         Self.arguments.contains("ui-testing")
     }
+
+    static var isUITestingFirstLaunch: Bool {
+        Self.arguments.contains("ui-testing-first-launch")
+    }
 }

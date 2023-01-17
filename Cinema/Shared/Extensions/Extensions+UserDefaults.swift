@@ -15,6 +15,7 @@ extension UserDefaults {
 
     func isFirstLaunch() -> Bool {
         if CommandLine.isUITesting { return false }
+        if CommandLine.isUITestingFirstLaunch { return true }
 
         guard
             self.string(forKey: Self.cityKey) != nil,
