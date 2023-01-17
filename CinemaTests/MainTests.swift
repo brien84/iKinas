@@ -195,9 +195,13 @@ final class MainTests: XCTestCase {
 
     func testNavigationToSettings() async {
         let store = TestStore(
-            initialState: Main.State(settings: Settings.State()),
+            initialState: Main.State(),
             reducer: Main()
         )
+
+        await store.send(.setNavigationToSettings(isActive: true)) {
+            $0.settings = Settings.State()
+        }
 
         await store.send(.setNavigationToSettings(isActive: false)) {
             $0.settings = nil
