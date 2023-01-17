@@ -8,6 +8,11 @@
 
 import XCTest
 
+enum LaunchArgument: String {
+    case common = "ui-testing"
+    case firstLaunch = "ui-testing-first-launch"
+}
+
 final class CinemaUITests: XCTestCase {
     var app: XCUIApplication!
 
@@ -15,15 +20,23 @@ final class CinemaUITests: XCTestCase {
         continueAfterFailure = false
 
         app = XCUIApplication()
-        app.launchArguments = ["ui-testing"]
-        app.launch()
     }
 
     override func tearDown() {
         app = nil
     }
 
+    func testSettingsViewAppearsOnFirstLaunch() {
+        app.launchArguments = [LaunchArgument.firstLaunch.rawValue]
+        app.launch()
+
+        XCTAssertTrue(app.staticTexts["Pasirinkite teatrus"].waitForExistence(timeout: 5.0))
+    }
+
     func testChangingDates() {
+        app.launchArguments = [LaunchArgument.common.rawValue]
+        app.launch()
+
         let dateSelector = app.scrollViews.element(boundBy: 0)
 
         var showings = app.staticTexts.allElementsBoundByIndex.filter { $0.label.contains("Movie Title") }
@@ -37,6 +50,9 @@ final class CinemaUITests: XCTestCase {
     }
 
     func testNavigationToSettingsView() {
+        app.launchArguments = [LaunchArgument.common.rawValue]
+        app.launch()
+
         // opens SettingsView
         app.buttons["gearshape"].tap()
         XCTAssertTrue(app.staticTexts["Pasirinkite teatrus"].waitForExistence(timeout: 5.0))
@@ -59,6 +75,9 @@ final class CinemaUITests: XCTestCase {
     }
 
     func testOpeningSafariViewFromMovieDetailView() {
+        app.launchArguments = [LaunchArgument.common.rawValue]
+        app.launch()
+
         // opens MovieDetailView
         app.staticTexts["Movie Title"].firstMatch.tap()
         XCTAssertTrue(app.buttons["Shopping Cart"].waitForExistence(timeout: 5.0))
@@ -73,6 +92,9 @@ final class CinemaUITests: XCTestCase {
     }
 
     func testOpeningSafariViewFromShowingDetailView() {
+        app.launchArguments = [LaunchArgument.common.rawValue]
+        app.launch()
+
         // opens MovieDetailView
         app.staticTexts["Movie Title"].firstMatch.tap()
         XCTAssertTrue(app.buttons["trailers"].waitForExistence(timeout: 5.0))
