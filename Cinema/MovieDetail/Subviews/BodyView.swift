@@ -12,6 +12,8 @@ import SwiftUI
 struct BodyView: View {
     let store: StoreOf<MovieDetail>
 
+    @State private var isDisplayingShowing = false
+
     var body: some View {
         WithViewStore(store) { viewStore in
             ZStack {
@@ -23,12 +25,15 @@ struct BodyView: View {
                         .padding(.horizontal)
                         .padding(.vertical, Self.verticalPadding)
 
-                    if let showing = viewStore.showing {
-                        Divider()
-                            .padding(.horizontal)
+                    if isDisplayingShowing {
+                        if let showing = viewStore.showing {
+                            Divider()
+                                .padding(.horizontal)
 
-                        ShowingView(showing: showing) {
-                            viewStore.send(.setShowingURL(viewStore.showing?.url))
+                            ShowingContainerView(showing: showing) {
+                                viewStore.send(.setShowingURL(viewStore.showing?.url))
+                            }
+                            .transition(.verticalScaleAndOpacity)
                         }
                     }
 
@@ -39,6 +44,12 @@ struct BodyView: View {
                     JustifiedTextView(text: viewStore.movie.plot)
                         .padding(.horizontal, Self.horizontalPadding)
                         .padding(.bottom, Self.verticalPadding)
+                }
+            }
+            .onAppear {
+                // Delay to sync animation with `NavigationBar` animation.
+                withAnimation(.default.delay(Self.showingAnimationDelay)) {
+                    isDisplayingShowing = true
                 }
             }
         }
@@ -69,7 +80,7 @@ private struct GenresView: View {
     }
 }
 
-private struct ShowingView: View {
+private struct ShowingContainerView: View {
     let showing: Showing
     let action: () -> Void
 
@@ -121,6 +132,7 @@ private struct JustifiedTextView: UIViewRepresentable {
 // MARK: - Constants
 
 private extension BodyView {
+    static let showingAnimationDelay: CGFloat = 0.475
     static let horizontalPadding: CGFloat = 16
     static let verticalPadding: CGFloat = 8
 }
@@ -132,7 +144,7 @@ private extension GenresView {
     static let verticalPadding: CGFloat = 5
 }
 
-private extension ShowingView {
+private extension ShowingContainerView {
     static let horizontalPadding: CGFloat = 32
     static let verticalPadding: CGFloat = 24
 }
