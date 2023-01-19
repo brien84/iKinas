@@ -72,7 +72,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         navigationItem.rightBarButtonItem = rightButton
 
         viewStore.publisher.showingURL
-            .delay(for: .milliseconds(10), scheduler: RunLoop.main)
+            .delay(for: .milliseconds(25), scheduler: RunLoop.main)
             .sink { [self] url in
             if let url {
                 let vc = SFSafariViewController(url: url)
