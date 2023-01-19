@@ -14,7 +14,7 @@ html {
 body {
     display: flex;
     flex-direction: column;
-    padding-top: 50px;
+    /* padding-top: 50px; */
     min-height: 100vh;
     line-height: 1.5;
 }
@@ -29,12 +29,13 @@ body,
     box-sizing: border-box;
 }
 
+/*
 @media only screen and (min-width:960px) {
     body {
-        padding-top: 60px
+         padding-top: 60px
     }
 }
-
+*/
 
 /*** .site-content ***/
 
@@ -239,7 +240,7 @@ body,
 
 .content-container--large .device-mockup {
     position: relative;
-    width: 306px;
+    width: 301px;
     height: 600px;
     opacity: 1;
     visibility: inherit;
