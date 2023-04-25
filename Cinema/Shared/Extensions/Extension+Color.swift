@@ -1,5 +1,5 @@
 //
-//  Extensions+Color.swift
+//  Extension+Color.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-11.

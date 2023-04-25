@@ -1,5 +1,5 @@
 //
-//  Extensions+URL.swift
+//  Extension+URL.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-11.

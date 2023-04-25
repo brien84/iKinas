@@ -1,5 +1,5 @@
 //
-//  Extensions+AnyTransition.swift
+//  Extension+AnyTransition.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-18.
