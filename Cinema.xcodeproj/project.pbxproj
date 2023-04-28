@@ -21,6 +21,8 @@
 		291525ED294F4DE300192153 /* NetworkImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EC294F4DE300192153 /* NetworkImageView.swift */; };
 		291525F0294FACB100192153 /* Schedule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 291525EF294FACB100192153 /* Schedule.swift */; };
 		2932FB7F24D35D62009AEDD1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2932FB7E24D35D62009AEDD1 /* Main.storyboard */; };
+		293A436C29FBF00F00913707 /* HomeFeed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A436B29FBF00F00913707 /* HomeFeed.swift */; };
+		293A436E29FBF07600913707 /* HomeFeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 293A436D29FBF07600913707 /* HomeFeedView.swift */; };
 		2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2956C7FD29532AAC007F60A4 /* MovieClient.swift */; };
 		29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B10294B6C0A00FBE1A4 /* DateSelector.swift */; };
 		29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */; };
@@ -106,6 +108,8 @@
 		291525EC294F4DE300192153 /* NetworkImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkImageView.swift; sourceTree = "<group>"; };
 		291525EF294FACB100192153 /* Schedule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Schedule.swift; sourceTree = "<group>"; };
 		2932FB7E24D35D62009AEDD1 /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		293A436B29FBF00F00913707 /* HomeFeed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeed.swift; sourceTree = "<group>"; };
+		293A436D29FBF07600913707 /* HomeFeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFeedView.swift; sourceTree = "<group>"; };
 		2956C7FD29532AAC007F60A4 /* MovieClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieClient.swift; sourceTree = "<group>"; };
 		29602B10294B6C0A00FBE1A4 /* DateSelector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelector.swift; sourceTree = "<group>"; };
 		29602B12294B6CAB00FBE1A4 /* DateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateSelectorView.swift; sourceTree = "<group>"; };
@@ -213,6 +217,7 @@
 			children = (
 				2904C7632336982B00407B64 /* AppDelegate.swift */,
 				29602B0F294B6BEC00FBE1A4 /* DateSelector */,
+				293A436A29FBEFFD00913707 /* HomeFeed */,
 				296FE0572950E9840015F7AA /* Main */,
 				2904C7952336A10700407B64 /* Models */,
 				29DDA571295DBF8F000C4322 /* MovieDetail */,
@@ -270,6 +275,15 @@
 				29BFAF85295F29E500655325 /* TitleView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		293A436A29FBEFFD00913707 /* HomeFeed */ = {
+			isa = PBXGroup;
+			children = (
+				293A436B29FBF00F00913707 /* HomeFeed.swift */,
+				293A436D29FBF07600913707 /* HomeFeedView.swift */,
+			);
+			path = HomeFeed;
 			sourceTree = "<group>";
 		};
 		29602B0F294B6BEC00FBE1A4 /* DateSelector */ = {
@@ -612,6 +626,7 @@
 				2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageView.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
+				293A436C29FBF00F00913707 /* HomeFeed.swift in Sources */,
 				29F3D6AD296AFE5300495BBD /* Extension+Date.swift in Sources */,
 				29DDA573295DBFA4000C4322 /* MovieDetail.swift in Sources */,
 				29BFAF8E2961AE6200655325 /* GetterViews.swift in Sources */,
@@ -628,6 +643,7 @@
 				29E3069B296F09E0003A52C4 /* Extension+Color.swift in Sources */,
 				29E3069D296F0A96003A52C4 /* Extension+URL.swift in Sources */,
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
+				293A436E29FBF07600913707 /* HomeFeedView.swift in Sources */,
 				29817F78293BC1E800E59D42 /* Settings.swift in Sources */,
 				29B1BAEA2967443600A60E20 /* ShowingDetailView.swift in Sources */,
 				29DDA577295DCA2C000C4322 /* MovieDetailHostingController.swift in Sources */,
@@ -816,7 +832,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -837,7 +853,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 21;
+				CURRENT_PROJECT_VERSION = 22;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
