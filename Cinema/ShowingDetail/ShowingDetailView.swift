@@ -14,32 +14,27 @@ struct ShowingDetailView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ZStack {
-                Color.primaryBackground
-
-                VStack(spacing: .zero) {
+            VStack(spacing: .zero) {
+                ZStack {
                     Text("Seansai")
                         .font(.headline)
                         .foregroundColor(.primaryElement)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .overlay(
-                            ExitButtonView {
-                                viewStore.send(.exitButtonDidTap)
-                            }
-                            .frame(alignment: .trailing)
-                            .frame(maxWidth: .infinity, alignment: .trailing)
-                            .padding(.horizontal)
-                        )
 
-                    if viewStore.dates.isEmpty {
-                        EmptyErrorView(title: "seansų nėra", subtitle: "pasirinkite kitą filmą")
-                    } else {
-                        ShowingDateSelectorView(store: store)
-                        ShowingDetailTabView(store: store)
+                    ExitButtonView {
+                        viewStore.send(.exitButtonDidTap)
                     }
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                }
+                .padding()
+
+                if viewStore.dates.isEmpty {
+                    EmptyErrorView(title: "seansų nėra", subtitle: "pasirinkite kitą filmą")
+                } else {
+                    ShowingDateSelectorView(store: store)
+                    ShowingDetailTabView(store: store)
                 }
             }
+            .background(Color.primaryBackground)
         }
     }
 }
@@ -60,6 +55,22 @@ struct ShowingDetailView_Previews: PreviewProvider {
 
     static let store = Store(
         initialState: ShowingDetail.State(movie: Movie(showings: showings)),
+        reducer: ShowingDetail()
+    )
+
+    static var previews: some View {
+        Color.green
+            .ignoresSafeArea()
+            .sheet(isPresented: .constant(true)) {
+                ShowingDetailView(store: store)
+            }
+            .preferredColorScheme(.dark)
+    }
+}
+
+struct EmptyShowingDetailView_Previews: PreviewProvider {
+    static let store = Store(
+        initialState: ShowingDetail.State(movie: Movie(showings: [])),
         reducer: ShowingDetail()
     )
 
