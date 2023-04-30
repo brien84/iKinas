@@ -41,7 +41,6 @@ struct CityListView: View {
         WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
             VStack {
                 ForEach(City.allCases) { city in
-
                     Button(
                         action: {
                             viewStore.send(.didSelectCity(city), animation: .easeInOut)

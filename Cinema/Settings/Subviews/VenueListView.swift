@@ -75,7 +75,6 @@ struct VenueListView: View {
                     .fill(Color.secondaryBackground)
                     .padding(.horizontal)
             )
-
         }
     }
 }
