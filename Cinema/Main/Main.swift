@@ -9,7 +9,6 @@
 import ComposableArchitecture
 
 struct Main: ReducerProtocol {
-
     struct State: Equatable {
         var dateSelector = DateSelector.State()
         var movieDetail: MovieDetail.State?
@@ -86,7 +85,10 @@ struct Main: ReducerProtocol {
 
             case .settings(.saveSettings):
                 state.requiresToFetchMovies = true
-                return .none
+                state.movieClientError = nil
+                return movieClient.fetch()
+                    .receive(on: mainQueue)
+                    .catchToEffect(Action.movieClient)
 
             case .settings:
                 return .none
@@ -136,6 +138,5 @@ struct Main: ReducerProtocol {
         .ifLet(\.movieDetail, action: /Action.movieDetail) {
             MovieDetail()
         }
-
     }
 }

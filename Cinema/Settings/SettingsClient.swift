@@ -12,6 +12,7 @@ import OrderedCollections
 import XCTestDynamicOverlay
 
 struct SettingsClient {
+    var isFirstLaunch: () -> Bool
     var load: () -> Effect<SettingsClient.Settings, Never>
     var save: (City, OrderedSet<Venue>) -> Effect<Void, Never>
 
@@ -23,6 +24,9 @@ struct SettingsClient {
 
 extension SettingsClient: DependencyKey {
     static let liveValue = Self(
+        isFirstLaunch: {
+            UserDefaults.standard.isFirstLaunch()
+        },
         load: {
             let city = UserDefaults.standard.readCity()
             let venues = UserDefaults.standard.readVenues()
@@ -45,6 +49,9 @@ extension DependencyValues {
 
 extension SettingsClient: TestDependencyKey {
     static let previewValue = Self(
+        isFirstLaunch: {
+            false
+        },
         load: {
             let settings = SettingsClient.Settings(city: .vilnius, venues: City.vilnius.venues)
             return Effect(value: settings)
@@ -55,6 +62,7 @@ extension SettingsClient: TestDependencyKey {
     )
 
     static let testValue =  Self(
+        isFirstLaunch: unimplemented("\(Self.self).isFirstLaunch"),
         load: unimplemented("\(Self.self).load"),
         save: unimplemented("\(Self.self).save")
     )

@@ -14,6 +14,8 @@ final class MainHostingController: UIHostingController<MainView> {
     private var cancellables: Set<AnyCancellable> = []
     private let viewStore: ViewStoreOf<Main>
 
+    @Dependency(\.settingsClient) var settingsClient
+
     required init?(coder aDecoder: NSCoder) {
         let store = Store(initialState: Main.State(), reducer: Main())
         self.viewStore = ViewStore(store)
@@ -28,6 +30,12 @@ final class MainHostingController: UIHostingController<MainView> {
         super.viewDidLoad()
 
         view.backgroundColor = .primaryBackground
+
+        if settingsClient.isFirstLaunch() {
+            viewStore.send(.setNavigationToSettings(isActive: true))
+        } else {
+            viewStore.send(.fetchMovies)
+        }
 
         viewStore.publisher.movieDetail
             .sink { state in
