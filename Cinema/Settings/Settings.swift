@@ -20,10 +20,9 @@ struct Settings: ReducerProtocol {
         case didSelectVenue(Venue)
         case loadSettings
         case saveSettings
-        case settingsClient(Result<SettingsClient.Settings, Never>)
     }
 
-    @Dependency(\.settingsClient) var settingsClient
+    @Dependency(\.userDefaults) var userDefaults
 
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
@@ -42,19 +41,15 @@ struct Settings: ReducerProtocol {
             return .none
 
         case .loadSettings:
-            return settingsClient.load()
-                .catchToEffect(Action.settingsClient)
+            state.selectedCity = userDefaults.getCity()
+            state.selectedVenues = userDefaults.getVenues()
+            return .none
 
         case .saveSettings:
-            let city = state.selectedCity
-            let venues = state.selectedVenues
-            return settingsClient.save(city, venues)
-                .fireAndForget()
-
-        case .settingsClient(.success(let settings)):
-            state.selectedCity = settings.city
-            state.selectedVenues = settings.venues
+            userDefaults.setCity(state.selectedCity)
+            userDefaults.setVenues(state.selectedVenues)
             return .none
+
         }
     }
 }
