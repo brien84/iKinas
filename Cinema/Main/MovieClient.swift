@@ -9,9 +9,10 @@
 import ComposableArchitecture
 import SwiftUI
 import XCTestDynamicOverlay
+import OrderedCollections
 
 struct MovieClient {
-    var fetch: () -> Effect<[Movie], MovieClient.Error>
+    var fetch: (City, OrderedSet<Venue>) -> Effect<[Movie], MovieClient.Error>
 
     enum Error: Swift.Error, Equatable {
         case decoding
@@ -29,45 +30,44 @@ extension DependencyValues {
 
 extension MovieClient: DependencyKey {
     static let liveValue = Self(
-        fetch: {
-            if CommandLine.isUITesting {
-                return Effect(value: uiTestMovies)
-            } else {
-                return URLSession.shared.dataTaskPublisher(for: constructURLRequest())
-                    .delay(for: .seconds(0.75), scheduler: RunLoop.main)
-                    .mapError { _ in
+        fetch: { city, venues in
+            guard !CommandLine.isUITesting else { return Effect(value: uiTestMovies) }
+            let request = constructURLRequest(city: city, venues: venues)
+
+            return URLSession.shared.dataTaskPublisher(for: request)
+                .delay(for: .seconds(0.75), scheduler: RunLoop.main)
+                .mapError { _ in
+                    return MovieClient.Error.network
+                }
+                .tryMap { data, response in
+                    guard let response = response as? HTTPURLResponse
+                    else { throw MovieClient.Error.network }
+
+                    if response.statusCode == 469 {
+                        throw MovieClient.Error.requiresUpdate
+                    }
+
+                    do {
+                        return try decoder.decode([Movie].self, from: data)
+                    } catch {
+                        print(error.localizedDescription)
+                        throw MovieClient.Error.decoding
+                    }
+                }
+                .mapError { error in
+                    if let error = error as? MovieClient.Error {
+                        return error
+                    } else {
+                        assert(true, "Unrecognized error received: \(error). Defaulting to Failure.network.")
                         return MovieClient.Error.network
                     }
-                    .tryMap { data, response in
-                        guard let response = response as? HTTPURLResponse
-                        else { throw MovieClient.Error.network }
-
-                        if response.statusCode == 469 {
-                            throw MovieClient.Error.requiresUpdate
-                        }
-
-                        do {
-                            return try decoder.decode([Movie].self, from: data)
-                        } catch {
-                            print(error.localizedDescription)
-                            throw MovieClient.Error.decoding
-                        }
-                    }
-                    .mapError { error in
-                        if let error = error as? MovieClient.Error {
-                            return error
-                        } else {
-                            assert(true, "Unrecognized error received: \(error). Defaulting to Failure.network.")
-                            return MovieClient.Error.network
-                        }
-                    }
-                    .eraseToEffect()
-            }
+                }
+                .eraseToEffect()
         }
     )
 
     static let previewValue = Self(
-        fetch: {
+        fetch: { _, _ in
             Effect(value: Array(repeating: Movie(showings: [Showing()]), count: 5))
         }
     )
@@ -82,10 +82,8 @@ extension MovieClient: DependencyKey {
         return decoder
     }()
 
-    private static func constructURLRequest() -> URLRequest {
-        let city = UserDefaults.standard.readCity()
+    private static func constructURLRequest(city: City, venues: OrderedSet<Venue>) -> URLRequest {
         let cityPath = city.rawValue
-        let venues = UserDefaults.standard.readVenues()
         let venuesPath = venues.map { String($0.rawValue) }.joined(separator: ",")
         let path = "\(cityPath)/\(venuesPath)"
 
@@ -99,8 +97,8 @@ extension MovieClient: DependencyKey {
     }
 }
 
-extension MovieClient {
-    private static let uiTestMovies = {
+private extension MovieClient {
+    static let uiTestMovies = {
         let today = Date()
         let tommorow = today.addingTimeInterval(86400)
 

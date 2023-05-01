@@ -48,7 +48,7 @@ struct MainView: View {
                     ))
                 }
 
-                if viewStore.requiresToFetchMovies {
+                if viewStore.isFetchingMovies {
                     LoadingView()
                 }
 

@@ -16,7 +16,7 @@ struct Main: ReducerProtocol {
         var settings: Settings.State?
 
         var movieClientError: MovieClient.Error?
-        var requiresToFetchMovies = true
+        var isFetchingMovies = true
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
@@ -38,6 +38,17 @@ struct Main: ReducerProtocol {
 
     @Dependency(\.mainQueue) var mainQueue
     @Dependency(\.movieClient) var movieClient
+    @Dependency(\.userDefaults) var userDefaults
+
+    private func fetchMovies(state: inout State) -> Effect<Action, Never> {
+        state.isFetchingMovies = true
+        state.movieClientError = nil
+        let city = userDefaults.getCity()
+        let venues = userDefaults.getVenues()
+        return movieClient.fetch(city, venues)
+            .receive(on: mainQueue)
+            .catchToEffect(Action.movieClient)
+    }
 
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.dateSelector, action: /Action.dateSelector) {
@@ -77,28 +88,20 @@ struct Main: ReducerProtocol {
 
             case .schedule(.transitionDidEnd):
                 state.dateSelector.isDisabled = false
-                state.requiresToFetchMovies = false
+                state.isFetchingMovies = false
                 return .none
 
             case .schedule:
                 return .none
 
             case .settings(.saveSettings):
-                state.requiresToFetchMovies = true
-                state.movieClientError = nil
-                return movieClient.fetch()
-                    .receive(on: mainQueue)
-                    .catchToEffect(Action.movieClient)
+                return fetchMovies(state: &state)
 
             case .settings:
                 return .none
 
             case .fetchMovies:
-                state.requiresToFetchMovies = true
-                state.movieClientError = nil
-                return movieClient.fetch()
-                    .receive(on: mainQueue)
-                    .catchToEffect(Action.movieClient)
+                return fetchMovies(state: &state)
 
             case .movieClient(let result):
                 switch result {
