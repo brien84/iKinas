@@ -75,7 +75,7 @@ final class MainTests: XCTestCase {
 
         await store.send(.schedule(.transitionDidEnd)) {
             $0.dateSelector.isDisabled = false
-            $0.requiresToFetchMovies = false
+            $0.isFetchingMovies = false
         }
     }
 
@@ -83,7 +83,7 @@ final class MainTests: XCTestCase {
         let store = TestStore(
             initialState: Main.State(
                 settings: Settings.State(),
-                requiresToFetchMovies: false
+                isFetchingMovies: false
             ),
             reducer: Main()
         )
@@ -92,13 +92,15 @@ final class MainTests: XCTestCase {
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
         let movies = [Movie()]
-        store.dependencies.movieClient.fetch = { Effect(value: movies) }
+        store.dependencies.movieClient.fetch = { _, _ in Effect(value: movies) }
 
+        store.dependencies.userDefaults.getCity = { City.vilnius }
+        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
         store.dependencies.userDefaults.setCity = { _ in }
         store.dependencies.userDefaults.setVenues = { _ in }
 
         await store.send(.settings(.saveSettings)) {
-            $0.requiresToFetchMovies = true
+            $0.isFetchingMovies = true
             $0.movieClientError = nil
         }
 
@@ -114,8 +116,7 @@ final class MainTests: XCTestCase {
     func testFetchingMoviesSuccessfully() async {
         let store = TestStore(
             initialState: Main.State(
-                movieClientError: .network,
-                requiresToFetchMovies: false
+                movieClientError: .network
             ),
             reducer: Main()
         )
@@ -124,10 +125,13 @@ final class MainTests: XCTestCase {
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
         let movies = [Movie()]
-        store.dependencies.movieClient.fetch = { Effect(value: movies) }
+        store.dependencies.movieClient.fetch = { _, _ in Effect(value: movies) }
+
+        store.dependencies.userDefaults.getCity = { City.vilnius }
+        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
 
         await store.send(.fetchMovies) {
-            $0.requiresToFetchMovies = true
+            $0.isFetchingMovies = true
             $0.movieClientError = nil
         }
 
@@ -143,8 +147,7 @@ final class MainTests: XCTestCase {
     func testEncounteringNetworkErrorWhileFetchingMovies() async {
         let store = TestStore(
             initialState: Main.State(
-                movieClientError: .network,
-                requiresToFetchMovies: false
+                movieClientError: .network
             ),
             reducer: Main()
         )
@@ -152,12 +155,15 @@ final class MainTests: XCTestCase {
         let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-        store.dependencies.movieClient.fetch = {
+        store.dependencies.movieClient.fetch = { _, _ in
             Effect(error: .network)
         }
 
+        store.dependencies.userDefaults.getCity = { City.vilnius }
+        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
+
         await store.send(.fetchMovies) {
-            $0.requiresToFetchMovies = true
+            $0.isFetchingMovies = true
             $0.movieClientError = nil
         }
 
@@ -171,8 +177,7 @@ final class MainTests: XCTestCase {
     func testEncounteringRequiresUpdateErrorWhileFetchingMovies() async {
         let store = TestStore(
             initialState: Main.State(
-                movieClientError: .network,
-                requiresToFetchMovies: false
+                movieClientError: .network
             ),
             reducer: Main()
         )
@@ -180,12 +185,15 @@ final class MainTests: XCTestCase {
         let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-        store.dependencies.movieClient.fetch = {
+        store.dependencies.movieClient.fetch = { _, _ in
             Effect(error: .requiresUpdate)
         }
 
+        store.dependencies.userDefaults.getCity = { City.vilnius }
+        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
+
         await store.send(.fetchMovies) {
-            $0.requiresToFetchMovies = true
+            $0.isFetchingMovies = true
             $0.movieClientError = nil
         }
 
