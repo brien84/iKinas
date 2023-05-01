@@ -55,12 +55,10 @@ final class SettingsTests: XCTestCase {
             reducer: Settings()
         )
 
-        let settings = SettingsClient.Settings(city: .kaunas, venues: City.kaunas.venues)
-        store.dependencies.settingsClient.load = { Effect(value: settings) }
+        store.dependencies.userDefaults.getCity = { City.kaunas }
+        store.dependencies.userDefaults.getVenues = { City.kaunas.venues }
 
-        await store.send(.loadSettings)
-
-        await store.receive(.settingsClient(.success(settings))) {
+        await store.send(.loadSettings) {
             $0.selectedCity = .kaunas
             $0.selectedVenues = City.kaunas.venues
         }
@@ -72,15 +70,21 @@ final class SettingsTests: XCTestCase {
             reducer: Settings()
         )
 
-        store.dependencies.settingsClient.save = { city, venues in
+        let cityExpectation = XCTestExpectation()
+        store.dependencies.userDefaults.setCity = { city in
             XCTAssertEqual(city, .kaunas)
+            cityExpectation.fulfill()
+        }
+
+        let venuesExpectation = XCTestExpectation()
+        store.dependencies.userDefaults.setVenues = { venues in
             XCTAssertEqual(venues, [.forum])
-            return Effect(value: ())
+            venuesExpectation.fulfill()
         }
 
         await store.send(.saveSettings)
 
-        await store.finish()
+        wait(for: [cityExpectation, venuesExpectation], timeout: 1.0)
     }
 
 }

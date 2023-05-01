@@ -81,16 +81,33 @@ final class MainTests: XCTestCase {
 
     func testSavingSettingsRefetchesMovies() async {
         let store = TestStore(
-            initialState: Main.State(settings: Settings.State(), requiresToFetchMovies: false),
+            initialState: Main.State(
+                settings: Settings.State(),
+                requiresToFetchMovies: false
+            ),
             reducer: Main()
         )
 
-        store.dependencies.settingsClient.save = { _, _ in
-            .fireAndForget { XCTAssert(true) }
-        }
+        let mainQueue = DispatchQueue.test
+        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+
+        let movies = [Movie()]
+        store.dependencies.movieClient.fetch = { Effect(value: movies) }
+
+        store.dependencies.userDefaults.setCity = { _ in }
+        store.dependencies.userDefaults.setVenues = { _ in }
 
         await store.send(.settings(.saveSettings)) {
             $0.requiresToFetchMovies = true
+            $0.movieClientError = nil
+        }
+
+        await mainQueue.advance(by: .seconds(1))
+
+        await store.receive(.movieClient(.success(movies))) {
+            $0.schedule.datasource.movies = movies
+            $0.schedule.didUpdateDatasource = true
+            $0.dateSelector.isDisabled = true
         }
     }
 
@@ -107,10 +124,7 @@ final class MainTests: XCTestCase {
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
         let movies = [Movie()]
-
-        store.dependencies.movieClient.fetch = {
-            Effect(value: movies)
-        }
+        store.dependencies.movieClient.fetch = { Effect(value: movies) }
 
         await store.send(.fetchMovies) {
             $0.requiresToFetchMovies = true
