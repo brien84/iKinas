@@ -80,6 +80,9 @@ struct MainView_Previews: PreviewProvider {
 
             MainView(store: store)
                 .preferredColorScheme(.dark)
+                .onAppear {
+                    ViewStore(store).send(.fetchMovies)
+                }
         }
     }
 }
