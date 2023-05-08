@@ -10,12 +10,10 @@ import ComposableArchitecture
 import Foundation
 
 struct DateSelector: ReducerProtocol {
-
     struct State: Equatable {
         let today: Date
         let restOfTheWeek: [Date]
         var selectedDate: Date
-        var isDisabled = false
 
         var isTodaySelected: Bool {
             today == selectedDate
@@ -57,5 +55,4 @@ struct DateSelector: ReducerProtocol {
             return .none
         }
     }
-
 }

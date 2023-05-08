@@ -57,7 +57,6 @@ struct DateSelectorView: View {
                     }
                 }
             }
-            .disabled(viewStore.isDisabled)
             .background(Color.primaryBackground)
             .fixedSize(horizontal: false, vertical: true)
         }
@@ -81,6 +80,5 @@ struct DateSelectorView_Previews: PreviewProvider {
             DateSelectorView(store: Store(initialState: DateSelector.State(), reducer: DateSelector()))
                 .preferredColorScheme(.dark)
         }
-
     }
 }

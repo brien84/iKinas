@@ -39,6 +39,7 @@ struct MainView: View {
                         state: \.dateSelector,
                         action: Main.Action.dateSelector
                     ))
+                    .disabled(viewStore.isFetchingMovies)
 
                     Divider()
 

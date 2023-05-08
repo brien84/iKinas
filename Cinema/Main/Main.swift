@@ -64,7 +64,6 @@ struct Main: ReducerProtocol {
 
             case .dateSelector(.didSelect(date: let date)):
                 state.schedule.datasource.date = date
-                state.dateSelector.isDisabled = true
                 return .none
 
             case .dateSelector:
@@ -87,7 +86,6 @@ struct Main: ReducerProtocol {
                 return .none
 
             case .schedule(.transitionDidEnd):
-                state.dateSelector.isDisabled = false
                 state.isFetchingMovies = false
                 return .none
 
@@ -107,7 +105,6 @@ struct Main: ReducerProtocol {
                 switch result {
                 case .success(let movies):
                     state.schedule.datasource.movies = movies
-                    state.dateSelector.isDisabled = true
                     return .none
                 case .failure(let error):
                     switch error {
