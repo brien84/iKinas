@@ -10,7 +10,6 @@ import ComposableArchitecture
 import Foundation
 
 struct MovieItem: ReducerProtocol {
-
     struct State: Equatable, Identifiable {
         let id: UUID
         let movie: Movie
@@ -19,7 +18,7 @@ struct MovieItem: ReducerProtocol {
         init(id: UUID, movie: Movie) {
             self.id = id
             self.movie = movie
-            self.networkImage = NetworkImage.State(id: id, url: movie.poster)
+            self.networkImage = NetworkImage.State(url: movie.poster)
         }
     }
 
@@ -42,5 +41,4 @@ struct MovieItem: ReducerProtocol {
             }
         }
     }
-
 }

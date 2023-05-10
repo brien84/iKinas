@@ -19,7 +19,7 @@ struct ShowingItem: ReducerProtocol {
         init(id: UUID, showing: Showing) {
             self.id = id
             self.showing = showing
-            self.networkImage = NetworkImage.State(id: id, url: showing.parentMovie?.poster)
+            self.networkImage = NetworkImage.State(url: showing.parentMovie?.poster)
         }
     }
 

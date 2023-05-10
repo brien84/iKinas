@@ -25,7 +25,7 @@ struct MovieDetail: ReducerProtocol {
         init(movie: Movie, showing: Showing? = nil) {
             self.movie = movie
             self.showing = showing
-            self.networkImage = NetworkImage.State(id: movie.id, url: movie.poster)
+            self.networkImage = NetworkImage.State(url: movie.poster)
         }
     }
 

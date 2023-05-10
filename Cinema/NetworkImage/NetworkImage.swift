@@ -10,16 +10,12 @@ import ComposableArchitecture
 import SwiftUI
 
 struct NetworkImage: ReducerProtocol {
-    static let defaultImage = UIImage(named: "posterDefault")
-
     struct State: Equatable {
-        var id: UUID
-        var image: UIImage?
         var isFetching = false
+        var image: UIImage?
         var url: URL?
 
-        init(id: UUID, url: URL?) {
-            self.id = id
+        init(url: URL?) {
             self.url = url
         }
     }
@@ -35,17 +31,15 @@ struct NetworkImage: ReducerProtocol {
     func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
         switch action {
         case .fetch:
-            guard let url = state.url
-            else {
+            if let url = state.url {
+                state.isFetching = true
+                return imageClient.fetch(url)
+                    .receive(on: mainQueue)
+                    .catchToEffect(Action.imageClient)
+            } else {
                 state.image = Self.defaultImage
                 return .none
             }
-
-            state.isFetching = true
-            return imageClient.fetch(url)
-                .receive(on: mainQueue)
-                .catchToEffect(Action.imageClient)
-                .cancellable(id: state.id, cancelInFlight: true)
 
         case .imageClient(let result):
             state.isFetching = false
@@ -58,5 +52,8 @@ struct NetworkImage: ReducerProtocol {
             return .none
         }
     }
+}
 
+extension NetworkImage {
+    static let defaultImage = UIImage(named: "posterDefault")
 }
