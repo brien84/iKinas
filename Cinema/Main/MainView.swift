@@ -40,6 +40,7 @@ struct MainView: View {
                         action: Main.Action.dateSelector
                     ))
                     .disabled(viewStore.isFetchingMovies)
+                    .padding(.vertical)
 
                     Divider()
 

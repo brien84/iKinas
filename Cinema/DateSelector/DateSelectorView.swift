@@ -36,7 +36,7 @@ struct DateSelectorView: View {
                             .id(date)
                         }
                     }
-                    .padding()
+                    .padding(.horizontal)
                 }
                 .onChange(of: viewStore.selectedDate) { newValue in
                     withAnimation {

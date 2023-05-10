@@ -34,6 +34,7 @@ struct ShowingDetailView: View {
                         state: \.dateSelector,
                         action: ShowingDetail.Action.dateSelector
                     ))
+                    .padding(.bottom, Self.bottomPadding)
 
                     ShowingDetailTabView(store: store)
                 }
@@ -118,6 +119,10 @@ private struct ShowingView: View {
 }
 
 // MARK: - Constants
+
+private extension ShowingDetailView {
+    static let bottomPadding: CGFloat = 8
+}
 
 private extension ShowingDetailTabView {
     static let columnSpacing: CGFloat = 16
