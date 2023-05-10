@@ -7,16 +7,17 @@
 //
 
 import ComposableArchitecture
+import Foundation
 
 struct Main: ReducerProtocol {
     struct State: Equatable {
-        var dateSelector = DateSelector.State()
+        var dateSelector = DateSelector.State(dates: Calendar.current.getNextSevenDays())
         var movieDetail: MovieDetail.State?
         var schedule = Schedule.State()
         var settings: Settings.State?
 
-        var movieClientError: MovieClient.Error?
         var isFetchingMovies = true
+        var movieClientError: MovieClient.Error?
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
@@ -64,9 +65,6 @@ struct Main: ReducerProtocol {
 
             case .dateSelector(.didSelect(date: let date)):
                 state.schedule.datasource.date = date
-                return .none
-
-            case .dateSelector:
                 return .none
 
             case .movieDetail:

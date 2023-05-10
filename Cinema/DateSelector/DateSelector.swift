@@ -11,27 +11,17 @@ import Foundation
 
 struct DateSelector: ReducerProtocol {
     struct State: Equatable {
-        let today: Date
-        let restOfTheWeek: [Date]
+        let dates: [Date]
         var selectedDate: Date
 
-        var isTodaySelected: Bool {
-            today == selectedDate
-        }
+        init(dates: [Date]) {
+            self.dates = dates
 
-        init() {
-            self.today = Date()
-            self.selectedDate = self.today
-
-            var restOfTheWeek = [Date]()
-
-            for index in 1..<8 {
-                guard let date = Calendar.current.date(byAdding: .day, value: index, to: self.today)
-                else { fatalError("Date generation failed!") }
-                restOfTheWeek.append(date)
+            if let date = dates.first {
+                self.selectedDate = date
+            } else {
+                self.selectedDate = Date()
             }
-
-            self.restOfTheWeek = restOfTheWeek
         }
     }
 
@@ -43,10 +33,10 @@ struct DateSelector: ReducerProtocol {
         switch action {
         case .didSelect(date: let date):
             assert(
-                state.today == date || state.restOfTheWeek.contains(date),
+                state.dates.contains(date),
                 """
-                The selected date '\(date)' is not equal to `state.today` or found in
-                `state.restOfTheWeek` array, and may cause unpredictable app behavior.
+                The selected date '\(date)' is not found in `state.dates` array,
+                and may cause unpredictable app behavior.
                 """
             )
 

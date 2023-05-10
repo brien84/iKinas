@@ -14,46 +14,33 @@ struct DateSelectorView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ZStack {
-                HStack(spacing: .zero) {
-                    Button {
-                        viewStore.send(.didSelect(date: viewStore.today))
-                    } label: {
-                        Image(systemName: "house")
-                            .foregroundColor(viewStore.isTodaySelected ? .tertiaryElement : .primaryElement)
-                            .padding(.horizontal)
-                    }
+            ScrollViewReader { proxy in
+                ScrollView(.horizontal, showsIndicators: false) {
+                    LazyHStack(spacing: Self.horizontalSpacing) {
+                        ForEach(viewStore.dates, id: \.self) { date in
+                            Button {
+                                viewStore.send(.didSelect(date: date))
+                            } label: {
+                                VStack {
+                                    let isDateSelected = date == viewStore.selectedDate
 
-                    Divider()
+                                    Text(date.toString(.shortDayOfWeek))
+                                        .font(.caption.weight(.bold))
+                                        .foregroundColor(isDateSelected ? .tertiaryElement : .primaryElement)
 
-                    ScrollViewReader { proxy in
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack(spacing: Self.horizontalSpacing) {
-                                ForEach(viewStore.restOfTheWeek, id: \.self) { date in
-                                    Button {
-                                        viewStore.send(.didSelect(date: date))
-                                    } label: {
-                                        VStack {
-                                            Text(date.toString(.shortDayOfWeek))
-                                                .font(.caption.weight(.bold))
-                                                .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .primaryElement)
-
-                                            Text(date.toString(.shortMonthAndDay))
-                                                .font(.caption)
-                                                .foregroundColor(date == viewStore.selectedDate ? .tertiaryElement : .secondaryElement)
-                                        }
-                                    }
-                                    .id(date)
+                                    Text(date.toString(.shortMonthAndDay))
+                                        .font(.caption)
+                                        .foregroundColor(isDateSelected ? .tertiaryElement : .secondaryElement)
                                 }
                             }
-                            .padding(.horizontal)
+                            .id(date)
                         }
-                        .padding(.vertical)
-                        .onChange(of: viewStore.selectedDate) { newValue in
-                            withAnimation {
-                                proxy.scrollTo(newValue, anchor: .center)
-                            }
-                        }
+                    }
+                    .padding()
+                }
+                .onChange(of: viewStore.selectedDate) { newValue in
+                    withAnimation {
+                        proxy.scrollTo(newValue, anchor: .center)
                     }
                 }
             }
@@ -72,12 +59,17 @@ private extension DateSelectorView {
 // MARK: - Previews
 
 struct DateSelectorView_Previews: PreviewProvider {
+    static let store = Store(
+        initialState: DateSelector.State(dates: Calendar.current.getNextSevenDays()),
+        reducer: DateSelector()
+    )
+
     static var previews: some View {
         ZStack {
             Color.green
                 .ignoresSafeArea()
 
-            DateSelectorView(store: Store(initialState: DateSelector.State(), reducer: DateSelector()))
+            DateSelectorView(store: store)
                 .preferredColorScheme(.dark)
         }
     }
