@@ -13,23 +13,16 @@ import XCTest
 @MainActor
 final class DateSelectorTests: XCTestCase {
 
-    func testDateSelectorInitializesWithExpectedProperties() async {
+    func testSelectingDate() async {
         let store = TestStore(
-            initialState: DateSelector.State(),
+            initialState: DateSelector.State(dates: Calendar.current.getNextSevenDays()),
             reducer: DateSelector()
         )
 
-        XCTAssertTrue(Calendar.current.isDate(Date(), inSameDayAs: store.state.today))
-        XCTAssertEqual(store.state.today, store.state.selectedDate)
-        XCTAssertFalse(store.state.restOfTheWeek.contains(store.state.today))
-        XCTAssertTrue(store.state.isTodaySelected)
-        XCTAssertEqual(store.state.restOfTheWeek.count, 7)
+        let date = store.state.dates.last!
 
-        for index in 0..<store.state.restOfTheWeek.count {
-            XCTAssertEqual(
-                store.state.restOfTheWeek[index],
-                Calendar.current.date(byAdding: .day, value: index + 1, to: store.state.today)
-            )
+        await store.send(.didSelect(date: date)) {
+            $0.selectedDate = date
         }
     }
 

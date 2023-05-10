@@ -54,7 +54,7 @@ final class MovieDetailTests: XCTestCase {
         await store.send(.setNavigationToShowingDetail(isActive: true)) {
             $0.isNavigationToShowingDetailActive = true
             $0.showingDetail = ShowingDetail.State(movie: movie)
-            $0.showingDetail?.selectedDate = Calendar.current.startOfDay(for: showing.date)
+            $0.showingDetail?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
         }
 
         await store.send(.showingDetail(.didSelectShowing(showing))) {
@@ -75,7 +75,7 @@ final class MovieDetailTests: XCTestCase {
         await store.send(.setNavigationToShowingDetail(isActive: true)) {
             $0.isNavigationToShowingDetailActive = true
             $0.showingDetail = ShowingDetail.State(movie: movie)
-            $0.showingDetail?.selectedDate = Calendar.current.startOfDay(for: showing.date)
+            $0.showingDetail?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
         }
 
         await store.send(.showingDetail(.exitButtonDidTap)) {
@@ -95,7 +95,7 @@ final class MovieDetailTests: XCTestCase {
         await store.send(.setNavigationToShowingDetail(isActive: true)) {
             $0.isNavigationToShowingDetailActive = true
             $0.showingDetail = ShowingDetail.State(movie: movie)
-            $0.showingDetail?.selectedDate = Calendar.current.startOfDay(for: showing.date)
+            $0.showingDetail?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
         }
 
         await store.send(.setNavigationToShowingDetail(isActive: false)) {
@@ -113,4 +113,5 @@ final class MovieDetailTests: XCTestCase {
             $0.titleViewOverlapPercentage = 0.67
         }
     }
+
 }

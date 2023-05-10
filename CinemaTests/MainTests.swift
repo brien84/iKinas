@@ -13,20 +13,6 @@ import XCTest
 @MainActor
 final class MainTests: XCTestCase {
 
-    func testChangingSelectedDate() async {
-        let store = TestStore(
-            initialState: Main.State(),
-            reducer: Main()
-        )
-
-        let date = store.state.dateSelector.today
-
-        await store.send(.dateSelector(.didSelect(date: date))) {
-            $0.schedule.datasource.date = date
-            $0.dateSelector.isDisabled = true
-        }
-    }
-
     func testSelectingMovie() async {
         let movie = Movie()
         let movieItems = IdentifiedArray(uniqueElements: [MovieItem.State(id: movie.id, movie: movie)])
@@ -74,7 +60,6 @@ final class MainTests: XCTestCase {
         )
 
         await store.send(.schedule(.transitionDidEnd)) {
-            $0.dateSelector.isDisabled = false
             $0.isFetchingMovies = false
         }
     }
@@ -109,7 +94,6 @@ final class MainTests: XCTestCase {
         await store.receive(.movieClient(.success(movies))) {
             $0.schedule.datasource.movies = movies
             $0.schedule.didUpdateDatasource = true
-            $0.dateSelector.isDisabled = true
         }
     }
 
@@ -140,7 +124,6 @@ final class MainTests: XCTestCase {
         await store.receive(.movieClient(.success(movies))) {
             $0.schedule.datasource.movies = movies
             $0.schedule.didUpdateDatasource = true
-            $0.dateSelector.isDisabled = true
         }
     }
 
