@@ -46,7 +46,7 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
             primaryAction: UIAction { [weak self] _ in
-                self?.viewStore.send(.setNavigationToShowingDetail(isActive: true))
+                self?.viewStore.send(.setNavigationToMovieShowings(isActive: true))
             }
         )
 

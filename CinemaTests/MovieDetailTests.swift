@@ -51,19 +51,19 @@ final class MovieDetailTests: XCTestCase {
             reducer: MovieDetail()
         )
 
-        await store.send(.setNavigationToShowingDetail(isActive: true)) {
-            $0.isNavigationToShowingDetailActive = true
-            $0.showingDetail = ShowingDetail.State(movie: movie)
-            $0.showingDetail?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
+        await store.send(.setNavigationToMovieShowings(isActive: true)) {
+            $0.isNavigationToMovieShowingsActive = true
+            $0.movieShowings = MovieShowings.State(movie: movie)
+            $0.movieShowings?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
         }
 
-        await store.send(.showingDetail(.didSelectShowing(showing))) {
-            $0.isNavigationToShowingDetailActive = false
+        await store.send(.movieShowings(.didSelectShowing(showing))) {
+            $0.isNavigationToMovieShowingsActive = false
             $0.showingURL = showing.url
         }
     }
 
-    func testTappingShowingDetailExitButton() async {
+    func testTappingMovieShowingsExitButton() async {
         let showing = Showing()
         let movie = Movie(showings: [showing])
 
@@ -72,14 +72,14 @@ final class MovieDetailTests: XCTestCase {
             reducer: MovieDetail()
         )
 
-        await store.send(.setNavigationToShowingDetail(isActive: true)) {
-            $0.isNavigationToShowingDetailActive = true
-            $0.showingDetail = ShowingDetail.State(movie: movie)
-            $0.showingDetail?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
+        await store.send(.setNavigationToMovieShowings(isActive: true)) {
+            $0.isNavigationToMovieShowingsActive = true
+            $0.movieShowings = MovieShowings.State(movie: movie)
+            $0.movieShowings?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
         }
 
-        await store.send(.showingDetail(.exitButtonDidTap)) {
-            $0.isNavigationToShowingDetailActive = false
+        await store.send(.movieShowings(.exitButtonDidTap)) {
+            $0.isNavigationToMovieShowingsActive = false
         }
     }
 
@@ -92,14 +92,14 @@ final class MovieDetailTests: XCTestCase {
             reducer: MovieDetail()
         )
 
-        await store.send(.setNavigationToShowingDetail(isActive: true)) {
-            $0.isNavigationToShowingDetailActive = true
-            $0.showingDetail = ShowingDetail.State(movie: movie)
-            $0.showingDetail?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
+        await store.send(.setNavigationToMovieShowings(isActive: true)) {
+            $0.isNavigationToMovieShowingsActive = true
+            $0.movieShowings = MovieShowings.State(movie: movie)
+            $0.movieShowings?.dateSelector.selectedDate = Calendar.current.startOfDay(for: showing.date)
         }
 
-        await store.send(.setNavigationToShowingDetail(isActive: false)) {
-            $0.isNavigationToShowingDetailActive = false
+        await store.send(.setNavigationToMovieShowings(isActive: false)) {
+            $0.isNavigationToMovieShowingsActive = false
         }
     }
 

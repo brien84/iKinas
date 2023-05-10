@@ -10,10 +10,9 @@ import ComposableArchitecture
 import SwiftUI
 
 struct MovieDetail: ReducerProtocol {
-
     struct State: Equatable {
+        var movieShowings: MovieShowings.State?
         var networkImage: NetworkImage.State
-        var showingDetail: ShowingDetail.State?
 
         var isScrollingEnabled = true
         let movie: Movie
@@ -21,7 +20,7 @@ struct MovieDetail: ReducerProtocol {
         var showingURL: URL?
         var titleViewOverlapPercentage: CGFloat = 0
 
-        var isNavigationToShowingDetailActive = false
+        var isNavigationToMovieShowingsActive = false
 
         init(movie: Movie, showing: Showing? = nil) {
             self.movie = movie
@@ -31,14 +30,14 @@ struct MovieDetail: ReducerProtocol {
     }
 
     enum Action: Equatable {
+        case movieShowings(MovieShowings.Action)
         case networkImage(NetworkImage.Action)
-        case showingDetail(ShowingDetail.Action)
 
         case setShowingURL(URL?)
         case toggleScrolling(isEnabled: Bool)
         case updateTitleViewOverlap(percentage: CGFloat)
 
-        case setNavigationToShowingDetail(isActive: Bool)
+        case setNavigationToMovieShowings(isActive: Bool)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -49,19 +48,19 @@ struct MovieDetail: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
-            case .networkImage:
-                return .none
-
-            case .showingDetail(.didSelectShowing(let showing)):
-                state.isNavigationToShowingDetailActive = false
+            case .movieShowings(.didSelectShowing(let showing)):
+                state.isNavigationToMovieShowingsActive = false
                 state.showingURL = showing.url
                 return .none
 
-            case .showingDetail(.exitButtonDidTap):
-                state.isNavigationToShowingDetailActive = false
+            case .movieShowings(.exitButtonDidTap):
+                state.isNavigationToMovieShowingsActive = false
                 return .none
 
-            case .showingDetail:
+            case .movieShowings:
+                return .none
+
+            case .networkImage:
                 return .none
 
             case .setShowingURL(let url):
@@ -76,21 +75,20 @@ struct MovieDetail: ReducerProtocol {
                 state.titleViewOverlapPercentage = percentage
                 return .none
 
-            case .setNavigationToShowingDetail(isActive: let isActive):
+            case .setNavigationToMovieShowings(isActive: let isActive):
                 if isActive {
-                    state.isNavigationToShowingDetailActive = true
-                    state.showingDetail = ShowingDetail.State(movie: state.movie)
+                    state.isNavigationToMovieShowingsActive = true
+                    state.movieShowings = MovieShowings.State(movie: state.movie)
                 } else {
-                    state.isNavigationToShowingDetailActive = false
+                    state.isNavigationToMovieShowingsActive = false
                 }
 
                 return .none
 
             }
         }
-        .ifLet(\.showingDetail, action: /Action.showingDetail) {
-            ShowingDetail()
+        .ifLet(\.movieShowings, action: /Action.movieShowings) {
+            MovieShowings()
         }
     }
-
 }

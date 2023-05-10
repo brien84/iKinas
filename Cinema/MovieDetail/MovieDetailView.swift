@@ -46,16 +46,16 @@ struct MovieDetailView: View {
             }
             .sheet(
                 isPresented: viewStore.binding(
-                    get: \.isNavigationToShowingDetailActive,
-                    send: MovieDetail.Action.setNavigationToShowingDetail(isActive:)
+                    get: \.isNavigationToMovieShowingsActive,
+                    send: MovieDetail.Action.setNavigationToMovieShowings(isActive:)
                 )
             ) {
                 IfLetStore(
                     store.scope(
-                        state: \.showingDetail,
-                        action: MovieDetail.Action.showingDetail
+                        state: \.movieShowings,
+                        action: MovieDetail.Action.movieShowings
                     ),
-                    then: ShowingDetailView.init(store:)
+                    then: MovieShowingsView.init(store:)
                 )
             }
             .ignoresSafeArea(edges: .top)

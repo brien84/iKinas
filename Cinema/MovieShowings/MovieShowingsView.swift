@@ -1,5 +1,5 @@
 //
-//  ShowingDetailView.swift
+//  MovieShowingsView.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-05.
@@ -9,8 +9,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct ShowingDetailView: View {
-    let store: StoreOf<ShowingDetail>
+struct MovieShowingsView: View {
+    let store: StoreOf<MovieShowings>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -32,11 +32,11 @@ struct ShowingDetailView: View {
                 } else {
                     DateSelectorView(store: store.scope(
                         state: \.dateSelector,
-                        action: ShowingDetail.Action.dateSelector
+                        action: MovieShowings.Action.dateSelector
                     ))
                     .padding(.bottom, Self.bottomPadding)
 
-                    ShowingDetailTabView(store: store)
+                    MovieShowingsTabView(store: store)
                 }
             }
             .background(Color.primaryBackground)
@@ -44,8 +44,8 @@ struct ShowingDetailView: View {
     }
 }
 
-private struct ShowingDetailTabView: View {
-    let store: StoreOf<ShowingDetail>
+private struct MovieShowingsTabView: View {
+    let store: StoreOf<MovieShowings>
 
     private let columns = [
         GridItem(.flexible(), spacing: Self.columnSpacing),
@@ -120,11 +120,11 @@ private struct ShowingView: View {
 
 // MARK: - Constants
 
-private extension ShowingDetailView {
+private extension MovieShowingsView {
     static let bottomPadding: CGFloat = 8
 }
 
-private extension ShowingDetailTabView {
+private extension MovieShowingsTabView {
     static let columnSpacing: CGFloat = 16
     static let scrollToTopID: String = "upandaway"
 }
@@ -138,7 +138,7 @@ private extension ShowingView {
 
 // MARK: - Previews
 
-struct ShowingDetailView_Previews: PreviewProvider {
+struct MovieShowingsView_Previews: PreviewProvider {
     static let showings = {
         var showings = [Showing]()
 
@@ -151,31 +151,31 @@ struct ShowingDetailView_Previews: PreviewProvider {
     }()
 
     static let store = Store(
-        initialState: ShowingDetail.State(movie: Movie(showings: showings)),
-        reducer: ShowingDetail()
+        initialState: MovieShowings.State(movie: Movie(showings: showings)),
+        reducer: MovieShowings()
     )
 
     static var previews: some View {
         Color.green
             .ignoresSafeArea()
             .sheet(isPresented: .constant(true)) {
-                ShowingDetailView(store: store)
+                MovieShowingsView(store: store)
             }
             .preferredColorScheme(.dark)
     }
 }
 
-struct EmptyShowingDetailView_Previews: PreviewProvider {
+struct EmptyMovieShowingsView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: ShowingDetail.State(movie: Movie(showings: [])),
-        reducer: ShowingDetail()
+        initialState: MovieShowings.State(movie: Movie(showings: [])),
+        reducer: MovieShowings()
     )
 
     static var previews: some View {
         Color.green
             .ignoresSafeArea()
             .sheet(isPresented: .constant(true)) {
-                ShowingDetailView(store: store)
+                MovieShowingsView(store: store)
             }
             .preferredColorScheme(.dark)
     }
