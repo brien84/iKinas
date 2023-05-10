@@ -48,8 +48,6 @@
 		298BBF132961F67800C2EA8C /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF122961F67800C2EA8C /* BodyView.swift */; };
 		298BBF162961F76500C2EA8C /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF152961F76500C2EA8C /* PosterView.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
-		2995895C296D67E500AF0231 /* ShowingDateSelectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2995895B296D67E500AF0231 /* ShowingDateSelectorView.swift */; };
-		2995895F296D8DFD00AF0231 /* ShowingDetailTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2995895E296D8DFD00AF0231 /* ShowingDetailTabView.swift */; };
 		299E52582A0A18430020E1CE /* Extension+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299E52572A0A18430020E1CE /* Extension+Calendar.swift */; };
 		29B1BAE8296743D300A60E20 /* ShowingDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE7296743D300A60E20 /* ShowingDetail.swift */; };
 		29B1BAEA2967443600A60E20 /* ShowingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE92967443600A60E20 /* ShowingDetailView.swift */; };
@@ -132,8 +130,6 @@
 		298BBF122961F67800C2EA8C /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		298BBF152961F76500C2EA8C /* PosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterView.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		2995895B296D67E500AF0231 /* ShowingDateSelectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingDateSelectorView.swift; sourceTree = "<group>"; };
-		2995895E296D8DFD00AF0231 /* ShowingDetailTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingDetailTabView.swift; sourceTree = "<group>"; };
 		299E52572A0A18430020E1CE /* Extension+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Calendar.swift"; sourceTree = "<group>"; };
 		29B1BAE7296743D300A60E20 /* ShowingDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingDetail.swift; sourceTree = "<group>"; };
 		29B1BAE92967443600A60E20 /* ShowingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingDetailView.swift; sourceTree = "<group>"; };
@@ -361,7 +357,6 @@
 			children = (
 				29B1BAE7296743D300A60E20 /* ShowingDetail.swift */,
 				29B1BAE92967443600A60E20 /* ShowingDetailView.swift */,
-				29E306A5296F247B003A52C4 /* Subviews */,
 			);
 			path = ShowingDetail;
 			sourceTree = "<group>";
@@ -414,15 +409,6 @@
 			children = (
 				29C1EA892958EE78007B629B /* LoadingErrorView.swift */,
 				29C1EA8B2958EF8C007B629B /* LoadingView.swift */,
-			);
-			path = Subviews;
-			sourceTree = "<group>";
-		};
-		29E306A5296F247B003A52C4 /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
-				2995895B296D67E500AF0231 /* ShowingDateSelectorView.swift */,
-				2995895E296D8DFD00AF0231 /* ShowingDetailTabView.swift */,
 			);
 			path = Subviews;
 			sourceTree = "<group>";
@@ -610,7 +596,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				29B4D94B23F1EC0600BD9783 /* City.swift in Sources */,
-				2995895C296D67E500AF0231 /* ShowingDateSelectorView.swift in Sources */,
 				296FE05B2951F33E0015F7AA /* MainHostingController.swift in Sources */,
 				29DFA037297879D700F648F4 /* Extension+AnyTransition.swift in Sources */,
 				298BBF132961F67800C2EA8C /* BodyView.swift in Sources */,
@@ -625,7 +610,6 @@
 				2991622B295226190084464C /* MainView.swift in Sources */,
 				29E306A1296F14D9003A52C4 /* EmptyErrorView.swift in Sources */,
 				29C1EA8C2958EF8C007B629B /* LoadingView.swift in Sources */,
-				2995895F296D8DFD00AF0231 /* ShowingDetailTabView.swift in Sources */,
 				291525F0294FACB100192153 /* Schedule.swift in Sources */,
 				298BBF162961F76500C2EA8C /* PosterView.swift in Sources */,
 				2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */,

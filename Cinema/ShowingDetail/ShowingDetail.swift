@@ -10,29 +10,20 @@ import ComposableArchitecture
 import Foundation
 
 struct ShowingDetail: ReducerProtocol {
-
     struct State: Equatable {
-        let dates: [Date]
-        var selectedDate: Date
-        let showings: [Showing]
+        @BindableState var dateSelector: DateSelector.State
+        private let showings: [Showing]
 
         init(movie: Movie) {
             self.showings = movie.showings
 
             let allDates = self.showings.compactMap { showing -> Date? in
-                if !CommandLine.isUITesting {
-                    guard showing.date > Date() else { return nil }
-                }
+                guard showing.date > Date() else { return nil }
                 return Calendar.current.startOfDay(for: showing.date)
             }
 
-            self.dates = Array(Set(allDates)).sorted()
-
-            if !dates.isEmpty {
-                self.selectedDate = dates[0]
-            } else {
-                self.selectedDate = Date()
-            }
+            let dates = Array(Set(allDates)).sorted()
+            self.dateSelector = DateSelector.State(dates: dates)
         }
 
         func getShowings(at date: Date) -> IdentifiedArrayOf<Showing> {
@@ -41,17 +32,26 @@ struct ShowingDetail: ReducerProtocol {
         }
     }
 
-    enum Action: Equatable {
-        case didSelectDate(Date)
+    enum Action: BindableAction, Equatable {
+        case binding(BindingAction<State>)
+        case dateSelector(DateSelector.Action)
         case didSelectShowing(Showing)
         case exitButtonDidTap
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Reduce { state, action in
+        BindingReducer()
+
+        Scope(state: \.dateSelector, action: /Action.dateSelector) {
+            DateSelector()
+        }
+
+        Reduce { _, action in
             switch action {
-            case .didSelectDate(let date):
-                state.selectedDate = date
+            case .binding:
+                return .none
+
+            case .dateSelector:
                 return .none
 
             case .didSelectShowing:
@@ -62,5 +62,4 @@ struct ShowingDetail: ReducerProtocol {
             }
         }
     }
-
 }
