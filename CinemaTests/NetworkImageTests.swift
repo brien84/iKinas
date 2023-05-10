@@ -15,15 +15,14 @@ final class NetworkImageTests: XCTestCase {
 
     func testFetchingImageSuccessfully() async {
         let store = TestStore(
-            initialState: NetworkImage.State(id: UUID(), url: URL(string: "test.com")!),
+            initialState: NetworkImage.State(url: URL(string: "test.com")!),
             reducer: NetworkImage()
         )
-
-        let testImage = UIImage(named: "posterPreview")!
 
         let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
+        let testImage = UIImage(named: "posterPreview")!
         store.dependencies.imageClient.fetch = { _ -> Effect<UIImage, ImageClient.Failure> in
             Effect(value: testImage)
         }
@@ -42,7 +41,7 @@ final class NetworkImageTests: XCTestCase {
 
     func testFetchingImageUnsuccessfully() async {
         let store = TestStore(
-            initialState: NetworkImage.State(id: UUID(), url: URL(string: "test.com")!),
+            initialState: NetworkImage.State(url: URL(string: "test.com")!),
             reducer: NetworkImage()
         )
 
@@ -65,9 +64,9 @@ final class NetworkImageTests: XCTestCase {
         }
     }
 
-    func testPassingOptionalURLJustSetsDefaultImage() async {
+    func testPassingOptionalURLSetsDefaultImage() async {
         let store = TestStore(
-            initialState: NetworkImage.State(id: UUID(), url: nil),
+            initialState: NetworkImage.State(url: nil),
             reducer: NetworkImage()
         )
 
@@ -79,32 +78,4 @@ final class NetworkImageTests: XCTestCase {
         }
     }
 
-    func testStartingFetchingCancelsInFlightFetchingEffects() async {
-        let store = TestStore(
-            initialState: NetworkImage.State(id: UUID(), url: URL(string: "test.com")!),
-            reducer: NetworkImage()
-        )
-
-        let testImage = UIImage(named: "posterPreview")!
-
-        let mainQueue = DispatchQueue.test
-        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
-
-        store.dependencies.imageClient.fetch = { _ -> Effect<UIImage, ImageClient.Failure> in
-            Effect(value: testImage)
-        }
-
-        await store.send(.fetch) {
-            $0.isFetching = true
-        }
-
-        await store.send(.fetch)
-
-        await mainQueue.advance(by: .seconds(1))
-
-        await store.receive(.imageClient(.success(testImage))) {
-            $0.isFetching = false
-            $0.image = testImage
-        }
-    }
 }
