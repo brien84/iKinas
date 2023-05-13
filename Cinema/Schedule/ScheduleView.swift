@@ -54,12 +54,8 @@ struct ScheduleView: View {
                                         .transitionSectionLabel(isTransitioning)
 
                                     MovieListView(store: store)
-                                        // Instead of using a `GeometryReader` view to retrieve
-                                        // the width value of the screen, it is more efficient
-                                        // to use the `UIScreen` object, since the view always
-                                        // takes up the entire width of the screen.
-                                        .frame(height: UIScreen.main.bounds.width * Self.heightToWidthRatio)
-                                        .transitionMovieListView(isTransitioning)
+                                        .frame(height: backgroundFrame.width * Self.heightToWidthRatio)
+                                        .transitionMovieListView(viewStore.isTransitioning)
 
                                     SectionLabel(text: "Seansai")
                                         .transitionSectionLabel(isTransitioning)
