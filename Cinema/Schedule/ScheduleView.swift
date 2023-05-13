@@ -15,8 +15,6 @@ struct ScheduleView: View {
     @State private var backgroundFrame: CGRect = CGRect()
     @State private var dateFrame: CGRect = CGRect()
 
-    @State private var isTransitioning = false
-
     var body: some View {
         WithViewStore(store) { viewStore in
             ZStack {
@@ -28,11 +26,11 @@ struct ScheduleView: View {
                         VStack(spacing: .zero) {
                             VStack(spacing: .zero) {
                                 SmallDateLabel(date: viewStore.selectedDate)
-                                    .transitionDateLabel(isTransitioning)
+                                    .transitionDateLabel(viewStore.isTransitioning)
 
                                 HStack {
                                     LargeDateLabel(date: viewStore.selectedDate)
-                                        .transitionDateLabel(isTransitioning)
+                                        .transitionDateLabel(viewStore.isTransitioning)
 
                                     SettingsButton {
                                         viewStore.send(.settingsButtonDidTap)
@@ -51,17 +49,17 @@ struct ScheduleView: View {
                                 VStack {
                                     SectionLabel(text: "Filmai")
                                         .padding(.top, Self.verticalPadding)
-                                        .transitionSectionLabel(isTransitioning)
+                                        .transitionSectionLabel(viewStore.isTransitioning)
 
                                     MovieListView(store: store)
                                         .frame(height: backgroundFrame.width * Self.heightToWidthRatio)
                                         .transitionMovieListView(viewStore.isTransitioning)
 
                                     SectionLabel(text: "Seansai")
-                                        .transitionSectionLabel(isTransitioning)
+                                        .transitionSectionLabel(viewStore.isTransitioning)
 
                                     ShowingListView(store: store)
-                                        .transitionShowingListView(isTransitioning)
+                                        .transitionShowingListView(viewStore.isTransitioning)
                                 }
 
                                 if viewStore.movieItems.isEmpty {
@@ -70,31 +68,19 @@ struct ScheduleView: View {
                                             width: backgroundFrame.width,
                                             height: backgroundFrame.height - dateFrame.height
                                         )
-                                        .transitionalBlur(isTransitioning)
+                                        .transitionalBlur(viewStore.isTransitioning)
                                 }
                             }
                         }
                     }
-                    .transitionScheduleView(isTransitioning)
-                    .onChange(of: viewStore.didUpdateDatasource) { newValue in
+                    .transitionScheduleView(viewStore.isTransitioning)
+                    .onChange(of: viewStore.isTransitioning) { newValue in
                         guard newValue else { return }
-
-                        withAnimation(.easeInOut(duration: Self.beginTransitionDuration)) {
-                            isTransitioning = true
-                        }
-
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Self.beginTransitionDuration) {
-                            viewStore.send(.applyDatasource)
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
                             scrollProxy.scrollTo(Self.scrollToTopID)
-
-                            withAnimation(.easeInOut(duration: Self.endTransitionDuration)) {
-                                isTransitioning = false
-                                viewStore.send(.transitionDidEnd)
-                            }
                         }
                     }
                 }
-
             }
         }
     }
@@ -154,9 +140,8 @@ private struct SettingsButton: View {
 
 private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.96
+    static let scrollToTopDelay: TimeInterval = 0.3
     static let scrollToTopID: String = "upandaway"
-    static let beginTransitionDuration: CGFloat = 0.3
-    static let endTransitionDuration: CGFloat = 0.4
     static let verticalPadding: CGFloat = 8
 }
 
@@ -198,10 +183,18 @@ struct ScheduleView_Previews: PreviewProvider {
     static let movie = Movie(showings: Array(repeating: Showing(), count: 15))
 
     static let showingItems = {
-        IdentifiedArray(uniqueElements: movie.showings.map { ShowingItem.State(id: UUID(), showing: $0) })
+        IdentifiedArray(uniqueElements: movie.showings.map {
+            ShowingItem.State(id: UUID(), showing: $0)
+        })
     }()
 
-    static let store = Store(initialState: Schedule.State(movieItems: [MovieItem.State(id: UUID(), movie: movie)], showingItems: showingItems), reducer: Schedule())
+    static let store = Store(
+        initialState: Schedule.State(
+            movieItems: [MovieItem.State(id: UUID(), movie: movie)],
+            showingItems: showingItems
+        ),
+        reducer: Schedule()
+    )
 
     static var previews: some View {
         ZStack {

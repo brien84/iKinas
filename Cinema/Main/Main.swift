@@ -11,7 +11,9 @@ import Foundation
 
 struct Main: ReducerProtocol {
     struct State: Equatable {
-        var dateSelector = DateSelector.State(dates: Calendar.current.getNextSevenDays())
+        var dateSelector = DateSelector.State(
+            dates: Calendar.current.getNextSevenDays()
+        )
         var movieDetail: MovieDetail.State?
         var schedule = Schedule.State()
         var settings: Settings.State?
@@ -22,6 +24,8 @@ struct Main: ReducerProtocol {
         var isNavigationToSettingsActive: Bool {
             settings != nil
         }
+
+        var movies: [Movie] = []
     }
 
     enum Action: Equatable {
@@ -35,11 +39,16 @@ struct Main: ReducerProtocol {
 
         case setNavigationToMovieDetail(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
+
+        case beginTransition
+        case updateDatasource
+        case endTransition
     }
 
     @Dependency(\.mainQueue) var mainQueue
     @Dependency(\.movieClient) var movieClient
     @Dependency(\.userDefaults) var userDefaults
+    @Dependency(\.uuid) var uuid
 
     private func fetchMovies(state: inout State) -> Effect<Action, Never> {
         state.isFetchingMovies = true
@@ -49,6 +58,18 @@ struct Main: ReducerProtocol {
         return movieClient.fetch(city, venues)
             .receive(on: mainQueue)
             .catchToEffect(Action.movieClient)
+    }
+
+    private enum TransitionID { }
+
+    private func updateDatasource() -> Effect<Action, Never> {
+        Effect.run { send in
+            await send(.beginTransition, animation: .easeInOut(duration: 0.3))
+            try await Task.sleep(nanoseconds: 300_000_000)
+            await send(.updateDatasource)
+            await send(.endTransition, animation: .easeInOut(duration: 0.4))
+        }
+        .cancellable(id: TransitionID.self, cancelInFlight: true)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -63,9 +84,25 @@ struct Main: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
-            case .dateSelector(.didSelect(date: let date)):
-                state.schedule.datasource.date = date
+            case .beginTransition:
+                state.schedule.isTransitioning = true
                 return .none
+
+            case .updateDatasource:
+                let date = state.dateSelector.selectedDate
+                state.schedule.selectedDate = date
+                state.schedule.movieItems = getMovieItems(from: state.movies, on: date)
+                state.schedule.showingItems = getShowingItems(from: state.movies, on: date)
+
+                return .none
+
+            case .endTransition:
+                state.isFetchingMovies = false
+                state.schedule.isTransitioning = false
+                return .none
+
+            case .dateSelector(.didSelect):
+                return updateDatasource()
 
             case .movieDetail:
                 return .none
@@ -83,10 +120,6 @@ struct Main: ReducerProtocol {
                 state.settings = Settings.State()
                 return .none
 
-            case .schedule(.transitionDidEnd):
-                state.isFetchingMovies = false
-                return .none
-
             case .schedule:
                 return .none
 
@@ -102,8 +135,9 @@ struct Main: ReducerProtocol {
             case .movieClient(let result):
                 switch result {
                 case .success(let movies):
-                    state.schedule.datasource.movies = movies
-                    return .none
+                    state.movies = movies
+                    return updateDatasource()
+
                 case .failure(let error):
                     switch error {
                     case .network, .decoding:
@@ -130,11 +164,32 @@ struct Main: ReducerProtocol {
 
             }
         }
-        .ifLet(\.settings, action: /Action.settings) {
-            Settings()
-        }
         .ifLet(\.movieDetail, action: /Action.movieDetail) {
             MovieDetail()
         }
+        .ifLet(\.settings, action: /Action.settings) {
+            Settings()
+        }
+    }
+
+    private func getMovieItems(from movies: [Movie], on date: Date) -> IdentifiedArrayOf<MovieItem.State> {
+        let showings = movies.flatMap { movie in
+            movie.showings.filter { $0.isShown(on: date) }
+        }
+
+        let parentMovies = Array(Set(showings.compactMap { $0.parentMovie })).sorted()
+        let movieItems = parentMovies.map { MovieItem.State(id: uuid(), movie: $0) }
+
+        return IdentifiedArray(uniqueElements: movieItems)
+    }
+
+    private func getShowingItems(from movies: [Movie], on date: Date) -> IdentifiedArrayOf<ShowingItem.State> {
+        let showings = movies.flatMap { movie in
+            movie.showings.filter { $0.isShown(on: date) }
+        }.sorted()
+
+        let showingItems = showings.map { ShowingItem.State(id: uuid(), showing: $0) }
+
+        return IdentifiedArray(uniqueElements: showingItems)
     }
 }

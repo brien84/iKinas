@@ -11,7 +11,7 @@ import SwiftUI
 
 private extension MovieListView {
     struct State: Equatable {
-        var didUpdateDatasource = false
+        var isTransitioning = false
         var movieItems: IdentifiedArrayOf<MovieItem.State> = []
     }
 
@@ -22,7 +22,7 @@ private extension MovieListView {
 
 private extension Schedule.State {
     var state: MovieListView.State {
-        .init(didUpdateDatasource: self.didUpdateDatasource, movieItems: self.movieItems)
+        .init(isTransitioning: self.isTransitioning, movieItems: self.movieItems)
     }
 }
 
@@ -41,32 +41,32 @@ struct MovieListView: View {
     var body: some View {
         WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
             GeometryReader { proxy in
-                ZStack {
-                    Color.primaryBackground
-
-                    ScrollViewReader { scrollProxy in
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            LazyHStack {
-                                ForEachStore(
-                                    store.scope(state: \.movieItems, action: Schedule.Action.movieItem(id:action:))
-                                ) {
-                                    MovieItemView(store: $0)
-                                        .frame(width: proxy.size.height / Self.widthToHeightRatio, height: proxy.size.height)
-                                }
+                ScrollViewReader { scrollProxy in
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        LazyHStack {
+                            ForEachStore(store.scope(
+                                state: \.movieItems,
+                                action: Schedule.Action.movieItem(id:action:)
+                            )) {
+                                MovieItemView(store: $0)
+                                    .frame(
+                                        width: proxy.size.height / Self.widthToHeightRatio,
+                                        height: proxy.size.height
+                                    )
                             }
-                            .padding(.horizontal)
-                            .id(Self.scrollToTopID)
                         }
-                        .onChange(of: viewStore.didUpdateDatasource) { newValue in
-                            guard newValue else { return }
-                            DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
-                                scrollProxy.scrollTo(Self.scrollToTopID, anchor: .leading)
-                            }
+                        .padding(.horizontal)
+                        .id(Self.scrollToTopID)
+                    }
+                    .background(Color.primaryBackground)
+                    .onChange(of: viewStore.isTransitioning) { newValue in
+                        guard newValue else { return }
+                        DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
+                            scrollProxy.scrollTo(Self.scrollToTopID, anchor: .leading)
                         }
                     }
-
                 }
-            }
+           }
         }
     }
 }
@@ -87,7 +87,10 @@ struct MovieListView_Previews: PreviewProvider {
         return IdentifiedArray(uniqueElements: movies.map { MovieItem.State(id: UUID(), movie: $0) })
     }()
 
-    static let store = Store(initialState: Schedule.State(movieItems: items), reducer: Schedule())
+    static let store = Store(
+        initialState: Schedule.State(movieItems: items),
+        reducer: Schedule()
+    )
 
     static var previews: some View {
         ZStack {
