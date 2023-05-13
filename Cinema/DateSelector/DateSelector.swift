@@ -14,6 +14,11 @@ struct DateSelector: ReducerProtocol {
         let dates: [Date]
         var selectedDate: Date
 
+        init(dates: [Date], selectedDate: Date) {
+            self.dates = dates
+            self.selectedDate = selectedDate
+        }
+
         init(dates: [Date]) {
             self.dates = dates
 
