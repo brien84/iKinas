@@ -35,19 +35,40 @@ struct MainView: View {
                     .edgesIgnoringSafeArea(.bottom)
 
                 VStack(spacing: .zero) {
-                    DateSelectorView(store: store.scope(
-                        state: \.dateSelector,
-                        action: Main.Action.dateSelector
-                    ))
-                    .disabled(viewStore.isFetchingMovies)
-                    .padding(.vertical)
+                    HStack(spacing: .zero) {
+                        Button {
+                            viewStore.send(.didPressHomeFeedButton)
+                        } label: {
+                            let isSelected = viewStore.isHomeFeedButtonSelected
+                            Image(systemName: "house")
+                                .foregroundColor(isSelected ? .tertiaryElement : .primaryElement)
+                                .padding(.horizontal)
+                        }
+
+                        Divider()
+
+                        DateSelectorView(store: store.scope(
+                            state: \.dateSelector,
+                            action: Main.Action.dateSelector
+                        ))
+                        .disabled(viewStore.isFetchingMovies)
+                        .padding(.vertical)
+                    }
+                    .fixedSize(horizontal: false, vertical: true)
 
                     Divider()
 
-                    ScheduleView(store: store.scope(
-                        state: \.schedule,
-                        action: Main.Action.schedule
-                    ))
+                    if viewStore.isHomeFeedActive {
+                        HomeFeedView(store: store.scope(
+                            state: \.homeFeed,
+                            action: Main.Action.homeFeed
+                        ))
+                    } else {
+                        ScheduleView(store: store.scope(
+                            state: \.schedule,
+                            action: Main.Action.schedule
+                        ))
+                    }
                 }
 
                 if viewStore.isFetchingMovies {

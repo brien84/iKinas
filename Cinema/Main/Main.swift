@@ -12,24 +12,29 @@ import Foundation
 struct Main: ReducerProtocol {
     struct State: Equatable {
         var dateSelector = DateSelector.State(
-            dates: Calendar.current.getNextSevenDays()
+            dates: Calendar.current.getNextSevenDays(),
+            selectedDate: .distantPast
         )
+        var homeFeed = HomeFeed.State()
         var movieDetail: MovieDetail.State?
         var schedule = Schedule.State()
         var settings: Settings.State?
 
+        var isHomeFeedActive = true
+        var isHomeFeedButtonSelected = true
+
         var isFetchingMovies = true
         var movieClientError: MovieClient.Error?
+        var movies: [Movie] = []
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
         }
-
-        var movies: [Movie] = []
     }
 
     enum Action: Equatable {
         case dateSelector(DateSelector.Action)
+        case homeFeed(HomeFeed.Action)
         case movieDetail(MovieDetail.Action)
         case schedule(Schedule.Action)
         case settings(Settings.Action)
@@ -40,6 +45,7 @@ struct Main: ReducerProtocol {
         case setNavigationToMovieDetail(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
 
+        case didPressHomeFeedButton
         case beginTransition
         case updateDatasource
         case endTransition
@@ -50,31 +56,13 @@ struct Main: ReducerProtocol {
     @Dependency(\.userDefaults) var userDefaults
     @Dependency(\.uuid) var uuid
 
-    private func fetchMovies(state: inout State) -> Effect<Action, Never> {
-        state.isFetchingMovies = true
-        state.movieClientError = nil
-        let city = userDefaults.getCity()
-        let venues = userDefaults.getVenues()
-        return movieClient.fetch(city, venues)
-            .receive(on: mainQueue)
-            .catchToEffect(Action.movieClient)
-    }
-
-    private enum TransitionID { }
-
-    private func updateDatasource() -> Effect<Action, Never> {
-        Effect.run { send in
-            await send(.beginTransition, animation: .easeInOut(duration: 0.3))
-            try await Task.sleep(nanoseconds: 300_000_000)
-            await send(.updateDatasource)
-            await send(.endTransition, animation: .easeInOut(duration: 0.4))
-        }
-        .cancellable(id: TransitionID.self, cancelInFlight: true)
-    }
-
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.dateSelector, action: /Action.dateSelector) {
             DateSelector()
+        }
+
+        Scope(state: \.homeFeed, action: /Action.homeFeed) {
+            HomeFeed()
         }
 
         Scope(state: \.schedule, action: /Action.schedule) {
@@ -84,25 +72,12 @@ struct Main: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
-            case .beginTransition:
-                state.schedule.isTransitioning = true
-                return .none
-
-            case .updateDatasource:
-                let date = state.dateSelector.selectedDate
-                state.schedule.selectedDate = date
-                state.schedule.movieItems = getMovieItems(from: state.movies, on: date)
-                state.schedule.showingItems = getShowingItems(from: state.movies, on: date)
-
-                return .none
-
-            case .endTransition:
-                state.isFetchingMovies = false
-                state.schedule.isTransitioning = false
-                return .none
-
             case .dateSelector(.didSelect):
+                state.isHomeFeedButtonSelected = false
                 return updateDatasource()
+
+            case .homeFeed:
+                return .none
 
             case .movieDetail:
                 return .none
@@ -162,6 +137,32 @@ struct Main: ReducerProtocol {
                 }
                 return .none
 
+            case .didPressHomeFeedButton:
+                state.isHomeFeedButtonSelected = true
+                state.dateSelector.selectedDate = .distantPast
+                return updateDatasource()
+
+            case .beginTransition:
+                state.homeFeed.isTransitioning = true
+                state.schedule.isTransitioning = true
+                return .none
+
+            case .updateDatasource:
+                state.isHomeFeedActive = state.isHomeFeedButtonSelected
+
+                let date = state.dateSelector.selectedDate
+                state.schedule.selectedDate = date
+                state.schedule.movieItems = getMovieItems(from: state.movies, on: date)
+                state.schedule.showingItems = getShowingItems(from: state.movies, on: date)
+
+                return .none
+
+            case .endTransition:
+                state.isFetchingMovies = false
+                state.homeFeed.isTransitioning  = false
+                state.schedule.isTransitioning = false
+                return .none
+
             }
         }
         .ifLet(\.movieDetail, action: /Action.movieDetail) {
@@ -170,6 +171,16 @@ struct Main: ReducerProtocol {
         .ifLet(\.settings, action: /Action.settings) {
             Settings()
         }
+    }
+
+    private func fetchMovies(state: inout State) -> Effect<Action, Never> {
+        state.isFetchingMovies = true
+        state.movieClientError = nil
+        let city = userDefaults.getCity()
+        let venues = userDefaults.getVenues()
+        return movieClient.fetch(city, venues)
+            .receive(on: mainQueue)
+            .catchToEffect(Action.movieClient)
     }
 
     private func getMovieItems(from movies: [Movie], on date: Date) -> IdentifiedArrayOf<MovieItem.State> {
@@ -191,5 +202,17 @@ struct Main: ReducerProtocol {
         let showingItems = showings.map { ShowingItem.State(id: uuid(), showing: $0) }
 
         return IdentifiedArray(uniqueElements: showingItems)
+    }
+
+    private enum TransitionID { }
+
+    private func updateDatasource() -> Effect<Action, Never> {
+        Effect.run { send in
+            await send(.beginTransition, animation: .easeInOut(duration: 0.3))
+            try await Task.sleep(nanoseconds: 300_000_000)
+            await send(.updateDatasource)
+            await send(.endTransition, animation: .easeInOut(duration: 0.4))
+        }
+        .cancellable(id: TransitionID.self, cancelInFlight: true)
     }
 }
