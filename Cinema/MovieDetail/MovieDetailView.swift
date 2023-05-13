@@ -25,11 +25,14 @@ struct MovieDetailView: View {
 
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: .zero) {
-                        PosterView(store: store)
-                            .scaleEffect(posterScale)
-                            .offset(y: -posterOffset)
-                            .opacity(posterOpacity)
-                            .background(FrameGetter(frame: $posterFrame))
+                        NetworkImageView(store: store.scope(
+                            state: \.networkImage,
+                            action: MovieDetail.Action.networkImage
+                        ))
+                        .scaleEffect(posterScale)
+                        .offset(y: -posterOffset)
+                        .opacity(posterOpacity)
+                        .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
                             TitleView(movie: viewStore.movie)

@@ -46,7 +46,6 @@
 		29817F83293CA6CB00E59D42 /* VenueListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F82293CA6CB00E59D42 /* VenueListView.swift */; };
 		29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F84293CAB3400E59D42 /* ExitButtonView.swift */; };
 		298BBF132961F67800C2EA8C /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF122961F67800C2EA8C /* BodyView.swift */; };
-		298BBF162961F76500C2EA8C /* PosterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF152961F76500C2EA8C /* PosterView.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
 		299E52582A0A18430020E1CE /* Extension+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299E52572A0A18430020E1CE /* Extension+Calendar.swift */; };
 		29B1BAE8296743D300A60E20 /* MovieShowings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE7296743D300A60E20 /* MovieShowings.swift */; };
@@ -128,7 +127,6 @@
 		29817F82293CA6CB00E59D42 /* VenueListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueListView.swift; sourceTree = "<group>"; };
 		29817F84293CAB3400E59D42 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		298BBF122961F67800C2EA8C /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
-		298BBF152961F76500C2EA8C /* PosterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterView.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		299E52572A0A18430020E1CE /* Extension+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Calendar.swift"; sourceTree = "<group>"; };
 		29B1BAE7296743D300A60E20 /* MovieShowings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieShowings.swift; sourceTree = "<group>"; };
@@ -265,7 +263,6 @@
 			isa = PBXGroup;
 			children = (
 				298BBF122961F67800C2EA8C /* BodyView.swift */,
-				298BBF152961F76500C2EA8C /* PosterView.swift */,
 				29BFAF85295F29E500655325 /* TitleView.swift */,
 			);
 			path = Subviews;
@@ -611,7 +608,6 @@
 				29E306A1296F14D9003A52C4 /* EmptyErrorView.swift in Sources */,
 				29C1EA8C2958EF8C007B629B /* LoadingView.swift in Sources */,
 				291525F0294FACB100192153 /* Schedule.swift in Sources */,
-				298BBF162961F76500C2EA8C /* PosterView.swift in Sources */,
 				2956C7FE29532AAC007F60A4 /* MovieClient.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageView.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
