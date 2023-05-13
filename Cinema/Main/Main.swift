@@ -76,6 +76,10 @@ struct Main: ReducerProtocol {
                 state.isHomeFeedButtonSelected = false
                 return updateDatasource()
 
+            case .homeFeed(.settingsButtonDidTap):
+                state.settings = Settings.State()
+                return .none
+
             case .homeFeed:
                 return .none
 
@@ -89,10 +93,6 @@ struct Main: ReducerProtocol {
             case .schedule(.showingItem(id: _, action: .didSelectShowing(let showing))):
                 guard let movie = showing.parentMovie else { return .none }
                 state.movieDetail = MovieDetail.State(movie: movie, showing: showing)
-                return .none
-
-            case .schedule(.settingsButtonDidTap):
-                state.settings = Settings.State()
                 return .none
 
             case .schedule:

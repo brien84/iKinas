@@ -28,17 +28,10 @@ struct ScheduleView: View {
                                 SmallDateLabel(date: viewStore.selectedDate)
                                     .transitionDateLabel(viewStore.isTransitioning)
 
-                                HStack {
-                                    LargeDateLabel(date: viewStore.selectedDate)
-                                        .transitionDateLabel(viewStore.isTransitioning)
-
-                                    SettingsButton {
-                                        viewStore.send(.settingsButtonDidTap)
-                                    }
-                                    .opacity(Calendar.current.isDateInToday(viewStore.selectedDate) ? 1 : 0)
-                                }
-                                .padding(.horizontal)
-                                .padding(.vertical, Self.verticalPadding)
+                                LargeDateLabel(date: viewStore.selectedDate)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, Self.verticalPadding)
+                                    .transitionDateLabel(viewStore.isTransitioning)
                             }
                             .id(Self.scrollToTopID)
                             .background(FrameGetter(frame: $dateFrame))
@@ -119,20 +112,6 @@ private struct SectionLabel: View {
             .foregroundColor(.primaryElement)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
-    }
-}
-
-private struct SettingsButton: View {
-    let action: () -> Void
-
-    var body: some View {
-        Button {
-            action()
-        } label: {
-            Image(systemName: "gearshape")
-                .font(.title2)
-                .foregroundColor(.primaryElement)
-        }
     }
 }
 

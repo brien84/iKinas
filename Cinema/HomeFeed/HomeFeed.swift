@@ -10,17 +10,17 @@ import ComposableArchitecture
 
 struct HomeFeed: ReducerProtocol {
     struct State: Equatable {
-
+        var isTransitioning = false
     }
 
     enum Action: Equatable {
-        case none
+        case settingsButtonDidTap
     }
 
     var body: some ReducerProtocol<State, Action> {
         Reduce { _, action in
             switch action {
-            case .none:
+            case .settingsButtonDidTap:
                 return .none
             }
         }

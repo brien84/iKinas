@@ -13,8 +13,38 @@ struct HomeFeedView: View {
     let store: StoreOf<HomeFeed>
 
     var body: some View {
-        WithViewStore(store) { _ in
+        WithViewStore(store) { viewStore in
+            ZStack {
+                Color.primaryBackground
+                    .edgesIgnoringSafeArea(.bottom)
 
+                VStack {
+                    SettingsButton {
+                        viewStore.send(.settingsButtonDidTap)
+                    }
+
+                    Text("Welcome to HomeFeed!")
+                        .font(.largeTitle.bold())
+                        .foregroundColor(.primaryElement)
+                        .padding()
+                        .scaleEffect(viewStore.isTransitioning ? 0.75 : 1)
+                }
+            }
+            .opacity(viewStore.isTransitioning ? 0 : 1)
+        }
+    }
+}
+
+private struct SettingsButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: "gearshape")
+                .font(.title2)
+                .foregroundColor(.primaryElement)
         }
     }
 }

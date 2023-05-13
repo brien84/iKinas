@@ -20,20 +20,15 @@ struct Schedule: ReducerProtocol {
     enum Action: Equatable {
         case movieItem(id: MovieItem.State.ID, action: MovieItem.Action)
         case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
-        case settingsButtonDidTap
     }
 
     var body: some ReducerProtocol<State, Action> {
         Reduce { _, action in
             switch action {
-
             case .movieItem:
                 return .none
 
             case .showingItem:
-                return .none
-
-            case .settingsButtonDidTap:
                 return .none
             }
         }
