@@ -12,70 +12,62 @@ import SwiftUI
 struct ScheduleView: View {
     let store: StoreOf<Schedule>
 
-    @State private var backgroundFrame: CGRect = CGRect()
     @State private var dateFrame: CGRect = CGRect()
+    @State private var viewFrame: CGRect = CGRect()
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ZStack {
-                Color.primaryBackground
-                    .background(FrameGetter(frame: $backgroundFrame))
+            ScrollViewReader { scrollProxy in
+                ScrollView {
+                    VStack(spacing: Self.verticalSpacing) {
+                        VStack(spacing: Self.verticalSpacing) {
+                            SmallDateLabel(date: viewStore.selectedDate)
+                                .transitionDateLabel(viewStore.isTransitioning)
 
-                ScrollViewReader { scrollProxy in
-                    ScrollView {
-                        VStack(spacing: .zero) {
-                            VStack(spacing: .zero) {
-                                SmallDateLabel(date: viewStore.selectedDate)
-                                    .transitionDateLabel(viewStore.isTransitioning)
+                            LargeDateLabel(date: viewStore.selectedDate)
+                                .transitionDateLabel(viewStore.isTransitioning)
+                        }
+                        .background(FrameGetter(frame: $dateFrame))
+                        .id(Self.scrollToTopID)
+                        .padding(.top)
 
-                                LargeDateLabel(date: viewStore.selectedDate)
-                                    .padding(.horizontal)
-                                    .padding(.vertical, Self.verticalPadding)
-                                    .transitionDateLabel(viewStore.isTransitioning)
+                        Divider()
+
+                        if !viewStore.movieItems.isEmpty {
+                            VStack {
+                                SectionLabel(text: "Filmai")
+                                    .transitionSectionLabel(viewStore.isTransitioning)
+
+                                MovieListView(store: store)
+                                    .frame(height: viewFrame.width * Self.heightToWidthRatio)
+                                    .transitionMovieListView(viewStore.isTransitioning)
+
+                                SectionLabel(text: "Seansai")
+                                    .transitionSectionLabel(viewStore.isTransitioning)
+
+                                ShowingListView(store: store)
+                                    .transitionShowingListView(viewStore.isTransitioning)
                             }
-                            .id(Self.scrollToTopID)
-                            .background(FrameGetter(frame: $dateFrame))
-
-                            Divider()
-
-                            ZStack {
-                                VStack {
-                                    SectionLabel(text: "Filmai")
-                                        .padding(.top, Self.verticalPadding)
-                                        .transitionSectionLabel(viewStore.isTransitioning)
-
-                                    MovieListView(store: store)
-                                        .frame(height: backgroundFrame.width * Self.heightToWidthRatio)
-                                        .transitionMovieListView(viewStore.isTransitioning)
-
-                                    SectionLabel(text: "Seansai")
-                                        .transitionSectionLabel(viewStore.isTransitioning)
-
-                                    ShowingListView(store: store)
-                                        .transitionShowingListView(viewStore.isTransitioning)
-                                }
-
-                                if viewStore.movieItems.isEmpty {
-                                    EmptyErrorView(title: "nieko nerodo", subtitle: "pasirinkite kitą dieną")
-                                        .frame(
-                                            width: backgroundFrame.width,
-                                            height: backgroundFrame.height - dateFrame.height
-                                        )
-                                        .transitionalBlur(viewStore.isTransitioning)
-                                }
-                            }
+                        } else {
+                            EmptyErrorView(title: "nieko nerodo", subtitle: "pasirinkite kitą dieną")
+                                .frame(
+                                    width: viewFrame.width,
+                                    height: viewFrame.height - dateFrame.height
+                                )
+                                .transitionalBlur(viewStore.isTransitioning)
                         }
                     }
-                    .transitionScheduleView(viewStore.isTransitioning)
-                    .onChange(of: viewStore.isTransitioning) { newValue in
-                        guard newValue else { return }
-                        DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
-                            scrollProxy.scrollTo(Self.scrollToTopID)
-                        }
+                }
+                .transitionScheduleView(viewStore.isTransitioning)
+                .onChange(of: viewStore.isTransitioning) { newValue in
+                    guard newValue else { return }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
+                        scrollProxy.scrollTo(Self.scrollToTopID)
                     }
                 }
             }
         }
+        .background(FrameGetter(frame: $viewFrame))
     }
 }
 
@@ -87,6 +79,7 @@ private struct LargeDateLabel: View {
             .font(.largeTitle.bold())
             .foregroundColor(.primaryElement)
             .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal)
     }
 }
 
@@ -95,11 +88,11 @@ private struct SmallDateLabel: View {
 
     var body: some View {
         Text(date.toString(.monthAndDay))
-            .textCase(.uppercase)
             .font(.caption.bold())
             .foregroundColor(.secondaryElement)
+            .textCase(.uppercase)
             .frame(maxWidth: .infinity, alignment: .leading)
-            .padding([.top, .horizontal])
+            .padding(.horizontal)
     }
 }
 
@@ -121,7 +114,7 @@ private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.96
     static let scrollToTopDelay: TimeInterval = 0.3
     static let scrollToTopID: String = "upandaway"
-    static let verticalPadding: CGFloat = 8
+    static let verticalSpacing: CGFloat = 8
 }
 
 // MARK: - Transitions
