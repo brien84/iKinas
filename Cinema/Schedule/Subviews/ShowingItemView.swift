@@ -14,10 +14,8 @@ struct ShowingItemView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ShrinkOnPressView {
-                ZStack {
-                    Color.primaryBackground
-
+            VStack(spacing: .zero) {
+                ShrinkOnPressView {
                     HStack {
                         NetworkImageView(store: store.scope(
                             state: \.networkImage,
@@ -44,11 +42,15 @@ struct ShowingItemView: View {
                             Image(viewStore.showing.venue.rawValue)
                         }
                     }
+                    .onTapGesture {
+                        viewStore.send(.didSelectShowing(viewStore.showing))
+                    }
                 }
-                .onTapGesture {
-                    viewStore.send(.didSelectShowing(viewStore.showing))
-                }
+
+                Divider()
+                    .padding(.vertical)
             }
+            .padding(.horizontal)
         }
     }
 }

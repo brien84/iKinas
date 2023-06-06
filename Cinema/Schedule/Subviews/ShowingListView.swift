@@ -9,46 +9,16 @@
 import ComposableArchitecture
 import SwiftUI
 
-private extension ShowingListView {
-    struct State: Equatable {
-        var showingItems: IdentifiedArrayOf<ShowingItem.State> = []
-    }
-
-    enum Action: Equatable {
-        case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
-    }
-}
-
-private extension Schedule.State {
-    var state: ShowingListView.State {
-        .init(showingItems: self.showingItems)
-    }
-}
-
-private extension ShowingListView.Action {
-    var action: Schedule.Action {
-        switch self {
-        case .showingItem(let id, let action):
-            return .showingItem(id: id, action: action)
-        }
-    }
-}
-
 struct ShowingListView: View {
     let store: StoreOf<Schedule>
 
     var body: some View {
-        WithViewStore(store, observe: \.state, send: \Action.action) { _ in
-            LazyVStack(spacing: .zero) {
-                ForEachStore(
-                    store.scope(state: \.showingItems, action: Schedule.Action.showingItem(id:action:))
-                ) {
-                    ShowingItemView(store: $0)
-                        .padding(.horizontal)
-
-                    Divider()
-                        .padding()
-                }
+        LazyVStack(spacing: .zero) {
+            ForEachStore(store.scope(
+                state: \.showingItems,
+                action: Schedule.Action.showingItem(id:action:)
+            )) {
+                ShowingItemView(store: $0)
             }
         }
     }
