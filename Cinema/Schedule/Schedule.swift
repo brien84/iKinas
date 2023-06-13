@@ -12,31 +12,59 @@ import SwiftUI
 struct Schedule: ReducerProtocol {
     struct State: Equatable {
         var isTransitioning = false
-        var movieItems: IdentifiedArrayOf<MovieItem.State> = []
-        var showingItems: IdentifiedArrayOf<ShowingItem.State> = []
         var selectedDate = Date()
+
+        var items: IdentifiedArrayOf<ScheduleItem.State> = []
+        var movieItems: IdentifiedArrayOf<ScheduleItem.State> = []
+        var showingItems: IdentifiedArrayOf<ScheduleItem.State> = []
     }
 
     enum Action: Equatable {
-        case movieItem(id: MovieItem.State.ID, action: MovieItem.Action)
-        case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
+        case filterItems
+        case movieItem(id: ScheduleItem.State.ID, action: ScheduleItem.Action)
+        case showingItem(id: ScheduleItem.State.ID, action: ScheduleItem.Action)
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
+
+            case .movieItem(id: let id, action: .networkImage(.imageClient(.success))):
+                guard let networkImage = state.movieItems[id: id]?.networkImage else { return .none }
+                state.items[id: id]?.networkImage = networkImage
+                return .none
+
             case .movieItem:
+                return .none
+
+            case .showingItem(id: let id, action: .networkImage(.imageClient(.success))):
+                guard let networkImage = state.showingItems[id: id]?.networkImage else { return .none }
+                state.items[id: id]?.networkImage = networkImage
                 return .none
 
             case .showingItem:
                 return .none
+
+            case .filterItems:
+                state.showingItems = state.items.filter {
+                    $0.showing.isShown(on: state.selectedDate)
+                }
+                state.showingItems.sort(by: { $0.showing < $1.showing })
+
+                state.movieItems.removeAll()
+                for item in state.showingItems where !state.movieItems.contains(where: { $0.movie == item.movie }) {
+                    state.movieItems.append(item)
+                }
+                state.movieItems.sort(by: { $0.movie < $1.movie })
+                return .none
+
             }
         }
         .forEach(\.movieItems, action: /Action.movieItem(id:action:)) {
-            MovieItem()
+            ScheduleItem()
         }
         .forEach(\.showingItems, action: /Action.showingItem(id:action:)) {
-            ShowingItem()
+            ScheduleItem()
         }
     }
 }

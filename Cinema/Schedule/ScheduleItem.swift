@@ -1,30 +1,31 @@
 //
-//  ShowingItem.swift
+//  ScheduleItem.swift
 //  Cinema
 //
-//  Created by Marius on 2022-12-19.
-//  Copyright © 2022 Marius. All rights reserved.
+//  Created by Marius on 2023-06-12.
+//  Copyright © 2023 Marius. All rights reserved.
 //
 
 import ComposableArchitecture
 import Foundation
 
-struct ShowingItem: ReducerProtocol {
-
+struct ScheduleItem: ReducerProtocol {
     struct State: Equatable, Identifiable {
-        let id: UUID
+        var id: UUID { showing.id }
         let showing: Showing
+        let movie: Movie
         var networkImage: NetworkImage.State
 
-        init(id: UUID, showing: Showing) {
-            self.id = id
+        init?(showing: Showing) {
             self.showing = showing
-            self.networkImage = NetworkImage.State(url: showing.parentMovie?.poster)
+            guard let movie = showing.parentMovie else { return nil }
+            self.movie = movie
+            self.networkImage = NetworkImage.State(url: movie.poster)
         }
     }
 
     enum Action: Equatable {
-        case didSelectShowing(Showing)
+        case didSelect
         case networkImage(NetworkImage.Action)
     }
 
@@ -35,12 +36,11 @@ struct ShowingItem: ReducerProtocol {
 
         Reduce { _, action in
             switch action {
-            case .didSelectShowing:
+            case .didSelect:
                 return .none
             case .networkImage:
                 return .none
             }
         }
     }
-
 }

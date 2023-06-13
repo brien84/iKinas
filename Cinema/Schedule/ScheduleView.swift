@@ -19,19 +19,21 @@ struct ScheduleView: View {
         WithViewStore(store) { viewStore in
             ScrollViewReader { scrollProxy in
                 ScrollView {
-                    VStack(spacing: Self.verticalSpacing) {
-                        VStack(spacing: Self.verticalSpacing) {
+                    VStack(spacing: .zero) {
+                        VStack(spacing: .zero) {
                             SmallDateLabel(date: viewStore.selectedDate)
                                 .transitionDateLabel(viewStore.isTransitioning)
 
                             LargeDateLabel(date: viewStore.selectedDate)
                                 .transitionDateLabel(viewStore.isTransitioning)
+                                .padding(.top, Self.verticalPadding)
+
+                            Divider()
+                                .padding(.vertical, Self.verticalPadding)
                         }
-                        .background(FrameGetter(frame: $dateFrame))
                         .id(Self.scrollToTopID)
                         .padding(.top)
-
-                        Divider()
+                        .background(FrameGetter(frame: $dateFrame))
 
                         if !viewStore.movieItems.isEmpty {
                             VStack {
@@ -114,7 +116,7 @@ private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.96
     static let scrollToTopDelay: TimeInterval = 0.3
     static let scrollToTopID: String = "upandaway"
-    static let verticalSpacing: CGFloat = 8
+    static let verticalPadding: CGFloat = 8
 }
 
 // MARK: - Transitions
@@ -152,19 +154,54 @@ private extension View {
 // MARK: - Previews
 
 struct ScheduleView_Previews: PreviewProvider {
-    static let movie = Movie(showings: Array(repeating: Showing(), count: 15))
+    static var showings: [Showing] {
+        stride(from: 1, to: 5, by: 1).map { index in
+            Showing(is3D: index % 2 == 0)
+        }
+    }
 
-    static let showingItems = {
-        IdentifiedArray(uniqueElements: movie.showings.map {
-            ShowingItem.State(id: UUID(), showing: $0)
-        })
+    static let movies = {
+        stride(from: 1, to: 10, by: 1).map { index in
+            Movie(
+                title: String(repeating: "Preview ", count: index),
+                originalTitle: String(repeating: index % 2 == 0 ? "Preview " : "Preview", count: index),
+                showings: showings
+            )
+        }
+    }()
+
+    static let items = {
+        IdentifiedArray(uniqueElements:
+            movies.flatMap {
+                $0.showings.compactMap {
+                    ScheduleItem.State(showing: $0)
+                }
+            }
+        )
     }()
 
     static let store = Store(
-        initialState: Schedule.State(
-            movieItems: [MovieItem.State(id: UUID(), movie: movie)],
-            showingItems: showingItems
-        ),
+        initialState: Schedule.State(items: items),
+        reducer: Schedule()
+    )
+
+    static var previews: some View {
+        ZStack {
+            Color.primaryBackground
+                .ignoresSafeArea()
+
+            ScheduleView(store: store)
+                .preferredColorScheme(.dark)
+                .onAppear {
+                    ViewStore(store).send(.filterItems)
+                }
+        }
+    }
+}
+
+struct EmptyScheduleView_Previews: PreviewProvider {
+    static let store = Store(
+        initialState: Schedule.State(),
         reducer: Schedule()
     )
 

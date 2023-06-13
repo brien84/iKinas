@@ -24,26 +24,89 @@ struct ShowingListView: View {
     }
 }
 
-// MARK: - Previews
+private struct ShowingItemView: View {
+    let store: StoreOf<ScheduleItem>
 
-struct ShowingListView_Previews: PreviewProvider {
-    static let movie = Movie(showings: Array(repeating: Showing(), count: 16))
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            VStack(spacing: .zero) {
+                ShrinkOnPressView {
+                    HStack {
+                        NetworkImageView(store: store.scope(
+                            state: \.networkImage,
+                            action: ScheduleItem.Action.networkImage
+                        ))
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: Self.width, height: Self.height)
+                        .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
 
-    static let showingItems = {
-        IdentifiedArray(uniqueElements: movie.showings.map { ShowingItem.State(id: UUID(), showing: $0) })
-    }()
+                        ShowingTitleView(movie: viewStore.movie)
 
-    static let store = Store(initialState: Schedule.State(showingItems: showingItems), reducer: Schedule())
+                        VStack(alignment: .trailing) {
+                            HStack {
+                                Image(systemName: "view.3d")
+                                    .font(.body.weight(.medium))
+                                    .foregroundColor(.tertiaryElement)
+                                    .opacity(viewStore.showing.is3D ? 1 : 0)
 
-    static var previews: some View {
-        ZStack {
-            Color.primaryBackground
-                .ignoresSafeArea()
+                                Text(viewStore.showing.date.toString(.timeOfDay))
+                                    .font(.title2.weight(.medium))
+                                    .foregroundColor(.primaryElement)
+                            }
 
-            ScrollView {
-                ShowingListView(store: store)
+                            Image(viewStore.showing.venue.rawValue)
+                        }
+                    }
+                    .onTapGesture {
+                        viewStore.send(.didSelect)
+                    }
+                }
+
+                Divider()
+                    .padding(.vertical)
             }
+            .padding(.horizontal)
         }
-        .preferredColorScheme(.dark)
     }
+}
+
+private struct ShowingTitleView: View {
+    private let title: String
+    private let originalTitle: String
+
+    init(movie: Movie) {
+        self.title = movie.title
+        self.originalTitle = movie.originalTitle
+    }
+
+    var body: some View {
+        if title == originalTitle {
+            Text(title)
+                .font(.callout.bold())
+                .foregroundColor(.primaryElement)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        } else {
+            VStack(alignment: .leading) {
+                Text(title)
+                    .font(.callout.bold())
+                    .lineLimit(2)
+                    .foregroundColor(.primaryElement)
+
+                Text(originalTitle)
+                    .font(.subheadline)
+                    .lineLimit(1)
+                    .foregroundColor(.secondaryElement)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+}
+
+// MARK: - Constants
+
+private extension ShowingItemView {
+    static let cornerRadius: CGFloat = 10
+    static let height: CGFloat = 75
+    static let width: CGFloat = 75
 }
