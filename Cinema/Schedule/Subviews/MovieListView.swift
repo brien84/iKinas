@@ -25,8 +25,8 @@ struct MovieListView: View {
                                 .aspectRatio(Self.aspectRatio, contentMode: .fit)
                         }
                     }
-                    .id(Self.scrollToTopID)
                     .padding(.horizontal)
+                    .id(Self.scrollToTopID)
                 }
                 .onChange(of: viewStore.isTransitioning) { newValue in
                     guard newValue else { return }
