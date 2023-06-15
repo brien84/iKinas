@@ -37,7 +37,7 @@ struct MainView: View {
                 VStack(spacing: .zero) {
                     HStack(spacing: .zero) {
                         Button {
-                            viewStore.send(.didPressHomeFeedButton)
+                            viewStore.send(.didPressHomeFeedButton, animation: .default)
                         } label: {
                             let isSelected = viewStore.isHomeFeedButtonSelected
                             Image(systemName: "house")
@@ -77,7 +77,7 @@ struct MainView: View {
 
                 if viewStore.movieClientError == .network {
                     LoadingErrorView(.network) {
-                        viewStore.send(.fetchMovies)
+                        viewStore.send(.fetchMovies, animation: .default)
                     }
                 }
 

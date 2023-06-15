@@ -19,7 +19,7 @@ struct DateSelectorView: View {
                     LazyHStack(spacing: Self.horizontalSpacing) {
                         ForEach(viewStore.dates, id: \.self) { date in
                             Button {
-                                viewStore.send(.didSelect(date: date))
+                                viewStore.send(.didSelect(date: date), animation: .default)
                             } label: {
                                 VStack {
                                     let isDateSelected = date == viewStore.selectedDate

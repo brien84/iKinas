@@ -34,7 +34,7 @@ final class MainHostingController: UIHostingController<MainView> {
         if userDefaults.isFirstLaunch() {
             viewStore.send(.setNavigationToSettings(isActive: true))
         } else {
-            viewStore.send(.fetchMovies)
+            viewStore.send(.fetchMovies, animation: .default)
         }
 
         viewStore.publisher.movieDetail

@@ -189,6 +189,7 @@ struct Main: ReducerProtocol {
             await send(.beginTransition, animation: .easeInOut(duration: 0.3))
             try await Task.sleep(nanoseconds: 300_000_000)
             await send(.updateDatasource)
+            try await Task.sleep(nanoseconds: 100_000_000)
             await send(.endTransition, animation: .easeInOut(duration: 0.4))
         }
         .cancellable(id: TransitionID.self, cancelInFlight: true)
