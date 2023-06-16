@@ -57,6 +57,7 @@ private struct ShowingItemView: View {
                             Image(viewStore.showing.venue.rawValue)
                         }
                     }
+                    .background(Color.primaryBackground)
                     .onTapGesture {
                         viewStore.send(.didSelect)
                     }
