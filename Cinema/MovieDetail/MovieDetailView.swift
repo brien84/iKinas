@@ -32,6 +32,7 @@ struct MovieDetailView: View {
                         .scaleEffect(posterScale)
                         .offset(y: -posterOffset)
                         .opacity(posterOpacity)
+                        .aspectRatio(contentMode: .fit)
                         .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
