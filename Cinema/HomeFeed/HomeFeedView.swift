@@ -14,23 +14,42 @@ struct HomeFeedView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ZStack {
-                Color.primaryBackground
-                    .edgesIgnoringSafeArea(.bottom)
-
-                VStack {
-                    SettingsButton {
-                        viewStore.send(.settingsButtonDidTap)
-                    }
-
-                    Text("Welcome to HomeFeed!")
-                        .font(.largeTitle.bold())
-                        .foregroundColor(.primaryElement)
-                        .padding()
-                        .scaleEffect(viewStore.isTransitioning ? 0.75 : 1)
+            ScrollView {
+                VStack(spacing: .zero) {
+                    HeaderView(store: store)
                 }
             }
             .opacity(viewStore.isTransitioning ? 0 : 1)
+        }
+    }
+}
+
+private struct HeaderView: View {
+    let store: StoreOf<HomeFeed>
+
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            VStack(alignment: .leading, spacing: Self.verticalSpacing) {
+                Text(Date().toString(.monthAndDay))
+                    .font(.caption.bold())
+                    .foregroundColor(.secondaryElement)
+                    .textCase(.uppercase)
+
+                HStack {
+                    Text("Sveiki!")
+                        .font(.largeTitle.bold())
+                        .foregroundColor(.primaryElement)
+
+                    Spacer()
+
+                    SettingsButton {
+                        viewStore.send(.settingsButtonDidTap)
+                    }
+                }
+
+                Divider()
+            }
+            .padding([.horizontal, .top])
         }
     }
 }
@@ -49,6 +68,12 @@ private struct SettingsButton: View {
     }
 }
 
+// MARK: - Constants
+
+private extension HeaderView {
+    static let verticalSpacing: CGFloat = 8
+}
+
 // MARK: - Previews
 
 struct HomeFeedView_Previews: PreviewProvider {
@@ -56,5 +81,6 @@ struct HomeFeedView_Previews: PreviewProvider {
 
     static var previews: some View {
         HomeFeedView(store: store)
+            .preferredColorScheme(.dark)
     }
 }
