@@ -202,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				2904C7632336982B00407B64 /* AppDelegate.swift */,
+				29D0ADC129FF03170086ECF6 /* Clients */,
 				29602B0F294B6BEC00FBE1A4 /* DateSelector */,
 				293A436A29FBEFFD00913707 /* HomeFeed */,
 				296FE0572950E9840015F7AA /* Main */,
@@ -368,7 +369,6 @@
 		29BFAF8C2961AE3C00655325 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				29D0ADC129FF03170086ECF6 /* Clients */,
 				29958963296E1CFE00AF0231 /* Extensions */,
 				29958964296E1D1C00AF0231 /* Views */,
 			);
