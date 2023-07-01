@@ -1,5 +1,5 @@
 //
-//  MovieDetailHostingController.swift
+//  MovieInfoHostingController.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-29.
@@ -11,9 +11,9 @@ import ComposableArchitecture
 import SafariServices
 import SwiftUI
 
-final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
+final class MovieInfoHostingController: UIHostingController<MovieInfoView> {
     private var cancellables: Set<AnyCancellable> = []
-    private let viewStore: ViewStoreOf<MovieDetail>
+    private let viewStore: ViewStoreOf<MovieInfo>
     private var lastTitleViewOverlapPercentage: CGFloat = 0
     private var isInteractivePopInProgress = false {
         didSet {
@@ -53,9 +53,9 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
         return button
     }()
 
-    init(store: StoreOf<MovieDetail>) {
+    init(store: StoreOf<MovieInfo>) {
         self.viewStore = ViewStore(store)
-        super.init(rootView: MovieDetailView(store: store))
+        super.init(rootView: MovieInfoView(store: store))
     }
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -144,13 +144,13 @@ final class MovieDetailHostingController: UIHostingController<MovieDetailView> {
     }
 }
 
-private extension MovieDetailHostingController {
+private extension MovieInfoHostingController {
     var navigationBar: UINavigationBar? {
         navigationController?.navigationBar
     }
 }
 
-extension MovieDetailHostingController: UIGestureRecognizerDelegate {
+extension MovieInfoHostingController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
         DispatchQueue.main.async {
@@ -189,7 +189,7 @@ extension UINavigationBar {
 
 // MARK: - Constants
 
-private extension MovieDetailHostingController {
+private extension MovieInfoHostingController {
     static let barButtonBackgroundSize: CGSize = CGSize(width: 36, height: 36)
     static let maximumBarButtonInset: CGFloat = 10
     static let navBarTitleMaximumVerticalOffset: CGFloat = 30

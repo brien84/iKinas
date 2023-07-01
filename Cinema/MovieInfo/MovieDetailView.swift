@@ -1,5 +1,5 @@
 //
-//  MovieDetailView.swift
+//  MovieInfoView.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-29.
@@ -9,8 +9,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct MovieDetailView: View {
-    let store: StoreOf<MovieDetail>
+struct MovieInfoView: View {
+    let store: StoreOf<MovieInfo>
 
     @State private var posterFrame: CGRect = CGRect()
     @State private var titleViewFrame: CGRect = CGRect()
@@ -27,7 +27,7 @@ struct MovieDetailView: View {
                     VStack(spacing: .zero) {
                         NetworkImageView(store: store.scope(
                             state: \.networkImage,
-                            action: MovieDetail.Action.networkImage
+                            action: MovieInfo.Action.networkImage
                         ))
                         .scaleEffect(posterScale)
                         .offset(y: -posterOffset)
@@ -51,13 +51,13 @@ struct MovieDetailView: View {
             .sheet(
                 isPresented: viewStore.binding(
                     get: \.isNavigationToMovieShowingsActive,
-                    send: MovieDetail.Action.setNavigationToMovieShowings(isActive:)
+                    send: MovieInfo.Action.setNavigationToMovieShowings(isActive:)
                 )
             ) {
                 IfLetStore(
                     store.scope(
                         state: \.movieShowings,
-                        action: MovieDetail.Action.movieShowings
+                        action: MovieInfo.Action.movieShowings
                     ),
                     then: MovieShowingsView.init(store:)
                 )
@@ -92,7 +92,7 @@ struct MovieDetailView: View {
     }
 }
 
-private extension MovieDetailView {
+private extension MovieInfoView {
     // Minimum `PosterView` overlap value.
     var posterOverlapConstant: CGFloat {
         60
@@ -138,11 +138,11 @@ private extension MovieDetailView {
 
 // MARK: - Previews
 
-struct MovieDetailView_Previews: PreviewProvider {
-    static let store = Store(initialState: MovieDetail.State(movie: Movie()), reducer: MovieDetail())
+struct MovieInfoView_Previews: PreviewProvider {
+    static let store = Store(initialState: MovieInfo.State(movie: Movie()), reducer: MovieInfo())
 
     static var previews: some View {
-        MovieDetailView(store: store)
+        MovieInfoView(store: store)
             .preferredColorScheme(.dark)
     }
 }

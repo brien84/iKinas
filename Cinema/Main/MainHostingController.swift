@@ -37,11 +37,11 @@ final class MainHostingController: UIHostingController<MainView> {
             viewStore.send(.fetchMovies, animation: .default)
         }
 
-        viewStore.publisher.movieDetail
+        viewStore.publisher.movieInfo
             .sink { state in
                 guard let state else { return }
-                let store = Store(initialState: state, reducer: MovieDetail())
-                let vc = MovieDetailHostingController(store: store)
+                let store = Store(initialState: state, reducer: MovieInfo())
+                let vc = MovieInfoHostingController(store: store)
                 self.navigationController?.pushViewController(vc, animated: true)
             }.store(in: &self.cancellables)
     }
@@ -53,8 +53,8 @@ final class MainHostingController: UIHostingController<MainView> {
             navigationController?.setNavigationBarHidden(true, animated: false)
         }
 
-        if viewStore.movieDetail != nil {
-            viewStore.send(.setNavigationToMovieDetail(isActive: false))
+        if viewStore.movieInfo != nil {
+            viewStore.send(.setNavigationToMovieInfo(isActive: false))
         }
     }
 

@@ -16,7 +16,7 @@ struct Main: ReducerProtocol {
             selectedDate: .distantPast
         )
         var homeFeed = HomeFeed.State()
-        var movieDetail: MovieDetail.State?
+        var movieInfo: MovieInfo.State?
         var schedule = Schedule.State()
         var settings: Settings.State?
 
@@ -34,14 +34,14 @@ struct Main: ReducerProtocol {
     enum Action: Equatable {
         case dateSelector(DateSelector.Action)
         case homeFeed(HomeFeed.Action)
-        case movieDetail(MovieDetail.Action)
+        case movieInfo(MovieInfo.Action)
         case schedule(Schedule.Action)
         case settings(Settings.Action)
 
         case fetchMovies
         case movieClient(Result<[Movie], MovieClient.Error>)
 
-        case setNavigationToMovieDetail(isActive: Bool)
+        case setNavigationToMovieInfo(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
 
         case didPressHomeFeedButton
@@ -81,18 +81,18 @@ struct Main: ReducerProtocol {
             case .homeFeed:
                 return .none
 
-            case .movieDetail:
+            case .movieInfo:
                 return .none
 
             case .schedule(.movieItem(id: let id, action: .didSelect)):
                 if let item = state.schedule.items[id: id] {
-                    state.movieDetail = MovieDetail.State(movie: item.movie, showing: nil)
+                    state.movieInfo = MovieInfo.State(movie: item.movie, showing: nil)
                 }
                 return .none
 
             case .schedule(.showingItem(id: let id, action: .didSelect)):
                 if let item = state.schedule.items[id: id] {
-                    state.movieDetail = MovieDetail.State(movie: item.movie, showing: item.showing)
+                    state.movieInfo = MovieInfo.State(movie: item.movie, showing: item.showing)
                 }
                 return .none
 
@@ -127,9 +127,9 @@ struct Main: ReducerProtocol {
                     return .none
                 }
 
-            case .setNavigationToMovieDetail(let isActive):
+            case .setNavigationToMovieInfo(let isActive):
                 if !isActive {
-                    state.movieDetail = nil
+                    state.movieInfo = nil
                 }
                 return .none
 
@@ -164,8 +164,8 @@ struct Main: ReducerProtocol {
 
             }
         }
-        .ifLet(\.movieDetail, action: /Action.movieDetail) {
-            MovieDetail()
+        .ifLet(\.movieInfo, action: /Action.movieInfo) {
+            MovieInfo()
         }
         .ifLet(\.settings, action: /Action.settings) {
             Settings()

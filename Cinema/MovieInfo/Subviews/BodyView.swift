@@ -10,7 +10,7 @@ import ComposableArchitecture
 import SwiftUI
 
 struct BodyView: View {
-    let store: StoreOf<MovieDetail>
+    let store: StoreOf<MovieInfo>
 
     @State private var isDisplayingShowing = false
 
@@ -153,7 +153,7 @@ private extension ShowingContainerView {
 
 struct BodyView_Previews: PreviewProvider {
     static let movie = Movie(showings: [Showing()])
-    static let store = Store(initialState: MovieDetail.State(movie: movie, showing: movie.showings.first), reducer: MovieDetail())
+    static let store = Store(initialState: MovieInfo.State(movie: movie, showing: movie.showings.first), reducer: MovieInfo())
 
     static var previews: some View {
         ZStack {

@@ -1,5 +1,5 @@
 //
-//  MovieDetail.swift
+//  MovieInfo.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-29.
@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct MovieDetail: ReducerProtocol {
+struct MovieInfo: ReducerProtocol {
     struct State: Equatable {
         var movieShowings: MovieShowings.State?
         var networkImage: NetworkImage.State
