@@ -186,6 +186,7 @@ struct Main: ReducerProtocol {
 
     private func performTransition() -> Effect<Action, Never> {
         Effect.run { send in
+            try await Task.sleep(nanoseconds: 10_000_000)
             await send(.beginTransition, animation: .easeInOut(duration: 0.3))
             try await Task.sleep(nanoseconds: 300_000_000)
             await send(.updateDatasource)
