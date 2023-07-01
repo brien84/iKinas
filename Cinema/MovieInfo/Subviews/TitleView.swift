@@ -73,32 +73,19 @@ struct TitleView_Previews: PreviewProvider {
     ]
 
     static var previews: some View {
-        ZStack {
-            Color.green
-                .ignoresSafeArea()
-
-            ScrollView {
-                VStack {
-                    TitleView(movie: movies[0])
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    TitleView(movie: movies[1])
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    TitleView(movie: movies[2])
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    TitleView(movie: movies[3])
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    TitleView(movie: movies[4])
-                        .fixedSize(horizontal: false, vertical: true)
-
-                    TitleView(movie: movies[5])
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+        ScrollView {
+            VStack {
+                TitleView(movie: movies[0])
+                TitleView(movie: movies[1])
+                TitleView(movie: movies[2])
+                TitleView(movie: movies[3])
+                TitleView(movie: movies[4])
+                TitleView(movie: movies[5])
             }
-        }.preferredColorScheme(.dark)
-
+        }
+        .background(
+            Color.green.ignoresSafeArea()
+        )
+        .preferredColorScheme(.dark)
     }
 }
