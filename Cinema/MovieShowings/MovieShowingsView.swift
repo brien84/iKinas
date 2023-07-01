@@ -36,7 +36,7 @@ struct MovieShowingsView: View {
                     ))
                     .padding(.bottom, Self.bottomPadding)
 
-                    MovieShowingsTabView(store: store)
+                    ShowingsTabView(store: store)
                 }
             }
             .background(Color.primaryBackground)
@@ -44,7 +44,7 @@ struct MovieShowingsView: View {
     }
 }
 
-private struct MovieShowingsTabView: View {
+private struct ShowingsTabView: View {
     let store: StoreOf<MovieShowings>
 
     private let columns = [
@@ -124,7 +124,7 @@ private extension MovieShowingsView {
     static let bottomPadding: CGFloat = 8
 }
 
-private extension MovieShowingsTabView {
+private extension ShowingsTabView {
     static let columnSpacing: CGFloat = 16
     static let scrollToTopID: String = "upandaway"
 }
