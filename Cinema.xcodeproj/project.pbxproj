@@ -65,6 +65,8 @@
 		29E99C2E2402F5E7003A4141 /* CinemaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29E99C2D2402F5E7003A4141 /* CinemaUITests.swift */; };
 		29F3D6AD296AFE5300495BBD /* Extension+Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F3D6AC296AFE5300495BBD /* Extension+Date.swift */; };
 		29F3D6AF296C07B200495BBD /* ShrinkOnPressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */; };
+		29FBFB362A4F1EAD00308700 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FBFB352A4F1EAD00308700 /* APIClient.swift */; };
+		29FBFB382A4F1EB600308700 /* LiveAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29FBFB372A4F1EB600308700 /* LiveAPIClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -147,6 +149,8 @@
 		29E99C2F2402F5E7003A4141 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		29F3D6AC296AFE5300495BBD /* Extension+Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Date.swift"; sourceTree = "<group>"; };
 		29F3D6AE296C07B200495BBD /* ShrinkOnPressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrinkOnPressView.swift; sourceTree = "<group>"; };
+		29FBFB352A4F1EAD00308700 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		29FBFB372A4F1EB600308700 /* LiveAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveAPIClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,6 +382,7 @@
 		29D0ADC129FF03170086ECF6 /* Clients */ = {
 			isa = PBXGroup;
 			children = (
+				29FBFB342A4F1E9E00308700 /* APIClient */,
 				29D0ADC329FF03350086ECF6 /* UserDefaultsClient.swift */,
 			);
 			path = Clients;
@@ -419,6 +424,15 @@
 				296FE0512950988C0015F7AA /* ShowingListView.swift */,
 			);
 			path = Subviews;
+			sourceTree = "<group>";
+		};
+		29FBFB342A4F1E9E00308700 /* APIClient */ = {
+			isa = PBXGroup;
+			children = (
+				29FBFB352A4F1EAD00308700 /* APIClient.swift */,
+				29FBFB372A4F1EB600308700 /* LiveAPIClient.swift */,
+			);
+			path = APIClient;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -590,6 +604,7 @@
 				291525E3294E61A700192153 /* MovieListView.swift in Sources */,
 				296FE04C295061C60015F7AA /* ScheduleView.swift in Sources */,
 				291525EB294F336600192153 /* ImageClient.swift in Sources */,
+				29FBFB382A4F1EB600308700 /* LiveAPIClient.swift in Sources */,
 				29DDA575295DC125000C4322 /* MovieDetailView.swift in Sources */,
 				29BFAF86295F29E500655325 /* TitleView.swift in Sources */,
 				29CF664B2A37A80B009A94DA /* ScheduleItem.swift in Sources */,
@@ -604,6 +619,7 @@
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
 				293A436C29FBF00F00913707 /* HomeFeed.swift in Sources */,
 				29F3D6AD296AFE5300495BBD /* Extension+Date.swift in Sources */,
+				29FBFB362A4F1EAD00308700 /* APIClient.swift in Sources */,
 				29DDA573295DBFA4000C4322 /* MovieDetail.swift in Sources */,
 				29D0ADC429FF03350086ECF6 /* UserDefaultsClient.swift in Sources */,
 				299E52582A0A18430020E1CE /* Extension+Calendar.swift in Sources */,
