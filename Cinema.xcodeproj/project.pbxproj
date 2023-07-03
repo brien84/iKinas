@@ -38,8 +38,6 @@
 		29817F78293BC1E800E59D42 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F77293BC1E800E59D42 /* Settings.swift */; };
 		29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F7B293BD70100E59D42 /* SettingsView.swift */; };
 		29817F7E293C00CE00E59D42 /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F7D293C00CE00E59D42 /* SettingsTests.swift */; };
-		29817F81293CA68100E59D42 /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F80293CA68100E59D42 /* CityListView.swift */; };
-		29817F83293CA6CB00E59D42 /* VenueListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F82293CA6CB00E59D42 /* VenueListView.swift */; };
 		29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F84293CAB3400E59D42 /* ExitButtonView.swift */; };
 		298BBF132961F67800C2EA8C /* BodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF122961F67800C2EA8C /* BodyView.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
@@ -118,8 +116,6 @@
 		29817F77293BC1E800E59D42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		29817F7B293BD70100E59D42 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		29817F7D293C00CE00E59D42 /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
-		29817F80293CA68100E59D42 /* CityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListView.swift; sourceTree = "<group>"; };
-		29817F82293CA6CB00E59D42 /* VenueListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueListView.swift; sourceTree = "<group>"; };
 		29817F84293CAB3400E59D42 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		298BBF122961F67800C2EA8C /* BodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BodyView.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -309,18 +305,8 @@
 			children = (
 				29817F77293BC1E800E59D42 /* Settings.swift */,
 				29817F7B293BD70100E59D42 /* SettingsView.swift */,
-				29817F7F293CA66B00E59D42 /* Subviews */,
 			);
 			path = Settings;
-			sourceTree = "<group>";
-		};
-		29817F7F293CA66B00E59D42 /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
-				29817F80293CA68100E59D42 /* CityListView.swift */,
-				29817F82293CA6CB00E59D42 /* VenueListView.swift */,
-			);
-			path = Subviews;
 			sourceTree = "<group>";
 		};
 		29958963296E1CFE00AF0231 /* Extensions */ = {
@@ -626,11 +612,9 @@
 				29BFAF8E2961AE6200655325 /* GetterViews.swift in Sources */,
 				29C1EA8A2958EE78007B629B /* LoadingErrorView.swift in Sources */,
 				2904C7642336982B00407B64 /* AppDelegate.swift in Sources */,
-				29817F83293CA6CB00E59D42 /* VenueListView.swift in Sources */,
 				296FE0522950988C0015F7AA /* ShowingListView.swift in Sources */,
 				297C826D26B01DA30053F706 /* Venue.swift in Sources */,
 				29F3D6AF296C07B200495BBD /* ShrinkOnPressView.swift in Sources */,
-				29817F81293CA68100E59D42 /* CityListView.swift in Sources */,
 				29E3069B296F09E0003A52C4 /* Extension+Color.swift in Sources */,
 				29E3069D296F0A96003A52C4 /* Extension+URL.swift in Sources */,
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
@@ -820,7 +804,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -841,7 +825,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 31;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

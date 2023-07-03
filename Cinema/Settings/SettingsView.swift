@@ -9,37 +9,6 @@
 import ComposableArchitecture
 import SwiftUI
 
-private extension SettingsView {
-    struct State: Equatable {
-        var selectedCity: City
-    }
-
-    enum Action: Equatable {
-        case didSelectCity(City)
-        case loadSettings
-        case saveSettings
-    }
-}
-
-private extension Settings.State {
-    var state: SettingsView.State {
-        .init(selectedCity: self.selectedCity)
-    }
-}
-
-private extension SettingsView.Action {
-    var action: Settings.Action {
-        switch self {
-        case .didSelectCity(let city):
-            return .didSelectCity(city)
-        case .loadSettings:
-            return .loadSettings
-        case .saveSettings:
-            return .saveSettings
-        }
-    }
-}
-
 struct SettingsView: View {
     @Environment(\.presentationMode) var presentationMode
 
@@ -50,7 +19,7 @@ struct SettingsView: View {
     }
 
     var body: some View {
-        WithViewStore(store, observe: \.state, send: \Action.action) { viewStore in
+        WithViewStore(store) { viewStore in
             ZStack {
                 Color(.primaryBackground)
                     .ignoresSafeArea()
@@ -79,6 +48,74 @@ struct SettingsView: View {
     }
 }
 
+private struct CityListView: View {
+    let store: StoreOf<Settings>
+
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            VStack {
+                ForEach(City.allCases) { city in
+                    Button(
+                        action: {
+                            viewStore.send(.didSelectCity(city), animation: .easeInOut)
+                        },
+                        label: {
+                            Text(city.description)
+                                .font(.title2)
+                                .foregroundColor(city == viewStore.selectedCity ? .tertiaryElement : .secondaryElement)
+                        }
+                    )
+                    .padding()
+
+                    if city == viewStore.selectedCity {
+                        VenueListView(store: store)
+                    }
+                }
+            }
+        }
+    }
+}
+
+private struct VenueListView: View {
+    let store: StoreOf<Settings>
+
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            VStack(spacing: .zero) {
+                ForEach(viewStore.selectedCity.venues) { venue in
+                    let isDisabled = viewStore.selectedVenues.count == 1 && viewStore.selectedVenues.contains(venue)
+
+                    Button(
+                        action: {
+                            viewStore.send(.didSelectVenue(venue))
+                        },
+                        label: {
+                            HStack {
+                                Image(venue.rawValue)
+
+                                Spacer()
+
+                                Image(systemName: "checkmark")
+                                    .foregroundColor(isDisabled ? .secondaryElement : .tertiaryElement)
+                                    .opacity(viewStore.selectedVenues.contains(venue) ? 1 : 0)
+                            }
+                        }
+                    )
+                    .padding()
+                    .padding(.horizontal)
+                    .disabled(isDisabled)
+                }
+            }
+            .transition(.verticalScaleAndOpacity)
+            .background(
+                RoundedRectangle(cornerRadius: Self.cornerRadius)
+                    .fill(Color.secondaryBackground)
+                    .padding(.horizontal)
+            )
+        }
+    }
+}
+
 /// Scales down the view if screen size of the device is 320x568.
 ///
 /// Used on iPod Touch and iPhone SE 1st Gen devices.
@@ -92,6 +129,12 @@ private struct Scale320X568Screen: ViewModifier {
         content
             .scaleEffect(isActive ? 0.9 : 1)
     }
+}
+
+// MARK: - Constants
+
+private extension VenueListView {
+    static let cornerRadius: CGFloat = 10
 }
 
 // MARK: - Previews
