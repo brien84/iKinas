@@ -54,7 +54,12 @@ private struct ShowingsTabView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            TabView(selection: viewStore.binding(\.$dateSelector.selectedDate)) {
+            TabView(selection:
+                viewStore.binding(
+                    get: \.dateSelector.selectedDate,
+                    send: MovieShowings.Action.didSelectDate
+                )
+            ) {
                 ForEach(viewStore.dateSelector.dates, id: \.self) { date in
                     ScrollViewReader { proxy in
                         ScrollView(.vertical, showsIndicators: false) {

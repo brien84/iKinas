@@ -11,7 +11,7 @@ import Foundation
 
 struct MovieShowings: ReducerProtocol {
     struct State: Equatable {
-        @BindableState var dateSelector: DateSelector.State
+        var dateSelector: DateSelector.State
         private let showings: [Showing]
 
         init(movie: Movie) {
@@ -32,26 +32,25 @@ struct MovieShowings: ReducerProtocol {
         }
     }
 
-    enum Action: BindableAction, Equatable {
-        case binding(BindingAction<State>)
+    enum Action: Equatable {
         case dateSelector(DateSelector.Action)
+        case didSelectDate(Date)
         case didSelectShowing(Showing)
         case exitButtonDidTap
     }
 
     var body: some ReducerProtocol<State, Action> {
-        BindingReducer()
-
         Scope(state: \.dateSelector, action: /Action.dateSelector) {
             DateSelector()
         }
 
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
-            case .binding:
+            case .dateSelector:
                 return .none
 
-            case .dateSelector:
+            case .didSelectDate(let date):
+                state.dateSelector.selectedDate = date
                 return .none
 
             case .didSelectShowing:
