@@ -12,7 +12,7 @@ import XCTestDynamicOverlay
 import OrderedCollections
 
 struct MovieClient {
-    var fetch: (City, OrderedSet<Venue>) -> Effect<[Movie], MovieClient.Error>
+    var fetch: (City, OrderedSet<Venue>) -> EffectPublisher<[Movie], MovieClient.Error>
 
     enum Error: Swift.Error, Equatable {
         case decoding
@@ -31,7 +31,7 @@ extension DependencyValues {
 extension MovieClient: DependencyKey {
     static let liveValue = Self(
         fetch: { city, venues in
-            guard !CommandLine.isUITesting else { return Effect(value: uiTestMovies) }
+            guard !CommandLine.isUITesting else { return EffectPublisher(value: uiTestMovies) }
             let request = constructURLRequest(city: city, venues: venues)
 
             return URLSession.shared.dataTaskPublisher(for: request)
@@ -68,7 +68,7 @@ extension MovieClient: DependencyKey {
 
     static let previewValue = Self(
         fetch: { _, _ in
-            Effect(value: Array(repeating: Movie(showings: [Showing()]), count: 5))
+            EffectPublisher(value: Array(repeating: Movie(showings: [Showing()]), count: 5))
         }
     )
 

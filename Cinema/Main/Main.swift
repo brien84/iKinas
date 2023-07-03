@@ -154,7 +154,7 @@ struct Main: ReducerProtocol {
             case .updateDatasource:
                 state.isHomeFeedActive = state.isHomeFeedButtonSelected
                 state.schedule.selectedDate = state.dateSelector.selectedDate
-                return Effect(value: .schedule(.filterItems))
+                return EffectTask.task { .schedule(.filterItems) }
 
             case .endTransition:
                 state.isFetchingMovies = false
@@ -172,7 +172,7 @@ struct Main: ReducerProtocol {
         }
     }
 
-    private func fetchMovies(state: inout State) -> Effect<Action, Never> {
+    private func fetchMovies(state: inout State) -> EffectTask<Action> {
         state.isFetchingMovies = true
         state.movieClientError = nil
         let city = userDefaults.getCity()
@@ -182,10 +182,10 @@ struct Main: ReducerProtocol {
             .catchToEffect(Action.movieClient)
     }
 
-    private enum TransitionID { }
+    private enum CancelID { case transition }
 
-    private func performTransition() -> Effect<Action, Never> {
-        Effect.run { send in
+    private func performTransition() -> EffectTask<Action> {
+        EffectTask.run { send in
             try await Task.sleep(nanoseconds: 10_000_000)
             await send(.beginTransition, animation: .easeInOut(duration: 0.3))
             try await Task.sleep(nanoseconds: 300_000_000)
@@ -193,6 +193,6 @@ struct Main: ReducerProtocol {
             try await Task.sleep(nanoseconds: 100_000_000)
             await send(.endTransition, animation: .easeInOut(duration: 0.4))
         }
-        .cancellable(id: TransitionID.self, cancelInFlight: true)
+        .cancellable(id: CancelID.transition, cancelInFlight: true)
     }
 }
