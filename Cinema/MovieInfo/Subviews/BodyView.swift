@@ -12,7 +12,7 @@ import SwiftUI
 struct BodyView: View {
     let store: StoreOf<MovieInfo>
 
-    @State private var isDisplayingShowing = false
+    @State private var isDisplayingLink = false
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -25,12 +25,12 @@ struct BodyView: View {
                         .padding(.horizontal)
                         .padding(.vertical, Self.verticalPadding)
 
-                    if isDisplayingShowing {
+                    if isDisplayingLink {
                         if let showing = viewStore.showing {
                             Divider()
                                 .padding(.horizontal)
 
-                            ShowingContainerView(showing: showing) {
+                            ShowingLinkView(showing: showing) {
                                 viewStore.send(.setShowingURL(viewStore.showing?.url))
                             }
                             .transition(.verticalScaleAndOpacity)
@@ -49,7 +49,7 @@ struct BodyView: View {
             .onAppear {
                 // Delay to sync animation with `NavigationBar` animation.
                 withAnimation(.default.delay(Self.showingAnimationDelay)) {
-                    isDisplayingShowing = true
+                    isDisplayingLink = true
                 }
             }
         }
@@ -80,7 +80,7 @@ private struct GenresView: View {
     }
 }
 
-private struct ShowingContainerView: View {
+private struct ShowingLinkView: View {
     let showing: Showing
     let action: () -> Void
 
@@ -144,7 +144,7 @@ private extension GenresView {
     static let verticalPadding: CGFloat = 5
 }
 
-private extension ShowingContainerView {
+private extension ShowingLinkView {
     static let horizontalPadding: CGFloat = 32
     static let verticalPadding: CGFloat = 24
 }
