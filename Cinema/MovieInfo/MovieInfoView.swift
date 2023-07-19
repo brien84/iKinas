@@ -32,7 +32,7 @@ struct MovieInfoView: View {
                         .scaleEffect(posterScale)
                         .offset(y: -posterOffset)
                         .opacity(posterOpacity)
-                        .aspectRatio(contentMode: .fit)
+                        .aspectRatio(Self.posterAspectRatio, contentMode: .fit)
                         .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
@@ -134,6 +134,12 @@ private extension MovieInfoView {
         let currentDistance = safeArea.top.distance(to: titleViewFrame.minY)
         return currentDistance / totalDistance
     }
+}
+
+// MARK: - Constants
+
+private extension MovieInfoView {
+    static let posterAspectRatio: CGFloat = 2/3
 }
 
 // MARK: - Previews
