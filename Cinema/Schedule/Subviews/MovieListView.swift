@@ -16,7 +16,7 @@ struct MovieListView: View {
         WithViewStore(store) { viewStore in
             ScrollViewReader { scrollProxy in
                 ScrollView(.horizontal, showsIndicators: false) {
-                    LazyHStack {
+                    LazyHStack(spacing: Self.horizontalSpacing) {
                         ForEachStore(store.scope(
                             state: \.movieItems,
                             action: Schedule.Action.movieItem(id:action:)
@@ -100,6 +100,7 @@ private struct VisualEffectView: UIViewRepresentable {
 
 private extension MovieListView {
     static let aspectRatio: CGFloat = 2/3
+    static let horizontalSpacing: CGFloat = 8
     static let scrollToTopDelay: CGFloat = 0.3
     static let scrollToTopID: String = "upandaway"
 }
