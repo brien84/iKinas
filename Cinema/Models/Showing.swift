@@ -8,60 +8,58 @@
 
 import Foundation
 
-final class Showing: Codable, Identifiable {
-    let id: UUID
+struct Showing: Equatable, Identifiable {
+    let ageRating: String
     let city: City
     let date: Date
-    let venue: Venue
+    let duration: String
+    let genres: [String]
+    let id: UUID
     let is3D: Bool
+    let originalTitle: String
+    let plot: String
+    let posterURL: URL
+    let title: String
     let url: URL
-    weak var parentMovie: Movie?
+    let venue: Venue
+    let year: String
 
     init(
-        id: UUID = UUID(),
+        ageRating: String = "N-18",
         city: City = .vilnius,
-        date: Date = Date(timeIntervalSinceNow: 60),
+        date: Date = Date(timeIntervalSinceNow: .hour),
+        duration: String = "90 min",
+        genres: [String] = ["Drama", "Komedija"],
+        id: UUID = UUID(),
+        is3D: Bool = true,
+        originalTitle: String = "Movie Title",
+        plot: String = .loremIpsum,
+        posterURL: URL = URL(string: "https://movies.ioys.lt/posters/example.png")!,
+        title: String = "Filmo Pavadinimas",
+        url: URL = URL(string: "https://www.ioys.lt/iKinas/")!,
         venue: Venue = .forum,
-        is3D: Bool = false,
-        url: URL = URL(string: "https://www.ioys.lt/iKinas/")!
+        year: String = "2020"
     ) {
-        self.id = id
+        self.ageRating = ageRating
         self.city = city
         self.date = date
-        self.venue = venue
+        self.duration = duration
+        self.genres = genres
+        self.id = id
         self.is3D = is3D
+        self.originalTitle = originalTitle
+        self.plot = plot
+        self.posterURL = posterURL
+        self.title = title
         self.url = url
-    }
-
-    init(from decoder: Decoder) throws {
-        let values = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.id = try values.decode(UUID.self, forKey: .id)
-        self.city = try values.decode(City.self, forKey: .city)
-        self.date = try values.decode(Date.self, forKey: .date)
-        self.venue = try values.decode(Venue.self, forKey: .venue)
-        self.is3D = try values.decode(Bool.self, forKey: .is3D)
-        self.url = try values.decode(URL.self, forKey: .url)
-    }
-
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case city
-        case date
-        case venue
-        case is3D
-        case url
+        self.venue = venue
+        self.year = year
     }
 }
 
 extension Showing {
     func isShown(on date: Date) -> Bool {
-        // Validates that the `self.date` is not in the past, with
-        // the exception of during UI tests to simplify data mocking.
-        if !CommandLine.isUITesting {
-            if self.date < Date() { return false }
-        }
-
+        if self.date < Date() { return false }
         let calendar = Calendar.current
         return calendar.isDate(self.date, inSameDayAs: date)
     }
@@ -69,25 +67,16 @@ extension Showing {
 
 extension Showing: Comparable {
     /// `Showing` are compared based on their `date` property value. In the event of a tie,
-    /// the `parentMovie.title` and `venue` properties are used as tie-breakers.
+    /// the `title` and `venue` properties are used as tie-breakers.
     static func < (lhs: Showing, rhs: Showing) -> Bool {
         if lhs.date != rhs.date {
             return lhs.date < rhs.date
         } else {
-            guard let lhsMovie = lhs.parentMovie else { return false }
-            guard let rhsMovie = rhs.parentMovie else { return true }
-
-            if lhsMovie != rhsMovie {
-                return lhsMovie < rhsMovie
+            if lhs.title != rhs.title {
+                return lhs.title < rhs.title
             } else {
                 return lhs.venue.rawValue < rhs.venue.rawValue
             }
         }
-    }
-}
-
-extension Showing: Equatable {
-    static func == (lhs: Showing, rhs: Showing) -> Bool {
-        lhs.date == rhs.date && lhs.parentMovie == rhs.parentMovie && lhs.venue == rhs.venue
     }
 }

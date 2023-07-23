@@ -23,8 +23,8 @@ struct Main: ReducerProtocol {
         var isHomeFeedActive = true
         var isHomeFeedButtonSelected = true
 
-        var isFetchingMovies = true
-        var movieClientError: MovieClient.Error?
+        var isFetching = true
+        var apiError: APIClient.Error?
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
@@ -38,8 +38,8 @@ struct Main: ReducerProtocol {
         case schedule(Schedule.Action)
         case settings(Settings.Action)
 
-        case fetchMovies
-        case movieClient(Result<[Movie], MovieClient.Error>)
+        case fetch
+        case apiClient(Result<APIClient.Response, Never>)
 
         case setNavigationToMovieInfo(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
@@ -50,8 +50,8 @@ struct Main: ReducerProtocol {
         case endTransition
     }
 
+    @Dependency(\.apiClient) var apiClient
     @Dependency(\.mainQueue) var mainQueue
-    @Dependency(\.movieClient) var movieClient
     @Dependency(\.userDefaults) var userDefaults
 
     var body: some ReducerProtocol<State, Action> {
@@ -86,13 +86,13 @@ struct Main: ReducerProtocol {
 
             case .schedule(.movieItem(id: let id, action: .didSelect)):
                 if let item = state.schedule.items[id: id] {
-                    state.movieInfo = MovieInfo.State(movie: item.movie, showing: nil)
+                    state.movieInfo = MovieInfo.State(showing: item.showing, shouldDisplayURL: false)
                 }
                 return .none
 
             case .schedule(.showingItem(id: let id, action: .didSelect)):
                 if let item = state.schedule.items[id: id] {
-                    state.movieInfo = MovieInfo.State(movie: item.movie, showing: item.showing)
+                    state.movieInfo = MovieInfo.State(showing: item.showing, shouldDisplayURL: true)
                 }
                 return .none
 
@@ -100,31 +100,29 @@ struct Main: ReducerProtocol {
                 return .none
 
             case .settings(.saveSettings):
-                return fetchMovies(state: &state)
+                return fetch(state: &state)
 
             case .settings:
                 return .none
 
-            case .fetchMovies:
-                return fetchMovies(state: &state)
+            case .fetch:
+                return fetch(state: &state)
 
-            case .movieClient(let result):
-                switch result {
-                case .success(let movies):
-                    let items = movies.flatMap {
-                        $0.showings.compactMap { ScheduleItem.State(showing: $0) }
-                    }
+            case .apiClient(.success(let response)):
+                switch response {
+                case .success:
+                    let items = apiClient.getShowings().compactMap { ScheduleItem.State(showing: $0) }
                     state.schedule.items = IdentifiedArray(uniqueElements: items)
                     return performTransition()
 
                 case .failure(let error):
                     switch error {
                     case .network, .decoding:
-                        state.movieClientError = .network
+                        state.apiError = .network
                     case .requiresUpdate:
-                        state.movieClientError = .requiresUpdate
+                        state.apiError = .requiresUpdate
                     }
-                    return .none
+                    return . none
                 }
 
             case .setNavigationToMovieInfo(let isActive):
@@ -157,7 +155,7 @@ struct Main: ReducerProtocol {
                 return EffectTask.task { .schedule(.filterItems) }
 
             case .endTransition:
-                state.isFetchingMovies = false
+                state.isFetching = false
                 state.homeFeed.isTransitioning  = false
                 state.schedule.isTransitioning = false
                 return .none
@@ -172,21 +170,22 @@ struct Main: ReducerProtocol {
         }
     }
 
-    private func fetchMovies(state: inout State) -> EffectTask<Action> {
-        state.isFetchingMovies = true
-        state.movieClientError = nil
+    private func fetch(state: inout State) -> EffectTask<Action> {
+        state.isFetching = true
+        state.apiError = nil
         let city = userDefaults.getCity()
         let venues = userDefaults.getVenues()
-        return movieClient.fetch(city, venues)
+        return apiClient.fetch(city, venues)
+            .delay(for: .milliseconds(750), scheduler: mainQueue)
             .receive(on: mainQueue)
-            .catchToEffect(Action.movieClient)
+            .catchToEffect(Action.apiClient)
     }
 
     private enum CancelID { case transition }
 
     private func performTransition() -> EffectTask<Action> {
         EffectTask.run { send in
-            try await Task.sleep(nanoseconds: 10_000_000)
+            try await Task.sleep(nanoseconds: 50_000_000)
             await send(.beginTransition, animation: .easeInOut(duration: 0.3))
             try await Task.sleep(nanoseconds: 300_000_000)
             await send(.updateDatasource)

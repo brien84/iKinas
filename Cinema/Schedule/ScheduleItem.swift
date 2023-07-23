@@ -13,14 +13,11 @@ struct ScheduleItem: ReducerProtocol {
     struct State: Equatable, Identifiable {
         var id: UUID { showing.id }
         let showing: Showing
-        let movie: Movie
         var networkImage: NetworkImage.State
 
         init?(showing: Showing) {
             self.showing = showing
-            guard let movie = showing.parentMovie else { return nil }
-            self.movie = movie
-            self.networkImage = NetworkImage.State(url: movie.poster)
+            self.networkImage = NetworkImage.State(url: showing.posterURL)
         }
     }
 

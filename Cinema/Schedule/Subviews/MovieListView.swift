@@ -58,7 +58,7 @@ private struct MovieItemView: View {
                         Spacer()
 
                         ZStack(alignment: .topLeading) {
-                            Text(viewStore.movie.title)
+                            Text(viewStore.showing.title)
                                 .font(.callout.bold())
                                 .foregroundColor(.primaryElement)
 

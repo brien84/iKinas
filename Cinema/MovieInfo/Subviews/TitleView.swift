@@ -9,26 +9,26 @@
 import SwiftUI
 
 struct TitleView: View {
-    let movie: Movie
+    let showing: Showing
 
     var body: some View {
         ZStack {
             LinearGradient(gradient: Self.backgroundGradient, startPoint: .top, endPoint: .bottom)
 
             VStack(spacing: Self.spacing) {
-                Text(movie.title)
+                Text(showing.title)
                     .lineLimit(2)
                     .font(.title.weight(.semibold))
                     .frame(maxWidth: .infinity, alignment: .leading)
 
-                if movie.title != movie.originalTitle {
-                    Text(movie.originalTitle)
+                if showing.title != showing.originalTitle {
+                    Text(showing.originalTitle)
                         .lineLimit(2)
                         .font(.callout.weight(.light))
                         .frame(maxWidth: .infinity, alignment: .leading)
                 }
 
-                Text("\(movie.year) • \(movie.ageRating) • \(movie.duration.uppercased())")
+                Text("\(showing.year) • \(showing.ageRating) • \(showing.duration.uppercased())")
                     .lineLimit(1)
                     .font(.footnote.weight(.medium))
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -63,28 +63,31 @@ private extension TitleView {
 // MARK: - Previews
 
 struct TitleView_Previews: PreviewProvider {
-    static let movies = [
-        Movie(title: String(repeating: "A", count: 15), originalTitle: String(repeating: "A", count: 15)),
-        Movie(title: String(repeating: "A", count: 99), originalTitle: String(repeating: "A", count: 99)),
-        Movie(title: String(repeating: "A", count: 15), originalTitle: String(repeating: "B", count: 15)),
-        Movie(title: String(repeating: "A", count: 99), originalTitle: String(repeating: "B", count: 15)),
-        Movie(title: String(repeating: "A", count: 15), originalTitle: String(repeating: "B", count: 99)),
-        Movie(title: String(repeating: "A", count: 99), originalTitle: String(repeating: "B", count: 99))
+    static let showings = [
+        Showing(originalTitle: String(repeating: "A", count: 15), title: String(repeating: "A", count: 15)),
+        Showing(originalTitle: String(repeating: "A", count: 99), title: String(repeating: "A", count: 99)),
+        Showing(originalTitle: String(repeating: "B", count: 15), title: String(repeating: "A", count: 15)),
+        Showing(originalTitle: String(repeating: "B", count: 15), title: String(repeating: "A", count: 99)),
+        Showing(originalTitle: String(repeating: "B", count: 99), title: String(repeating: "A", count: 15)),
+        Showing(originalTitle: String(repeating: "B", count: 99), title: String(repeating: "A", count: 99))
     ]
 
     static var previews: some View {
         ScrollView {
             VStack {
-                TitleView(movie: movies[0])
-                TitleView(movie: movies[1])
-                TitleView(movie: movies[2])
-                TitleView(movie: movies[3])
-                TitleView(movie: movies[4])
-                TitleView(movie: movies[5])
+                TitleView(showing: showings[0])
+                TitleView(showing: showings[1])
+                TitleView(showing: showings[2])
+                TitleView(showing: showings[3])
+                TitleView(showing: showings[4])
+                TitleView(showing: showings[5])
             }
         }
         .background(
-            Color.green.ignoresSafeArea()
+            Image("posterPreview")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .ignoresSafeArea()
         )
         .preferredColorScheme(.dark)
     }

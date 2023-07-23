@@ -15,7 +15,7 @@ struct LoadingErrorView: View {
 
     @State private var didAppear = false
 
-    init(_ error: MovieClient.Error, action: @escaping () -> Void) {
+    init(_ error: APIClient.Error, action: @escaping () -> Void) {
         switch error {
         case .requiresUpdate:
             self.text = "nebepalaikoma aplikacijos versija"

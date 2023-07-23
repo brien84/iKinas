@@ -52,10 +52,10 @@ struct Schedule: ReducerProtocol {
                 state.showingItems.sort(by: { $0.showing < $1.showing })
 
                 state.movieItems.removeAll()
-                for item in state.showingItems where !state.movieItems.contains(where: { $0.movie == item.movie }) {
+                for item in state.showingItems where !state.movieItems.contains(where: { $0.showing.title == item.showing.title }) {
                     state.movieItems.append(item)
                 }
-                state.movieItems.sort(by: { $0.movie < $1.movie })
+                state.movieItems.sort(by: { $0.showing.title < $1.showing.title })
                 return .none
 
             }

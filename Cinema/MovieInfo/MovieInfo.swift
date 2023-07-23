@@ -15,17 +15,17 @@ struct MovieInfo: ReducerProtocol {
         var networkImage: NetworkImage.State
 
         var isScrollingEnabled = true
-        let movie: Movie
-        let showing: Showing?
+        let showing: Showing
+        let shouldDisplayURL: Bool
         var showingURL: URL?
         var titleViewOverlapPercentage: CGFloat = 0
 
         var isNavigationToMovieShowingsActive = false
 
-        init(movie: Movie, showing: Showing? = nil) {
-            self.movie = movie
+        init(showing: Showing, shouldDisplayURL: Bool) {
             self.showing = showing
-            self.networkImage = NetworkImage.State(url: movie.poster)
+            self.shouldDisplayURL = shouldDisplayURL
+            self.networkImage = NetworkImage.State(url: showing.posterURL)
         }
     }
 
@@ -39,6 +39,8 @@ struct MovieInfo: ReducerProtocol {
 
         case setNavigationToMovieShowings(isActive: Bool)
     }
+
+    @Dependency(\.apiClient) var apiClient
 
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.networkImage, action: /Action.networkImage) {
@@ -78,7 +80,12 @@ struct MovieInfo: ReducerProtocol {
             case .setNavigationToMovieShowings(isActive: let isActive):
                 if isActive {
                     state.isNavigationToMovieShowingsActive = true
-                    state.movieShowings = MovieShowings.State(movie: state.movie)
+
+                    let showings = apiClient.getShowings().filter { showing in
+                        showing.title == state.showing.title
+                    }
+
+                    state.movieShowings = MovieShowings.State(showings: showings)
                 } else {
                     state.isNavigationToMovieShowingsActive = false
                 }

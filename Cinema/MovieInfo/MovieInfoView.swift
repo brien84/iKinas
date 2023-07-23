@@ -36,7 +36,7 @@ struct MovieInfoView: View {
                         .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
-                            TitleView(movie: viewStore.movie)
+                            TitleView(showing: viewStore.showing)
                                 .opacity(titleViewOpacity)
                                 .background(FrameGetter(frame: $titleViewFrame))
 
@@ -145,7 +145,10 @@ private extension MovieInfoView {
 // MARK: - Previews
 
 struct MovieInfoView_Previews: PreviewProvider {
-    static let store = Store(initialState: MovieInfo.State(movie: Movie()), reducer: MovieInfo())
+    static let store = Store(
+        initialState: MovieInfo.State(showing: Showing(), shouldDisplayURL: true),
+        reducer: MovieInfo()
+    )
 
     static var previews: some View {
         MovieInfoView(store: store)

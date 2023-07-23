@@ -40,7 +40,7 @@ private struct ShowingItemView: View {
                         .frame(width: Self.width, height: Self.height)
                         .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
 
-                        ShowingTitleView(movie: viewStore.movie)
+                        ShowingTitleView(showing: viewStore.showing)
 
                         VStack(alignment: .trailing) {
                             HStack {
@@ -75,9 +75,9 @@ private struct ShowingTitleView: View {
     private let title: String
     private let originalTitle: String
 
-    init(movie: Movie) {
-        self.title = movie.title
-        self.originalTitle = movie.originalTitle
+    init(showing: Showing) {
+        self.title = showing.title
+        self.originalTitle = showing.originalTitle
     }
 
     var body: some View {

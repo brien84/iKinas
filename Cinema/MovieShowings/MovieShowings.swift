@@ -14,8 +14,8 @@ struct MovieShowings: ReducerProtocol {
         var dateSelector: DateSelector.State
         private let showings: [Showing]
 
-        init(movie: Movie) {
-            self.showings = movie.showings
+        init(showings: [Showing]) {
+            self.showings = showings
 
             let allDates = self.showings.compactMap { showing -> Date? in
                 guard showing.date > Date() else { return nil }

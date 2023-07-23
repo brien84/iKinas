@@ -12,7 +12,7 @@ import SwiftUI
 struct BodyView: View {
     let store: StoreOf<MovieInfo>
 
-    @State private var isDisplayingLink = false
+    @State private var isDisplayingURL = false
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -20,18 +20,18 @@ struct BodyView: View {
                 Color.primaryBackground
 
                 VStack(spacing: .zero) {
-                    GenresView(genres: viewStore.movie.genres)
+                    GenresView(genres: viewStore.showing.genres)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
                         .padding(.vertical, Self.verticalPadding)
 
-                    if isDisplayingLink {
-                        if let showing = viewStore.showing {
+                    if isDisplayingURL {
+                        if viewStore.shouldDisplayURL {
                             Divider()
                                 .padding(.horizontal)
 
-                            ShowingLinkView(showing: showing) {
-                                viewStore.send(.setShowingURL(viewStore.showing?.url))
+                            ShowingURLView(showing: viewStore.showing) {
+                                viewStore.send(.setShowingURL(viewStore.showing.url))
                             }
                             .transition(.verticalScaleAndOpacity)
                         }
@@ -41,7 +41,7 @@ struct BodyView: View {
                         .padding(.horizontal)
                         .padding(.bottom, Self.verticalPadding)
 
-                    JustifiedTextView(text: viewStore.movie.plot)
+                    JustifiedTextView(text: viewStore.showing.plot)
                         .padding(.horizontal, Self.horizontalPadding)
                         .padding(.bottom, Self.verticalPadding)
                 }
@@ -49,7 +49,7 @@ struct BodyView: View {
             .onAppear {
                 // Delay to sync animation with `NavigationBar` animation.
                 withAnimation(.default.delay(Self.showingAnimationDelay)) {
-                    isDisplayingLink = true
+                    isDisplayingURL = true
                 }
             }
         }
@@ -80,7 +80,7 @@ private struct GenresView: View {
     }
 }
 
-private struct ShowingLinkView: View {
+private struct ShowingURLView: View {
     let showing: Showing
     let action: () -> Void
 
@@ -144,26 +144,7 @@ private extension GenresView {
     static let verticalPadding: CGFloat = 5
 }
 
-private extension ShowingLinkView {
+private extension ShowingURLView {
     static let horizontalPadding: CGFloat = 32
     static let verticalPadding: CGFloat = 24
-}
-
-// MARK: - Previews
-
-struct BodyView_Previews: PreviewProvider {
-    static let movie = Movie(showings: [Showing()])
-    static let store = Store(initialState: MovieInfo.State(movie: movie, showing: movie.showings.first), reducer: MovieInfo())
-
-    static var previews: some View {
-        ZStack {
-            Color.primaryBackground
-                .ignoresSafeArea()
-
-            ScrollView {
-                BodyView(store: store)
-                    .preferredColorScheme(.dark)
-            }
-        }
-    }
 }

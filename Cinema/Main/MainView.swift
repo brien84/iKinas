@@ -51,7 +51,7 @@ struct MainView: View {
                             state: \.dateSelector,
                             action: Main.Action.dateSelector
                         ))
-                        .disabled(viewStore.isFetchingMovies)
+                        .disabled(viewStore.isFetching)
                         .padding(.vertical)
                     }
                     .fixedSize(horizontal: false, vertical: true)
@@ -71,17 +71,17 @@ struct MainView: View {
                     }
                 }
 
-                if viewStore.isFetchingMovies {
+                if viewStore.isFetching {
                     LoadingView()
                 }
 
-                if viewStore.movieClientError == .network {
+                if viewStore.apiError == .network {
                     LoadingErrorView(.network) {
-                        viewStore.send(.fetchMovies, animation: .default)
+                        viewStore.send(.fetch, animation: .default)
                     }
                 }
 
-                if viewStore.movieClientError == .requiresUpdate {
+                if viewStore.apiError == .requiresUpdate {
                     LoadingErrorView(.requiresUpdate) {
                         UIApplication.shared.open(.appStore)
                     }
@@ -104,7 +104,7 @@ struct MainView_Previews: PreviewProvider {
             MainView(store: store)
                 .preferredColorScheme(.dark)
                 .onAppear {
-                    ViewStore(store).send(.fetchMovies)
+                    ViewStore(store).send(.fetch)
                 }
         }
     }

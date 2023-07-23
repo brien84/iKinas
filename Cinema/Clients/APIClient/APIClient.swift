@@ -6,16 +6,47 @@
 //  Copyright © 2023 Marius. All rights reserved.
 //
 
+import ComposableArchitecture
 import Foundation
+import OrderedCollections
 
 struct APIClient {
+    var fetch: (City, OrderedSet<Venue>) -> EffectTask<Response>
+    var getShowings: () -> [Showing]
 
+    enum Response: Equatable {
+        case success
+        case failure(APIClient.Error)
+    }
+
+    enum Error: Swift.Error, Equatable {
+        case decoding
+        case network
+        case requiresUpdate
+    }
 }
 
 extension APIClient: TestDependencyKey {
-    static let testValue = Self()
+    static let testValue = Self(
+        fetch: { _, _ in unimplemented("\(Self.self).fetch") },
+        getShowings: { unimplemented("\(Self.self).getShowings") }
+    )
 
-    static let previewValue = Self()
+    static let previewValue = Self(
+        fetch: { _, _ in
+            EffectTask.task {
+                .success
+            }
+        },
+        getShowings: {
+            stride(from: 1, to: 50, by: 1).map { index in
+                Showing(
+                    date: Date(timeIntervalSinceNow: index * .hour),
+                    title: "Movie \(index)"
+                )
+            }
+        }
+    )
 }
 
 extension DependencyValues {

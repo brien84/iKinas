@@ -145,18 +145,14 @@ private extension ShowingView {
 
 struct MovieShowingsView_Previews: PreviewProvider {
     static let showings = {
-        var showings = [Showing]()
-
-        for _ in 0...300 {
-            let date = Date(timeIntervalSinceNow: Double.random(in: 0...8) * 86400)
-            showings.append(Showing(date: date, is3D: Bool.random()))
+        stride(from: 0, to: 100, by: 1).map { index in
+            let date = Date(timeIntervalSinceNow: .random(in: 0...index) * .hour)
+            return Showing(date: date)
         }
-
-        return showings
     }()
 
     static let store = Store(
-        initialState: MovieShowings.State(movie: Movie(showings: showings)),
+        initialState: MovieShowings.State(showings: showings),
         reducer: MovieShowings()
     )
 
@@ -172,7 +168,7 @@ struct MovieShowingsView_Previews: PreviewProvider {
 
 struct EmptyMovieShowingsView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: MovieShowings.State(movie: Movie(showings: [])),
+        initialState: MovieShowings.State(showings: []),
         reducer: MovieShowings()
     )
 

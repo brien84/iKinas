@@ -154,30 +154,19 @@ private extension View {
 // MARK: - Previews
 
 struct ScheduleView_Previews: PreviewProvider {
-    static var showings: [Showing] {
-        stride(from: 1, to: 5, by: 1).map { index in
-            Showing(is3D: index % 2 == 0)
-        }
-    }
-
-    static let movies = {
-        stride(from: 1, to: 10, by: 1).map { index in
-            Movie(
-                title: String(repeating: "Preview ", count: index),
-                originalTitle: String(repeating: index % 2 == 0 ? "Preview " : "Preview", count: index),
-                showings: showings
+    static let showings: [Showing] = {
+        stride(from: 1, to: 20, by: 1).map { index in
+            Showing(
+                date: Date(timeIntervalSinceNow: 1),
+                is3D: index % 2 == 0,
+                originalTitle: String(repeating: index % 2 == 0 ? "Title" : "OriginalTitle", count: index),
+                title: String(repeating: "Title", count: index)
             )
         }
     }()
 
     static let items = {
-        IdentifiedArray(uniqueElements:
-            movies.flatMap {
-                $0.showings.compactMap {
-                    ScheduleItem.State(showing: $0)
-                }
-            }
-        )
+        IdentifiedArray(uniqueElements: showings.compactMap { ScheduleItem.State(showing: $0) })
     }()
 
     static let store = Store(
@@ -186,16 +175,12 @@ struct ScheduleView_Previews: PreviewProvider {
     )
 
     static var previews: some View {
-        ZStack {
-            Color.primaryBackground
-                .ignoresSafeArea()
-
-            ScheduleView(store: store)
-                .preferredColorScheme(.dark)
-                .onAppear {
-                    ViewStore(store).send(.filterItems)
-                }
-        }
+        ScheduleView(store: store)
+            .background(Color.primaryBackground.ignoresSafeArea())
+            .preferredColorScheme(.dark)
+            .onAppear {
+                ViewStore(store).send(.filterItems)
+            }
     }
 }
 
@@ -206,12 +191,8 @@ struct EmptyScheduleView_Previews: PreviewProvider {
     )
 
     static var previews: some View {
-        ZStack {
-            Color.primaryBackground
-                .ignoresSafeArea()
-
-            ScheduleView(store: store)
-                .preferredColorScheme(.dark)
-        }
+        ScheduleView(store: store)
+            .background(Color.primaryBackground.ignoresSafeArea())
+            .preferredColorScheme(.dark)
     }
 }
