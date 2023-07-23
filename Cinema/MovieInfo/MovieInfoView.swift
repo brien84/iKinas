@@ -36,11 +36,11 @@ struct MovieInfoView: View {
                         .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
-                            TitleView(showing: viewStore.showing)
+                            InfoTitleView(showing: viewStore.showing)
                                 .opacity(titleViewOpacity)
                                 .background(FrameGetter(frame: $titleViewFrame))
 
-                            BodyView(store: store)
+                            InfoBodyView(store: store)
                         }
                         .offset(y: -posterOverlap)
                     }

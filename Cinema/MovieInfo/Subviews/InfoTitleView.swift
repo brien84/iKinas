@@ -1,5 +1,5 @@
 //
-//  TitleView.swift
+//  InfoTitleView.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-30.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct TitleView: View {
+struct InfoTitleView: View {
     let showing: Showing
 
     var body: some View {
@@ -42,7 +42,7 @@ struct TitleView: View {
 
 // MARK: - Constants
 
-private extension TitleView {
+private extension InfoTitleView {
     static let backgroundGradient = Gradient(colors: [
         .clear,
         .primaryBackground.opacity(0.2),
@@ -62,7 +62,7 @@ private extension TitleView {
 
 // MARK: - Previews
 
-struct TitleView_Previews: PreviewProvider {
+struct InfoTitleView_Previews: PreviewProvider {
     static let showings = [
         Showing(originalTitle: String(repeating: "A", count: 15), title: String(repeating: "A", count: 15)),
         Showing(originalTitle: String(repeating: "A", count: 99), title: String(repeating: "A", count: 99)),
@@ -75,12 +75,12 @@ struct TitleView_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
             VStack {
-                TitleView(showing: showings[0])
-                TitleView(showing: showings[1])
-                TitleView(showing: showings[2])
-                TitleView(showing: showings[3])
-                TitleView(showing: showings[4])
-                TitleView(showing: showings[5])
+                InfoTitleView(showing: showings[0])
+                InfoTitleView(showing: showings[1])
+                InfoTitleView(showing: showings[2])
+                InfoTitleView(showing: showings[3])
+                InfoTitleView(showing: showings[4])
+                InfoTitleView(showing: showings[5])
             }
         }
         .background(

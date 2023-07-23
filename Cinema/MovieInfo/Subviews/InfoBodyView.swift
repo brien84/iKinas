@@ -1,5 +1,5 @@
 //
-//  BodyView.swift
+//  InfoBodyView.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-01.
@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct BodyView: View {
+struct InfoBodyView: View {
     let store: StoreOf<MovieInfo>
 
     @State private var isDisplayingURL = false
@@ -125,13 +125,13 @@ private struct JustifiedTextView: UIViewRepresentable {
 
     func updateUIView(_ uiView: UILabel, context: UIViewRepresentableContext<Self>) {
         uiView.text = text
-        uiView.preferredMaxLayoutWidth = UIScreen.main.bounds.width - BodyView.horizontalPadding * 2
+        uiView.preferredMaxLayoutWidth = UIScreen.main.bounds.width - InfoBodyView.horizontalPadding * 2
     }
 }
 
 // MARK: - Constants
 
-private extension BodyView {
+private extension InfoBodyView {
     static let showingAnimationDelay: CGFloat = 0.475
     static let horizontalPadding: CGFloat = 16
     static let verticalPadding: CGFloat = 8
