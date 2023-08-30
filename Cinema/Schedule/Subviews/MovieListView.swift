@@ -40,7 +40,7 @@ struct MovieListView: View {
 }
 
 private struct MovieItemView: View {
-    let store: StoreOf<ScheduleItem>
+    let store: StoreOf<ShowingItem>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -50,7 +50,7 @@ private struct MovieItemView: View {
 
                     NetworkImageView(store: store.scope(
                         state: \.networkImage,
-                        action: ScheduleItem.Action.networkImage
+                        action: ShowingItem.Action.networkImage
                     ))
                     .aspectRatio(Self.imageAspectRatio, contentMode: .fit)
 

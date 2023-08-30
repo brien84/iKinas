@@ -166,7 +166,7 @@ struct ScheduleView_Previews: PreviewProvider {
     }()
 
     static let items = {
-        IdentifiedArray(uniqueElements: showings.compactMap { ScheduleItem.State(showing: $0) })
+        IdentifiedArray(uniqueElements: showings.compactMap { ShowingItem.State(showing: $0) })
     }()
 
     static let store = Store(

@@ -25,7 +25,7 @@ struct ShowingListView: View {
 }
 
 private struct ShowingItemView: View {
-    let store: StoreOf<ScheduleItem>
+    let store: StoreOf<ShowingItem>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -34,7 +34,7 @@ private struct ShowingItemView: View {
                     HStack {
                         NetworkImageView(store: store.scope(
                             state: \.networkImage,
-                            action: ScheduleItem.Action.networkImage
+                            action: ShowingItem.Action.networkImage
                         ))
                         .aspectRatio(contentMode: .fill)
                         .frame(width: Self.width, height: Self.height)

@@ -111,7 +111,7 @@ struct Main: ReducerProtocol {
             case .apiClient(.success(let response)):
                 switch response {
                 case .success:
-                    let items = apiClient.getShowings().compactMap { ScheduleItem.State(showing: $0) }
+                    let items = apiClient.getShowings().compactMap { ShowingItem.State(showing: $0) }
                     state.schedule.items = IdentifiedArray(uniqueElements: items)
                     return performTransition()
 

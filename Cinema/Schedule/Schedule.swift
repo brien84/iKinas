@@ -14,15 +14,15 @@ struct Schedule: ReducerProtocol {
         var isTransitioning = false
         var selectedDate = Date()
 
-        var items: IdentifiedArrayOf<ScheduleItem.State> = []
-        var movieItems: IdentifiedArrayOf<ScheduleItem.State> = []
-        var showingItems: IdentifiedArrayOf<ScheduleItem.State> = []
+        var items: IdentifiedArrayOf<ShowingItem.State> = []
+        var movieItems: IdentifiedArrayOf<ShowingItem.State> = []
+        var showingItems: IdentifiedArrayOf<ShowingItem.State> = []
     }
 
     enum Action: Equatable {
         case filterItems
-        case movieItem(id: ScheduleItem.State.ID, action: ScheduleItem.Action)
-        case showingItem(id: ScheduleItem.State.ID, action: ScheduleItem.Action)
+        case movieItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
+        case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -61,10 +61,10 @@ struct Schedule: ReducerProtocol {
             }
         }
         .forEach(\.movieItems, action: /Action.movieItem(id:action:)) {
-            ScheduleItem()
+            ShowingItem()
         }
         .forEach(\.showingItems, action: /Action.showingItem(id:action:)) {
-            ScheduleItem()
+            ShowingItem()
         }
     }
 }
