@@ -41,3 +41,27 @@ struct ShowingItem: ReducerProtocol {
         }
     }
 }
+
+extension IdentifiedArrayOf where Element == ShowingItem.State {
+    mutating func sort(by option: ShowingItem.SortOption) {
+        switch option {
+        case .date:
+            self.sort(by: { $0.showing < $1.showing })
+            return
+        case .title:
+            self.sort(by: {
+                $0.showing.title.compare($1.showing.title, locale: ShowingItem.locale) == .orderedAscending
+            })
+            return
+        }
+    }
+}
+
+extension ShowingItem {
+    fileprivate static let locale = Locale(identifier: "lt")
+
+    enum SortOption {
+        case title
+        case date
+    }
+}

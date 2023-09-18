@@ -49,13 +49,14 @@ struct Schedule: ReducerProtocol {
                 state.showingItems = state.items.filter {
                     $0.showing.isShown(on: state.selectedDate)
                 }
-                state.showingItems.sort(by: { $0.showing < $1.showing })
+                state.showingItems.sort(by: .date)
 
                 state.movieItems.removeAll()
                 for item in state.showingItems where !state.movieItems.contains(where: { $0.showing.title == item.showing.title }) {
                     state.movieItems.append(item)
                 }
-                state.movieItems.sort(by: { $0.showing.title < $1.showing.title })
+                state.movieItems.sort(by: .title)
+
                 return .none
 
             }
