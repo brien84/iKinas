@@ -80,3 +80,14 @@ extension Showing: Comparable {
         }
     }
 }
+
+extension Array where Element == Showing {
+    /// Returns `Dates` in the future corresponding to the days when `Showings` are scheduled.
+    func getDays() -> [Date] {
+        let dates = self.compactMap { showing -> Date? in
+            guard showing.date > Date() else { return nil }
+            return Calendar.current.startOfDay(for: showing.date)
+        }
+        return [Date](Set(dates)).sorted()
+    }
+}
