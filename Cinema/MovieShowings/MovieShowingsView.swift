@@ -64,7 +64,7 @@ private struct ShowingsTabView: View {
                     ScrollViewReader { proxy in
                         ScrollView(.vertical, showsIndicators: false) {
                             LazyVGrid(columns: columns) {
-                                ForEach(viewStore.state.getShowings(at: date)) { showing in
+                                ForEach(viewStore.state.showings.filter(by: date)) { showing in
                                     ShowingView(showing: showing)
                                         .simultaneousGesture(
                                             TapGesture().onEnded { _ in

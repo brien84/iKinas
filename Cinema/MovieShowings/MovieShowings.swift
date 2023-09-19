@@ -12,23 +12,11 @@ import Foundation
 struct MovieShowings: ReducerProtocol {
     struct State: Equatable {
         var dateSelector: DateSelector.State
-        private let showings: [Showing]
+        let showings: [Showing]
 
         init(showings: [Showing]) {
+            self.dateSelector = DateSelector.State(dates: showings.getDays())
             self.showings = showings
-
-            let allDates = self.showings.compactMap { showing -> Date? in
-                guard showing.date > Date() else { return nil }
-                return Calendar.current.startOfDay(for: showing.date)
-            }
-
-            let dates = Array(Set(allDates)).sorted()
-            self.dateSelector = DateSelector.State(dates: dates)
-        }
-
-        func getShowings(at date: Date) -> IdentifiedArrayOf<Showing> {
-            let showings = showings.filter { $0.isShown(on: date) }.sorted()
-            return IdentifiedArray(uniqueElements: showings)
         }
     }
 
