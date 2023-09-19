@@ -90,4 +90,10 @@ extension Array where Element == Showing {
         }
         return [Date](Set(dates)).sorted()
     }
+
+    func filter(by date: Date) -> [Showing] {
+        self.filter { showing in
+            Calendar.current.isDate(showing.date, inSameDayAs: date)
+        }.sorted()
+    }
 }
