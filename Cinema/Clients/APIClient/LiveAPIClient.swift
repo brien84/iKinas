@@ -40,7 +40,10 @@ extension APIClient: DependencyKey {
                     .eraseToEffect()
             },
             getShowings: {
-                showings
+                showings.filter {
+                    if $0.date < Date() { return false }
+                    return true
+                }
             }
         )
     }
