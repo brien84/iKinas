@@ -42,7 +42,13 @@ struct ShowingItem: ReducerProtocol {
     }
 }
 
-extension IdentifiedArrayOf where Element == ShowingItem.State {
+extension IdentifiedArrayOf where Element == ShowingItem.State, ID == UUID {
+    func filter(by date: Date) -> IdentifiedArrayOf<Element> {
+        self.filter { item in
+            Calendar.current.isDate(item.showing.date, inSameDayAs: date)
+        }
+    }
+
     mutating func sort(by option: ShowingItem.SortOption) {
         switch option {
         case .date:
