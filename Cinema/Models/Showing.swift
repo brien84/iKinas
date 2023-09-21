@@ -6,6 +6,7 @@
 //  Copyright © 2019 Marius. All rights reserved.
 //
 
+import ComposableArchitecture
 import Foundation
 
 struct Showing: Equatable, Identifiable {
@@ -82,7 +83,11 @@ extension Showing: Comparable {
 }
 
 extension Array where Element == Showing {
-    /// Returns `Dates` in the future corresponding to the days when `Showings` are scheduled.
+    func convertToItems() -> IdentifiedArrayOf<ShowingItem.State> {
+        let items = self.compactMap(ShowingItem.State.init)
+        return IdentifiedArray(uniqueElements: items)
+    }
+
     func getDays() -> [Date] {
         let dates = self.compactMap { showing -> Date? in
             guard showing.date > Date() else { return nil }
