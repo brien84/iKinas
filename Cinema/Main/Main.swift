@@ -111,8 +111,11 @@ struct Main: ReducerProtocol {
             case .apiClient(.success(let response)):
                 switch response {
                 case .success:
-                    let items = apiClient.getShowings().compactMap { ShowingItem.State(showing: $0) }
-                    state.schedule.items = IdentifiedArray(uniqueElements: items)
+                    state.dateSelector = DateSelector.State(
+                        dates: apiClient.getShowings().getDays(),
+                        selectedDate: .distantPast
+                    )
+                    state.schedule.items = apiClient.getShowings().convertToItems()
                     return performTransition()
 
                 case .failure(let error):
