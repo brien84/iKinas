@@ -49,6 +49,16 @@ extension IdentifiedArrayOf where Element == ShowingItem.State, ID == UUID {
         }
     }
 
+    func getUniqueTitles() -> IdentifiedArrayOf<Element> {
+        var unique = IdentifiedArrayOf<Element>()
+
+        for item in self where !unique.contains(where: { $0.showing.title == item.showing.title }) {
+            unique.append(item)
+        }
+
+        return unique
+    }
+
     mutating func sort(by option: ShowingItem.SortOption) {
         switch option {
         case .date:
