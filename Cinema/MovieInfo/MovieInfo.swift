@@ -11,21 +11,19 @@ import SwiftUI
 
 struct MovieInfo: ReducerProtocol {
     struct State: Equatable {
+        var showing: Showing.State
         var movieShowings: MovieShowings.State?
-        var networkImage: NetworkImage.State
 
         var isScrollingEnabled = true
-        let showing: Showing
-        let shouldDisplayURL: Bool
+        let shouldDisplayTicketURL: Bool
         var showingURL: URL?
         var titleViewOverlapPercentage: CGFloat = 0
 
         var isNavigationToMovieShowingsActive = false
 
-        init(showing: Showing, shouldDisplayURL: Bool) {
+        init(showing: Showing.State, shouldDisplayTicketURL: Bool) {
             self.showing = showing
-            self.shouldDisplayURL = shouldDisplayURL
-            self.networkImage = NetworkImage.State(url: showing.posterURL)
+            self.shouldDisplayTicketURL = shouldDisplayTicketURL
         }
     }
 
@@ -43,7 +41,7 @@ struct MovieInfo: ReducerProtocol {
     @Dependency(\.apiClient) var apiClient
 
     var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.networkImage, action: /Action.networkImage) {
+        Scope(state: \.showing.networkImage, action: /Action.networkImage) {
             NetworkImage()
         }
 
@@ -81,9 +79,8 @@ struct MovieInfo: ReducerProtocol {
                 if isActive {
                     state.isNavigationToMovieShowingsActive = true
 
-                    let showings = apiClient.getShowings().filter { showing in
-                        showing.title == state.showing.title
-                    }
+                    var showings = apiClient.getShowings().filter(by: state.showing.title)
+                    showings.sort(by: .date)
 
                     state.movieShowings = MovieShowings.State(showings: showings)
                 } else {

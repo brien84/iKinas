@@ -26,7 +26,7 @@ struct MovieInfoView: View {
                 ScrollView(showsIndicators: false) {
                     VStack(spacing: .zero) {
                         NetworkImageView(store: store.scope(
-                            state: \.networkImage,
+                            state: \.showing.networkImage,
                             action: MovieInfo.Action.networkImage
                         ))
                         .scaleEffect(posterScale)
@@ -146,7 +146,7 @@ private extension MovieInfoView {
 
 struct MovieInfoView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: MovieInfo.State(showing: Showing(), shouldDisplayURL: true),
+        initialState: MovieInfo.State(showing: iKinas.Previews.createShowing(), shouldDisplayTicketURL: true),
         reducer: MovieInfo()
     )
 

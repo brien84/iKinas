@@ -1,14 +1,50 @@
 //
-//  Extension+String.swift
+//  Previews.swift
 //  Cinema
 //
-//  Created by Marius on 2023-07-19.
+//  Created by Marius on 2023-09-25.
 //  Copyright © 2023 Marius. All rights reserved.
 //
 
 import Foundation
 
-extension String {
+struct Previews {
+    static func createShowing(
+        ageRating: String = "N-18",
+        city: City = .vilnius,
+        date: Date = Date(timeIntervalSinceNow: .hour),
+        duration: String = "90 min",
+        genres: [String] = ["Drama", "Komedija"],
+        id: UUID = UUID(),
+        is3D: Bool = true,
+        networkImage: NetworkImage.State = NetworkImage.State(url: URL(string: "https://movies.ioys.lt/posters/example.png")!),
+        originalTitle: String = "Movie Title",
+        plot: String = .loremIpsum,
+        title: String = "Filmo Pavadinimas",
+        url: URL = URL(string: "https://www.ioys.lt/iKinas/")!,
+        venue: Venue = .forum,
+        year: String = "2020"
+    ) -> Showing.State {
+        Showing.State(
+            ageRating: ageRating,
+            city: city,
+            date: date,
+            duration: duration,
+            genres: genres,
+            id: id,
+            is3D: is3D,
+            networkImage: networkImage,
+            originalTitle: originalTitle,
+            plot: plot,
+            title: title,
+            url: url,
+            venue: venue,
+            year: year
+        )
+    }
+}
+
+private extension String {
     static let loremIpsum =
         """
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vulputate sapien interdum auctor pharetra.

@@ -39,11 +39,10 @@
 		29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F84293CAB3400E59D42 /* ExitButtonView.swift */; };
 		298BBF132961F67800C2EA8C /* InfoBodyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF122961F67800C2EA8C /* InfoBodyView.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
-		299222A12A9FD6F0008BFE82 /* ShowingItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299222A02A9FD6F0008BFE82 /* ShowingItem.swift */; };
 		299E52582A0A18430020E1CE /* Extension+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299E52572A0A18430020E1CE /* Extension+Calendar.swift */; };
-		29A8E1202A685D4B005FD2A6 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E11F2A685D4B005FD2A6 /* Extension+String.swift */; };
 		29A8E1222A688321005FD2A6 /* Extension+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */; };
 		29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */; };
+		29AFB2352AC1DA4200FC2D03 /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2342AC1DA4200FC2D03 /* Previews.swift */; };
 		29B1BAE8296743D300A60E20 /* MovieShowings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE7296743D300A60E20 /* MovieShowings.swift */; };
 		29B1BAEA2967443600A60E20 /* MovieShowingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE92967443600A60E20 /* MovieShowingsView.swift */; };
 		29B4D94B23F1EC0600BD9783 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4D94A23F1EC0600BD9783 /* City.swift */; };
@@ -118,11 +117,10 @@
 		29817F84293CAB3400E59D42 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		298BBF122961F67800C2EA8C /* InfoBodyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoBodyView.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		299222A02A9FD6F0008BFE82 /* ShowingItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingItem.swift; sourceTree = "<group>"; };
 		299E52572A0A18430020E1CE /* Extension+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Calendar.swift"; sourceTree = "<group>"; };
-		29A8E11F2A685D4B005FD2A6 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TimeInterval.swift"; sourceTree = "<group>"; };
 		29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Locale.swift"; sourceTree = "<group>"; };
+		29AFB2342AC1DA4200FC2D03 /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		29B1BAE7296743D300A60E20 /* MovieShowings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieShowings.swift; sourceTree = "<group>"; };
 		29B1BAE92967443600A60E20 /* MovieShowingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieShowingsView.swift; sourceTree = "<group>"; };
 		29B4D94A23F1EC0600BD9783 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -228,7 +226,6 @@
 			children = (
 				29B4D94A23F1EC0600BD9783 /* City.swift */,
 				2904C79F2336A69B00407B64 /* Showing.swift */,
-				299222A02A9FD6F0008BFE82 /* ShowingItem.swift */,
 				297C826C26B01DA30053F706 /* Venue.swift */,
 			);
 			path = Models;
@@ -317,7 +314,6 @@
 				29E3069A296F09E0003A52C4 /* Extension+Color.swift */,
 				29F3D6AC296AFE5300495BBD /* Extension+Date.swift */,
 				29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */,
-				29A8E11F2A685D4B005FD2A6 /* Extension+String.swift */,
 				29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */,
 				29E3069C296F0A96003A52C4 /* Extension+URL.swift */,
 			);
@@ -362,6 +358,7 @@
 		29BFAF8C2961AE3C00655325 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				29AFB2342AC1DA4200FC2D03 /* Previews.swift */,
 				29958963296E1CFE00AF0231 /* Extensions */,
 				29958964296E1D1C00AF0231 /* Views */,
 			);
@@ -597,7 +594,6 @@
 				29DDA575295DC125000C4322 /* MovieInfoView.swift in Sources */,
 				29BFAF86295F29E500655325 /* InfoTitleView.swift in Sources */,
 				29E306A3296F2271003A52C4 /* PassiveNavigationLink.swift in Sources */,
-				299222A12A9FD6F0008BFE82 /* ShowingItem.swift in Sources */,
 				29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */,
 				2991622B295226190084464C /* MainView.swift in Sources */,
 				29E306A1296F14D9003A52C4 /* EmptyErrorView.swift in Sources */,
@@ -621,10 +617,10 @@
 				29E3069B296F09E0003A52C4 /* Extension+Color.swift in Sources */,
 				29E3069D296F0A96003A52C4 /* Extension+URL.swift in Sources */,
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
+				29AFB2352AC1DA4200FC2D03 /* Previews.swift in Sources */,
 				293A436E29FBF07600913707 /* HomeFeedView.swift in Sources */,
 				29817F78293BC1E800E59D42 /* Settings.swift in Sources */,
 				29B1BAEA2967443600A60E20 /* MovieShowingsView.swift in Sources */,
-				29A8E1202A685D4B005FD2A6 /* Extension+String.swift in Sources */,
 				29DDA577295DCA2C000C4322 /* MovieInfoHostingController.swift in Sources */,
 				296FE0592950E9AA0015F7AA /* Main.swift in Sources */,
 				29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */,

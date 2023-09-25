@@ -15,17 +15,17 @@ struct ShowingListView: View {
     var body: some View {
         LazyVStack(spacing: .zero) {
             ForEachStore(store.scope(
-                state: \.showingItems,
-                action: Schedule.Action.showingItem(id:action:)
+                state: \.showings,
+                action: Schedule.Action.showing(id:action:)
             )) {
-                ShowingItemView(store: $0)
+                ShowingView(store: $0)
             }
         }
     }
 }
 
-private struct ShowingItemView: View {
-    let store: StoreOf<ShowingItem>
+private struct ShowingView: View {
+    let store: StoreOf<Showing>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -34,27 +34,27 @@ private struct ShowingItemView: View {
                     HStack {
                         NetworkImageView(store: store.scope(
                             state: \.networkImage,
-                            action: ShowingItem.Action.networkImage
+                            action: Showing.Action.networkImage
                         ))
                         .aspectRatio(contentMode: .fill)
                         .frame(width: Self.width, height: Self.height)
                         .clipShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
 
-                        ShowingTitleView(showing: viewStore.showing)
+                        TitleView(showing: viewStore.state)
 
                         VStack(alignment: .trailing) {
                             HStack {
                                 Image(systemName: "view.3d")
                                     .font(.body.weight(.medium))
                                     .foregroundColor(.tertiaryElement)
-                                    .opacity(viewStore.showing.is3D ? 1 : 0)
+                                    .opacity(viewStore.is3D ? 1 : 0)
 
-                                Text(viewStore.showing.date.toString(.timeOfDay))
+                                Text(viewStore.date.toString(.timeOfDay))
                                     .font(.title2.weight(.medium))
                                     .foregroundColor(.primaryElement)
                             }
 
-                            Image(viewStore.showing.venue.rawValue)
+                            Image(viewStore.venue.rawValue)
                         }
                     }
                     .background(Color.primaryBackground)
@@ -71,11 +71,11 @@ private struct ShowingItemView: View {
     }
 }
 
-private struct ShowingTitleView: View {
+private struct TitleView: View {
     private let title: String
     private let originalTitle: String
 
-    init(showing: Showing) {
+    init(showing: Showing.State) {
         self.title = showing.title
         self.originalTitle = showing.originalTitle
     }
@@ -106,7 +106,7 @@ private struct ShowingTitleView: View {
 
 // MARK: - Constants
 
-private extension ShowingItemView {
+private extension ShowingView {
     static let cornerRadius: CGFloat = 10
     static let height: CGFloat = 75
     static let width: CGFloat = 75

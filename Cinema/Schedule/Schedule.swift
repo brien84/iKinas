@@ -14,51 +14,51 @@ struct Schedule: ReducerProtocol {
         var isTransitioning = false
         var selectedDate = Date()
 
-        var items: IdentifiedArrayOf<ShowingItem.State> = []
-        var movieItems: IdentifiedArrayOf<ShowingItem.State> = []
-        var showingItems: IdentifiedArrayOf<ShowingItem.State> = []
+        var datasource: IdentifiedArrayOf<Showing.State> = []
+        var movies: IdentifiedArrayOf<Showing.State> = []
+        var showings: IdentifiedArrayOf<Showing.State> = []
     }
 
     enum Action: Equatable {
-        case filterItems
-        case movieItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
-        case showingItem(id: ShowingItem.State.ID, action: ShowingItem.Action)
+        case filterDatasource
+        case movie(id: Showing.State.ID, action: Showing.Action)
+        case showing(id: Showing.State.ID, action: Showing.Action)
     }
 
     var body: some ReducerProtocol<State, Action> {
         Reduce { state, action in
             switch action {
 
-            case .movieItem(id: let id, action: .networkImage(.imageClient(.success))):
-                guard let networkImage = state.movieItems[id: id]?.networkImage else { return .none }
-                state.items[id: id]?.networkImage = networkImage
+            case .movie(id: let id, action: .networkImage(.imageClient(.success))):
+                guard let networkImage = state.movies[id: id]?.networkImage else { return .none }
+                state.datasource[id: id]?.networkImage = networkImage
                 return .none
 
-            case .movieItem:
+            case .movie:
                 return .none
 
-            case .showingItem(id: let id, action: .networkImage(.imageClient(.success))):
-                guard let networkImage = state.showingItems[id: id]?.networkImage else { return .none }
-                state.items[id: id]?.networkImage = networkImage
+            case .showing(id: let id, action: .networkImage(.imageClient(.success))):
+                guard let networkImage = state.showings[id: id]?.networkImage else { return .none }
+                state.datasource[id: id]?.networkImage = networkImage
                 return .none
 
-            case .showingItem:
+            case .showing:
                 return .none
 
-            case .filterItems:
-                state.showingItems = state.items.filter(by: state.selectedDate)
-                state.showingItems.sort(by: .date)
-                state.movieItems = state.showingItems.getUniqueTitles()
-                state.movieItems.sort(by: .title)
+            case .filterDatasource:
+                state.showings = state.datasource.filter(by: state.selectedDate)
+                state.showings.sort(by: .date)
+                state.movies = state.showings.filterByUniqueTitles()
+                state.movies.sort(by: .title)
                 return .none
 
             }
         }
-        .forEach(\.movieItems, action: /Action.movieItem(id:action:)) {
-            ShowingItem()
+        .forEach(\.movies, action: /Action.movie(id:action:)) {
+            Showing()
         }
-        .forEach(\.showingItems, action: /Action.showingItem(id:action:)) {
-            ShowingItem()
+        .forEach(\.showings, action: /Action.showing(id:action:)) {
+            Showing()
         }
     }
 }

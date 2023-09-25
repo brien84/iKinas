@@ -64,7 +64,7 @@ private struct ShowingsTabView: View {
                     ScrollViewReader { proxy in
                         ScrollView(.vertical, showsIndicators: false) {
                             LazyVGrid(columns: columns) {
-                                ForEach(viewStore.state.showings.filter(by: date)) { showing in
+                                ForEach(viewStore.showings.filter(by: date)) { showing in
                                     ShowingView(showing: showing)
                                         .simultaneousGesture(
                                             TapGesture().onEnded { _ in
@@ -93,7 +93,7 @@ private struct ShowingsTabView: View {
 }
 
 private struct ShowingView: View {
-    let showing: Showing
+    let showing: Showing.State
 
     var body: some View {
         ShrinkOnPressView {
@@ -147,12 +147,12 @@ struct MovieShowingsView_Previews: PreviewProvider {
     static let showings = {
         stride(from: 0, to: 100, by: 1).map { index in
             let date = Date(timeIntervalSinceNow: .random(in: 0...index) * .hour)
-            return Showing(date: date)
+            return iKinas.Previews.createShowing(date: date)
         }
     }()
 
     static let store = Store(
-        initialState: MovieShowings.State(showings: showings),
+        initialState: MovieShowings.State(showings: showings.convertToIdentifiedArray()),
         reducer: MovieShowings()
     )
 

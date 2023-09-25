@@ -12,7 +12,7 @@ import SwiftUI
 struct InfoBodyView: View {
     let store: StoreOf<MovieInfo>
 
-    @State private var isDisplayingURL = false
+    @State private var isDisplayingTicketURL = false
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -25,12 +25,12 @@ struct InfoBodyView: View {
                         .padding(.horizontal)
                         .padding(.vertical, Self.verticalPadding)
 
-                    if isDisplayingURL {
-                        if viewStore.shouldDisplayURL {
+                    if isDisplayingTicketURL {
+                        if viewStore.shouldDisplayTicketURL {
                             Divider()
                                 .padding(.horizontal)
 
-                            ShowingURLView(showing: viewStore.showing) {
+                            TicketURLView(showing: viewStore.showing) {
                                 viewStore.send(.setShowingURL(viewStore.showing.url))
                             }
                             .transition(.verticalScaleAndOpacity)
@@ -49,7 +49,7 @@ struct InfoBodyView: View {
             .onAppear {
                 // Delay to sync animation with `NavigationBar` animation.
                 withAnimation(.default.delay(Self.showingAnimationDelay)) {
-                    isDisplayingURL = true
+                    isDisplayingTicketURL = true
                 }
             }
         }
@@ -80,8 +80,8 @@ private struct GenresView: View {
     }
 }
 
-private struct ShowingURLView: View {
-    let showing: Showing
+private struct TicketURLView: View {
+    let showing: Showing.State
     let action: () -> Void
 
     var body: some View {
@@ -144,7 +144,7 @@ private extension GenresView {
     static let verticalPadding: CGFloat = 5
 }
 
-private extension ShowingURLView {
+private extension TicketURLView {
     static let horizontalPadding: CGFloat = 32
     static let verticalPadding: CGFloat = 24
 }

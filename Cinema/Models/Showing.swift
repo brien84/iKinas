@@ -9,96 +9,118 @@
 import ComposableArchitecture
 import Foundation
 
-struct Showing: Equatable, Identifiable {
-    let ageRating: String
-    let city: City
-    let date: Date
-    let duration: String
-    let genres: [String]
-    let id: UUID
-    let is3D: Bool
-    let originalTitle: String
-    let plot: String
-    let posterURL: URL
-    let title: String
-    let url: URL
-    let venue: Venue
-    let year: String
-
-    init(
-        ageRating: String = "N-18",
-        city: City = .vilnius,
-        date: Date = Date(timeIntervalSinceNow: .hour),
-        duration: String = "90 min",
-        genres: [String] = ["Drama", "Komedija"],
-        id: UUID = UUID(),
-        is3D: Bool = true,
-        originalTitle: String = "Movie Title",
-        plot: String = .loremIpsum,
-        posterURL: URL = URL(string: "https://movies.ioys.lt/posters/example.png")!,
-        title: String = "Filmo Pavadinimas",
-        url: URL = URL(string: "https://www.ioys.lt/iKinas/")!,
-        venue: Venue = .forum,
-        year: String = "2020"
-    ) {
-        self.ageRating = ageRating
-        self.city = city
-        self.date = date
-        self.duration = duration
-        self.genres = genres
-        self.id = id
-        self.is3D = is3D
-        self.originalTitle = originalTitle
-        self.plot = plot
-        self.posterURL = posterURL
-        self.title = title
-        self.url = url
-        self.venue = venue
-        self.year = year
+struct Showing: ReducerProtocol {
+    struct State: Equatable, Identifiable {
+        let ageRating: String
+        let city: City
+        let date: Date
+        let duration: String
+        let genres: [String]
+        let id: UUID
+        let is3D: Bool
+        var networkImage: NetworkImage.State
+        let originalTitle: String
+        let plot: String
+        let title: String
+        let url: URL
+        let venue: Venue
+        let year: String
     }
-}
 
-extension Showing {
-    func isShown(on date: Date) -> Bool {
-        if self.date < Date() { return false }
-        let calendar = Calendar.current
-        return calendar.isDate(self.date, inSameDayAs: date)
+    enum Action: Equatable {
+        case didSelect
+        case networkImage(NetworkImage.Action)
     }
-}
 
-extension Showing: Comparable {
-    /// `Showing` are compared based on their `date` property value. In the event of a tie,
-    /// the `title` and `venue` properties are used as tie-breakers.
-    static func < (lhs: Showing, rhs: Showing) -> Bool {
-        if lhs.date != rhs.date {
-            return lhs.date < rhs.date
-        } else {
-            if lhs.title != rhs.title {
-                return lhs.title < rhs.title
-            } else {
-                return lhs.venue.rawValue < rhs.venue.rawValue
+    var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.networkImage, action: /Action.networkImage) {
+            NetworkImage()
+        }
+
+        Reduce { _, action in
+            switch action {
+            case .didSelect:
+                return .none
+            case .networkImage:
+                return .none
             }
         }
     }
 }
 
-extension Array where Element == Showing {
-    func convertToItems() -> IdentifiedArrayOf<ShowingItem.State> {
-        let items = self.compactMap(ShowingItem.State.init)
-        return IdentifiedArray(uniqueElements: items)
+extension Array where Element == Showing.State {
+    func convertToIdentifiedArray() -> IdentifiedArrayOf<Showing.State> {
+        IdentifiedArray(uniqueElements: self)
+    }
+}
+
+extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
+    func filter(by date: Date) -> IdentifiedArrayOf<Element> {
+        self.filter { showing in
+            Calendar.current.isDate(showing.date, inSameDayAs: date)
+        }
     }
 
-    func getDays() -> [Date] {
-        let dates = self.compactMap { showing -> Date? in
-            guard showing.date > Date() else { return nil }
-            return Calendar.current.startOfDay(for: showing.date)
+    func filter(by title: String) -> IdentifiedArrayOf<Element> {
+        self.filter { showing in
+            title == showing.title
+        }
+    }
+
+    /// Returns an `IdentifiedArrayOf<Showing.State>` where each `Showing.State` has a unique `title`.
+    func filterByUniqueTitles() -> IdentifiedArrayOf<Element> {
+        var unique = IdentifiedArrayOf<Element>()
+
+        for showing in self where !unique.contains(where: { $0.title == showing.title }) {
+            unique.append(showing)
+        }
+
+        return unique
+    }
+
+    /// Returns an array of `Date` objects, each representing the start of a day for the upcoming showings, with duplicates removed.
+    func getUpcomingDays() -> [Date] {
+        let dates = self.map { showing in
+            Calendar.current.startOfDay(for: showing.date)
         }
         return [Date](Set(dates)).sorted()
     }
 
-    func filter(by date: Date) -> [Showing] {
-        self.filter { showing in
-            Calendar.current.isDate(showing.date, inSameDayAs: date)
-        }.sorted()
+    mutating func sort(by option: Showing.SortOption) {
+        switch option {
+        case .date:
+            sortByDate()
+        case .title:
+            sortByTitle()
+        }
+    }
+
+    /// Sorts `IdentifiedArrayOf<Showing.State>` based on elements `date` properties.
+    /// If multiple elements share the same `date`, further sorting is done based on `title` and then `venue` properties.
+    private mutating func sortByDate() {
+        self.sort(by: {
+            if $0.date != $1.date {
+                return $0.date < $1.date
+            } else {
+                if $0.title != $1.title {
+                    return $0.title.compare($1.title, locale: Locale.app) == .orderedAscending
+                } else {
+                    return $0.venue.rawValue < $1.venue.rawValue
+                }
+            }
+        })
+    }
+
+    private mutating func sortByTitle() {
+        self.sort(by: {
+            $0.title.compare($1.title, locale: Locale.app) == .orderedAscending
+        })
+    }
+}
+
+extension Showing {
+    enum SortOption {
+        case title
+        case date
     }
 }

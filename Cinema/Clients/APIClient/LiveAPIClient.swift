@@ -13,7 +13,7 @@ import OrderedCollections
 
 extension APIClient: DependencyKey {
     static var liveValue: Self {
-        var showings = [Showing]()
+        var showings = IdentifiedArrayOf<Showing.State>()
 
         return Self(
             fetch: { city, venues in
@@ -40,10 +40,7 @@ extension APIClient: DependencyKey {
                     .eraseToEffect()
             },
             getShowings: {
-                showings.filter {
-                    if $0.date < Date() { return false }
-                    return true
-                }
+                showings
             }
         )
     }
@@ -64,13 +61,14 @@ extension APIClient: DependencyKey {
 }
 
 private struct ShowingsService {
-    static func decode(data: Data) throws -> [iKinas.Showing] {
+    static func decode(data: Data) throws -> IdentifiedArrayOf<iKinas.Showing.State> {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
 
         return try decoder.decode([ShowingsService.Movie].self, from: data).flatMap { movie in
-            movie.showings.map { showing in
-                iKinas.Showing(
+            movie.showings.compactMap { showing -> iKinas.Showing.State? in
+                guard showing.date > Date() else { return nil }
+                return iKinas.Showing.State(
                     ageRating: movie.ageRating,
                     city: showing.city,
                     date: showing.date,
@@ -78,16 +76,16 @@ private struct ShowingsService {
                     genres: movie.genres,
                     id: showing.id,
                     is3D: showing.is3D,
+                    networkImage: NetworkImage.State(url: movie.poster),
                     originalTitle: movie.originalTitle,
                     plot: movie.plot,
-                    posterURL: movie.poster,
                     title: movie.title,
                     url: showing.url,
                     venue: showing.venue,
                     year: movie.year
                 )
             }
-        }
+        }.convertToIdentifiedArray()
     }
 
     private struct Movie: Decodable {

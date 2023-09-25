@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct InfoTitleView: View {
-    let showing: Showing
+    let showing: Showing.State
 
     var body: some View {
         ZStack {
@@ -64,12 +64,12 @@ private extension InfoTitleView {
 
 struct InfoTitleView_Previews: PreviewProvider {
     static let showings = [
-        Showing(originalTitle: String(repeating: "A", count: 15), title: String(repeating: "A", count: 15)),
-        Showing(originalTitle: String(repeating: "A", count: 99), title: String(repeating: "A", count: 99)),
-        Showing(originalTitle: String(repeating: "B", count: 15), title: String(repeating: "A", count: 15)),
-        Showing(originalTitle: String(repeating: "B", count: 15), title: String(repeating: "A", count: 99)),
-        Showing(originalTitle: String(repeating: "B", count: 99), title: String(repeating: "A", count: 15)),
-        Showing(originalTitle: String(repeating: "B", count: 99), title: String(repeating: "A", count: 99))
+        iKinas.Previews.createShowing(originalTitle: String(repeating: "A", count: 15), title: String(repeating: "A", count: 15)),
+        iKinas.Previews.createShowing(originalTitle: String(repeating: "A", count: 99), title: String(repeating: "A", count: 99)),
+        iKinas.Previews.createShowing(originalTitle: String(repeating: "B", count: 15), title: String(repeating: "A", count: 15)),
+        iKinas.Previews.createShowing(originalTitle: String(repeating: "B", count: 15), title: String(repeating: "A", count: 99)),
+        iKinas.Previews.createShowing(originalTitle: String(repeating: "B", count: 99), title: String(repeating: "A", count: 15)),
+        iKinas.Previews.createShowing(originalTitle: String(repeating: "B", count: 99), title: String(repeating: "A", count: 99))
     ]
 
     static var previews: some View {

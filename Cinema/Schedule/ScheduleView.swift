@@ -35,7 +35,7 @@ struct ScheduleView: View {
                         .padding(.top)
                         .background(FrameGetter(frame: $dateFrame))
 
-                        if !viewStore.movieItems.isEmpty {
+                        if !viewStore.movies.isEmpty {
                             VStack {
                                 SectionLabel(text: "Filmai")
                                     .transitionSectionLabel(viewStore.isTransitioning)
@@ -154,9 +154,9 @@ private extension View {
 // MARK: - Previews
 
 struct ScheduleView_Previews: PreviewProvider {
-    static let showings: [Showing] = {
+    static let showings: [Showing.State] = {
         stride(from: 1, to: 20, by: 1).map { index in
-            Showing(
+            iKinas.Previews.createShowing(
                 date: Date(timeIntervalSinceNow: 1),
                 is3D: index % 2 == 0,
                 originalTitle: String(repeating: index % 2 == 0 ? "Title" : "OriginalTitle", count: index),
@@ -165,12 +165,8 @@ struct ScheduleView_Previews: PreviewProvider {
         }
     }()
 
-    static let items = {
-        IdentifiedArray(uniqueElements: showings.compactMap { ShowingItem.State(showing: $0) })
-    }()
-
     static let store = Store(
-        initialState: Schedule.State(items: items),
+        initialState: Schedule.State(datasource: showings.convertToIdentifiedArray()),
         reducer: Schedule()
     )
 
@@ -179,7 +175,7 @@ struct ScheduleView_Previews: PreviewProvider {
             .background(Color.primaryBackground.ignoresSafeArea())
             .preferredColorScheme(.dark)
             .onAppear {
-                ViewStore(store).send(.filterItems)
+                ViewStore(store).send(.filterDatasource)
             }
     }
 }

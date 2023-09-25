@@ -12,7 +12,7 @@ import OrderedCollections
 
 struct APIClient {
     var fetch: (City, OrderedSet<Venue>) -> EffectTask<Response>
-    var getShowings: () -> [Showing]
+    var getShowings: () -> IdentifiedArrayOf<Showing.State>
 
     enum Response: Equatable {
         case success
@@ -40,11 +40,11 @@ extension APIClient: TestDependencyKey {
         },
         getShowings: {
             stride(from: 1, to: 50, by: 1).map { index in
-                Showing(
+                Previews.createShowing(
                     date: Date(timeIntervalSinceNow: index * .hour),
                     title: "Movie \(index)"
                 )
-            }
+            }.convertToIdentifiedArray()
         }
     )
 }

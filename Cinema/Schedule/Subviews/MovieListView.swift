@@ -18,10 +18,10 @@ struct MovieListView: View {
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: Self.horizontalSpacing) {
                         ForEachStore(store.scope(
-                            state: \.movieItems,
-                            action: Schedule.Action.movieItem(id:action:)
+                            state: \.movies,
+                            action: Schedule.Action.movie(id:action:)
                         )) {
-                            MovieItemView(store: $0)
+                            MovieView(store: $0)
                                 .aspectRatio(Self.aspectRatio, contentMode: .fit)
                         }
                     }
@@ -39,8 +39,8 @@ struct MovieListView: View {
     }
 }
 
-private struct MovieItemView: View {
-    let store: StoreOf<ShowingItem>
+private struct MovieView: View {
+    let store: StoreOf<Showing>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -50,7 +50,7 @@ private struct MovieItemView: View {
 
                     NetworkImageView(store: store.scope(
                         state: \.networkImage,
-                        action: ShowingItem.Action.networkImage
+                        action: Showing.Action.networkImage
                     ))
                     .aspectRatio(Self.imageAspectRatio, contentMode: .fit)
 
@@ -58,7 +58,7 @@ private struct MovieItemView: View {
                         Spacer()
 
                         ZStack(alignment: .topLeading) {
-                            Text(viewStore.showing.title)
+                            Text(viewStore.title)
                                 .font(.callout.bold())
                                 .foregroundColor(.primaryElement)
 
@@ -105,7 +105,7 @@ private extension MovieListView {
     static let scrollToTopID: String = "upandaway"
 }
 
-private extension MovieItemView {
+private extension MovieView {
     static let cornerRadius: CGFloat = 20
     static let imageAspectRatio: CGFloat = 2/3
 }

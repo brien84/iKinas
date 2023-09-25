@@ -12,10 +12,10 @@ import Foundation
 struct MovieShowings: ReducerProtocol {
     struct State: Equatable {
         var dateSelector: DateSelector.State
-        let showings: [Showing]
+        let showings: IdentifiedArrayOf<Showing.State>
 
-        init(showings: [Showing]) {
-            self.dateSelector = DateSelector.State(dates: showings.getDays())
+        init(showings: IdentifiedArrayOf<Showing.State>) {
+            self.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
             self.showings = showings
         }
     }
@@ -23,7 +23,7 @@ struct MovieShowings: ReducerProtocol {
     enum Action: Equatable {
         case dateSelector(DateSelector.Action)
         case didSelectDate(Date)
-        case didSelectShowing(Showing)
+        case didSelectShowing(Showing.State)
         case exitButtonDidTap
     }
 

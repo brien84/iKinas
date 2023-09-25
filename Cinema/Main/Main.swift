@@ -84,15 +84,15 @@ struct Main: ReducerProtocol {
             case .movieInfo:
                 return .none
 
-            case .schedule(.movieItem(id: let id, action: .didSelect)):
-                if let item = state.schedule.items[id: id] {
-                    state.movieInfo = MovieInfo.State(showing: item.showing, shouldDisplayURL: false)
+            case .schedule(.movie(id: let id, action: .didSelect)):
+                if let showing = state.schedule.datasource[id: id] {
+                    state.movieInfo = MovieInfo.State(showing: showing, shouldDisplayTicketURL: false)
                 }
                 return .none
 
-            case .schedule(.showingItem(id: let id, action: .didSelect)):
-                if let item = state.schedule.items[id: id] {
-                    state.movieInfo = MovieInfo.State(showing: item.showing, shouldDisplayURL: true)
+            case .schedule(.showing(id: let id, action: .didSelect)):
+                if let showing = state.schedule.datasource[id: id] {
+                    state.movieInfo = MovieInfo.State(showing: showing, shouldDisplayTicketURL: true)
                 }
                 return .none
 
@@ -112,10 +112,10 @@ struct Main: ReducerProtocol {
                 switch response {
                 case .success:
                     state.dateSelector = DateSelector.State(
-                        dates: apiClient.getShowings().getDays(),
+                        dates: apiClient.getShowings().getUpcomingDays(),
                         selectedDate: .distantPast
                     )
-                    state.schedule.items = apiClient.getShowings().convertToItems()
+                    state.schedule.datasource = apiClient.getShowings()
                     return performTransition()
 
                 case .failure(let error):
@@ -155,7 +155,7 @@ struct Main: ReducerProtocol {
             case .updateDatasource:
                 state.isHomeFeedActive = state.isHomeFeedButtonSelected
                 state.schedule.selectedDate = state.dateSelector.selectedDate
-                return EffectTask.task { .schedule(.filterItems) }
+                return EffectTask.task { .schedule(.filterDatasource) }
 
             case .endTransition:
                 state.isFetching = false
