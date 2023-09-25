@@ -43,6 +43,7 @@
 		299E52582A0A18430020E1CE /* Extension+Calendar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299E52572A0A18430020E1CE /* Extension+Calendar.swift */; };
 		29A8E1202A685D4B005FD2A6 /* Extension+String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E11F2A685D4B005FD2A6 /* Extension+String.swift */; };
 		29A8E1222A688321005FD2A6 /* Extension+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */; };
+		29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */; };
 		29B1BAE8296743D300A60E20 /* MovieShowings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE7296743D300A60E20 /* MovieShowings.swift */; };
 		29B1BAEA2967443600A60E20 /* MovieShowingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B1BAE92967443600A60E20 /* MovieShowingsView.swift */; };
 		29B4D94B23F1EC0600BD9783 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29B4D94A23F1EC0600BD9783 /* City.swift */; };
@@ -121,6 +122,7 @@
 		299E52572A0A18430020E1CE /* Extension+Calendar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Calendar.swift"; sourceTree = "<group>"; };
 		29A8E11F2A685D4B005FD2A6 /* Extension+String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+String.swift"; sourceTree = "<group>"; };
 		29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TimeInterval.swift"; sourceTree = "<group>"; };
+		29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Locale.swift"; sourceTree = "<group>"; };
 		29B1BAE7296743D300A60E20 /* MovieShowings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieShowings.swift; sourceTree = "<group>"; };
 		29B1BAE92967443600A60E20 /* MovieShowingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieShowingsView.swift; sourceTree = "<group>"; };
 		29B4D94A23F1EC0600BD9783 /* City.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				299E52572A0A18430020E1CE /* Extension+Calendar.swift */,
 				29E3069A296F09E0003A52C4 /* Extension+Color.swift */,
 				29F3D6AC296AFE5300495BBD /* Extension+Date.swift */,
+				29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */,
 				29A8E11F2A685D4B005FD2A6 /* Extension+String.swift */,
 				29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */,
 				29E3069C296F0A96003A52C4 /* Extension+URL.swift */,
@@ -626,6 +629,7 @@
 				296FE0592950E9AA0015F7AA /* Main.swift in Sources */,
 				29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */,
 				291525BD294E072800192153 /* NetworkImage.swift in Sources */,
+				29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */,
 				2904C7A02336A69B00407B64 /* Showing.swift in Sources */,
 				29B1BAE8296743D300A60E20 /* MovieShowings.swift in Sources */,
 			);
