@@ -9,7 +9,6 @@
 import ComposableArchitecture
 import Foundation
 import OrderedCollections
-import XCTestDynamicOverlay
 
 struct UserDefaultsClient {
     var isFirstLaunch: () -> Bool
@@ -17,34 +16,6 @@ struct UserDefaultsClient {
     var setCity: (City) -> Void
     var getVenues: () -> OrderedSet<Venue>
     var setVenues: (OrderedSet<Venue>) -> Void
-}
-
-extension UserDefaultsClient: DependencyKey {
-    static let liveValue: Self = {
-        let defaults = UserDefaults.standard
-
-        return Self(
-            isFirstLaunch: {
-                if CommandLine.isUITesting { return false }
-                if CommandLine.isUITestingFirstLaunch { return true }
-                return Self.isFirstLaunch(in: defaults)
-            },
-            getCity: {
-                if CommandLine.isUITesting { return .vilnius }
-                return Self.getCity(in: defaults)
-            },
-            setCity: { city in
-                Self.setCity(city, in: defaults)
-            },
-            getVenues: {
-                if CommandLine.isUITesting { return City.vilnius.venues }
-                return Self.getVenues(in: defaults)
-            },
-            setVenues: { venues in
-                Self.setVenues(venues, in: defaults)
-            }
-        )
-    }()
 }
 
 extension UserDefaultsClient: TestDependencyKey {
@@ -80,7 +51,7 @@ extension UserDefaultsClient: TestDependencyKey {
     }()
 }
 
-private extension UserDefaultsClient {
+extension UserDefaultsClient {
     static let cityKey = "UserDefaultsCityKey"
     static let venuesKey = "UserDefaultsVenuesKey"
 
