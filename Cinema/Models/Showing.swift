@@ -67,17 +67,6 @@ extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
         }
     }
 
-    /// Returns an `IdentifiedArrayOf<Showing.State>` where each `Showing.State` has a unique `title`.
-    func filterByUniqueTitles() -> IdentifiedArrayOf<Element> {
-        var unique = IdentifiedArrayOf<Element>()
-
-        for showing in self where !unique.contains(where: { $0.title == showing.title }) {
-            unique.append(showing)
-        }
-
-        return unique
-    }
-
     /// Returns an `IdentifiedArrayOf<Showing.State>` containing only the first occurrence of each provided `title`.
     func filterFirstOccurrencesOf(titles: [String]) -> IdentifiedArrayOf<Element> {
         titles.compactMap { title in
