@@ -78,6 +78,26 @@ extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
         return unique
     }
 
+    /// Returns an `IdentifiedArrayOf<Showing.State>` containing only the first occurrence of each provided `title`.
+    func filterFirstOccurrencesOf(titles: [String]) -> IdentifiedArrayOf<Element> {
+        titles.compactMap { title in
+            self.first { showing in
+                showing.title == title
+            }
+        }.convertToIdentifiedArray()
+    }
+
+    /// Returns an array of unique titles from the `IdentifiedArrayOf<Showing.State>`.
+    func getUniqueTitles() -> [String] {
+        var uniqueTitles = [String]()
+
+        for showing in self where !uniqueTitles.contains(where: { $0 == showing.title }) {
+            uniqueTitles.append(showing.title)
+        }
+
+        return uniqueTitles
+    }
+
     /// Returns an array of `Date` objects, each representing the start of a day for the upcoming showings, with duplicates removed.
     func getUpcomingDays() -> [Date] {
         let dates = self.map { showing in
