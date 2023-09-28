@@ -48,7 +48,8 @@ struct Schedule: ReducerProtocol {
             case .filterDatasource:
                 state.showings = state.datasource.filter(by: state.selectedDate)
                 state.showings.sort(by: .date)
-                state.movies = state.showings.filterByUniqueTitles()
+                let uniqueTitles = state.showings.getUniqueTitles()
+                state.movies = state.datasource.filterFirstOccurrencesOf(titles: uniqueTitles)
                 state.movies.sort(by: .title)
                 return .none
 
