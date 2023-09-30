@@ -12,7 +12,7 @@ import SwiftUI
 struct ScheduleView: View {
     let store: StoreOf<Schedule>
 
-    @State private var dateFrame: CGRect = CGRect()
+    @State private var headerFrame: CGRect = CGRect()
     @State private var viewFrame: CGRect = CGRect()
 
     var body: some View {
@@ -20,20 +20,9 @@ struct ScheduleView: View {
             ScrollViewReader { scrollProxy in
                 ScrollView {
                     VStack(spacing: .zero) {
-                        VStack(spacing: .zero) {
-                            SmallDateLabel(date: viewStore.selectedDate)
-                                .transitionDateLabel(viewStore.isTransitioning)
-
-                            LargeDateLabel(date: viewStore.selectedDate)
-                                .transitionDateLabel(viewStore.isTransitioning)
-                                .padding(.top, Self.verticalPadding)
-
-                            Divider()
-                                .padding(.vertical, Self.verticalPadding)
-                        }
-                        .id(Self.scrollToTopID)
-                        .padding(.top)
-                        .background(FrameGetter(frame: $dateFrame))
+                        HeaderView(store: store)
+                              .background(FrameGetter(frame: $headerFrame))
+                              .id(Self.scrollToTopID)
 
                         if !viewStore.movies.isEmpty {
                             VStack {
@@ -51,12 +40,15 @@ struct ScheduleView: View {
                                     .transitionShowingListView(viewStore.isTransitioning)
                             }
                         } else {
-                            EmptyErrorView(title: "nieko nerodo", subtitle: "pasirinkite kitą dieną")
-                                .frame(
-                                    width: viewFrame.width,
-                                    height: viewFrame.height - dateFrame.height
-                                )
-                                .transitionalBlur(viewStore.isTransitioning)
+                            EmptyErrorView(
+                                title: viewStore.isFiltering ? "seansų nėra" : "nieko nerodo",
+                                subtitle: viewStore.isFiltering ? "pakeiskite laiką" : "pasirinkite kitą dieną"
+                            )
+                            .frame(
+                                width: viewFrame.width,
+                                height: viewFrame.height - headerFrame.height
+                            )
+                            .transitionalBlur(viewStore.isTransitioning)
                         }
                     }
                 }
@@ -70,6 +62,79 @@ struct ScheduleView: View {
             }
         }
         .background(FrameGetter(frame: $viewFrame))
+    }
+}
+
+private struct FilterView: View {
+    let store: StoreOf<Schedule>
+
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            HStack {
+                DatePicker(
+                    "Enter start time.",
+                    selection: viewStore.binding(\.$filter.startTime).animation(),
+                    displayedComponents: .hourAndMinute
+                )
+
+                Text("-")
+                    .foregroundColor(.primaryElement)
+
+                DatePicker(
+                    "Enter end time.",
+                    selection: viewStore.binding(\.$filter.endTime).animation(),
+                    displayedComponents: .hourAndMinute
+                )
+            }
+            .accentColor(.tertiaryElement)
+            .colorScheme(.dark)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .labelsHidden()
+            .padding(.horizontal)
+        }
+    }
+}
+
+private struct HeaderView: View {
+    let store: StoreOf<Schedule>
+
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            VStack(spacing: Self.verticalSpacing) {
+                SmallDateLabel(date: viewStore.selectedDate)
+                    .transitionDateLabel(viewStore.isTransitioning)
+                    .padding(.top)
+
+                HStack {
+                    if viewStore.isFiltering {
+                        ZStack {
+                            LargeDateLabel(date: viewStore.selectedDate)
+                                .opacity(.zero)
+
+                            FilterView(store: store)
+                                .transitionDateLabel(viewStore.isTransitioning)
+                        }
+                        .transition(.move(edge: .leading))
+                    } else {
+                        LargeDateLabel(date: viewStore.selectedDate)
+                            .transitionDateLabel(viewStore.isTransitioning)
+                            .transition(.move(edge: .leading))
+                    }
+
+                    Button {
+                        viewStore.send(.toggleFiltering, animation: .easeInOut)
+                    } label: {
+                        Image(systemName: "stopwatch")
+                            .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
+                            .imageScale(.large)
+                            .padding(.horizontal)
+                    }
+                }
+
+                Divider()
+                    .padding(.bottom, Self.bottomPadding)
+            }
+        }
     }
 }
 
@@ -111,6 +176,11 @@ private struct SectionLabel: View {
 }
 
 // MARK: - Constants
+
+private extension HeaderView {
+    static let bottomPadding: CGFloat = 8
+    static let verticalSpacing: CGFloat = 8
+}
 
 private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.96
@@ -157,7 +227,7 @@ struct ScheduleView_Previews: PreviewProvider {
     static let showings: [Showing.State] = {
         stride(from: 1, to: 20, by: 1).map { index in
             iKinas.Previews.createShowing(
-                date: Date(timeIntervalSinceNow: 1),
+                date: Date(timeIntervalSinceNow: Double(3600 * index)),
                 is3D: index % 2 == 0,
                 originalTitle: String(repeating: index % 2 == 0 ? "Title" : "OriginalTitle", count: index),
                 title: String(repeating: "Title", count: index)
@@ -173,6 +243,7 @@ struct ScheduleView_Previews: PreviewProvider {
     static var previews: some View {
         ScheduleView(store: store)
             .background(Color.primaryBackground.ignoresSafeArea())
+            .environment(\.locale, .init(identifier: "lt"))
             .preferredColorScheme(.dark)
             .onAppear {
                 ViewStore(store).send(.filterDatasource)
