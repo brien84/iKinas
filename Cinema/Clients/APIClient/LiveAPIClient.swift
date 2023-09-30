@@ -40,7 +40,9 @@ extension APIClient: DependencyKey {
                     .eraseToEffect()
             },
             getShowings: {
-                showings
+                showings.filter {
+                    $0.date > Date()
+                }
             }
         )
     }
@@ -66,9 +68,8 @@ private struct ShowingsService {
         decoder.dateDecodingStrategy = .iso8601
 
         return try decoder.decode([ShowingsService.Movie].self, from: data).flatMap { movie in
-            movie.showings.compactMap { showing -> iKinas.Showing.State? in
-                guard showing.date > Date() else { return nil }
-                return iKinas.Showing.State(
+            movie.showings.map { showing in
+                iKinas.Showing.State(
                     ageRating: movie.ageRating,
                     city: showing.city,
                     date: showing.date,
