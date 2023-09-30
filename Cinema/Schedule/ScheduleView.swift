@@ -73,7 +73,7 @@ private struct FilterView: View {
             HStack {
                 DatePicker(
                     "Enter start time.",
-                    selection: viewStore.binding(\.$filter.startTime).animation(),
+                    selection: viewStore.binding(\.filter.$startTime).animation(),
                     displayedComponents: .hourAndMinute
                 )
 
@@ -82,7 +82,7 @@ private struct FilterView: View {
 
                 DatePicker(
                     "Enter end time.",
-                    selection: viewStore.binding(\.$filter.endTime).animation(),
+                    selection: viewStore.binding(\.filter.$endTime).animation(),
                     displayedComponents: .hourAndMinute
                 )
             }

@@ -11,7 +11,7 @@ import SwiftUI
 
 struct Schedule: ReducerProtocol {
     struct State: Equatable {
-        @BindableState var filter = TimeFilter()
+        var filter = TimeFilter()
         var isFiltering = false
         var isTransitioning = false
         var selectedDate = Date()
@@ -87,8 +87,8 @@ struct Schedule: ReducerProtocol {
 }
 
 struct TimeFilter: Equatable {
-    var startTime = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
-    var endTime = Calendar.current.date(bySettingHour: 23, minute: 0, second: 0, of: Date())!
+    @BindableState var startTime = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
+    @BindableState var endTime = Calendar.current.date(bySettingHour: 23, minute: 0, second: 0, of: Date())!
 
     func getFilterDates(for date: Date) -> (start: Date, end: Date)? {
         guard let startDate = Calendar.current.date(
