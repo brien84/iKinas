@@ -67,6 +67,12 @@ extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
         }
     }
 
+    func filter(from startDate: Date, to endDate: Date) -> IdentifiedArrayOf<Element> {
+        self.filter {
+            $0.date >= startDate && $0.date <= endDate
+        }
+    }
+
     /// Returns an `IdentifiedArrayOf<Showing.State>` containing only the first occurrence of each provided `title`.
     func filterFirstOccurrencesOf(titles: [String]) -> IdentifiedArrayOf<Element> {
         titles.compactMap { title in
