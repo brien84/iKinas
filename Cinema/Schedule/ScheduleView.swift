@@ -90,7 +90,6 @@ private struct FilterView: View {
             .colorScheme(.dark)
             .frame(maxWidth: .infinity, alignment: .leading)
             .labelsHidden()
-            .padding(.horizontal)
         }
     }
 }
@@ -100,10 +99,9 @@ private struct HeaderView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            VStack(spacing: Self.verticalSpacing) {
+            VStack(alignment: .leading, spacing: Self.verticalSpacing) {
                 SmallDateLabel(date: viewStore.selectedDate)
                     .transitionDateLabel(viewStore.isTransitioning)
-                    .padding(.top)
 
                 HStack {
                     if viewStore.isFiltering {
@@ -121,19 +119,22 @@ private struct HeaderView: View {
                             .transition(.move(edge: .leading))
                     }
 
+                    Spacer()
+
                     Button {
                         viewStore.send(.toggleFiltering, animation: .easeInOut)
                     } label: {
                         Image(systemName: "stopwatch")
                             .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
                             .imageScale(.large)
-                            .padding(.horizontal)
                     }
                 }
-
-                Divider()
-                    .padding(.bottom, Self.bottomPadding)
             }
+            .padding([.horizontal, .top])
+            .padding(.bottom, Self.bottomPadding)
+
+            Divider()
+                .padding(.bottom, Self.bottomPadding)
         }
     }
 }
@@ -145,8 +146,6 @@ private struct LargeDateLabel: View {
         Text(date.toString(.dayOfWeek))
             .font(.largeTitle.bold())
             .foregroundColor(.primaryElement)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
     }
 }
 
@@ -158,8 +157,6 @@ private struct SmallDateLabel: View {
             .font(.caption.bold())
             .foregroundColor(.secondaryElement)
             .textCase(.uppercase)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
     }
 }
 
