@@ -19,18 +19,21 @@ extension Date {
 
     func formatted(_ format: DateFormat) -> String {
         let isToday = Calendar.current.isDateInToday(self)
+        let isTomorrow = Calendar.current.isDateInTomorrow(self)
 
         switch format {
         case .dayOfWeek:
             if isToday { return "Šiandien" }
+            if isTomorrow { return "Rytoj" }
             Self.formatter.weekdaySymbols = Self.formatter.weekdaySymbols.map { $0.capitalized }
             Self.formatter.dateFormat = "EEEE"
 
         case .monthAndDay:
-            Self.formatter.dateFormat = isToday ? "EEEE, MMMM d" : "MMMM d"
+            Self.formatter.dateFormat = (isToday || isTomorrow) ? "EEEE, MMMM d" : "MMMM d"
 
         case .shortDayOfWeek:
             if isToday { return "ŠND" }
+            if isTomorrow { return "RYT" }
             Self.formatter.shortWeekdaySymbols = ["SEK", "PIR", "ANT", "TRE", "KET", "PEN", "ŠEŠ"]
             Self.formatter.dateFormat = "EEE"
 
@@ -55,6 +58,10 @@ extension Date {
         /// ```
         /// Šiandien
         /// ```
+        /// if date is in tomorrow:
+        /// ```
+        /// Rytoj
+        /// ```
         /// else
         /// ```
         /// Pirmadienis
@@ -63,7 +70,7 @@ extension Date {
 
         /// Displays the month and day.
         ///
-        /// if date is in today:
+        /// if date is in today or tomorrow:
         /// ```
         /// Pirmadienis, Sausio 11
         /// ```
@@ -78,6 +85,10 @@ extension Date {
         /// if date is in today:
         /// ```
         /// ŠND
+        /// ```
+        /// if date is in tomorrow:
+        /// ```
+        /// RYT
         /// ```
         /// else
         /// ```
