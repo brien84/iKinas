@@ -100,13 +100,14 @@ private struct HeaderView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
-                SmallDateLabel(date: viewStore.selectedDate)
+                DateLabel(date: viewStore.selectedDate)
                     .transitionDateLabel(viewStore.isTransitioning)
 
                 HStack {
                     if viewStore.isFiltering {
                         ZStack {
-                            LargeDateLabel(date: viewStore.selectedDate)
+                            DateLabel(date: viewStore.selectedDate)
+                                .labelStyle(.large)
                                 .opacity(.zero)
 
                             FilterView(store: store)
@@ -114,7 +115,8 @@ private struct HeaderView: View {
                         }
                         .transition(.move(edge: .leading))
                     } else {
-                        LargeDateLabel(date: viewStore.selectedDate)
+                        DateLabel(date: viewStore.selectedDate)
+                            .labelStyle(.large)
                             .transitionDateLabel(viewStore.isTransitioning)
                             .transition(.move(edge: .leading))
                     }
@@ -136,27 +138,6 @@ private struct HeaderView: View {
             Divider()
                 .padding(.bottom, Self.bottomPadding)
         }
-    }
-}
-
-private struct LargeDateLabel: View {
-    let date: Date
-
-    var body: some View {
-        Text(date.formatted(.dayOfWeek))
-            .font(.largeTitle.bold())
-            .foregroundColor(.primaryElement)
-    }
-}
-
-private struct SmallDateLabel: View {
-    let date: Date
-
-    var body: some View {
-        Text(date.formatted(.monthAndDay))
-            .font(.caption.bold())
-            .foregroundColor(.secondaryElement)
-            .textCase(.uppercase)
     }
 }
 
