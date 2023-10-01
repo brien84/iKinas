@@ -13,11 +13,11 @@ extension Date {
 
     private static var formatter: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "lt")
+        formatter.locale = Locale.app
         return formatter
     }()
 
-    func toString(_ format: DateFormat) -> String {
+    func formatted(_ format: DateFormat) -> String {
         let isToday = Calendar.current.isDateInToday(self)
 
         switch format {

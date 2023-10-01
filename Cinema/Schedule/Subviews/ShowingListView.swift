@@ -49,7 +49,7 @@ private struct ShowingView: View {
                                     .foregroundColor(.tertiaryElement)
                                     .opacity(viewStore.is3D ? 1 : 0)
 
-                                Text(viewStore.date.toString(.timeOfDay))
+                                Text(viewStore.date.formatted(.timeOfDay))
                                     .font(.title2.weight(.medium))
                                     .foregroundColor(.primaryElement)
                             }

@@ -24,11 +24,11 @@ struct DateSelectorView: View {
                                 VStack {
                                     let isDateSelected = date == viewStore.selectedDate
 
-                                    Text(date.toString(.shortDayOfWeek))
+                                    Text(date.formatted(.shortDayOfWeek))
                                         .font(.caption.weight(.bold))
                                         .foregroundColor(isDateSelected ? .tertiaryElement : .primaryElement)
 
-                                    Text(date.toString(.shortMonthAndDay))
+                                    Text(date.formatted(.shortMonthAndDay))
                                         .font(.caption)
                                         .foregroundColor(isDateSelected ? .tertiaryElement : .secondaryElement)
                                 }

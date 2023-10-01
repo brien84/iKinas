@@ -143,7 +143,7 @@ private struct LargeDateLabel: View {
     let date: Date
 
     var body: some View {
-        Text(date.toString(.dayOfWeek))
+        Text(date.formatted(.dayOfWeek))
             .font(.largeTitle.bold())
             .foregroundColor(.primaryElement)
     }
@@ -153,7 +153,7 @@ private struct SmallDateLabel: View {
     let date: Date
 
     var body: some View {
-        Text(date.toString(.monthAndDay))
+        Text(date.formatted(.monthAndDay))
             .font(.caption.bold())
             .foregroundColor(.secondaryElement)
             .textCase(.uppercase)

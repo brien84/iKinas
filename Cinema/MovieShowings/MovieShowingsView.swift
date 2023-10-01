@@ -99,7 +99,7 @@ private struct ShowingView: View {
         ShrinkOnPressView {
             VStack(spacing: Self.spacing) {
                 ZStack(alignment: .topTrailing) {
-                    Text(showing.date.toString(.timeOfDay))
+                    Text(showing.date.formatted(.timeOfDay))
                         .font(.title2.weight(.medium))
                         .foregroundColor(.primaryElement)
                         .frame(maxWidth: .infinity)

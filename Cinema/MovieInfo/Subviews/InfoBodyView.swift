@@ -90,7 +90,7 @@ private struct TicketURLView: View {
 
             Spacer()
 
-            Text(showing.date.toString(.timeOfDay))
+            Text(showing.date.formatted(.timeOfDay))
                 .font(.title2.weight(.medium))
                 .foregroundColor(.primaryElement)
 
