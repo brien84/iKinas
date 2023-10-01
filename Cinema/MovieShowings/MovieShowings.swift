@@ -15,7 +15,8 @@ struct MovieShowings: ReducerProtocol {
         let showings: IdentifiedArrayOf<Showing.State>
 
         init(showings: IdentifiedArrayOf<Showing.State>) {
-            self.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
+            let dates = showings.getUpcomingDays()
+            self.dateSelector = DateSelector.State(dates: dates, selectedDate: dates.first ?? .none)
             self.showings = showings
         }
     }

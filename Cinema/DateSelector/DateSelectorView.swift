@@ -66,7 +66,7 @@ struct DateSelectorView_Previews: PreviewProvider {
     }()
 
     static let store = Store(
-        initialState: DateSelector.State(dates: dates),
+        initialState: DateSelector.State(dates: dates, selectedDate: dates.first!),
         reducer: DateSelector()
     )
 

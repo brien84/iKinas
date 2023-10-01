@@ -11,10 +11,7 @@ import Foundation
 
 struct Main: ReducerProtocol {
     struct State: Equatable {
-        var dateSelector = DateSelector.State(
-            dates: [],
-            selectedDate: .distantPast
-        )
+        var dateSelector = DateSelector.State(dates: [])
         var homeFeed = HomeFeed.State()
         var movieInfo: MovieInfo.State?
         var schedule = Schedule.State()
@@ -111,11 +108,9 @@ struct Main: ReducerProtocol {
             case .apiClient(.success(let response)):
                 switch response {
                 case .success:
-                    state.dateSelector = DateSelector.State(
-                        dates: apiClient.getShowings().getUpcomingDays(),
-                        selectedDate: .distantPast
-                    )
-                    state.schedule.datasource = apiClient.getShowings()
+                    let showings = apiClient.getShowings()
+                    state.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
+                    state.schedule.datasource = showings
                     return performTransition()
 
                 case .failure(let error):
@@ -144,7 +139,7 @@ struct Main: ReducerProtocol {
 
             case .didPressHomeFeedButton:
                 state.isHomeFeedButtonSelected = true
-                state.dateSelector.selectedDate = .distantPast
+                state.dateSelector.selectedDate = .none
                 return performTransition()
 
             case .beginTransition:

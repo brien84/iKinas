@@ -12,22 +12,7 @@ import Foundation
 struct DateSelector: ReducerProtocol {
     struct State: Equatable {
         let dates: [Date]
-        var selectedDate: Date
-
-        init(dates: [Date], selectedDate: Date) {
-            self.dates = dates
-            self.selectedDate = selectedDate
-        }
-
-        init(dates: [Date]) {
-            self.dates = dates
-
-            if let date = dates.first {
-                self.selectedDate = date
-            } else {
-                self.selectedDate = Date()
-            }
-        }
+        var selectedDate: Date = .none
     }
 
     enum Action: Equatable {
