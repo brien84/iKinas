@@ -125,8 +125,8 @@ private struct HeaderView: View {
                         viewStore.send(.toggleFiltering, animation: .easeInOut)
                     } label: {
                         Image(systemName: "stopwatch")
+                            .font(.title2)
                             .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
-                            .imageScale(.large)
                     }
                 }
             }
