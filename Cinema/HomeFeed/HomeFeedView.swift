@@ -30,15 +30,10 @@ private struct HeaderView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
-                Text(Date().toString(.monthAndDay))
-                    .font(.caption.bold())
-                    .foregroundColor(.secondaryElement)
-                    .textCase(.uppercase)
+                DateLabel(date: Date())
 
                 HStack {
-                    Text("Sveiki!")
-                        .font(.largeTitle.bold())
-                        .foregroundColor(.primaryElement)
+                    GreetingLabel()
 
                     Spacer()
 
