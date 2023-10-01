@@ -59,8 +59,14 @@ private extension DateSelectorView {
 // MARK: - Previews
 
 struct DateSelectorView_Previews: PreviewProvider {
+    static let dates: [Date] = {
+        stride(from: 0, to: 7, by: 1).map { index in
+            Date(timeIntervalSinceNow: Double(86400 * index))
+        }
+    }()
+
     static let store = Store(
-        initialState: DateSelector.State(dates: Calendar.current.getNextSevenDays()),
+        initialState: DateSelector.State(dates: dates),
         reducer: DateSelector()
     )
 

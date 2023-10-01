@@ -12,7 +12,7 @@ import Foundation
 struct Main: ReducerProtocol {
     struct State: Equatable {
         var dateSelector = DateSelector.State(
-            dates: Calendar.current.getNextSevenDays(),
+            dates: [],
             selectedDate: .distantPast
         )
         var homeFeed = HomeFeed.State()
