@@ -61,7 +61,7 @@ private extension DateSelectorView {
 struct DateSelectorView_Previews: PreviewProvider {
     static let dates: [Date] = {
         stride(from: 0, to: 7, by: 1).map { index in
-            Date(timeIntervalSinceNow: Double(86400 * index))
+            Date(timeIntervalSinceNow: .fullDay * index)
         }
     }()
 
