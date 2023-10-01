@@ -46,10 +46,12 @@ private struct HeaderView: View {
                         viewStore.send(.settingsButtonDidTap)
                     }
                 }
-
-                Divider()
             }
             .padding([.horizontal, .top])
+            .padding(.bottom, Self.bottomPadding)
+
+            Divider()
+                .padding(.bottom, Self.bottomPadding)
         }
     }
 }
@@ -71,6 +73,7 @@ private struct SettingsButton: View {
 // MARK: - Constants
 
 private extension HeaderView {
+    static let bottomPadding: CGFloat = 8
     static let verticalSpacing: CGFloat = 8
 }
 
