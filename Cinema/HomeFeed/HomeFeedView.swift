@@ -17,6 +17,8 @@ struct HomeFeedView: View {
             ScrollView {
                 VStack(spacing: .zero) {
                     HeaderView(store: store)
+
+                    UpcomingListView(store: store)
                 }
             }
             .opacity(viewStore.isTransitioning ? 0 : 1)

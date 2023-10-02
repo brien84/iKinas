@@ -14,12 +14,16 @@ struct HomeFeed: ReducerProtocol {
     }
 
     enum Action: Equatable {
+        case scheduleButtonDidTap
         case settingsButtonDidTap
     }
 
     var body: some ReducerProtocol<State, Action> {
         Reduce { _, action in
             switch action {
+            case .scheduleButtonDidTap:
+                return .none
+
             case .settingsButtonDidTap:
                 return .none
             }

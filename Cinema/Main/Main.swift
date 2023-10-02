@@ -71,6 +71,12 @@ struct Main: ReducerProtocol {
                 state.isHomeFeedButtonSelected = false
                 return performTransition()
 
+            case .homeFeed(.scheduleButtonDidTap):
+                guard let date = state.dateSelector.dates.first else { return .none }
+                state.isHomeFeedButtonSelected = false
+                state.dateSelector.selectedDate = date
+                return performTransition()
+
             case .homeFeed(.settingsButtonDidTap):
                 state.settings = Settings.State()
                 return .none
