@@ -33,7 +33,7 @@ private struct HeaderView: View {
                 DateLabel(date: Date())
 
                 HStack {
-                    GreetingLabel()
+                    GreetingView()
 
                     Spacer()
 

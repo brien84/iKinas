@@ -1,5 +1,5 @@
 //
-//  GreetingLabel.swift
+//  GreetingView.swift
 //  Cinema
 //
 //  Created by Marius on 2023-10-01.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct GreetingLabel: View {
+struct GreetingView: View {
     private var greeting: String {
         switch Calendar.current.component(.hour, from: Date()) {
         case 5...11:
@@ -31,9 +31,9 @@ struct GreetingLabel: View {
     }
 }
 
-struct GreetingLabel_Previews: PreviewProvider {
+struct GreetingView_Previews: PreviewProvider {
     static var previews: some View {
-        GreetingLabel()
+        GreetingView()
             .preferredColorScheme(.dark)
     }
 }
