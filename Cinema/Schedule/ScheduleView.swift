@@ -100,13 +100,13 @@ private struct HeaderView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
-                DateLabel(date: viewStore.selectedDate)
+                DateView(date: viewStore.selectedDate)
                     .transitionDateLabel(viewStore.isTransitioning)
 
                 HStack {
                     if viewStore.isFiltering {
                         ZStack {
-                            DateLabel(date: viewStore.selectedDate)
+                            DateView(date: viewStore.selectedDate)
                                 .labelStyle(.large)
                                 .opacity(.zero)
 
@@ -115,7 +115,7 @@ private struct HeaderView: View {
                         }
                         .transition(.move(edge: .leading))
                     } else {
-                        DateLabel(date: viewStore.selectedDate)
+                        DateView(date: viewStore.selectedDate)
                             .labelStyle(.large)
                             .transitionDateLabel(viewStore.isTransitioning)
                             .transition(.move(edge: .leading))

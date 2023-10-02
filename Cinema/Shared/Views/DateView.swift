@@ -1,5 +1,5 @@
 //
-//  DateLabel.swift
+//  DateView.swift
 //  Cinema
 //
 //  Created by Marius on 2023-10-01.
@@ -8,16 +8,16 @@
 
 import SwiftUI
 
-struct DateLabel: View {
+struct DateView: View {
     private let date: Date
-    private let style: DateLabel.Style
+    private let style: DateView.Style
 
     init(date: Date) {
         self.date = date
         self.style = .compact
     }
 
-    private init(date: Date, style: DateLabel.Style) {
+    private init(date: Date, style: DateView.Style) {
         self.date = date
         self.style = style
     }
@@ -36,34 +36,34 @@ struct DateLabel: View {
     }
 }
 
-extension DateLabel {
+extension DateView {
     enum Style {
         case compact
         case large
     }
 
-    func labelStyle(_ style: DateLabel.Style) -> DateLabel {
-        DateLabel(date: self.date, style: style)
+    func labelStyle(_ style: DateView.Style) -> DateView {
+        DateView(date: self.date, style: style)
     }
 }
 
 // MARK: - Previews
 
-struct DateLabel_Previews: PreviewProvider {
+struct DateView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            DateLabel(date: Date())
-            DateLabel(date: Date())
+            DateView(date: Date())
+            DateView(date: Date())
                 .labelStyle(.large)
                 .padding(.bottom)
 
-            DateLabel(date: Date(timeIntervalSinceNow: .fullDay))
-            DateLabel(date: Date(timeIntervalSinceNow: .fullDay))
+            DateView(date: Date(timeIntervalSinceNow: .fullDay))
+            DateView(date: Date(timeIntervalSinceNow: .fullDay))
                 .labelStyle(.large)
                 .padding(.bottom)
 
-            DateLabel(date: Date(timeIntervalSinceNow: .fullDay * 2))
-            DateLabel(date: Date(timeIntervalSinceNow: .fullDay * 2))
+            DateView(date: Date(timeIntervalSinceNow: .fullDay * 2))
+            DateView(date: Date(timeIntervalSinceNow: .fullDay * 2))
                 .labelStyle(.large)
         }
         .preferredColorScheme(.dark)

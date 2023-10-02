@@ -30,7 +30,7 @@ private struct HeaderView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
-                DateLabel(date: Date())
+                DateView(date: Date())
 
                 HStack {
                     GreetingView()
