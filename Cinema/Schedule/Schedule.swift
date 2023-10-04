@@ -78,6 +78,7 @@ struct Schedule: ReducerProtocol {
             state.showings = state.datasource.filter(by: state.selectedDate)
         }
 
+        state.showings = state.showings.filterFutureShowings()
         state.showings.sort(by: .date)
         let uniqueTitles = state.showings.getUniqueTitles()
         state.movies = state.datasource.filterFirstOccurrencesOf(titles: uniqueTitles)
