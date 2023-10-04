@@ -11,11 +11,13 @@ import ComposableArchitecture
 struct HomeFeed: ReducerProtocol {
     struct State: Equatable {
         var isTransitioning = false
+        var showings: IdentifiedArrayOf<Showing.State> = []
     }
 
     enum Action: Equatable {
-        case scheduleButtonDidTap
         case settingsButtonDidTap
+        case scheduleButtonDidTap
+        case showing(id: Showing.State.ID, action: Showing.Action)
     }
 
     var body: some ReducerProtocol<State, Action> {
@@ -26,7 +28,13 @@ struct HomeFeed: ReducerProtocol {
 
             case .settingsButtonDidTap:
                 return .none
+
+            case .showing:
+                return .none
             }
+        }
+        .forEach(\.showings, action: /Action.showing(id:action:)) {
+            Showing()
         }
     }
 }

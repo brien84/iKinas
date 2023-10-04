@@ -77,7 +77,16 @@ private extension HeaderView {
 // MARK: - Previews
 
 struct HomeFeedView_Previews: PreviewProvider {
-    static let store = Store(initialState: HomeFeed.State(), reducer: HomeFeed())
+    static let showings: IdentifiedArrayOf<Showing.State> = {
+        stride(from: 1, through: 5, by: 1).map { _ in
+            iKinas.Previews.createShowing()
+        }.convertToIdentifiedArray()
+    }()
+
+    static let store = Store(
+        initialState: HomeFeed.State(showings: showings),
+        reducer: HomeFeed()
+    )
 
     static var previews: some View {
         HomeFeedView(store: store)

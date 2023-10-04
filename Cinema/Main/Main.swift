@@ -72,13 +72,21 @@ struct Main: ReducerProtocol {
                 return performTransition()
 
             case .homeFeed(.scheduleButtonDidTap):
-                guard let date = state.dateSelector.dates.first else { return .none }
+                let dates = apiClient.getShowings().getUpcomingDays()
+                guard let date = dates.first else { return .none }
                 state.isHomeFeedButtonSelected = false
+                state.schedule.isFiltering = false
                 state.dateSelector.selectedDate = date
                 return performTransition()
 
             case .homeFeed(.settingsButtonDidTap):
                 state.settings = Settings.State()
+                return .none
+
+            case .homeFeed(.showing(id: let id, action: .didSelect)):
+                if let showing = state.homeFeed.showings[id: id] {
+                    state.movieInfo = MovieInfo.State(showing: showing, shouldDisplayTicketURL: true)
+                }
                 return .none
 
             case .homeFeed:
@@ -155,8 +163,19 @@ struct Main: ReducerProtocol {
 
             case .updateDatasource:
                 state.isHomeFeedActive = state.isHomeFeedButtonSelected
-                state.schedule.selectedDate = state.dateSelector.selectedDate
-                return EffectTask.task { .schedule(.filterDatasource) }
+
+                if state.isHomeFeedActive {
+                    var showings = apiClient.getShowings()
+                    showings.sort(by: .date)
+                    var upcoming = Array(showings.elements.prefix(5)).convertToIdentifiedArray()
+                    let commonIDs = upcoming.ids.intersection(state.homeFeed.showings.ids)
+                    commonIDs.forEach { upcoming[id: $0] = state.homeFeed.showings[id: $0] }
+                    state.homeFeed.showings = upcoming
+                    return .none
+                } else {
+                    state.schedule.selectedDate = state.dateSelector.selectedDate
+                    return EffectTask.task { .schedule(.filterDatasource) }
+                }
 
             case .endTransition:
                 state.isFetching = false
