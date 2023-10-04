@@ -82,6 +82,13 @@ extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
         }.convertToIdentifiedArray()
     }
 
+    /// Returns an `IdentifiedArrayOf<Showing.State>` objects whose `date` property is later than the current date.
+    func filterFutureShowings() -> IdentifiedArrayOf<Element> {
+        self.filter {
+            $0.date > Date()
+        }.convertToIdentifiedArray()
+    }
+
     /// Returns an array of unique titles from the `IdentifiedArrayOf<Showing.State>`.
     func getUniqueTitles() -> [String] {
         var uniqueTitles = [String]()
