@@ -50,16 +50,16 @@ struct MovieInfoView: View {
             }
             .sheet(
                 isPresented: viewStore.binding(
-                    get: \.isNavigationToMovieShowingsActive,
-                    send: MovieInfo.Action.setNavigationToMovieShowings(isActive:)
+                    get: \.isNavigationToShowingTimesActive,
+                    send: MovieInfo.Action.setNavigationToShowingTimes(isActive:)
                 )
             ) {
                 IfLetStore(
                     store.scope(
-                        state: \.movieShowings,
-                        action: MovieInfo.Action.movieShowings
+                        state: \.showingTimes,
+                        action: MovieInfo.Action.showingTimes
                     ),
-                    then: MovieShowingsView.init(store:)
+                    then: ShowingTimesView.init(store:)
                 )
             }
             .ignoresSafeArea(edges: .top)

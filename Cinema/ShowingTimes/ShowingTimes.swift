@@ -1,5 +1,5 @@
 //
-//  MovieShowings.swift
+//  ShowingTimes.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-05.
@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import Foundation
 
-struct MovieShowings: ReducerProtocol {
+struct ShowingTimes: ReducerProtocol {
     struct State: Equatable {
         var dateSelector: DateSelector.State
         let showings: IdentifiedArrayOf<Showing.State>

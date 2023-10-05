@@ -46,7 +46,7 @@ final class MovieInfoHostingController: UIHostingController<MovieInfoView> {
                 withConfiguration: UIImage.SymbolConfiguration(scale: .medium)
             ),
             primaryAction: UIAction { [weak self] _ in
-                self?.viewStore.send(.setNavigationToMovieShowings(isActive: true))
+                self?.viewStore.send(.setNavigationToShowingTimes(isActive: true))
             }
         )
 

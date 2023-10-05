@@ -12,14 +12,14 @@ import SwiftUI
 struct MovieInfo: ReducerProtocol {
     struct State: Equatable {
         var showing: Showing.State
-        var movieShowings: MovieShowings.State?
+        var showingTimes: ShowingTimes.State?
 
         var isScrollingEnabled = true
         let shouldDisplayTicketURL: Bool
         var showingURL: URL?
         var titleViewOverlapPercentage: CGFloat = 0
 
-        var isNavigationToMovieShowingsActive = false
+        var isNavigationToShowingTimesActive = false
 
         init(showing: Showing.State, shouldDisplayTicketURL: Bool) {
             self.showing = showing
@@ -28,14 +28,14 @@ struct MovieInfo: ReducerProtocol {
     }
 
     enum Action: Equatable {
-        case movieShowings(MovieShowings.Action)
         case networkImage(NetworkImage.Action)
+        case showingTimes(ShowingTimes.Action)
 
         case setShowingURL(URL?)
         case toggleScrolling(isEnabled: Bool)
         case updateTitleViewOverlap(percentage: CGFloat)
 
-        case setNavigationToMovieShowings(isActive: Bool)
+        case setNavigationToShowingTimes(isActive: Bool)
     }
 
     @Dependency(\.apiClient) var apiClient
@@ -48,16 +48,16 @@ struct MovieInfo: ReducerProtocol {
         Reduce { state, action in
             switch action {
 
-            case .movieShowings(.didSelectShowing(let showing)):
-                state.isNavigationToMovieShowingsActive = false
+            case .showingTimes(.didSelectShowing(let showing)):
+                state.isNavigationToShowingTimesActive = false
                 state.showingURL = showing.url
                 return .none
 
-            case .movieShowings(.exitButtonDidTap):
-                state.isNavigationToMovieShowingsActive = false
+            case .showingTimes(.exitButtonDidTap):
+                state.isNavigationToShowingTimesActive = false
                 return .none
 
-            case .movieShowings:
+            case .showingTimes:
                 return .none
 
             case .networkImage:
@@ -75,24 +75,24 @@ struct MovieInfo: ReducerProtocol {
                 state.titleViewOverlapPercentage = percentage
                 return .none
 
-            case .setNavigationToMovieShowings(isActive: let isActive):
+            case .setNavigationToShowingTimes(isActive: let isActive):
                 if isActive {
-                    state.isNavigationToMovieShowingsActive = true
+                    state.isNavigationToShowingTimesActive = true
 
                     var showings = apiClient.getShowings().filter(by: state.showing.title)
                     showings.sort(by: .date)
 
-                    state.movieShowings = MovieShowings.State(showings: showings)
+                    state.showingTimes = ShowingTimes.State(showings: showings)
                 } else {
-                    state.isNavigationToMovieShowingsActive = false
+                    state.isNavigationToShowingTimesActive = false
                 }
 
                 return .none
 
             }
         }
-        .ifLet(\.movieShowings, action: /Action.movieShowings) {
-            MovieShowings()
+        .ifLet(\.showingTimes, action: /Action.showingTimes) {
+            ShowingTimes()
         }
     }
 }

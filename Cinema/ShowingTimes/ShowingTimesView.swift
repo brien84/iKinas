@@ -1,5 +1,5 @@
 //
-//  MovieShowingsView.swift
+//  ShowingTimesView.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-05.
@@ -9,8 +9,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct MovieShowingsView: View {
-    let store: StoreOf<MovieShowings>
+struct ShowingTimesView: View {
+    let store: StoreOf<ShowingTimes>
 
     var body: some View {
         WithViewStore(store) { viewStore in
@@ -32,7 +32,7 @@ struct MovieShowingsView: View {
                 } else {
                     DateSelectorView(store: store.scope(
                         state: \.dateSelector,
-                        action: MovieShowings.Action.dateSelector
+                        action: ShowingTimes.Action.dateSelector
                     ))
                     .padding(.bottom, Self.bottomPadding)
 
@@ -45,7 +45,7 @@ struct MovieShowingsView: View {
 }
 
 private struct ShowingsTabView: View {
-    let store: StoreOf<MovieShowings>
+    let store: StoreOf<ShowingTimes>
 
     private let columns = [
         GridItem(.flexible(), spacing: Self.columnSpacing),
@@ -57,7 +57,7 @@ private struct ShowingsTabView: View {
             TabView(selection:
                 viewStore.binding(
                     get: \.dateSelector.selectedDate,
-                    send: MovieShowings.Action.didSelectDate
+                    send: ShowingTimes.Action.didSelectDate
                 )
             ) {
                 ForEach(viewStore.dateSelector.dates, id: \.self) { date in
@@ -125,7 +125,7 @@ private struct ShowingView: View {
 
 // MARK: - Constants
 
-private extension MovieShowingsView {
+private extension ShowingTimesView {
     static let bottomPadding: CGFloat = 8
 }
 
@@ -143,7 +143,7 @@ private extension ShowingView {
 
 // MARK: - Previews
 
-struct MovieShowingsView_Previews: PreviewProvider {
+struct ShowingTimesView_Previews: PreviewProvider {
     static let showings = {
         stride(from: 0, to: 100, by: 1).map { index in
             let date = Date(timeIntervalSinceNow: .random(in: 0...index) * .hour)
@@ -152,31 +152,31 @@ struct MovieShowingsView_Previews: PreviewProvider {
     }()
 
     static let store = Store(
-        initialState: MovieShowings.State(showings: showings.convertToIdentifiedArray()),
-        reducer: MovieShowings()
+        initialState: ShowingTimes.State(showings: showings.convertToIdentifiedArray()),
+        reducer: ShowingTimes()
     )
 
     static var previews: some View {
         Color.green
             .ignoresSafeArea()
             .sheet(isPresented: .constant(true)) {
-                MovieShowingsView(store: store)
+                ShowingTimesView(store: store)
             }
             .preferredColorScheme(.dark)
     }
 }
 
-struct EmptyMovieShowingsView_Previews: PreviewProvider {
+struct EmptyShowingTimesView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: MovieShowings.State(showings: []),
-        reducer: MovieShowings()
+        initialState: ShowingTimes.State(showings: []),
+        reducer: ShowingTimes()
     )
 
     static var previews: some View {
         Color.green
             .ignoresSafeArea()
             .sheet(isPresented: .constant(true)) {
-                MovieShowingsView(store: store)
+                ShowingTimesView(store: store)
             }
             .preferredColorScheme(.dark)
     }
