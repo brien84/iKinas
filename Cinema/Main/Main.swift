@@ -163,19 +163,16 @@ struct Main: ReducerProtocol {
 
             case .updateDatasource:
                 state.isHomeFeedActive = state.isHomeFeedButtonSelected
+                state.schedule.selectedDate = state.dateSelector.selectedDate
 
-                if state.isHomeFeedActive {
-                    var showings = apiClient.getShowings()
-                    showings.sort(by: .date)
-                    var upcoming = Array(showings.elements.prefix(5)).convertToIdentifiedArray()
-                    let commonIDs = upcoming.ids.intersection(state.homeFeed.showings.ids)
-                    commonIDs.forEach { upcoming[id: $0] = state.homeFeed.showings[id: $0] }
-                    state.homeFeed.showings = upcoming
-                    return .none
-                } else {
-                    state.schedule.selectedDate = state.dateSelector.selectedDate
-                    return EffectTask.task { .schedule(.filterDatasource) }
-                }
+                var showings = apiClient.getShowings()
+                showings.sort(by: .date)
+                var upcoming = Array(showings.elements.prefix(5)).convertToIdentifiedArray()
+                let commonIDs = upcoming.ids.intersection(state.homeFeed.showings.ids)
+                commonIDs.forEach { upcoming[id: $0] = state.homeFeed.showings[id: $0] }
+                state.homeFeed.showings = upcoming
+
+                return EffectTask.task { .schedule(.filterDatasource) }
 
             case .endTransition:
                 state.isFetching = false
@@ -208,11 +205,9 @@ struct Main: ReducerProtocol {
 
     private func performTransition() -> EffectTask<Action> {
         EffectTask.run { send in
-            try await Task.sleep(nanoseconds: 50_000_000)
             await send(.beginTransition, animation: .easeInOut(duration: 0.3))
             try await Task.sleep(nanoseconds: 300_000_000)
             await send(.updateDatasource)
-            try await Task.sleep(nanoseconds: 100_000_000)
             await send(.endTransition, animation: .easeInOut(duration: 0.4))
         }
         .cancellable(id: CancelID.transition, cancelInFlight: true)
