@@ -36,7 +36,7 @@ struct ShowingTimesView: View {
                     ))
                     .padding(.bottom, Self.bottomPadding)
 
-                    ShowingsTabView(store: store)
+                    TimesView(store: store)
                 }
             }
             .background(Color.primaryBackground)
@@ -44,7 +44,7 @@ struct ShowingTimesView: View {
     }
 }
 
-private struct ShowingsTabView: View {
+private struct TimesView: View {
     let store: StoreOf<ShowingTimes>
 
     private let columns = [
@@ -65,7 +65,7 @@ private struct ShowingsTabView: View {
                         ScrollView(.vertical, showsIndicators: false) {
                             LazyVGrid(columns: columns) {
                                 ForEach(viewStore.showings.filter(by: date)) { showing in
-                                    ShowingView(showing: showing)
+                                    TimeView(showing: showing)
                                         .simultaneousGesture(
                                             TapGesture().onEnded { _ in
                                                 viewStore.send(.didSelectShowing(showing))
@@ -92,7 +92,7 @@ private struct ShowingsTabView: View {
     }
 }
 
-private struct ShowingView: View {
+private struct TimeView: View {
     let showing: Showing.State
 
     var body: some View {
@@ -129,12 +129,12 @@ private extension ShowingTimesView {
     static let bottomPadding: CGFloat = 8
 }
 
-private extension ShowingsTabView {
+private extension TimesView {
     static let columnSpacing: CGFloat = 16
     static let scrollToTopID: String = "upandaway"
 }
 
-private extension ShowingView {
+private extension TimeView {
     static let cornerRadius: CGFloat = 15
     static let lineWidth: CGFloat = 2
     static let padding: CGFloat = 8
