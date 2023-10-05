@@ -19,9 +19,10 @@ struct HomeFeedView: View {
                     HeaderView(store: store)
 
                     UpcomingListView(store: store)
+                        .transition(.blurryScale(anchor: .leading), isActive: viewStore.isTransitioning)
                 }
             }
-            .opacity(viewStore.isTransitioning ? 0 : 1)
+            .transition(.opacity, isActive: viewStore.isTransitioning)
         }
     }
 }
@@ -33,15 +34,18 @@ private struct HeaderView: View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
                 DateView(date: Date())
+                    .transition(.scale, isActive: viewStore.isTransitioning)
 
                 HStack {
                     GreetingView()
+                        .transition(.scale, isActive: viewStore.isTransitioning)
 
                     Spacer()
 
                     SettingsButton {
                         viewStore.send(.settingsButtonDidTap)
                     }
+                    .transition(.blur, isActive: viewStore.isTransitioning)
                 }
             }
             .padding([.horizontal, .top])
