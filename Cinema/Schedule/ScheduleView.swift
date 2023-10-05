@@ -203,11 +203,9 @@ private extension View {
 
 struct ScheduleView_Previews: PreviewProvider {
     static let showings: [Showing.State] = {
-        stride(from: 1, to: 20, by: 1).map { index in
+        stride(from: 0, through: 20, by: 1).map { index in
             iKinas.Previews.createShowing(
-                date: Date(timeIntervalSinceNow: Double(3600 * index)),
-                is3D: index % 2 == 0,
-                originalTitle: String(repeating: index % 2 == 0 ? "Title" : "OriginalTitle", count: index),
+                date: Date(timeIntervalSinceNow: .hour * TimeInterval(index)),
                 title: String(repeating: "Title", count: index)
             )
         }
