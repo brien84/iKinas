@@ -205,10 +205,12 @@ struct Main: ReducerProtocol {
 
     private func performTransition() -> EffectTask<Action> {
         EffectTask.run { send in
-            await send(.beginTransition, animation: .easeInOut(duration: 0.3))
+            try await Task.sleep(nanoseconds: 50_000_000)
+            await send(.beginTransition, animation: .easeInOut(duration: 0.30))
             try await Task.sleep(nanoseconds: 300_000_000)
             await send(.updateDatasource)
-            await send(.endTransition, animation: .easeInOut(duration: 0.4))
+            try await Task.sleep(nanoseconds: 150_000_000)
+            await send(.endTransition, animation: .easeInOut(duration: 0.40))
         }
         .cancellable(id: CancelID.transition, cancelInFlight: true)
     }
