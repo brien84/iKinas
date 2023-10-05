@@ -30,3 +30,40 @@ private struct VerticalScaleAndOpacity: ViewModifier {
             .opacity(amount)
     }
 }
+
+enum ControlledTransition {
+    case blur
+    case blurryOffset
+    case blurryScale(anchor: UnitPoint)
+    case opacity
+    case scale
+}
+
+extension View {
+    @ViewBuilder
+    func transition(_ transition: ControlledTransition, isActive: Bool) -> some View {
+        switch transition {
+        case .blur:
+            blur(radius: isActive ? 6 : 0)
+
+        case .blurryOffset:
+            blur(radius: isActive ? 6 : 0)
+                .offset(x: isActive ? 4 : 0)
+
+        case .blurryScale(let anchor):
+            if anchor == .leading {
+                blur(radius: isActive ? 6 : 0)
+                    .scaleEffect(x: isActive ? 0.98 : 1, anchor: anchor)
+            } else {
+                blur(radius: isActive ? 6 : 0)
+                    .scaleEffect(y: isActive ? 0.98 : 1, anchor: anchor)
+            }
+
+        case .opacity:
+            opacity(isActive ? 0 : 1)
+
+        case .scale:
+            scaleEffect(isActive ? 0.75 : 1)
+        }
+    }
+}

@@ -27,17 +27,17 @@ struct ScheduleView: View {
                         if !viewStore.movies.isEmpty {
                             VStack {
                                 SectionLabel(text: "Filmai")
-                                    .transitionSectionLabel(viewStore.isTransitioning)
+                                    .transition(.blurryOffset, isActive: viewStore.isTransitioning)
 
                                 MovieListView(store: store)
                                     .frame(height: viewFrame.width * Self.heightToWidthRatio)
-                                    .transitionMovieListView(viewStore.isTransitioning)
+                                    .transition(.blurryScale(anchor: .center), isActive: viewStore.isTransitioning)
 
                                 SectionLabel(text: "Seansai")
-                                    .transitionSectionLabel(viewStore.isTransitioning)
+                                    .transition(.blurryOffset, isActive: viewStore.isTransitioning)
 
                                 ShowingListView(store: store)
-                                    .transitionShowingListView(viewStore.isTransitioning)
+                                    .transition(.blurryScale(anchor: .leading), isActive: viewStore.isTransitioning)
                             }
                         } else {
                             EmptyErrorView(
@@ -48,11 +48,11 @@ struct ScheduleView: View {
                                 width: viewFrame.width,
                                 height: viewFrame.height - headerFrame.height
                             )
-                            .transitionalBlur(viewStore.isTransitioning)
+                            .transition(.blur, isActive: viewStore.isTransitioning)
                         }
                     }
                 }
-                .transitionScheduleView(viewStore.isTransitioning)
+                .transition(.opacity, isActive: viewStore.isTransitioning)
                 .onChange(of: viewStore.isTransitioning) { newValue in
                     guard newValue else { return }
                     DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
@@ -101,7 +101,7 @@ private struct HeaderView: View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
                 DateView(date: viewStore.selectedDate)
-                    .transitionDateLabel(viewStore.isTransitioning)
+                    .transition(.scale, isActive: viewStore.isTransitioning)
 
                 HStack {
                     if viewStore.isFiltering {
@@ -111,13 +111,13 @@ private struct HeaderView: View {
                                 .opacity(.zero)
 
                             FilterView(store: store)
-                                .transitionDateLabel(viewStore.isTransitioning)
+                                .transition(.scale, isActive: viewStore.isTransitioning)
                         }
                         .transition(.move(edge: .leading))
                     } else {
                         DateView(date: viewStore.selectedDate)
                             .labelStyle(.large)
-                            .transitionDateLabel(viewStore.isTransitioning)
+                            .transition(.scale, isActive: viewStore.isTransitioning)
                             .transition(.move(edge: .leading))
                     }
 
@@ -130,6 +130,7 @@ private struct HeaderView: View {
                             .font(.title2)
                             .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
                     }
+                    .transition(.blur, isActive: viewStore.isTransitioning)
                 }
             }
             .padding([.horizontal, .top])
@@ -165,38 +166,6 @@ private extension ScheduleView {
     static let scrollToTopDelay: TimeInterval = 0.3
     static let scrollToTopID: String = "upandaway"
     static let verticalPadding: CGFloat = 8
-}
-
-// MARK: - Transitions
-
-private extension View {
-    func transitionalBlur(_ isTransitioning: Bool) -> some View {
-        blur(radius: isTransitioning ? 6 : 0)
-    }
-
-    func transitionDateLabel(_ isTransitioning: Bool) -> some View {
-        scaleEffect(isTransitioning ? 0.75 : 1)
-    }
-
-    func transitionMovieListView(_ isTransitioning: Bool) -> some View {
-        transitionalBlur(isTransitioning)
-            .scaleEffect(y: isTransitioning ? 0.98 : 1, anchor: .center)
-            .offset(y: isTransitioning ? -5 : 0 )
-    }
-
-    func transitionScheduleView(_ isTransitioning: Bool) -> some View {
-        opacity(isTransitioning ? 0 : 1)
-    }
-
-    func transitionSectionLabel(_ isTransitioning: Bool) -> some View {
-        transitionalBlur(isTransitioning)
-            .offset(x: isTransitioning ? 4 : 0)
-    }
-
-    func transitionShowingListView(_ isTransitioning: Bool) -> some View {
-        transitionalBlur(isTransitioning)
-            .scaleEffect(x: isTransitioning ? 0.98 : 1, anchor: .leading)
-    }
 }
 
 // MARK: - Previews
