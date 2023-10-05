@@ -217,7 +217,7 @@
 				291525BB294E071600192153 /* NetworkImage */,
 				291525EE294FA9A100192153 /* Schedule */,
 				29817F76293BC1D100E59D42 /* Settings */,
-				2904C7952336A10700407B64 /* Models */,
+				2904C7952336A10700407B64 /* Showing */,
 				29DDA571295DBF8F000C4322 /* ShowingInfo */,
 				29B1BAE6296743BF00A60E20 /* ShowingTimes */,
 				29BFAF8C2961AE3C00655325 /* Shared */,
@@ -229,7 +229,7 @@
 			path = Cinema;
 			sourceTree = "<group>";
 		};
-		2904C7952336A10700407B64 /* Models */ = {
+		2904C7952336A10700407B64 /* Showing */ = {
 			isa = PBXGroup;
 			children = (
 				29B4D94A23F1EC0600BD9783 /* City.swift */,
@@ -237,7 +237,7 @@
 				2933DB542ACEEA5F00DAEED8 /* ShowingView.swift */,
 				297C826C26B01DA30053F706 /* Venue.swift */,
 			);
-			path = Models;
+			path = Showing;
 			sourceTree = "<group>";
 		};
 		291525BB294E071600192153 /* NetworkImage */ = {
