@@ -1,5 +1,5 @@
 //
-//  MovieInfo.swift
+//  ShowingInfo.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-29.
@@ -9,7 +9,7 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct MovieInfo: ReducerProtocol {
+struct ShowingInfo: ReducerProtocol {
     struct State: Equatable {
         var showing: Showing.State
         var showingTimes: ShowingTimes.State?

@@ -1,5 +1,5 @@
 //
-//  MovieInfoView.swift
+//  ShowingInfoView.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-29.
@@ -9,8 +9,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct MovieInfoView: View {
-    let store: StoreOf<MovieInfo>
+struct ShowingInfoView: View {
+    let store: StoreOf<ShowingInfo>
 
     @State private var posterFrame: CGRect = CGRect()
     @State private var titleViewFrame: CGRect = CGRect()
@@ -27,7 +27,7 @@ struct MovieInfoView: View {
                     VStack(spacing: .zero) {
                         NetworkImageView(store: store.scope(
                             state: \.showing.networkImage,
-                            action: MovieInfo.Action.networkImage
+                            action: ShowingInfo.Action.networkImage
                         ))
                         .scaleEffect(posterScale)
                         .offset(y: -posterOffset)
@@ -36,11 +36,11 @@ struct MovieInfoView: View {
                         .background(FrameGetter(frame: $posterFrame))
 
                         VStack(spacing: .zero) {
-                            InfoTitleView(showing: viewStore.showing)
+                            ShowingInfoTitle(showing: viewStore.showing)
                                 .opacity(titleViewOpacity)
                                 .background(FrameGetter(frame: $titleViewFrame))
 
-                            InfoBodyView(store: store)
+                            ShowingInfoBody(store: store)
                         }
                         .offset(y: -posterOverlap)
                     }
@@ -51,13 +51,13 @@ struct MovieInfoView: View {
             .sheet(
                 isPresented: viewStore.binding(
                     get: \.isNavigationToShowingTimesActive,
-                    send: MovieInfo.Action.setNavigationToShowingTimes(isActive:)
+                    send: ShowingInfo.Action.setNavigationToShowingTimes(isActive:)
                 )
             ) {
                 IfLetStore(
                     store.scope(
                         state: \.showingTimes,
-                        action: MovieInfo.Action.showingTimes
+                        action: ShowingInfo.Action.showingTimes
                     ),
                     then: ShowingTimesView.init(store:)
                 )
@@ -92,7 +92,7 @@ struct MovieInfoView: View {
     }
 }
 
-private extension MovieInfoView {
+private extension ShowingInfoView {
     // Minimum `PosterView` overlap value.
     var posterOverlapConstant: CGFloat {
         60
@@ -138,20 +138,20 @@ private extension MovieInfoView {
 
 // MARK: - Constants
 
-private extension MovieInfoView {
+private extension ShowingInfoView {
     static let posterAspectRatio: CGFloat = 2/3
 }
 
 // MARK: - Previews
 
-struct MovieInfoView_Previews: PreviewProvider {
+struct ShowingInfoView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: MovieInfo.State(showing: iKinas.Previews.createShowing(), shouldDisplayTicketURL: true),
-        reducer: MovieInfo()
+        initialState: ShowingInfo.State(showing: iKinas.Previews.createShowing(), shouldDisplayTicketURL: true),
+        reducer: ShowingInfo()
     )
 
     static var previews: some View {
-        MovieInfoView(store: store)
+        ShowingInfoView(store: store)
             .preferredColorScheme(.dark)
     }
 }

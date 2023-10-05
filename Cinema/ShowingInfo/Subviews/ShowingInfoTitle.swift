@@ -1,5 +1,5 @@
 //
-//  InfoTitleView.swift
+//  ShowingInfoTitle.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-30.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct InfoTitleView: View {
+struct ShowingInfoTitle: View {
     let showing: Showing.State
 
     var body: some View {
@@ -42,7 +42,7 @@ struct InfoTitleView: View {
 
 // MARK: - Constants
 
-private extension InfoTitleView {
+private extension ShowingInfoTitle {
     static let backgroundGradient = Gradient(colors: [
         .clear,
         .primaryBackground.opacity(0.2),
@@ -62,7 +62,7 @@ private extension InfoTitleView {
 
 // MARK: - Previews
 
-struct InfoTitleView_Previews: PreviewProvider {
+struct ShowingInfoTitle_Previews: PreviewProvider {
     static let showings = [
         iKinas.Previews.createShowing(originalTitle: String(repeating: "A", count: 15), title: String(repeating: "A", count: 15)),
         iKinas.Previews.createShowing(originalTitle: String(repeating: "A", count: 99), title: String(repeating: "A", count: 99)),
@@ -75,12 +75,12 @@ struct InfoTitleView_Previews: PreviewProvider {
     static var previews: some View {
         ScrollView {
             VStack {
-                InfoTitleView(showing: showings[0])
-                InfoTitleView(showing: showings[1])
-                InfoTitleView(showing: showings[2])
-                InfoTitleView(showing: showings[3])
-                InfoTitleView(showing: showings[4])
-                InfoTitleView(showing: showings[5])
+                ShowingInfoTitle(showing: showings[0])
+                ShowingInfoTitle(showing: showings[1])
+                ShowingInfoTitle(showing: showings[2])
+                ShowingInfoTitle(showing: showings[3])
+                ShowingInfoTitle(showing: showings[4])
+                ShowingInfoTitle(showing: showings[5])
             }
         }
         .background(

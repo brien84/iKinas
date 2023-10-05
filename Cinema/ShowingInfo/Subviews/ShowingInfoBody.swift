@@ -1,5 +1,5 @@
 //
-//  InfoBodyView.swift
+//  ShowingInfoBody.swift
 //  Cinema
 //
 //  Created by Marius on 2023-01-01.
@@ -9,8 +9,8 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct InfoBodyView: View {
-    let store: StoreOf<MovieInfo>
+struct ShowingInfoBody: View {
+    let store: StoreOf<ShowingInfo>
 
     @State private var isDisplayingTicketURL = false
 
@@ -125,13 +125,13 @@ private struct JustifiedTextView: UIViewRepresentable {
 
     func updateUIView(_ uiView: UILabel, context: UIViewRepresentableContext<Self>) {
         uiView.text = text
-        uiView.preferredMaxLayoutWidth = UIScreen.main.bounds.width - InfoBodyView.horizontalPadding * 2
+        uiView.preferredMaxLayoutWidth = UIScreen.main.bounds.width - ShowingInfoBody.horizontalPadding * 2
     }
 }
 
 // MARK: - Constants
 
-private extension InfoBodyView {
+private extension ShowingInfoBody {
     static let showingAnimationDelay: CGFloat = 0.475
     static let horizontalPadding: CGFloat = 16
     static let verticalPadding: CGFloat = 8

@@ -13,9 +13,9 @@ struct Main: ReducerProtocol {
     struct State: Equatable {
         var dateSelector = DateSelector.State(dates: [])
         var homeFeed = HomeFeed.State()
-        var movieInfo: MovieInfo.State?
         var schedule = Schedule.State()
         var settings: Settings.State?
+        var showingInfo: ShowingInfo.State?
 
         var isHomeFeedActive = true
         var isHomeFeedButtonSelected = true
@@ -31,15 +31,15 @@ struct Main: ReducerProtocol {
     enum Action: Equatable {
         case dateSelector(DateSelector.Action)
         case homeFeed(HomeFeed.Action)
-        case movieInfo(MovieInfo.Action)
         case schedule(Schedule.Action)
         case settings(Settings.Action)
+        case showingInfo(ShowingInfo.Action)
 
         case fetch
         case apiClient(Result<APIClient.Response, Never>)
 
-        case setNavigationToMovieInfo(isActive: Bool)
         case setNavigationToSettings(isActive: Bool)
+        case setNavigationToShowingInfo(isActive: Bool)
 
         case didPressHomeFeedButton
         case beginTransition
@@ -85,25 +85,22 @@ struct Main: ReducerProtocol {
 
             case .homeFeed(.showing(id: let id, action: .didSelect)):
                 if let showing = state.homeFeed.showings[id: id] {
-                    state.movieInfo = MovieInfo.State(showing: showing, shouldDisplayTicketURL: true)
+                    state.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: true)
                 }
                 return .none
 
             case .homeFeed:
                 return .none
 
-            case .movieInfo:
-                return .none
-
             case .schedule(.movie(id: let id, action: .didSelect)):
                 if let showing = state.schedule.datasource[id: id] {
-                    state.movieInfo = MovieInfo.State(showing: showing, shouldDisplayTicketURL: false)
+                    state.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: false)
                 }
                 return .none
 
             case .schedule(.showing(id: let id, action: .didSelect)):
                 if let showing = state.schedule.datasource[id: id] {
-                    state.movieInfo = MovieInfo.State(showing: showing, shouldDisplayTicketURL: true)
+                    state.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: true)
                 }
                 return .none
 
@@ -114,6 +111,9 @@ struct Main: ReducerProtocol {
                 return fetch(state: &state)
 
             case .settings:
+                return .none
+
+            case .showingInfo:
                 return .none
 
             case .fetch:
@@ -137,9 +137,9 @@ struct Main: ReducerProtocol {
                     return . none
                 }
 
-            case .setNavigationToMovieInfo(let isActive):
+            case .setNavigationToShowingInfo(let isActive):
                 if !isActive {
-                    state.movieInfo = nil
+                    state.showingInfo = nil
                 }
                 return .none
 
@@ -185,8 +185,8 @@ struct Main: ReducerProtocol {
 
             }
         }
-        .ifLet(\.movieInfo, action: /Action.movieInfo) {
-            MovieInfo()
+        .ifLet(\.showingInfo, action: /Action.showingInfo) {
+            ShowingInfo()
         }
         .ifLet(\.settings, action: /Action.settings) {
             Settings()

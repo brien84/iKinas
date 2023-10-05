@@ -1,5 +1,5 @@
 //
-//  MovieInfoHostingController.swift
+//  ShowingInfoHostingController.swift
 //  Cinema
 //
 //  Created by Marius on 2022-12-29.
@@ -11,9 +11,9 @@ import ComposableArchitecture
 import SafariServices
 import SwiftUI
 
-final class MovieInfoHostingController: UIHostingController<MovieInfoView> {
+final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
     private var cancellables: Set<AnyCancellable> = []
-    private let viewStore: ViewStoreOf<MovieInfo>
+    private let viewStore: ViewStoreOf<ShowingInfo>
     private var lastTitleViewOverlapPercentage: CGFloat = 0
     private var isInteractivePopInProgress = false {
         didSet {
@@ -53,9 +53,9 @@ final class MovieInfoHostingController: UIHostingController<MovieInfoView> {
         return button
     }()
 
-    init(store: StoreOf<MovieInfo>) {
+    init(store: StoreOf<ShowingInfo>) {
         self.viewStore = ViewStore(store)
-        super.init(rootView: MovieInfoView(store: store))
+        super.init(rootView: ShowingInfoView(store: store))
     }
 
     @MainActor required dynamic init?(coder aDecoder: NSCoder) {
@@ -144,13 +144,13 @@ final class MovieInfoHostingController: UIHostingController<MovieInfoView> {
     }
 }
 
-private extension MovieInfoHostingController {
+private extension ShowingInfoHostingController {
     var navigationBar: UINavigationBar? {
         navigationController?.navigationBar
     }
 }
 
-extension MovieInfoHostingController: UIGestureRecognizerDelegate {
+extension ShowingInfoHostingController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
 
         DispatchQueue.main.async {
@@ -189,7 +189,7 @@ extension UINavigationBar {
 
 // MARK: - Constants
 
-private extension MovieInfoHostingController {
+private extension ShowingInfoHostingController {
     static let barButtonBackgroundSize: CGSize = CGSize(width: 36, height: 36)
     static let maximumBarButtonInset: CGFloat = 10
     static let navBarTitleMaximumVerticalOffset: CGFloat = 30
