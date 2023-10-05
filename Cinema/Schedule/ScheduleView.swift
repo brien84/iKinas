@@ -161,7 +161,7 @@ private extension HeaderView {
 }
 
 private extension ScheduleView {
-    static let heightToWidthRatio: CGFloat = 0.96
+    static let heightToWidthRatio: CGFloat = 0.85
     static let scrollToTopDelay: TimeInterval = 0.3
     static let scrollToTopID: String = "upandaway"
     static let verticalPadding: CGFloat = 8
