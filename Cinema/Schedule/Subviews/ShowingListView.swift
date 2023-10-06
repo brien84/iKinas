@@ -24,11 +24,13 @@ struct ShowingListView: View {
             }
         }
         .padding(.horizontal)
+        .padding(.bottom, Self.bottomPadding)
     }
 }
 
 // MARK: - Constants
 
 private extension ShowingListView {
+    static let bottomPadding: CGFloat = 8
     static let verticalSpacing: CGFloat = 8
 }
