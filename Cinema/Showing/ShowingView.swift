@@ -22,6 +22,7 @@ struct ShowingView: View {
 
                     InfoView(showing: viewStore.state)
                 }
+                .contentShape(Rectangle())
                 .onTapGesture {
                     viewStore.send(.didSelect)
                 }
@@ -96,7 +97,8 @@ private struct TitleView: View {
                     .lineLimit(1)
                     .foregroundColor(.secondaryElement)
             }
-        }.frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
