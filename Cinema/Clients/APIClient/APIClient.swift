@@ -27,11 +27,6 @@ struct APIClient {
 }
 
 extension APIClient: TestDependencyKey {
-    static let testValue = Self(
-        fetch: { _, _ in unimplemented("\(Self.self).fetch") },
-        getShowings: { unimplemented("\(Self.self).getShowings") }
-    )
-
     static let previewValue = Self(
         fetch: { _, _ in
             EffectTask.task {
@@ -46,6 +41,11 @@ extension APIClient: TestDependencyKey {
                 )
             }.convertToIdentifiedArray()
         }
+    )
+
+    static let testValue = Self(
+        fetch: { _, _ in unimplemented("\(Self.self).fetch") },
+        getShowings: { unimplemented("\(Self.self).getShowings") }
     )
 }
 

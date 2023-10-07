@@ -19,14 +19,6 @@ struct UserDefaultsClient {
 }
 
 extension UserDefaultsClient: TestDependencyKey {
-    static let testValue: Self = Self(
-        isFirstLaunch: unimplemented("\(Self.self).isFirstLaunch"),
-        getCity: unimplemented("\(Self.self).getCity"),
-        setCity: unimplemented("\(Self.self).setCity"),
-        getVenues: unimplemented("\(Self.self).getVenues"),
-        setVenues: unimplemented("\(Self.self).setVenues")
-    )
-
     static let previewValue: Self = {
         let defaults = UserDefaults(suiteName: "UserDefaultsClient.preview")!
         defaults.removePersistentDomain(forName: "UserDefaultsClient.preview")
@@ -49,6 +41,14 @@ extension UserDefaultsClient: TestDependencyKey {
             }
         )
     }()
+
+    static let testValue: Self = Self(
+        isFirstLaunch: unimplemented("\(Self.self).isFirstLaunch"),
+        getCity: unimplemented("\(Self.self).getCity"),
+        setCity: unimplemented("\(Self.self).setCity"),
+        getVenues: unimplemented("\(Self.self).getVenues"),
+        setVenues: unimplemented("\(Self.self).setVenues")
+    )
 }
 
 extension UserDefaultsClient {
