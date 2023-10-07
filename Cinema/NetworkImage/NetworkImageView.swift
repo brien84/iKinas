@@ -15,6 +15,8 @@ struct NetworkImageView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ZStack {
+                Color.clear
+
                 if viewStore.isFetching {
                     ProgressView()
                         .progressViewStyle(CircularProgressViewStyle(tint: .primaryElement))
