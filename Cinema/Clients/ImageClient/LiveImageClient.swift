@@ -17,12 +17,10 @@ extension ImageClient: DependencyKey {
             } else {
                 return URLSession.shared.dataTaskPublisher(for: url)
                     .tryMap {
-                        guard let image = UIImage(data: $0.data) else {
-                            throw Self.Failure()
-                        }
-
-                        Self.cache.setObject(image, forKey: url as NSURL)
-                        return image
+                        guard let image = UIImage(data: $0.data) else { throw Self.Failure() }
+                        let optimized = image.optimizeSize()
+                        Self.cache.setObject(optimized, forKey: url as NSURL)
+                        return optimized
                     }
                     .mapError { _ in
                         Self.Failure()
@@ -31,4 +29,18 @@ extension ImageClient: DependencyKey {
             }
         }
     )
+}
+
+private extension UIImage {
+    /// Optimizes `UIImage` to reduce its memory footprint by reducing size of the image while increasing its scale factor.
+    func optimizeSize() -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 3.0 / self.scale
+        let size = CGSize(width: self.size.width / format.scale, height: self.size.height / format.scale)
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+
+        return renderer.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+    }
 }
