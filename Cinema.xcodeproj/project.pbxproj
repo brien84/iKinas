@@ -42,6 +42,7 @@
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
 		29A8E1222A688321005FD2A6 /* Extension+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */; };
 		29AED33B2AD1D7B8001ED94A /* LiveImageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AED33A2AD1D7B8001ED94A /* LiveImageClient.swift */; };
+		29AED33D2AD700C7001ED94A /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AED33C2AD700C7001ED94A /* Extension+View.swift */; };
 		29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */; };
 		29AFB2352AC1DA4200FC2D03 /* Previews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2342AC1DA4200FC2D03 /* Previews.swift */; };
 		29AFB2382AC34FDB00FC2D03 /* LiveUserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2372AC34FDB00FC2D03 /* LiveUserDefaultsClient.swift */; };
@@ -125,6 +126,7 @@
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TimeInterval.swift"; sourceTree = "<group>"; };
 		29AED33A2AD1D7B8001ED94A /* LiveImageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageClient.swift; sourceTree = "<group>"; };
+		29AED33C2AD700C7001ED94A /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Locale.swift"; sourceTree = "<group>"; };
 		29AFB2342AC1DA4200FC2D03 /* Previews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Previews.swift; sourceTree = "<group>"; };
 		29AFB2372AC34FDB00FC2D03 /* LiveUserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveUserDefaultsClient.swift; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */,
 				29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */,
 				29E3069C296F0A96003A52C4 /* Extension+URL.swift */,
+				29AED33C2AD700C7001ED94A /* Extension+View.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -665,6 +668,7 @@
 				29DDA577295DCA2C000C4322 /* ShowingInfoHostingController.swift in Sources */,
 				296FE0592950E9AA0015F7AA /* Main.swift in Sources */,
 				29AED33B2AD1D7B8001ED94A /* LiveImageClient.swift in Sources */,
+				29AED33D2AD700C7001ED94A /* Extension+View.swift in Sources */,
 				29602B13294B6CAB00FBE1A4 /* DateSelectorView.swift in Sources */,
 				29AFB2422ACA8D9E00FC2D03 /* UpcomingListView.swift in Sources */,
 				291525BD294E072800192153 /* NetworkImage.swift in Sources */,
@@ -848,7 +852,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -869,7 +873,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 39;
+				CURRENT_PROJECT_VERSION = 45;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
