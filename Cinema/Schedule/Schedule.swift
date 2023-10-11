@@ -13,7 +13,7 @@ struct Schedule: ReducerProtocol {
     struct State: Equatable {
         var filter = TimeFilter()
         var isFiltering = false
-        var isTransitioning = false
+        var isTransitioning = true
         var selectedDate = Date()
 
         var datasource: IdentifiedArrayOf<Showing.State> = []
@@ -25,6 +25,7 @@ struct Schedule: ReducerProtocol {
         case binding(BindingAction<State>)
         case filterDatasource
         case toggleFiltering
+        case toggleTransition
         case movie(id: Showing.State.ID, action: Showing.Action)
         case showing(id: Showing.State.ID, action: Showing.Action)
     }
@@ -44,6 +45,10 @@ struct Schedule: ReducerProtocol {
             case .toggleFiltering:
                 state.isFiltering.toggle()
                 return filter(state: &state)
+
+            case .toggleTransition:
+                state.isTransitioning.toggle()
+                return .none
 
             case .movie(id: let id, action: .networkImage(.imageClient(.success))):
                 guard let networkImage = state.movies[id: id]?.networkImage else { return .none }

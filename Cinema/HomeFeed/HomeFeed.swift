@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 struct HomeFeed: ReducerProtocol {
     struct State: Equatable {
-        var isTransitioning = false
+        var isTransitioning = true
         var showings: IdentifiedArrayOf<Showing.State> = []
     }
 
@@ -18,10 +18,11 @@ struct HomeFeed: ReducerProtocol {
         case settingsButtonDidTap
         case scheduleButtonDidTap
         case showing(id: Showing.State.ID, action: Showing.Action)
+        case toggleTransition
     }
 
     var body: some ReducerProtocol<State, Action> {
-        Reduce { _, action in
+        Reduce { state, action in
             switch action {
             case .scheduleButtonDidTap:
                 return .none
@@ -30,6 +31,10 @@ struct HomeFeed: ReducerProtocol {
                 return .none
 
             case .showing:
+                return .none
+
+            case .toggleTransition:
+                state.isTransitioning.toggle()
                 return .none
             }
         }
