@@ -163,7 +163,7 @@ private extension HeaderView {
 }
 
 private extension ScheduleView {
-    static let heightToWidthRatio: CGFloat = 0.85
+    static let heightToWidthRatio: CGFloat = 0.8
     static let verticalPadding: CGFloat = 8
 }
 
