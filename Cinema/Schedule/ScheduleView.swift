@@ -19,12 +19,12 @@ struct ScheduleView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollViewReader { scrollProxy in
+            ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: .zero) {
                         HeaderView(store: store)
                               .background(FrameGetter(frame: $headerFrame))
-                              .id(Self.scrollToTopID)
+                              .id(ScrollToTop.id)
 
                         if !viewStore.movies.isEmpty {
                             VStack {
@@ -54,15 +54,10 @@ struct ScheduleView: View {
                         }
                     }
                 }
+                .scrollTo(ScrollToTop(proxy: proxy), when: viewStore.isTransitioning)
                 .transition(.opacity, isActive: isTransitioning)
-                .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
-                .onChange(of: viewStore.isTransitioning) { newValue in
-                    guard newValue else { return }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
-                        scrollProxy.scrollTo(Self.scrollToTopID)
-                    }
-                }
             }
+            .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
         }
         .background(FrameGetter(frame: $viewFrame))
     }
@@ -169,8 +164,6 @@ private extension HeaderView {
 
 private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.85
-    static let scrollToTopDelay: TimeInterval = 0.3
-    static let scrollToTopID: String = "upandaway"
     static let verticalPadding: CGFloat = 8
 }
 

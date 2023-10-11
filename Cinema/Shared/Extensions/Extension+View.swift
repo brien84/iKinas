@@ -73,3 +73,25 @@ extension View {
         }
     }
 }
+
+struct ScrollToTop {
+    static let id: String = "upandaway"
+    let proxy: ScrollViewProxy
+    let anchor: UnitPoint?
+
+    init(proxy: ScrollViewProxy, anchor: UnitPoint? = nil) {
+        self.anchor = anchor
+        self.proxy = proxy
+    }
+}
+
+extension View {
+    func scrollTo(_ top: ScrollToTop, when value: Bool) -> some View {
+        self.onChange(of: value) { newValue in
+            guard newValue else { return }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                top.proxy.scrollTo(ScrollToTop.id, anchor: top.anchor)
+            }
+        }
+    }
+}

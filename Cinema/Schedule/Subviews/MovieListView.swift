@@ -14,7 +14,7 @@ struct MovieListView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollViewReader { scrollProxy in
+            ScrollViewReader { proxy in
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: Self.horizontalSpacing) {
                         ForEachStore(store.scope(
@@ -25,15 +25,10 @@ struct MovieListView: View {
                                 .aspectRatio(Self.aspectRatio, contentMode: .fit)
                         }
                     }
+                    .id(ScrollToTop.id)
                     .padding(.horizontal)
-                    .id(Self.scrollToTopID)
                 }
-                .onChange(of: viewStore.isTransitioning) { newValue in
-                    guard newValue else { return }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
-                        scrollProxy.scrollTo(Self.scrollToTopID, anchor: .leading)
-                    }
-                }
+                .scrollTo(ScrollToTop(proxy: proxy, anchor: .leading), when: viewStore.isTransitioning)
             }
         }
     }
@@ -101,8 +96,6 @@ private struct VisualEffectView: UIViewRepresentable {
 private extension MovieListView {
     static let aspectRatio: CGFloat = 2/3
     static let horizontalSpacing: CGFloat = 8
-    static let scrollToTopDelay: CGFloat = 0.3
-    static let scrollToTopID: String = "upandaway"
 }
 
 private extension MovieView {
