@@ -191,6 +191,7 @@ struct ScheduleView_Previews: PreviewProvider {
             .preferredColorScheme(.dark)
             .onAppear {
                 ViewStore(store).send(.filterDatasource)
+                ViewStore(store).send(.toggleTransition)
             }
     }
 }
@@ -205,5 +206,8 @@ struct EmptyScheduleView_Previews: PreviewProvider {
         ScheduleView(store: store)
             .background(Color.primaryBackground.ignoresSafeArea())
             .preferredColorScheme(.dark)
+            .onAppear {
+                ViewStore(store).send(.toggleTransition)
+            }
     }
 }

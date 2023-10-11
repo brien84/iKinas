@@ -101,5 +101,8 @@ struct HomeFeedView_Previews: PreviewProvider {
     static var previews: some View {
         HomeFeedView(store: store)
             .preferredColorScheme(.dark)
+            .onAppear {
+                ViewStore(store).send(.toggleTransition)
+            }
     }
 }
