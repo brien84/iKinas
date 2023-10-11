@@ -12,6 +12,8 @@ import SwiftUI
 struct HomeFeedView: View {
     let store: StoreOf<HomeFeed>
 
+    @State private var isTransitioning = true
+
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
@@ -19,10 +21,11 @@ struct HomeFeedView: View {
                     HeaderView(store: store)
 
                     UpcomingListView(store: store)
-                        .transition(.blurryScale(anchor: .leading), isActive: viewStore.isTransitioning)
+                        .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
                 }
             }
-            .transition(.opacity, isActive: viewStore.isTransitioning)
+            .transition(.opacity, isActive: isTransitioning)
+            .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
         }
     }
 }
@@ -30,26 +33,29 @@ struct HomeFeedView: View {
 private struct HeaderView: View {
     let store: StoreOf<HomeFeed>
 
+    @State private var isTransitioning = true
+
     var body: some View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
                 DateView(date: Date())
-                    .transition(.scale, isActive: viewStore.isTransitioning)
+                    .transition(.scale, isActive: isTransitioning)
 
                 HStack {
                     GreetingView()
-                        .transition(.scale, isActive: viewStore.isTransitioning)
+                        .transition(.scale, isActive: isTransitioning)
 
                     Spacer()
 
                     SettingsButton {
                         viewStore.send(.settingsButtonDidTap)
                     }
-                    .transition(.blur, isActive: viewStore.isTransitioning)
+                    .transition(.blur, isActive: isTransitioning)
                 }
             }
             .padding([.horizontal, .top])
             .padding(.bottom, Self.bottomPadding)
+            .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
 
             Divider()
                 .padding(.bottom, Self.bottomPadding)

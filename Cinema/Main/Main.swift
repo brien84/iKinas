@@ -206,11 +206,11 @@ struct Main: ReducerProtocol {
     private func performTransition() -> EffectTask<Action> {
         EffectTask.run { send in
             try await Task.sleep(nanoseconds: 50_000_000)
-            await send(.beginTransition, animation: .easeInOut(duration: 0.30))
+            await send(.beginTransition)
             try await Task.sleep(nanoseconds: 300_000_000)
             await send(.updateDatasource)
-            try await Task.sleep(nanoseconds: 150_000_000)
-            await send(.endTransition, animation: .easeInOut(duration: 0.40))
+            try await Task.sleep(nanoseconds: 100_000_000)
+            await send(.endTransition)
         }
         .cancellable(id: CancelID.transition, cancelInFlight: true)
     }

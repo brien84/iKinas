@@ -12,6 +12,8 @@ import SwiftUI
 struct ScheduleView: View {
     let store: StoreOf<Schedule>
 
+    @State private var isTransitioning = true
+
     @State private var headerFrame: CGRect = CGRect()
     @State private var viewFrame: CGRect = CGRect()
 
@@ -27,17 +29,17 @@ struct ScheduleView: View {
                         if !viewStore.movies.isEmpty {
                             VStack {
                                 SectionLabel(text: "Filmai")
-                                    .transition(.blurryOffset, isActive: viewStore.isTransitioning)
+                                    .transition(.blurryOffset, isActive: isTransitioning)
 
                                 MovieListView(store: store)
                                     .frame(height: viewFrame.width * Self.heightToWidthRatio)
-                                    .transition(.blurryScale(anchor: .center), isActive: viewStore.isTransitioning)
+                                    .transition(.blurryScale(anchor: .center), isActive: isTransitioning)
 
                                 SectionLabel(text: "Seansai")
-                                    .transition(.blurryOffset, isActive: viewStore.isTransitioning)
+                                    .transition(.blurryOffset, isActive: isTransitioning)
 
                                 ShowingListView(store: store)
-                                    .transition(.blurryScale(anchor: .leading), isActive: viewStore.isTransitioning)
+                                    .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
                             }
                         } else {
                             EmptyErrorView(
@@ -48,11 +50,12 @@ struct ScheduleView: View {
                                 width: viewFrame.width,
                                 height: viewFrame.height - headerFrame.height
                             )
-                            .transition(.blur, isActive: viewStore.isTransitioning)
+                            .transition(.blur, isActive: isTransitioning)
                         }
                     }
                 }
-                .transition(.opacity, isActive: viewStore.isTransitioning)
+                .transition(.opacity, isActive: isTransitioning)
+                .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
                 .onChange(of: viewStore.isTransitioning) { newValue in
                     guard newValue else { return }
                     DispatchQueue.main.asyncAfter(deadline: .now() + Self.scrollToTopDelay) {
@@ -62,6 +65,57 @@ struct ScheduleView: View {
             }
         }
         .background(FrameGetter(frame: $viewFrame))
+    }
+}
+
+private struct HeaderView: View {
+    let store: StoreOf<Schedule>
+
+    @State private var isTransitioning = true
+
+    var body: some View {
+        WithViewStore(store) { viewStore in
+            VStack(alignment: .leading, spacing: Self.verticalSpacing) {
+                DateView(date: viewStore.selectedDate)
+                    .transition(.scale, isActive: isTransitioning)
+
+                HStack {
+                    if viewStore.isFiltering {
+                        ZStack {
+                            DateView(date: viewStore.selectedDate)
+                                .labelStyle(.large)
+                                .opacity(.zero)
+
+                            FilterView(store: store)
+                                .transition(.scale, isActive: isTransitioning)
+                        }
+                        .transition(.move(edge: .leading))
+                    } else {
+                        DateView(date: viewStore.selectedDate)
+                            .labelStyle(.large)
+                            .transition(.scale, isActive: isTransitioning)
+                            .transition(.move(edge: .leading))
+                    }
+
+                    Spacer()
+
+                    Button {
+                        viewStore.send(.toggleFiltering, animation: .easeInOut)
+                    } label: {
+                        Image(systemName: "stopwatch")
+                            .font(.title2)
+                            .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
+                    }
+                    .transition(.blur, isActive: isTransitioning)
+                }
+            }
+            .padding([.horizontal, .top])
+            .padding(.bottom, Self.bottomPadding)
+            .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
+
+            Divider()
+                .padding(.bottom, Self.bottomPadding)
+        }
     }
 }
 
@@ -90,54 +144,6 @@ private struct FilterView: View {
             .colorScheme(.dark)
             .frame(maxWidth: .infinity, alignment: .leading)
             .labelsHidden()
-        }
-    }
-}
-
-private struct HeaderView: View {
-    let store: StoreOf<Schedule>
-
-    var body: some View {
-        WithViewStore(store) { viewStore in
-            VStack(alignment: .leading, spacing: Self.verticalSpacing) {
-                DateView(date: viewStore.selectedDate)
-                    .transition(.scale, isActive: viewStore.isTransitioning)
-
-                HStack {
-                    if viewStore.isFiltering {
-                        ZStack {
-                            DateView(date: viewStore.selectedDate)
-                                .labelStyle(.large)
-                                .opacity(.zero)
-
-                            FilterView(store: store)
-                                .transition(.scale, isActive: viewStore.isTransitioning)
-                        }
-                        .transition(.move(edge: .leading))
-                    } else {
-                        DateView(date: viewStore.selectedDate)
-                            .labelStyle(.large)
-                            .transition(.scale, isActive: viewStore.isTransitioning)
-                            .transition(.move(edge: .leading))
-                    }
-
-                    Spacer()
-
-                    Button {
-                        viewStore.send(.toggleFiltering, animation: .easeInOut)
-                    } label: {
-                        Image(systemName: "stopwatch")
-                            .font(.title2)
-                            .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
-                    }
-                    .transition(.blur, isActive: viewStore.isTransitioning)
-                }
-            }
-            .padding([.horizontal, .top])
-            .padding(.bottom, Self.bottomPadding)
-
-            Divider()
-                .padding(.bottom, Self.bottomPadding)
         }
     }
 }
