@@ -19,8 +19,6 @@ struct ShowingListView: View {
                 action: Schedule.Action.showing(id:action:)
             )) {
                 ShowingView(store: $0)
-
-                Divider()
             }
         }
         .padding(.horizontal)

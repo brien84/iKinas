@@ -14,18 +14,22 @@ struct ShowingView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ShrinkOnPressView {
-                HStack {
-                    PosterView(store: store)
+            VStack(spacing: Self.verticalSpacing) {
+                ShrinkOnPressView {
+                    HStack {
+                        PosterView(store: store)
 
-                    TitleView(showing: viewStore.state)
+                        TitleView(showing: viewStore.state)
 
-                    InfoView(showing: viewStore.state)
+                        InfoView(showing: viewStore.state)
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        viewStore.send(.didSelect)
+                    }
                 }
-                .contentShape(Rectangle())
-                .onTapGesture {
-                    viewStore.send(.didSelect)
-                }
+
+                Divider()
             }
         }
     }
@@ -113,6 +117,10 @@ private extension PosterView {
     static let cornerRadius: CGFloat = 10
     static let height: CGFloat = 60
     static let width: CGFloat = 60
+}
+
+private extension ShowingView {
+    static let verticalSpacing: CGFloat = 8
 }
 
 // MARK: - Previews

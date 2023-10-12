@@ -26,8 +26,6 @@ struct UpcomingListView: View {
                         action: HomeFeed.Action.showing(id:action:)
                     )) {
                         ShowingView(store: $0)
-
-                        Divider()
                     }
                 }
             }
