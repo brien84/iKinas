@@ -73,6 +73,7 @@ private struct HeaderView: View {
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
                 DateView(date: viewStore.selectedDate)
                     .transition(.scale, isActive: isTransitioning)
+                    .padding([.horizontal, .top])
 
                 HStack {
                     if viewStore.isFiltering {
@@ -103,13 +104,12 @@ private struct HeaderView: View {
                     }
                     .transition(.blur, isActive: isTransitioning)
                 }
+                .padding(.horizontal)
+
+                Divider()
             }
-            .padding([.horizontal, .top])
             .padding(.bottom, Self.bottomPadding)
             .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
-
-            Divider()
-                .padding(.bottom, Self.bottomPadding)
         }
     }
 }
@@ -158,13 +158,12 @@ private struct SectionLabel: View {
 // MARK: - Constants
 
 private extension HeaderView {
-    static let bottomPadding: CGFloat = 8
+    static let bottomPadding: CGFloat = 10
     static let verticalSpacing: CGFloat = 8
 }
 
 private extension ScheduleView {
     static let heightToWidthRatio: CGFloat = 0.8
-    static let verticalPadding: CGFloat = 8
 }
 
 // MARK: - Previews

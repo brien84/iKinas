@@ -17,7 +17,7 @@ struct HomeFeedView: View {
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollView {
-                VStack(spacing: .zero) {
+                VStack(spacing: Self.verticalSpacing) {
                     HeaderView(store: store)
 
                     UpcomingListView(store: store)
@@ -39,6 +39,7 @@ private struct HeaderView: View {
         WithViewStore(store) { viewStore in
             VStack(alignment: .leading, spacing: Self.verticalSpacing) {
                 DateView(date: Date())
+                    .padding([.horizontal, .top])
                     .transition(.scale, isActive: isTransitioning)
 
                 HStack {
@@ -52,13 +53,11 @@ private struct HeaderView: View {
                     }
                     .transition(.blur, isActive: isTransitioning)
                 }
-            }
-            .padding([.horizontal, .top])
-            .padding(.bottom, Self.bottomPadding)
-            .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
+                .padding(.horizontal)
 
-            Divider()
-                .padding(.bottom, Self.bottomPadding)
+                Divider()
+            }
+            .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
         }
     }
 }
@@ -80,8 +79,11 @@ private struct SettingsButton: View {
 // MARK: - Constants
 
 private extension HeaderView {
-    static let bottomPadding: CGFloat = 8
     static let verticalSpacing: CGFloat = 8
+}
+
+private extension HomeFeedView {
+    static let verticalSpacing: CGFloat = 16
 }
 
 // MARK: - Previews
