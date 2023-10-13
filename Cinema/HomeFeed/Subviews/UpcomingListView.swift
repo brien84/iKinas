@@ -22,8 +22,8 @@ struct UpcomingListView: View {
 
                 LazyVStack(spacing: Self.verticalSpacing) {
                     ForEachStore(store.scope(
-                        state: \.showings,
-                        action: HomeFeed.Action.showing(id:action:)
+                        state: \.upcoming,
+                        action: HomeFeed.Action.upcoming(id:action:)
                     )) {
                         ShowingView(store: $0)
                     }
@@ -75,7 +75,7 @@ struct UpcomingListView_Previews: PreviewProvider {
     }()
 
     static let store = Store(
-        initialState: HomeFeed.State(showings: showings),
+        initialState: HomeFeed.State(upcoming: showings),
         reducer: HomeFeed()
     )
 

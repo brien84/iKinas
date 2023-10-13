@@ -96,12 +96,13 @@ struct HomeFeedView_Previews: PreviewProvider {
     }()
 
     static let store = Store(
-        initialState: HomeFeed.State(showings: showings),
+        initialState: HomeFeed.State(upcoming: showings),
         reducer: HomeFeed()
     )
 
     static var previews: some View {
         HomeFeedView(store: store)
+            .background(Color.primaryBackground.ignoresSafeArea())
             .preferredColorScheme(.dark)
             .onAppear {
                 ViewStore(store).send(.toggleTransition)

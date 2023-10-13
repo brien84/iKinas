@@ -83,8 +83,8 @@ struct Main: ReducerProtocol {
                 state.settings = Settings.State()
                 return .none
 
-            case .homeFeed(.showing(id: let id, action: .didSelect)):
-                if let showing = state.homeFeed.showings[id: id] {
+            case .homeFeed(.upcoming(id: let id, action: .didSelect)):
+                if let showing = state.homeFeed.upcoming[id: id] {
                     state.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: true)
                 }
                 return .none
@@ -168,9 +168,9 @@ struct Main: ReducerProtocol {
                 var showings = apiClient.getShowings()
                 showings.sort(by: .date)
                 var upcoming = Array(showings.elements.prefix(5)).convertToIdentifiedArray()
-                let commonIDs = upcoming.ids.intersection(state.homeFeed.showings.ids)
-                commonIDs.forEach { upcoming[id: $0] = state.homeFeed.showings[id: $0] }
-                state.homeFeed.showings = upcoming
+                let commonIDs = upcoming.ids.intersection(state.homeFeed.upcoming.ids)
+                commonIDs.forEach { upcoming[id: $0] = state.homeFeed.upcoming[id: $0] }
+                state.homeFeed.upcoming = upcoming
 
                 return EffectTask.task { .schedule(.filterDatasource) }
 
