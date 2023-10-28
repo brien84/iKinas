@@ -38,3 +38,9 @@ struct Featured: ReducerProtocol {
         }
     }
 }
+
+extension Array where Element == Featured.State {
+    func convertToIdentifiedArray() -> IdentifiedArrayOf<Featured.State> {
+        IdentifiedArray(uniqueElements: self)
+    }
+}
