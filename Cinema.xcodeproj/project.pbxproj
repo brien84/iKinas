@@ -41,6 +41,7 @@
 		298BBF132961F67800C2EA8C /* ShowingInfoBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF122961F67800C2EA8C /* ShowingInfoBody.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
 		29A8E1222A688321005FD2A6 /* Extension+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */; };
+		29AD29E92AEDB35300931D20 /* Featured.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD29E82AEDB35300931D20 /* Featured.swift */; };
 		29AED33B2AD1D7B8001ED94A /* LiveImageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AED33A2AD1D7B8001ED94A /* LiveImageClient.swift */; };
 		29AED33D2AD700C7001ED94A /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AED33C2AD700C7001ED94A /* Extension+View.swift */; };
 		29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */; };
@@ -125,6 +126,7 @@
 		298BBF122961F67800C2EA8C /* ShowingInfoBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingInfoBody.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TimeInterval.swift"; sourceTree = "<group>"; };
+		29AD29E82AEDB35300931D20 /* Featured.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Featured.swift; sourceTree = "<group>"; };
 		29AED33A2AD1D7B8001ED94A /* LiveImageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageClient.swift; sourceTree = "<group>"; };
 		29AED33C2AD700C7001ED94A /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Locale.swift"; sourceTree = "<group>"; };
@@ -275,6 +277,7 @@
 		293A436A29FBEFFD00913707 /* HomeFeed */ = {
 			isa = PBXGroup;
 			children = (
+				29AD29E82AEDB35300931D20 /* Featured.swift */,
 				293A436B29FBF00F00913707 /* HomeFeed.swift */,
 				293A436D29FBF07600913707 /* HomeFeedView.swift */,
 				29AFB2402ACA8B7300FC2D03 /* Subviews */,
@@ -674,6 +677,7 @@
 				291525BD294E072800192153 /* NetworkImage.swift in Sources */,
 				29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */,
 				2904C7A02336A69B00407B64 /* Showing.swift in Sources */,
+				29AD29E92AEDB35300931D20 /* Featured.swift in Sources */,
 				29AFB23F2AC9E60E00FC2D03 /* DateView.swift in Sources */,
 				29B1BAE8296743D300A60E20 /* ShowingTimes.swift in Sources */,
 			);
@@ -852,7 +856,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -873,7 +877,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 45;
+				CURRENT_PROJECT_VERSION = 47;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
