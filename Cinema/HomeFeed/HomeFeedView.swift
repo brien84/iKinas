@@ -92,14 +92,20 @@ private extension HomeFeedView {
 // MARK: - Previews
 
 struct HomeFeedView_Previews: PreviewProvider {
-    static let showings: IdentifiedArrayOf<Showing.State> = {
+    static let featured: IdentifiedArrayOf<Featured.State> = {
+        stride(from: 1, through: 5, by: 1).map { _ in
+            iKinas.Previews.createFeatured()
+        }.convertToIdentifiedArray()
+    }()
+
+    static let upcoming: IdentifiedArrayOf<Showing.State> = {
         stride(from: 1, through: 5, by: 1).map { _ in
             iKinas.Previews.createShowing()
         }.convertToIdentifiedArray()
     }()
 
     static let store = Store(
-        initialState: HomeFeed.State(upcoming: showings),
+        initialState: HomeFeed.State(featured: featured, upcoming: upcoming),
         reducer: HomeFeed()
     )
 
