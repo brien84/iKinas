@@ -98,8 +98,8 @@ private struct TitleView: View {
             if title != originalTitle {
                 Text(originalTitle)
                     .font(.subheadline)
-                    .lineLimit(1)
                     .foregroundColor(.secondaryElement)
+                    .lineLimit(1)
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
