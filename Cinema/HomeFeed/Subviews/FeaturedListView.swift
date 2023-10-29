@@ -47,6 +47,7 @@ private struct FeaturedView: View {
 
                         Text(viewStore.title)
                             .font(.title.bold())
+                            .foregroundColor(.primaryElement)
                             .lineLimit(isTitleEqualToOriginalTitle ? 3 : 2)
 
                         if !isTitleEqualToOriginalTitle {
