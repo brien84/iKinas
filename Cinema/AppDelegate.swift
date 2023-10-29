@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navController = window?.rootViewController as? UINavigationController
         navController?.navigationBar.isHidden = true
 
+        window?.overrideUserInterfaceStyle = .dark
+
         return true
     }
 }
