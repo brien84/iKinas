@@ -68,6 +68,9 @@ private struct FeaturedView: View {
                 .contentShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
                 .cornerRadius(Self.cornerRadius)
                 .padding(.horizontal)
+                .onTapGesture {
+                    viewStore.send(.didSelect)
+                }
             }
         }
     }

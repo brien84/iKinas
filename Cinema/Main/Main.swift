@@ -83,6 +83,12 @@ struct Main: ReducerProtocol {
                 state.settings = Settings.State()
                 return .none
 
+            case .homeFeed(.featured(id: let id, action: .didSelect)):
+                guard let featured = state.homeFeed.featured[id: id] else { return .none }
+                guard let showing = state.schedule.datasource.first(where: { $0.title == featured.title }) else { return .none }
+                state.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: false)
+                return .none
+
             case .homeFeed(.upcoming(id: let id, action: .didSelect)):
                 if let showing = state.homeFeed.upcoming[id: id] {
                     state.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: true)
