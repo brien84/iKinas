@@ -11,6 +11,7 @@ import ComposableArchitecture
 struct HomeFeed: ReducerProtocol {
     struct State: Equatable {
         var isTransitioning = true
+        var featured: IdentifiedArrayOf<Featured.State> = []
         var upcoming: IdentifiedArrayOf<Showing.State> = []
     }
 
@@ -18,6 +19,7 @@ struct HomeFeed: ReducerProtocol {
         case settingsButtonDidTap
         case scheduleButtonDidTap
         case toggleTransition
+        case featured(id: Featured.State.ID, action: Featured.Action)
         case upcoming(id: Showing.State.ID, action: Showing.Action)
     }
 
@@ -34,9 +36,15 @@ struct HomeFeed: ReducerProtocol {
                 state.isTransitioning.toggle()
                 return .none
 
+            case .featured:
+                return .none
+
             case .upcoming:
                 return .none
             }
+        }
+        .forEach(\.featured, action: /Action.featured(id:action:)) {
+            Featured()
         }
         .forEach(\.upcoming, action: /Action.upcoming(id:action:)) {
             Showing()

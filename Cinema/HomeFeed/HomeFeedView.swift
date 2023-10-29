@@ -22,6 +22,9 @@ struct HomeFeedView: View {
 
                     UpcomingListView(store: store)
                         .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+
+                    FeaturedListView(store: store)
+                        .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
                 }
             }
             .transition(.opacity, isActive: isTransitioning)

@@ -42,6 +42,7 @@
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
 		29A8E1222A688321005FD2A6 /* Extension+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */; };
 		29AD29E92AEDB35300931D20 /* Featured.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD29E82AEDB35300931D20 /* Featured.swift */; };
+		29AD29EB2AEDB3E300931D20 /* FeaturedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD29EA2AEDB3E300931D20 /* FeaturedListView.swift */; };
 		29AED33B2AD1D7B8001ED94A /* LiveImageClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AED33A2AD1D7B8001ED94A /* LiveImageClient.swift */; };
 		29AED33D2AD700C7001ED94A /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AED33C2AD700C7001ED94A /* Extension+View.swift */; };
 		29AFB2332AC1A16000FC2D03 /* Extension+Locale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */; };
@@ -127,6 +128,7 @@
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TimeInterval.swift"; sourceTree = "<group>"; };
 		29AD29E82AEDB35300931D20 /* Featured.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Featured.swift; sourceTree = "<group>"; };
+		29AD29EA2AEDB3E300931D20 /* FeaturedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedListView.swift; sourceTree = "<group>"; };
 		29AED33A2AD1D7B8001ED94A /* LiveImageClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveImageClient.swift; sourceTree = "<group>"; };
 		29AED33C2AD700C7001ED94A /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Locale.swift"; sourceTree = "<group>"; };
@@ -371,6 +373,7 @@
 		29AFB2402ACA8B7300FC2D03 /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
+				29AD29EA2AEDB3E300931D20 /* FeaturedListView.swift */,
 				29AFB2412ACA8D9E00FC2D03 /* UpcomingListView.swift */,
 			);
 			path = Subviews;
@@ -645,6 +648,7 @@
 				29C1EA8C2958EF8C007B629B /* LoadingView.swift in Sources */,
 				291525F0294FACB100192153 /* Schedule.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageView.swift in Sources */,
+				29AD29EB2AEDB3E300931D20 /* FeaturedListView.swift in Sources */,
 				29602B11294B6C0A00FBE1A4 /* DateSelector.swift in Sources */,
 				293A436C29FBF00F00913707 /* HomeFeed.swift in Sources */,
 				29F3D6AD296AFE5300495BBD /* Extension+Date.swift in Sources */,
