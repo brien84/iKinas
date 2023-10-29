@@ -84,3 +84,29 @@ private extension FeaturedView {
     static let lineWidth: CGFloat = 3
     static let verticalSpacing: CGFloat = 8
 }
+
+// MARK: - Previews
+
+struct FeaturedListView_Previews: PreviewProvider {
+    static let featured: IdentifiedArrayOf<Featured.State> = {
+        stride(from: 1, through: 20, by: 1).map { index in
+            iKinas.Previews.createFeatured(
+                originalTitle: String(repeating: index % 2 == 0 ? "Title " : "OriginalTitle ", count: index),
+                title: String(repeating: "Title ", count: index)
+            )
+        }.convertToIdentifiedArray()
+    }()
+
+    static let store = Store(
+        initialState: HomeFeed.State(featured: featured),
+        reducer: HomeFeed()
+    )
+
+    static var previews: some View {
+        ScrollView {
+            FeaturedListView(store: store)
+        }
+        .background(Color.primaryBackground.ignoresSafeArea())
+        .colorScheme(.dark)
+    }
+}
