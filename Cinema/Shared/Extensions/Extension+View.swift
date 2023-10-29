@@ -23,7 +23,7 @@ extension View {
     ///   - viewState: The state that drives the view's appearance. This state will be modified when `featureState` changes.
     ///   - featureState: The state that triggers the transition. When this state changes, `viewState` will be updated to reflect the new value.
     ///
-    /// ```swift
+    /// ```
     /// struct MyView: View {
     ///     @State private var isTransitioning = false
     ///
