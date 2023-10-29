@@ -13,31 +13,38 @@ import OrderedCollections
 
 extension APIClient: DependencyKey {
     static var liveValue: Self {
+        var featured = IdentifiedArrayOf<Featured.State>()
         var showings = IdentifiedArrayOf<Showing.State>()
 
         return Self(
             fetch: { city, venues in
-                let request = constructURLRequest(city: city, venues: venues)
+                let featuredReq = constructRequest(city: city, venues: venues, url: .featuredAPI)
+                let showingsReq = constructRequest(city: city, venues: venues, url: .api)
 
-                return URLSession.shared.dataTaskPublisher(for: request)
-                    .map { data, response in
-                        let response = response as? HTTPURLResponse
-                        if response?.statusCode == 469 {
-                            return .failure(.requiresUpdate)
-                        }
+                let featuredTask = URLSession.shared.dataTaskPublisher(for: featuredReq)
+                let showingsTask = URLSession.shared.dataTaskPublisher(for: showingsReq)
 
-                        do {
-                            showings = try ShowingsService.decode(data: data)
-                            return .success
-                        } catch {
-                            print(error.localizedDescription)
-                            return .failure(.decoding)
-                        }
+                return featuredTask.combineLatest(showingsTask).map { (featuredResult, showingsResult) in
+                    if checkIfUpdateIsRequired(in: featuredResult.response, showingsResult.response) {
+                        return .failure(.requiresUpdate)
                     }
-                    .catch { _ in
-                        Just(.failure(.network))
+
+                    do {
+                        featured = try FeaturedService.decode(data: featuredResult.data)
+                        showings = try ShowingsService.decode(data: showingsResult.data)
+                        return .success
+                    } catch {
+                        print(error.localizedDescription)
+                        return .failure(.decoding)
                     }
-                    .eraseToEffect()
+                }
+                .catch { _ in
+                    Just(Response.failure(.network))
+                }
+                .eraseToEffect()
+            },
+            getFeatured: {
+                featured
             },
             getShowings: {
                 showings.filterFutureShowings()
@@ -45,16 +52,21 @@ extension APIClient: DependencyKey {
         )
     }
 
-    private static func constructURLRequest(city: City, venues: OrderedSet<Venue>) -> URLRequest {
+    private static func checkIfUpdateIsRequired(in responses: URLResponse...) -> Bool {
+        for response in responses {
+            let response = response as? HTTPURLResponse
+            if response?.statusCode == 469 { return true }
+        }
+        return false
+    }
+
+    private static func constructRequest(city: City, venues: OrderedSet<Venue>, url: URL) -> URLRequest {
         let cityPath = city.rawValue
         let venuesPath = venues.map { String($0.rawValue) }.joined(separator: ",")
         let path = "\(cityPath)/\(venuesPath)"
 
-        guard let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
-        else { fatalError("App Version not found!") }
-
-        var request = URLRequest(url: URL.api.appendingPathComponent(path))
-        request.setValue(version, forHTTPHeaderField: "iOS-Client-Version")
+        var request = URLRequest(url: url.appendingPathComponent(path))
+        request.setValue(Bundle.main.version, forHTTPHeaderField: "iOS-Client-Version")
 
         return request
     }
@@ -106,5 +118,32 @@ private struct ShowingsService {
         let is3D: Bool
         let url: URL
         let venue: Venue
+    }
+}
+
+private struct FeaturedService {
+    static func decode(data: Data) throws -> IdentifiedArrayOf<iKinas.Featured.State> {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+
+        let featured = try decoder.decode([FeaturedService.Featured].self, from: data).map { featured in
+            iKinas.Featured.State(
+                id: featured.id,
+                label: featured.label,
+                networkImage: NetworkImage.State(url: featured.imageURL),
+                originalTitle: featured.originalTitle,
+                title: featured.title
+            )
+        }
+
+        return IdentifiedArray(uniqueElements: featured)
+    }
+
+    private struct Featured: Decodable {
+        let id: UUID
+        let imageURL: URL
+        let label: String
+        let originalTitle: String
+        let title: String
     }
 }

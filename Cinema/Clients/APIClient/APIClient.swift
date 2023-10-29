@@ -12,6 +12,7 @@ import OrderedCollections
 
 struct APIClient {
     var fetch: (City, OrderedSet<Venue>) -> EffectTask<Response>
+    var getFeatured: () -> IdentifiedArrayOf<Featured.State>
     var getShowings: () -> IdentifiedArrayOf<Showing.State>
 
     enum Response: Equatable {
@@ -33,6 +34,13 @@ extension APIClient: TestDependencyKey {
                 .success
             }
         },
+        getFeatured: {
+            stride(from: 1, to: 5, by: 1).map { index in
+                Previews.createFeatured(
+                    title: "Movie \(index)"
+                )
+            }.convertToIdentifiedArray()
+        },
         getShowings: {
             stride(from: 1, to: 50, by: 1).map { index in
                 Previews.createShowing(
@@ -45,6 +53,7 @@ extension APIClient: TestDependencyKey {
 
     static let testValue = Self(
         fetch: { _, _ in unimplemented("\(Self.self).fetch") },
+        getFeatured: { unimplemented("\(Self.self).getFeatured") },
         getShowings: { unimplemented("\(Self.self).getShowings") }
     )
 }

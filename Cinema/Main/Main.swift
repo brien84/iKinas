@@ -122,6 +122,7 @@ struct Main: ReducerProtocol {
             case .apiClient(.success(let response)):
                 switch response {
                 case .success:
+                    state.homeFeed.featured = apiClient.getFeatured()
                     let showings = apiClient.getShowings()
                     state.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
                     state.schedule.datasource = showings
