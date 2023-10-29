@@ -40,6 +40,7 @@
 		29817F85293CAB3400E59D42 /* ExitButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29817F84293CAB3400E59D42 /* ExitButtonView.swift */; };
 		298BBF132961F67800C2EA8C /* ShowingInfoBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = 298BBF122961F67800C2EA8C /* ShowingInfoBody.swift */; };
 		2991622B295226190084464C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2991622A295226190084464C /* MainView.swift */; };
+		299E1EE52AEED894007BC565 /* Extension+Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 299E1EE42AEED894007BC565 /* Extension+Bundle.swift */; };
 		29A8E1222A688321005FD2A6 /* Extension+TimeInterval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */; };
 		29AD29E92AEDB35300931D20 /* Featured.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD29E82AEDB35300931D20 /* Featured.swift */; };
 		29AD29EB2AEDB3E300931D20 /* FeaturedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29AD29EA2AEDB3E300931D20 /* FeaturedListView.swift */; };
@@ -126,6 +127,7 @@
 		29817F84293CAB3400E59D42 /* ExitButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitButtonView.swift; sourceTree = "<group>"; };
 		298BBF122961F67800C2EA8C /* ShowingInfoBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingInfoBody.swift; sourceTree = "<group>"; };
 		2991622A295226190084464C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		299E1EE42AEED894007BC565 /* Extension+Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Bundle.swift"; sourceTree = "<group>"; };
 		29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+TimeInterval.swift"; sourceTree = "<group>"; };
 		29AD29E82AEDB35300931D20 /* Featured.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Featured.swift; sourceTree = "<group>"; };
 		29AD29EA2AEDB3E300931D20 /* FeaturedListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedListView.swift; sourceTree = "<group>"; };
@@ -328,6 +330,7 @@
 			isa = PBXGroup;
 			children = (
 				29DFA036297879D700F648F4 /* Extension+AnyTransition.swift */,
+				299E1EE42AEED894007BC565 /* Extension+Bundle.swift */,
 				29E3069A296F09E0003A52C4 /* Extension+Color.swift */,
 				29F3D6AC296AFE5300495BBD /* Extension+Date.swift */,
 				29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */,
@@ -646,6 +649,7 @@
 				2991622B295226190084464C /* MainView.swift in Sources */,
 				29E306A1296F14D9003A52C4 /* EmptyErrorView.swift in Sources */,
 				29C1EA8C2958EF8C007B629B /* LoadingView.swift in Sources */,
+				299E1EE52AEED894007BC565 /* Extension+Bundle.swift in Sources */,
 				291525F0294FACB100192153 /* Schedule.swift in Sources */,
 				291525ED294F4DE300192153 /* NetworkImageView.swift in Sources */,
 				29AD29EB2AEDB3E300931D20 /* FeaturedListView.swift in Sources */,
