@@ -16,18 +16,22 @@ struct HomeFeedView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
-                VStack(spacing: Self.verticalSpacing) {
-                    HeaderView(store: store)
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: Self.verticalSpacing) {
+                        HeaderView(store: store)
+                            .id(ScrollToTop.id)
 
-                    UpcomingListView(store: store)
-                        .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+                        UpcomingListView(store: store)
+                            .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
 
-                    FeaturedListView(store: store)
-                        .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+                        FeaturedListView(store: store)
+                            .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+                    }
                 }
+                .scrollTo(ScrollToTop(proxy: proxy), when: isTransitioning)
+                .transition(.opacity, isActive: isTransitioning)
             }
-            .transition(.opacity, isActive: isTransitioning)
             .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
         }
     }
