@@ -21,6 +21,8 @@ struct FeaturedListView: View {
                 FeaturedView(store: $0)
             }
         }
+        .padding(.bottom, Self.bottomPadding)
+        .padding(.horizontal)
     }
 }
 
@@ -68,7 +70,6 @@ private struct FeaturedView: View {
                 .aspectRatio(1, contentMode: .fit)
                 .contentShape(RoundedRectangle(cornerRadius: Self.cornerRadius))
                 .cornerRadius(Self.cornerRadius)
-                .padding(.horizontal)
                 .onTapGesture {
                     viewStore.send(.didSelect)
                 }
@@ -80,6 +81,7 @@ private struct FeaturedView: View {
 // MARK: - Constants
 
 private extension FeaturedListView {
+    static let bottomPadding: CGFloat = 8
     static let verticalSpacing: CGFloat = 16
 }
 
