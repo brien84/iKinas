@@ -9,6 +9,22 @@
 import Foundation
 
 struct Previews {
+    static func createFeatured(
+        id: UUID = UUID(),
+        label: String = "Premjera",
+        networkImage: NetworkImage.State = .init(url: .featuredPreview),
+        originalTitle: String = "Movie Title",
+        title: String = "Filmo Pavadinimas"
+    ) -> Featured.State {
+        Featured.State(
+            id: id,
+            label: label,
+            networkImage: networkImage,
+            originalTitle: originalTitle,
+            title: title
+        )
+    }
+
     static func createShowing(
         ageRating: String = "N-18",
         city: City = .vilnius,
@@ -17,7 +33,7 @@ struct Previews {
         genres: [String] = ["Drama", "Komedija"],
         id: UUID = UUID(),
         is3D: Bool = true,
-        networkImage: NetworkImage.State = NetworkImage.State(url: URL(string: "https://movies.ioys.lt/posters/example.png")!),
+        networkImage: NetworkImage.State = NetworkImage.State(url: .posterPreview),
         originalTitle: String = "Movie Title",
         plot: String = .loremIpsum,
         title: String = "Filmo Pavadinimas",
@@ -68,4 +84,9 @@ private extension String {
         Aenean egestas, lacus quis luctus ultrices, odio erat consectetur sem, vitae imperdiet orci metus quis turpis.
         Integer ac lorem ac nunc interdum consectetur. Etiam eu dui sit amet ex dapibus eleifend.
         """
+}
+
+private extension URL {
+    static let featuredPreview = URL(string: "featuredPreview")!
+    static let posterPreview = URL(string: "posterPreview")!
 }
