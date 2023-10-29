@@ -18,8 +18,8 @@ struct ImageClient {
 
 extension ImageClient: TestDependencyKey {
     static let previewValue = Self(
-        fetch: { _ -> EffectPublisher<UIImage, ImageClient.Failure> in
-            EffectPublisher(value: UIImage(named: "posterPreview")!)
+        fetch: { url -> EffectPublisher<UIImage, ImageClient.Failure> in
+            EffectPublisher(value: UIImage(named: url.absoluteString)!)
                 .delay(for: .seconds(1), scheduler: RunLoop.main)
                 .eraseToEffect()
         }
