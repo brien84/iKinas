@@ -128,7 +128,7 @@ private struct FeaturedService {
 
         let featured = try decoder.decode([FeaturedService.Featured].self, from: data).map { featured in
             iKinas.Featured.State(
-                id: featured.id,
+                id: UUID(),
                 label: featured.label,
                 networkImage: NetworkImage.State(url: featured.imageURL),
                 originalTitle: featured.originalTitle,
