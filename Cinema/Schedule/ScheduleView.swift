@@ -54,7 +54,7 @@ struct ScheduleView: View {
                         }
                     }
                 }
-                .scrollTo(ScrollToTop(proxy: proxy), when: viewStore.isTransitioning)
+                .scrollTo(ScrollToTop(proxy: proxy), when: isTransitioning)
                 .transition(.opacity, isActive: isTransitioning)
             }
             .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
@@ -169,24 +169,24 @@ private extension ScheduleView {
 // MARK: - Previews
 
 struct ScheduleView_Previews: PreviewProvider {
-    static let showings: [Showing.State] = {
+    static let showings: IdentifiedArrayOf<Showing.State> = {
         stride(from: 0, through: 20, by: 1).map { index in
             iKinas.Previews.createShowing(
                 date: Date(timeIntervalSinceNow: .hour * TimeInterval(index)),
                 title: String(repeating: "Title", count: index)
             )
-        }
+        }.convertToIdentifiedArray()
     }()
 
     static let store = Store(
-        initialState: Schedule.State(datasource: showings.convertToIdentifiedArray()),
+        initialState: Schedule.State(datasource: showings),
         reducer: Schedule()
     )
 
     static var previews: some View {
         ScheduleView(store: store)
             .background(Color.primaryBackground.ignoresSafeArea())
-            .environment(\.locale, .init(identifier: "lt"))
+            .environment(\.locale, Locale.app)
             .preferredColorScheme(.dark)
             .onAppear {
                 ViewStore(store).send(.filterDatasource)
