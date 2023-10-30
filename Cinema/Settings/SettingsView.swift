@@ -65,7 +65,8 @@ private struct CityListView: View {
                                 .foregroundColor(city == viewStore.selectedCity ? .tertiaryElement : .secondaryElement)
                         }
                     )
-                    .padding()
+                    .padding(.horizontal)
+                    .padding(.vertical, Self.verticalPadding)
 
                     if city == viewStore.selectedCity {
                         VenueListView(store: store)
@@ -132,6 +133,10 @@ private struct Scale320X568Screen: ViewModifier {
 }
 
 // MARK: - Constants
+
+private extension CityListView {
+    static let verticalPadding: CGFloat = 10
+}
 
 private extension VenueListView {
     static let cornerRadius: CGFloat = 10
