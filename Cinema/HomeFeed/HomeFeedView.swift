@@ -14,19 +14,37 @@ struct HomeFeedView: View {
 
     @State private var isTransitioning = true
 
+    @State private var headerFrame: CGRect = CGRect()
+    @State private var viewFrame: CGRect = CGRect()
+
     var body: some View {
         WithViewStore(store) { viewStore in
             ScrollViewReader { proxy in
                 ScrollView {
-                    VStack(spacing: Self.verticalSpacing) {
+                    VStack(spacing: .zero) {
                         HeaderView(store: store)
+                            .background(FrameGetter(frame: $headerFrame))
                             .id(ScrollToTop.id)
 
-                        UpcomingListView(store: store)
-                            .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+                        if !viewStore.upcoming.isEmpty {
+                            VStack(spacing: Self.verticalSpacing) {
+                                UpcomingListView(store: store)
+                                    .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
 
-                        FeaturedListView(store: store)
-                            .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+                                FeaturedListView(store: store)
+                                    .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
+                            }
+                        } else {
+                            EmptyErrorView(
+                                title: "nieko nerodo",
+                                subtitle: "pasirinkite kitus teatrus"
+                            )
+                            .frame(
+                                width: viewFrame.width,
+                                height: viewFrame.height - headerFrame.height
+                            )
+                            .transition(.blur, isActive: isTransitioning)
+                        }
                     }
                 }
                 .scrollTo(ScrollToTop(proxy: proxy), when: isTransitioning)
@@ -34,6 +52,7 @@ struct HomeFeedView: View {
             }
             .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
         }
+        .background(FrameGetter(frame: $viewFrame))
     }
 }
 
@@ -64,6 +83,7 @@ private struct HeaderView: View {
 
                 Divider()
             }
+            .padding(.bottom, Self.bottomPadding)
             .controlTransition($with: $isTransitioning, when: viewStore.isTransitioning)
         }
     }
@@ -86,6 +106,7 @@ private struct SettingsButton: View {
 // MARK: - Constants
 
 private extension HeaderView {
+    static let bottomPadding: CGFloat = 16
     static let verticalSpacing: CGFloat = 8
 }
 
