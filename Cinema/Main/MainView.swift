@@ -36,14 +36,11 @@ struct MainView: View {
 
                 VStack(spacing: .zero) {
                     HStack(spacing: .zero) {
-                        Button {
+                        let isSelected = viewStore.isHomeFeedButtonSelected
+                        HomeFeedButton {
                             viewStore.send(.didPressHomeFeedButton, animation: .default)
-                        } label: {
-                            let isSelected = viewStore.isHomeFeedButtonSelected
-                            Image(systemName: "house")
-                                .foregroundColor(isSelected ? .tertiaryElement : .primaryElement)
-                                .padding(.horizontal)
                         }
+                        .foregroundColor(isSelected ? .tertiaryElement : .primaryElement)
 
                         Divider()
 
@@ -52,7 +49,6 @@ struct MainView: View {
                             action: Main.Action.dateSelector
                         ))
                         .disabled(viewStore.isFetching)
-                        .padding(.vertical)
                     }
                     .fixedSize(horizontal: false, vertical: true)
 
@@ -89,6 +85,26 @@ struct MainView: View {
             }
         }
     }
+}
+
+private struct HomeFeedButton: View {
+    let action: () -> Void
+
+    var body: some View {
+        Button {
+            action()
+        } label: {
+            Image(systemName: "house")
+                .padding(.horizontal)
+                .padding(.vertical, Self.verticalPadding)
+        }
+    }
+}
+
+// MARK: - Constants
+
+private extension HomeFeedButton {
+    static let verticalPadding: CGFloat = 20
 }
 
 // MARK: - Previews
