@@ -12,6 +12,8 @@ enum Venue: String, CaseIterable, Codable, Identifiable {
     var id: Self { self }
 
     case apollo
+    case apolloAkropolis
+    case apolloOutlet
     case atlantis
     case cinamon
     case forum

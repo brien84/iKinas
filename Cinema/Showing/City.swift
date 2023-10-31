@@ -20,7 +20,7 @@ enum City: String, CaseIterable, Codable, CustomStringConvertible, Identifiable 
     var venues: OrderedSet<Venue> {
         switch self {
         case .vilnius:
-            return [.apollo, .forum, .multikino]
+            return [.apolloAkropolis, .apolloOutlet, .forum, .multikino]
         case .kaunas:
             return [.cinamon, .forum]
         case .klaipeda:
