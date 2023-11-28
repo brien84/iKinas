@@ -9,15 +9,11 @@
 import Foundation
 
 extension Bundle {
-    var build: String {
-        guard let build = self.infoDictionary?["CFBundleVersion"] as? String
-        else { fatalError("build not found!") }
-        return build
+    var build: String? {
+        self.infoDictionary?["CFBundleVersion"] as? String
     }
 
-    var version: String {
-        guard let version = self.infoDictionary?["CFBundleShortVersionString"] as? String
-        else { fatalError("version not found!") }
-        return version
+    var version: String? {
+        self.infoDictionary?["CFBundleShortVersionString"] as? String
     }
 }
