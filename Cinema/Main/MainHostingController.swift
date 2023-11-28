@@ -31,6 +31,8 @@ final class MainHostingController: UIHostingController<MainView> {
 
         view.backgroundColor = .primaryBackground
 
+        userDefaults.setAppVersion()
+
         if userDefaults.isFirstLaunch() {
             viewStore.send(.setNavigationToSettings(isActive: true))
         } else {
