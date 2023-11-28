@@ -93,8 +93,8 @@ struct Schedule: ReducerProtocol {
 }
 
 struct TimeFilter: Equatable {
-    @BindableState var startTime = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
-    @BindableState var endTime = Calendar.current.date(bySettingHour: 23, minute: 0, second: 0, of: Date())!
+    @BindingState var startTime = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
+    @BindingState var endTime = Calendar.current.date(bySettingHour: 23, minute: 0, second: 0, of: Date())!
 
     func getFilterDates(for date: Date) -> (start: Date, end: Date)? {
         guard let startDate = Calendar.current.date(
