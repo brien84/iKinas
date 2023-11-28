@@ -136,6 +136,7 @@ struct Main: ReducerProtocol {
                     let showings = apiClient.getShowings()
                     state.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
                     state.schedule.datasource = showings
+                    state.schedule.isFiltering = false
                     return performTransition()
 
                 case .failure(let error):
