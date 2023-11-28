@@ -32,8 +32,6 @@ struct SettingsView: View {
                     CityListView(store: store)
                 }
                 .modifier(Scale320X568Screen())
-
-                VersionLabel()
             }
             .overlay(
                 ExitButtonView {
@@ -116,21 +114,6 @@ private struct VenueListView: View {
                     .padding(.horizontal)
             )
         }
-    }
-}
-
-private struct VersionLabel: View {
-    @State private var isToggledOn = false
-
-    var body: some View {
-        Text(Bundle.main.version + "." + Bundle.main.build)
-            .font(.caption2)
-            .foregroundColor(isToggledOn ? .primaryElement : .primaryBackground)
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            .padding()
-            .onTapGesture {
-                withAnimation { isToggledOn.toggle() }
-            }
     }
 }
 
