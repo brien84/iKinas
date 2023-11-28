@@ -20,6 +20,16 @@ extension UserDefaultsClient: DependencyKey {
                 if CommandLine.isUITestingFirstLaunch { return true }
                 return Self.isFirstLaunch(in: defaults)
             },
+            shouldAskForReview: {
+                let needsUpdate = !Calendar.current.isDateInToday(getLastUsageDate(in: defaults))
+                var usageCount = Self.getUsageCount(in: defaults)
+                if needsUpdate || usageCount == 0 {
+                    Self.setLastUsageDate(Date(), in: defaults)
+                    Self.setUsageCount(usageCount + 1, in: defaults)
+                }
+                usageCount = Self.getUsageCount(in: defaults)
+                return usageCount == 10 || usageCount % 50 == 0
+            },
             getCity: {
                 if CommandLine.isUITesting { return .vilnius }
                 return Self.getCity(in: defaults)

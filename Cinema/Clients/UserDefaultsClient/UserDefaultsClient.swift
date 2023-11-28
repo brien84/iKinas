@@ -12,6 +12,7 @@ import OrderedCollections
 
 struct UserDefaultsClient {
     var isFirstLaunch: () -> Bool
+    var shouldAskForReview: () -> Bool
     var getCity: () -> City
     var setCity: (City) -> Void
     var getVenues: () -> OrderedSet<Venue>
@@ -26,6 +27,9 @@ extension UserDefaultsClient: TestDependencyKey {
         return Self(
             isFirstLaunch: {
                 Self.isFirstLaunch(in: defaults)
+            },
+            shouldAskForReview: {
+                true
             },
             getCity: {
                 Self.getCity(in: defaults)
@@ -44,6 +48,7 @@ extension UserDefaultsClient: TestDependencyKey {
 
     static let testValue: Self = Self(
         isFirstLaunch: unimplemented("\(Self.self).isFirstLaunch"),
+        shouldAskForReview: unimplemented("\(Self.self).shouldAskForReview"),
         getCity: unimplemented("\(Self.self).getCity"),
         setCity: unimplemented("\(Self.self).setCity"),
         getVenues: unimplemented("\(Self.self).getVenues"),
@@ -54,6 +59,8 @@ extension UserDefaultsClient: TestDependencyKey {
 extension UserDefaultsClient {
     static let cityKey = "UserDefaultsCityKey"
     static let venuesKey = "UserDefaultsVenuesKey"
+    static let lastUsageDateKey = "UserDefaultsUsageCountKey"
+    static let usageCountKey = "UserDefaultsUsageCountKey"
 
     static func isFirstLaunch(in defaults: UserDefaults) -> Bool {
         if defaults.string(forKey: Self.cityKey) == nil { return true }
@@ -83,6 +90,22 @@ extension UserDefaultsClient {
 
     static func setVenues(_ venues: OrderedSet<Venue>, in defaults: UserDefaults) {
         defaults.set(venues.map { $0.rawValue }, forKey: Self.venuesKey)
+    }
+
+    static func getLastUsageDate(in defaults: UserDefaults) -> Date {
+        defaults.object(forKey: Self.lastUsageDateKey) as? Date ?? Date()
+    }
+
+    static func setLastUsageDate(_ date: Date, in defaults: UserDefaults) {
+        defaults.setValue(date, forKey: Self.lastUsageDateKey)
+    }
+
+    static func getUsageCount(in defaults: UserDefaults) -> Int {
+        defaults.integer(forKey: Self.usageCountKey)
+    }
+
+    static func setUsageCount(_ count: Int, in defaults: UserDefaults) {
+        defaults.setValue(count, forKey: Self.usageCountKey)
     }
 }
 
