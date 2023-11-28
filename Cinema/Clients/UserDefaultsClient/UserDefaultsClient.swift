@@ -65,6 +65,7 @@ extension UserDefaultsClient {
     static func isFirstLaunch(in defaults: UserDefaults) -> Bool {
         if defaults.string(forKey: Self.cityKey) == nil { return true }
         if defaults.array(forKey: Self.venuesKey) == nil { return true }
+        if defaults.integer(forKey: Self.usageCountKey) == 0 { return true }
         return false
     }
 
