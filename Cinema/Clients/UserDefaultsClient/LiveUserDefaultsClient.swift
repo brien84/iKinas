@@ -20,6 +20,13 @@ extension UserDefaultsClient: DependencyKey {
                 if CommandLine.isUITestingFirstLaunch { return true }
                 return Self.isFirstLaunch(in: defaults)
             },
+            setAppVersion: {
+                if let version = Bundle.main.version, let build = Bundle.main.build {
+                    UserDefaults.standard.set(version + " (\(build))", forKey: Self.versionKey)
+                } else {
+                    UserDefaults.standard.set("1.0", forKey: Self.versionKey)
+                }
+            },
             shouldAskForReview: {
                 let needsUpdate = !Calendar.current.isDateInToday(getLastUsageDate(in: defaults))
                 var usageCount = Self.getUsageCount(in: defaults)

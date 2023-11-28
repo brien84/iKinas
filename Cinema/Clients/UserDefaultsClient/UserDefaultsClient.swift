@@ -12,6 +12,7 @@ import OrderedCollections
 
 struct UserDefaultsClient {
     var isFirstLaunch: () -> Bool
+    var setAppVersion: () -> Void
     var shouldAskForReview: () -> Bool
     var getCity: () -> City
     var setCity: (City) -> Void
@@ -27,6 +28,9 @@ extension UserDefaultsClient: TestDependencyKey {
         return Self(
             isFirstLaunch: {
                 Self.isFirstLaunch(in: defaults)
+            },
+            setAppVersion: {
+                Self.setAppVersion("1.0", in: defaults)
             },
             shouldAskForReview: {
                 true
@@ -48,6 +52,7 @@ extension UserDefaultsClient: TestDependencyKey {
 
     static let testValue: Self = Self(
         isFirstLaunch: unimplemented("\(Self.self).isFirstLaunch"),
+        setAppVersion: unimplemented("\(Self.self).setAppVersion"),
         shouldAskForReview: unimplemented("\(Self.self).shouldAskForReview"),
         getCity: unimplemented("\(Self.self).getCity"),
         setCity: unimplemented("\(Self.self).setCity"),
@@ -61,12 +66,17 @@ extension UserDefaultsClient {
     static let venuesKey = "UserDefaultsVenuesKey"
     static let lastUsageDateKey = "UserDefaultsUsageCountKey"
     static let usageCountKey = "UserDefaultsUsageCountKey"
+    static let versionKey = "versionKey"
 
     static func isFirstLaunch(in defaults: UserDefaults) -> Bool {
         if defaults.string(forKey: Self.cityKey) == nil { return true }
         if defaults.array(forKey: Self.venuesKey) == nil { return true }
         if defaults.integer(forKey: Self.usageCountKey) == 0 { return true }
         return false
+    }
+
+    static func setAppVersion(_ version: String, in defaults: UserDefaults) {
+        defaults.setValue(version, forKey: Self.versionKey)
     }
 
     static func getCity(in defaults: UserDefaults) -> City {
