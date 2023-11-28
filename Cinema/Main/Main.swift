@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 import Foundation
+import StoreKit
 
 struct Main: ReducerProtocol {
     struct State: Equatable {
@@ -20,8 +21,9 @@ struct Main: ReducerProtocol {
         var isHomeFeedActive = true
         var isHomeFeedButtonSelected = true
 
-        var isFetching = true
         var apiError: APIClient.Error?
+        var isFetching = true
+        var shouldAskForReview = false
 
         var isNavigationToSettingsActive: Bool {
             settings != nil
@@ -69,6 +71,7 @@ struct Main: ReducerProtocol {
 
             case .dateSelector(.didSelect):
                 state.isHomeFeedButtonSelected = false
+                state.shouldAskForReview = userDefaults.shouldAskForReview()
                 return performTransition()
 
             case .homeFeed(.scheduleButtonDidTap):
@@ -77,6 +80,7 @@ struct Main: ReducerProtocol {
                 state.isHomeFeedButtonSelected = false
                 state.schedule.isFiltering = false
                 state.dateSelector.selectedDate = date
+                state.shouldAskForReview = userDefaults.shouldAskForReview()
                 return performTransition()
 
             case .homeFeed(.settingsButtonDidTap):
@@ -178,15 +182,18 @@ struct Main: ReducerProtocol {
                 let commonIDs = upcoming.ids.intersection(state.homeFeed.upcoming.ids)
                 commonIDs.forEach { upcoming[id: $0] = state.homeFeed.upcoming[id: $0] }
                 state.homeFeed.upcoming = upcoming
-
                 return EffectTask.task { .schedule(.filterDatasource) }
 
             case .endTransition:
                 state.isFetching = false
                 state.homeFeed.isTransitioning  = false
                 state.schedule.isTransitioning = false
-                return .none
-
+                if state.shouldAskForReview {
+                    state.shouldAskForReview = false
+                    return askForReview()
+                } else {
+                    return .none
+                }
             }
         }
         .ifLet(\.showingInfo, action: /Action.showingInfo) {
@@ -194,6 +201,14 @@ struct Main: ReducerProtocol {
         }
         .ifLet(\.settings, action: /Action.settings) {
             Settings()
+        }
+    }
+
+    private func askForReview() -> EffectTask<Action> {
+        EffectTask.fireAndForget {
+            try await Task.sleep(nanoseconds: 2_000_000_000)
+            guard let scene = await UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+            await SKStoreReviewController.requestReview(in: scene)
         }
     }
 
