@@ -74,20 +74,20 @@ final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
         viewStore.publisher.showingURL
             .delay(for: .milliseconds(25), scheduler: RunLoop.main)
             .sink { [self] url in
-            if let url {
+                guard let url else { return }
                 let vc = SFSafariViewController(url: url)
                 vc.preferredBarTintColor = .primaryBackground
                 vc.preferredControlTintColor = .primaryElement
                 present(vc, animated: true, completion: nil)
             }
-        }
-        .store(in: &self.cancellables)
+            .store(in: &self.cancellables)
 
-        viewStore.publisher.titleViewOverlapPercentage.sink { [self] percentage in
-            lastTitleViewOverlapPercentage = percentage
-            updateNavigationBarAppearance(overlap: percentage)
-        }
-        .store(in: &self.cancellables)
+        viewStore.publisher.titleViewOverlapPercentage
+            .sink { [self] percentage in
+                lastTitleViewOverlapPercentage = percentage
+                updateNavigationBarAppearance(overlap: percentage)
+            }
+            .store(in: &self.cancellables)
     }
 
     override func viewWillAppear(_ animated: Bool) {
