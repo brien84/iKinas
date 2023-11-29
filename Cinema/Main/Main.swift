@@ -35,7 +35,6 @@ struct Main: ReducerProtocol {
         case homeFeed(HomeFeed.Action)
         case schedule(Schedule.Action)
         case settings(Settings.Action)
-        case showingInfo(ShowingInfo.Action)
 
         case fetch
         case apiClient(Result<APIClient.Response, Never>)
@@ -123,9 +122,6 @@ struct Main: ReducerProtocol {
             case .settings:
                 return .none
 
-            case .showingInfo:
-                return .none
-
             case .fetch:
                 return fetch(state: &state)
 
@@ -196,9 +192,6 @@ struct Main: ReducerProtocol {
                     return .none
                 }
             }
-        }
-        .ifLet(\.showingInfo, action: /Action.showingInfo) {
-            ShowingInfo()
         }
         .ifLet(\.settings, action: /Action.settings) {
             Settings()
