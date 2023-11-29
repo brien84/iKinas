@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 import Foundation
+import OrderedCollections
 
 struct Showing: ReducerProtocol {
     struct State: Equatable, Identifiable {
@@ -15,7 +16,7 @@ struct Showing: ReducerProtocol {
         let city: City
         let date: Date
         let duration: String
-        let genres: [String]
+        let genres: OrderedSet<String>
         let id: UUID
         let is3D: Bool
         var networkImage: NetworkImage.State

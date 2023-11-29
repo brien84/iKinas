@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import OrderedCollections
 
 struct Previews {
     static func createFeatured(
@@ -30,7 +31,7 @@ struct Previews {
         city: City = .vilnius,
         date: Date = Date(timeIntervalSinceNow: .hour),
         duration: String = "90 min",
-        genres: [String] = ["Drama", "Komedija"],
+        genres: OrderedSet<String> = ["Drama", "Komedija"],
         id: UUID = UUID(),
         is3D: Bool = true,
         networkImage: NetworkImage.State = NetworkImage.State(url: .posterPreview),

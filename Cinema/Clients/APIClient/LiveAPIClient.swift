@@ -102,7 +102,7 @@ private struct ShowingsService {
     private struct Movie: Decodable {
         let ageRating: String
         let duration: String
-        let genres: [String]
+        let genres: OrderedSet<String>
         let originalTitle: String
         let plot: String
         let poster: URL

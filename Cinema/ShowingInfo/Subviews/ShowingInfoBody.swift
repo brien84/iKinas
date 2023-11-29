@@ -7,6 +7,7 @@
 //
 
 import ComposableArchitecture
+import OrderedCollections
 import SwiftUI
 
 struct ShowingInfoBody: View {
@@ -57,7 +58,7 @@ struct ShowingInfoBody: View {
 }
 
 private struct GenresView: View {
-    let genres: [String]
+    let genres: OrderedSet<String>
 
     var body: some View {
         HStack {
@@ -73,7 +74,6 @@ private struct GenresView: View {
                         .padding(.horizontal, Self.horizontalPadding)
                         .padding(.vertical, Self.verticalPadding)
                 }
-
                 .fixedSize(horizontal: true, vertical: true)
             }
         }
