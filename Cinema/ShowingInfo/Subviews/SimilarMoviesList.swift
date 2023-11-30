@@ -1,5 +1,5 @@
 //
-//  SimilarShowingsList.swift
+//  SimilarMoviesList.swift
 //  Cinema
 //
 //  Created by Marius on 2023-11-30.
@@ -9,13 +9,13 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct SimilarShowingsList: View {
+struct SimilarMoviesList: View {
     let store: StoreOf<ShowingInfo>
 
     var body: some View {
-        WithViewStore(store) { _ in
+        WithViewStore(store) { viewStore in
             ScrollView(.horizontal, showsIndicators: false) {
-
+                
             }
         }
     }
