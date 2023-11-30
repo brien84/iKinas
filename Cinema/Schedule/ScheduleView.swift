@@ -28,14 +28,14 @@ struct ScheduleView: View {
 
                         if !viewStore.movies.isEmpty {
                             VStack {
-                                SectionLabel(text: "Filmai")
+                                SectionLabelView(text: "Filmai")
                                     .transition(.blurryOffset, isActive: isTransitioning)
 
                                 MovieListView(store: store)
                                     .frame(height: viewFrame.width * Self.heightToWidthRatio)
                                     .transition(.blurryScale(anchor: .center), isActive: isTransitioning)
 
-                                SectionLabel(text: "Seansai")
+                                SectionLabelView(text: "Seansai")
                                     .transition(.blurryOffset, isActive: isTransitioning)
 
                                 ShowingListView(store: store)
@@ -140,18 +140,6 @@ private struct FilterView: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .labelsHidden()
         }
-    }
-}
-
-private struct SectionLabel: View {
-    let text: String
-
-    var body: some View {
-        Text(text)
-            .font(.title.bold())
-            .foregroundColor(.primaryElement)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .padding(.horizontal)
     }
 }
 
