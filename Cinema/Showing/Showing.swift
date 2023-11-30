@@ -17,6 +17,7 @@ struct Showing: ReducerProtocol {
         let date: Date
         let duration: String
         let genres: OrderedSet<String>
+        let metadata: OrderedSet<String>
         let id: UUID
         let is3D: Bool
         var networkImage: NetworkImage.State

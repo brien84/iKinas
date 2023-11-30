@@ -85,6 +85,7 @@ private struct ShowingsService {
                     date: showing.date,
                     duration: movie.duration,
                     genres: movie.genres,
+                    metadata: movie.metadata ?? [],
                     id: showing.id,
                     is3D: showing.is3D,
                     networkImage: NetworkImage.State(url: movie.poster),
@@ -103,6 +104,7 @@ private struct ShowingsService {
         let ageRating: String
         let duration: String
         let genres: OrderedSet<String>
+        let metadata: OrderedSet<String>?
         let originalTitle: String
         let plot: String
         let poster: URL
