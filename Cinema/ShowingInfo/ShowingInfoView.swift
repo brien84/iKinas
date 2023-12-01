@@ -41,6 +41,10 @@ struct ShowingInfoView: View {
                                 .background(FrameGetter(frame: $titleViewFrame))
 
                             ShowingInfoBody(store: store)
+
+                            if !viewStore.similar.isEmpty {
+                                SimilarMoviesList(store: store)
+                            }
                         }
                         .offset(y: -posterOverlap)
                     }

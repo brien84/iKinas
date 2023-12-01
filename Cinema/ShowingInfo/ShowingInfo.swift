@@ -13,10 +13,12 @@ struct ShowingInfo: ReducerProtocol {
     struct State: Equatable {
         var showing: Showing.State
         var showingTimes: ShowingTimes.State?
+        var similar: IdentifiedArrayOf<Showing.State> = []
 
         var isScrollingEnabled = true
         let shouldDisplayTicketURL: Bool
         var showingURL: URL?
+        var selectedSimilarShowingID: UUID?
         var titleViewOverlapPercentage: CGFloat = 0
 
         var isNavigationToShowingTimesActive = false
@@ -30,8 +32,10 @@ struct ShowingInfo: ReducerProtocol {
     enum Action: Equatable {
         case networkImage(NetworkImage.Action)
         case showingTimes(ShowingTimes.Action)
+        case similar(id: Showing.State.ID, action: Showing.Action)
 
         case setShowingURL(URL?)
+        case setSelectedSimilarShowingID(UUID?)
         case toggleScrolling(isEnabled: Bool)
         case updateTitleViewOverlap(percentage: CGFloat)
 
@@ -60,11 +64,22 @@ struct ShowingInfo: ReducerProtocol {
             case .showingTimes:
                 return .none
 
+            case .similar(id: let id, action: .didSelect):
+                state.selectedSimilarShowingID = id
+                return .none
+
+            case .similar:
+                return .none
+
             case .networkImage:
                 return .none
 
             case .setShowingURL(let url):
                 state.showingURL = url
+                return .none
+
+            case .setSelectedSimilarShowingID(id: let id):
+                state.selectedSimilarShowingID = id
                 return .none
 
             case .toggleScrolling(isEnabled: let isEnabled):
@@ -90,6 +105,9 @@ struct ShowingInfo: ReducerProtocol {
                 return .none
 
             }
+        }
+        .forEach(\.similar, action: /Action.similar(id:action:)) {
+            Showing()
         }
         .ifLet(\.showingTimes, action: /Action.showingTimes) {
             ShowingTimes()

@@ -14,6 +14,7 @@ final class MainHostingController: UIHostingController<MainView> {
     private var cancellables: Set<AnyCancellable> = []
     private let viewStore: ViewStoreOf<Main>
 
+    @Dependency(\.apiClient) var apiClient
     @Dependency(\.userDefaults) var userDefaults
 
     required init?(coder aDecoder: NSCoder) {
@@ -40,12 +41,17 @@ final class MainHostingController: UIHostingController<MainView> {
         }
 
         viewStore.publisher.showingInfo
-            .sink { state in
-                guard let state else { return }
-                let store = Store(initialState: state, reducer: ShowingInfo())
-                let vc = ShowingInfoHostingController(store: store)
+            .sink { [self] state in
+                guard var state else { return }
+
+                var similar = apiClient.getShowings().filter(similarTo: state.showing)
+                similar.sort(by: .title)
+                state.similar = similar
+
+                let vc = ShowingInfoHostingController(state: state)
                 self.navigationController?.pushViewController(vc, animated: true)
-            }.store(in: &self.cancellables)
+            }
+            .store(in: &self.cancellables)
     }
 
     override func viewWillAppear(_ animated: Bool) {

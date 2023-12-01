@@ -50,6 +50,12 @@ struct Showing: ReducerProtocol {
     }
 }
 
+extension Showing.State {
+    var genresWithMetadata: OrderedSet<String> {
+        self.genres.union(self.metadata)
+    }
+}
+
 extension Array where Element == Showing.State {
     func convertToIdentifiedArray() -> IdentifiedArrayOf<Showing.State> {
         IdentifiedArray(uniqueElements: self)
@@ -75,8 +81,20 @@ extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
         }
     }
 
-    /// Returns an `IdentifiedArrayOf<Showing.State>` containing only the first occurrence of each provided `title`.
-    func filterFirstOccurrencesOf(titles: [String]) -> IdentifiedArrayOf<Element> {
+    /// Returns `IdentifiedArrayOf<Showing.State>` containing elements which share certain amount of `genres` and `metadata` entries.
+    func filter(similarTo showing: Showing.State) -> IdentifiedArrayOf<Element> {
+        var titles = self.getUniqueTitles()
+        titles.remove(showing.title)
+        let showings = self.filterFirstOccurrencesOf(titles: titles)
+        let threshold = showing.genresWithMetadata.count > 1 ? 2 : 1
+
+        return showings.filter {
+            $0.genresWithMetadata.intersection(showing.genresWithMetadata).count >= threshold
+        }
+    }
+
+    /// Returns `IdentifiedArrayOf<Showing.State>` containing only the first occurrence of element with each provided `title` property.
+    func filterFirstOccurrencesOf(titles: Set<String>) -> IdentifiedArrayOf<Element> {
         titles.compactMap { title in
             self.first { showing in
                 showing.title == title
@@ -84,22 +102,16 @@ extension IdentifiedArrayOf where Element == Showing.State, ID == UUID {
         }.convertToIdentifiedArray()
     }
 
-    /// Returns an `IdentifiedArrayOf<Showing.State>` objects whose `date` property is later than the current date.
+    /// Returns `IdentifiedArrayOf<Showing.State>` elements whose `date` property is later than the current date.
     func filterFutureShowings() -> IdentifiedArrayOf<Element> {
         self.filter {
             $0.date > Date()
         }.convertToIdentifiedArray()
     }
 
-    /// Returns an array of unique titles from the `IdentifiedArrayOf<Showing.State>`.
-    func getUniqueTitles() -> [String] {
-        var uniqueTitles = [String]()
-
-        for showing in self where !uniqueTitles.contains(where: { $0 == showing.title }) {
-            uniqueTitles.append(showing.title)
-        }
-
-        return uniqueTitles
+    /// Returns a set of unique `title` properties from the `IdentifiedArrayOf<Showing.State>`.
+    func getUniqueTitles() -> Set<String> {
+        Set(self.map { $0.title })
     }
 
     /// Returns an array of `Date` objects, each representing the start of a day for the upcoming showings, with duplicates removed.

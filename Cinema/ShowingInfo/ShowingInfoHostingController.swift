@@ -53,7 +53,10 @@ final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
         return button
     }()
 
-    init(store: StoreOf<ShowingInfo>) {
+    @Dependency(\.apiClient) var apiClient
+
+    init(state: ShowingInfo.State) {
+        let store = Store(initialState: state, reducer: ShowingInfo())
         self.viewStore = ViewStore(store)
         super.init(rootView: ShowingInfoView(store: store))
     }
@@ -65,11 +68,25 @@ final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
-
         navigationItem.title = viewStore.showing.title
         navigationItem.leftBarButtonItem = leftButton
         navigationItem.rightBarButtonItem = rightButton
+
+        viewStore.publisher.selectedSimilarShowingID
+            .sink { [self] id in
+                guard let id else { return }
+                let showings = apiClient.getShowings()
+                guard let showing = showings[id: id] else { return }
+
+                var similar = apiClient.getShowings().filter(similarTo: showing)
+                similar.sort(by: .title)
+                var state = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: false)
+                state.similar = similar
+
+                let vc = ShowingInfoHostingController(state: state)
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            .store(in: &self.cancellables)
 
         viewStore.publisher.showingURL
             .delay(for: .milliseconds(25), scheduler: RunLoop.main)
@@ -99,12 +116,20 @@ final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
             viewStore.send(.setShowingURL(nil))
         }
 
-        navigationController?.setNavigationBarHidden(true, animated: false)
+        if viewStore.selectedSimilarShowingID != nil {
+            viewStore.send(.setSelectedSimilarShowingID(nil))
+        }
+
+        DispatchQueue.main.async { [self] in
+            navigationItem.hidesBackButton = true
+            navigationController?.setNavigationBarHidden(true, animated: false)
+        }
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
         isInteractivePopInProgress = false
 
         DispatchQueue.main.async { [self] in
@@ -116,7 +141,7 @@ final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
 
-        if viewStore.showingURL == nil {
+        if viewStore.showingURL == nil && viewStore.selectedSimilarShowingID == nil {
             cancellables.removeAll()
         }
     }
