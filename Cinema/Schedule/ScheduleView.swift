@@ -27,9 +27,10 @@ struct ScheduleView: View {
                               .id(ScrollToTop.id)
 
                         if !viewStore.movies.isEmpty {
-                            VStack {
+                            VStack(spacing: .zero) {
                                 SectionLabelView(text: "Filmai")
                                     .transition(.blurryOffset, isActive: isTransitioning)
+                                    .padding(.bottom)
 
                                 MovieListView(store: store)
                                     .frame(height: viewFrame.width * Self.heightToWidthRatio)
@@ -37,6 +38,7 @@ struct ScheduleView: View {
 
                                 SectionLabelView(text: "Seansai")
                                     .transition(.blurryOffset, isActive: isTransitioning)
+                                    .padding(.bottom)
 
                                 ShowingListView(store: store)
                                     .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
