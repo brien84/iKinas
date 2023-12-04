@@ -39,6 +39,7 @@ struct Previews {
         originalTitle: String = "Movie Title",
         plot: String = .loremIpsum,
         title: String = "Filmo Pavadinimas",
+        trailer: String = "https://youtu.be/ra9I0HScTDw",
         url: URL = URL(string: "https://www.ioys.lt/iKinas/")!,
         venue: Venue = .forum,
         year: String = "2020"
@@ -56,6 +57,7 @@ struct Previews {
             originalTitle: originalTitle,
             plot: plot,
             title: title,
+            trailer: trailer,
             url: url,
             venue: venue,
             year: year

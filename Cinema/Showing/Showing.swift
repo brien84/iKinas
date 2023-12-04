@@ -24,6 +24,7 @@ struct Showing: ReducerProtocol {
         let originalTitle: String
         let plot: String
         let title: String
+        let trailer: String?
         let url: URL
         let venue: Venue
         let year: String

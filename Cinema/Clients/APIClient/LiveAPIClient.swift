@@ -92,6 +92,7 @@ private struct ShowingsService {
                     originalTitle: movie.originalTitle,
                     plot: movie.plot,
                     title: movie.title,
+                    trailer: movie.trailer,
                     url: showing.url,
                     venue: showing.venue,
                     year: movie.year
@@ -110,6 +111,7 @@ private struct ShowingsService {
         let poster: URL
         let showings: [ShowingsService.Showing]
         let title: String
+        let trailer: String?
         let year: String
     }
 
