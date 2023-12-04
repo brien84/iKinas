@@ -44,7 +44,7 @@ struct ShowingInfoBody: View {
 
                     JustifiedTextView(text: viewStore.showing.plot)
                         .padding(.horizontal, Self.horizontalPadding)
-                        .padding(.bottom, Self.verticalPadding)
+                        .padding(.bottom, Self.bottomPadding)
                 }
             }
             .onAppear {
@@ -133,6 +133,7 @@ private struct JustifiedTextView: UIViewRepresentable {
 
 private extension ShowingInfoBody {
     static let showingAnimationDelay: CGFloat = 0.475
+    static let bottomPadding: CGFloat = 16
     static let horizontalPadding: CGFloat = 16
     static let verticalPadding: CGFloat = 8
 }

@@ -8,6 +8,7 @@
 
 import ComposableArchitecture
 import SwiftUI
+import YouTubePlayerKit
 
 struct ShowingInfo: ReducerProtocol {
     struct State: Equatable {
@@ -16,6 +17,7 @@ struct ShowingInfo: ReducerProtocol {
         var similar: IdentifiedArrayOf<Showing.State> = []
 
         var isScrollingEnabled = true
+        let player: YouTubePlayer?
         let shouldDisplayTicketURL: Bool
         var showingURL: URL?
         var selectedSimilarShowingID: UUID?
@@ -26,6 +28,11 @@ struct ShowingInfo: ReducerProtocol {
         init(showing: Showing.State, shouldDisplayTicketURL: Bool) {
             self.showing = showing
             self.shouldDisplayTicketURL = shouldDisplayTicketURL
+            if let url = showing.trailer {
+                self.player = .init(source: .url(url), configuration: .init(autoPlay: true))
+            } else {
+                self.player = nil
+            }
         }
     }
 
@@ -101,9 +108,7 @@ struct ShowingInfo: ReducerProtocol {
                 } else {
                     state.isNavigationToShowingTimesActive = false
                 }
-
                 return .none
-
             }
         }
         .forEach(\.similar, action: /Action.similar(id:action:)) {

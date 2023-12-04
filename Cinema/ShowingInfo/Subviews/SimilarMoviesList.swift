@@ -15,11 +15,8 @@ struct SimilarMoviesList: View {
     var body: some View {
         WithViewStore(store) { _ in
             VStack(spacing: .zero) {
-                Divider()
-                    .padding(.horizontal)
-
                 SectionLabelView(text: "Panašūs")
-                    .padding(.vertical, Self.verticalPadding)
+                    .padding(.bottom, Self.bottomPadding)
 
                 ScrollView(.horizontal, showsIndicators: false) {
                     LazyHStack(spacing: Self.horizontalSpacing) {
@@ -33,8 +30,8 @@ struct SimilarMoviesList: View {
                     }
                     .padding(.horizontal)
                 }
-                .padding(.vertical, Self.verticalPadding)
             }
+            .padding(.bottom)
         }
     }
 }
@@ -43,6 +40,6 @@ struct SimilarMoviesList: View {
 
 private extension SimilarMoviesList {
     static let aspectRatio: CGFloat = 2/3
+    static let bottomPadding: CGFloat = 8
     static let horizontalSpacing: CGFloat = 8
-    static let verticalPadding: CGFloat = 8
 }

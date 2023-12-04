@@ -42,6 +42,10 @@ struct ShowingInfoView: View {
 
                             ShowingInfoBody(store: store)
 
+                            if let player = viewStore.player {
+                                TrailerView(player: player)
+                            }
+
                             if !viewStore.similar.isEmpty {
                                 SimilarMoviesList(store: store)
                             }
