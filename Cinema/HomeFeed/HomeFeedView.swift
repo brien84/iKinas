@@ -34,6 +34,7 @@ struct HomeFeedView: View {
                                 FeaturedListView(store: store)
                                     .transition(.blurryScale(anchor: .leading), isActive: isTransitioning)
                             }
+                            .padding(.bottom)
                         } else {
                             EmptyErrorView(
                                 title: "nieko nerodo",

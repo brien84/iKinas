@@ -21,7 +21,6 @@ struct FeaturedListView: View {
                 FeaturedView(store: $0)
             }
         }
-        .padding(.bottom, Self.bottomPadding)
         .padding(.horizontal)
     }
 }
