@@ -23,8 +23,8 @@ final class NetworkImageTests: XCTestCase {
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
         let testImage = UIImage(named: "posterPreview")!
-        store.dependencies.imageClient.fetch = { _ -> Effect<UIImage, ImageClient.Failure> in
-            Effect(value: testImage)
+        store.dependencies.imageClient.fetch = { _ in
+            EffectPublisher(value: testImage)
         }
 
         await store.send(.fetch) {
@@ -48,8 +48,8 @@ final class NetworkImageTests: XCTestCase {
         let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-        store.dependencies.imageClient.fetch = { _ -> Effect<UIImage, ImageClient.Failure> in
-            Effect(error: ImageClient.Failure())
+        store.dependencies.imageClient.fetch = { _ in
+            EffectPublisher(error: ImageClient.Failure())
         }
 
         await store.send(.fetch) {
