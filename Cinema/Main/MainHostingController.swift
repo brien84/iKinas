@@ -29,7 +29,7 @@ final class MainHostingController: UIHostingController<MainView> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         if _XCTIsTesting { return }
 
         view.backgroundColor = .primaryBackground
