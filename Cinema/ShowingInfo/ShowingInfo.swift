@@ -41,8 +41,8 @@ struct ShowingInfo: ReducerProtocol {
         case showingTimes(ShowingTimes.Action)
         case similar(id: Showing.State.ID, action: Showing.Action)
 
+        case resetSelectedSimilarShowingID
         case setShowingURL(URL?)
-        case setSelectedSimilarShowingID(UUID?)
         case toggleScrolling(isEnabled: Bool)
         case updateTitleViewOverlap(percentage: CGFloat)
 
@@ -81,12 +81,12 @@ struct ShowingInfo: ReducerProtocol {
             case .networkImage:
                 return .none
 
-            case .setShowingURL(let url):
-                state.showingURL = url
+            case .resetSelectedSimilarShowingID:
+                state.selectedSimilarShowingID = nil
                 return .none
 
-            case .setSelectedSimilarShowingID(id: let id):
-                state.selectedSimilarShowingID = id
+            case .setShowingURL(let url):
+                state.showingURL = url
                 return .none
 
             case .toggleScrolling(isEnabled: let isEnabled):

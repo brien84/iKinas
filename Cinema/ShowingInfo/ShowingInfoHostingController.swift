@@ -117,7 +117,7 @@ final class ShowingInfoHostingController: UIHostingController<ShowingInfoView> {
         }
 
         if viewStore.selectedSimilarShowingID != nil {
-            viewStore.send(.setSelectedSimilarShowingID(nil))
+            viewStore.send(.resetSelectedSimilarShowingID)
         }
 
         DispatchQueue.main.async { [self] in
