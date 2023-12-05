@@ -66,7 +66,7 @@
 		29C1EA8A2958EE78007B629B /* LoadingErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C1EA892958EE78007B629B /* LoadingErrorView.swift */; };
 		29C1EA8C2958EF8C007B629B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29C1EA8B2958EF8C007B629B /* LoadingView.swift */; };
 		29D0ADC429FF03350086ECF6 /* UserDefaultsClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D0ADC329FF03350086ECF6 /* UserDefaultsClient.swift */; };
-		29D98EC62970BEAB003E4E52 /* MovieDetailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D98EC52970BEAB003E4E52 /* MovieDetailTests.swift */; };
+		29D98EC62970BEAB003E4E52 /* ShowingInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29D98EC52970BEAB003E4E52 /* ShowingInfoTests.swift */; };
 		29DDA573295DBFA4000C4322 /* ShowingInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DDA572295DBFA4000C4322 /* ShowingInfo.swift */; };
 		29DDA575295DC125000C4322 /* ShowingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DDA574295DC125000C4322 /* ShowingInfoView.swift */; };
 		29DDA577295DCA2C000C4322 /* ShowingInfoHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 29DDA576295DCA2C000C4322 /* ShowingInfoHostingController.swift */; };
@@ -160,7 +160,7 @@
 		29C1EA892958EE78007B629B /* LoadingErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingErrorView.swift; sourceTree = "<group>"; };
 		29C1EA8B2958EF8C007B629B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		29D0ADC329FF03350086ECF6 /* UserDefaultsClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsClient.swift; sourceTree = "<group>"; };
-		29D98EC52970BEAB003E4E52 /* MovieDetailTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailTests.swift; sourceTree = "<group>"; };
+		29D98EC52970BEAB003E4E52 /* ShowingInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingInfoTests.swift; sourceTree = "<group>"; };
 		29DDA572295DBFA4000C4322 /* ShowingInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingInfo.swift; sourceTree = "<group>"; };
 		29DDA574295DC125000C4322 /* ShowingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingInfoView.swift; sourceTree = "<group>"; };
 		29DDA576295DCA2C000C4322 /* ShowingInfoHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingInfoHostingController.swift; sourceTree = "<group>"; };
@@ -413,10 +413,10 @@
 			children = (
 				29602B14294B6DB400FBE1A4 /* DateSelectorTests.swift */,
 				296FE05C2951F3BF0015F7AA /* MainTests.swift */,
-				29D98EC52970BEAB003E4E52 /* MovieDetailTests.swift */,
 				291525E8294F145900192153 /* NetworkImageTests.swift */,
 				296FE0552950A8930015F7AA /* ScheduleTests.swift */,
 				29817F7D293C00CE00E59D42 /* SettingsTests.swift */,
+				29D98EC52970BEAB003E4E52 /* ShowingInfoTests.swift */,
 				29B9C961237F42A30035EF0B /* Info.plist */,
 			);
 			path = CinemaTests;
@@ -724,7 +724,7 @@
 				29602B15294B6DB400FBE1A4 /* DateSelectorTests.swift in Sources */,
 				296FE05D2951F3BF0015F7AA /* MainTests.swift in Sources */,
 				296FE0562950A8930015F7AA /* ScheduleTests.swift in Sources */,
-				29D98EC62970BEAB003E4E52 /* MovieDetailTests.swift in Sources */,
+				29D98EC62970BEAB003E4E52 /* ShowingInfoTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,7 +888,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -909,7 +909,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 49;
+				CURRENT_PROJECT_VERSION = 51;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
