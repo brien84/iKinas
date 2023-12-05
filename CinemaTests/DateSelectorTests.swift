@@ -14,12 +14,16 @@ import XCTest
 final class DateSelectorTests: XCTestCase {
 
     func testSelectingDate() async {
+        let dates = stride(from: 0, through: 10, by: 1).map { index in
+            Date(timeIntervalSinceNow: .fullDay * index)
+        }
+
         let store = TestStore(
-            initialState: DateSelector.State(dates: Calendar.current.getNextSevenDays()),
+            initialState: DateSelector.State(dates: dates),
             reducer: DateSelector()
         )
 
-        let date = store.state.dates.last!
+        let date = dates[Int.random(in: 0..<dates.count)]
 
         await store.send(.didSelect(date: date)) {
             $0.selectedDate = date
