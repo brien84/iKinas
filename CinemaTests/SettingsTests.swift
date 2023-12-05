@@ -84,7 +84,7 @@ final class SettingsTests: XCTestCase {
 
         await store.send(.saveSettings)
 
-        wait(for: [cityExpectation, venuesExpectation], timeout: 1.0)
+        await fulfillment(of: [cityExpectation, venuesExpectation], timeout: 1.0)
     }
 
 }
