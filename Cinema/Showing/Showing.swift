@@ -51,7 +51,7 @@ struct Showing: ReducerProtocol {
     }
 }
 
-extension Showing.State {
+private extension Showing.State {
     var genresWithMetadata: OrderedSet<String> {
         self.genres.union(self.metadata)
     }
