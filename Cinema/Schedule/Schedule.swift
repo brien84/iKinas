@@ -11,10 +11,10 @@ import SwiftUI
 
 struct Schedule: ReducerProtocol {
     struct State: Equatable {
-        var filter = TimeFilter()
-        var isFiltering = false
+        var isTimeFiltering = false
         var isTransitioning = true
         var selectedDate = Date()
+        var timeFilter = TimeFilter()
 
         var datasource: IdentifiedArrayOf<Showing.State> = []
         var movies: IdentifiedArrayOf<Showing.State> = []
@@ -24,7 +24,7 @@ struct Schedule: ReducerProtocol {
     enum Action: BindableAction, Equatable {
         case binding(BindingAction<State>)
         case filterDatasource
-        case toggleFiltering
+        case toggleTimeFiltering
         case toggleTransition
         case movie(id: Showing.State.ID, action: Showing.Action)
         case showing(id: Showing.State.ID, action: Showing.Action)
@@ -42,8 +42,8 @@ struct Schedule: ReducerProtocol {
             case .filterDatasource:
                 return filter(state: &state)
 
-            case .toggleFiltering:
-                state.isFiltering.toggle()
+            case .toggleTimeFiltering:
+                state.isTimeFiltering.toggle()
                 return filter(state: &state)
 
             case .toggleTransition:
@@ -76,8 +76,8 @@ struct Schedule: ReducerProtocol {
     }
 
     private func filter(state: inout State) -> EffectTask<Action> {
-        if state.isFiltering {
-            guard let dates = state.filter.getFilterDates(for: state.selectedDate) else { return .none }
+        if state.isTimeFiltering {
+            guard let dates = state.timeFilter.getFilterDates(for: state.selectedDate) else { return .none }
             state.showings = state.datasource.filter(from: dates.start, to: dates.end)
         } else {
             state.showings = state.datasource.filter(by: state.selectedDate)
@@ -96,7 +96,7 @@ struct TimeFilter: Equatable {
     @BindingState var startTime = Calendar.current.date(bySettingHour: 8, minute: 0, second: 0, of: Date())!
     @BindingState var endTime = Calendar.current.date(bySettingHour: 23, minute: 0, second: 0, of: Date())!
 
-    func getFilterDates(for date: Date) -> (start: Date, end: Date)? {
+    fileprivate func getFilterDates(for date: Date) -> (start: Date, end: Date)? {
         guard let startDate = Calendar.current.date(
             bySettingHour: Calendar.current.component(.hour, from: startTime),
             minute: Calendar.current.component(.minute, from: startTime),

@@ -77,7 +77,7 @@ struct Main: ReducerProtocol {
                 let dates = apiClient.getShowings().getUpcomingDays()
                 guard let date = dates.first else { return .none }
                 state.isHomeFeedButtonSelected = false
-                state.schedule.isFiltering = false
+                state.schedule.isTimeFiltering = false
                 state.dateSelector.selectedDate = date
                 state.shouldAskForReview = userDefaults.shouldAskForReview()
                 return performTransition()
@@ -132,7 +132,7 @@ struct Main: ReducerProtocol {
                     let showings = apiClient.getShowings()
                     state.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
                     state.schedule.datasource = showings
-                    state.schedule.isFiltering = false
+                    state.schedule.isTimeFiltering = false
                     return performTransition()
 
                 case .failure(let error):

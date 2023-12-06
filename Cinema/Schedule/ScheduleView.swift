@@ -45,8 +45,8 @@ struct ScheduleView: View {
                             }
                         } else {
                             EmptyErrorView(
-                                title: viewStore.isFiltering ? "seansų nėra" : "nieko nerodo",
-                                subtitle: viewStore.isFiltering ? "pakeiskite laiką" : "pasirinkite kitą dieną"
+                                title: viewStore.isTimeFiltering ? "seansų nėra" : "nieko nerodo",
+                                subtitle: viewStore.isTimeFiltering ? "pakeiskite laiką" : "pasirinkite kitą dieną"
                             )
                             .frame(
                                 width: viewFrame.width,
@@ -78,7 +78,7 @@ private struct HeaderView: View {
                     .padding([.horizontal, .top])
 
                 HStack {
-                    if viewStore.isFiltering {
+                    if viewStore.isTimeFiltering {
                         ZStack {
                             DateView(date: viewStore.selectedDate)
                                 .labelStyle(.large)
@@ -98,11 +98,11 @@ private struct HeaderView: View {
                     Spacer()
 
                     Button {
-                        viewStore.send(.toggleFiltering, animation: .easeInOut)
+                        viewStore.send(.toggleTimeFiltering, animation: .easeInOut)
                     } label: {
                         Image(systemName: "stopwatch")
                             .font(.title2)
-                            .foregroundColor(viewStore.isFiltering ? .tertiaryElement : .primaryElement)
+                            .foregroundColor(viewStore.isTimeFiltering ? .tertiaryElement : .primaryElement)
                     }
                     .transition(.blur, isActive: isTransitioning)
                 }
@@ -124,7 +124,7 @@ private struct FilterView: View {
             HStack {
                 DatePicker(
                     "Enter start time.",
-                    selection: viewStore.binding(\.filter.$startTime).animation(),
+                    selection: viewStore.binding(\.timeFilter.$startTime).animation(),
                     displayedComponents: .hourAndMinute
                 )
 
@@ -133,7 +133,7 @@ private struct FilterView: View {
 
                 DatePicker(
                     "Enter end time.",
-                    selection: viewStore.binding(\.filter.$endTime).animation(),
+                    selection: viewStore.binding(\.timeFilter.$endTime).animation(),
                     displayedComponents: .hourAndMinute
                 )
             }
