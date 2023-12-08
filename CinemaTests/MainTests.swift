@@ -12,205 +12,285 @@ import XCTest
 
 @MainActor
 final class MainTests: XCTestCase {
+    typealias TestMainStore = TestStore<Main.State, Main.Action, Main.State, Main.Action, ()>
+    var mainQueue: TestSchedulerOf<DispatchQueue>!
 
-    func testSelectingMovie() async {
-        let movie = Movie()
-        let movieItems = IdentifiedArray(uniqueElements: [MovieItem.State(id: movie.id, movie: movie)])
-
-        let store = TestStore(
-            initialState: Main.State(schedule: Schedule.State(movieItems: movieItems)),
-            reducer: Main()
-        )
-
-        await store.send(.schedule(.movieItem(id: movie.id, action: .didSelectMovie(movie)))) {
-            $0.movieDetail = MovieDetail.State(movie: movie, showing: nil)
-        }
+    override func setUp() async throws {
+        mainQueue = DispatchQueue.test
     }
 
-    func testSelectingShowing() async {
-        let showing = Showing()
-        let movie = Movie(showings: [showing])
-        let showingItems = IdentifiedArray(uniqueElements: [ShowingItem.State(id: showing.id, showing: showing)])
-
-        let store = TestStore(
-            initialState: Main.State(schedule: Schedule.State(showingItems: showingItems)),
-            reducer: Main()
-        )
-
-        await store.send(.schedule(.showingItem(id: showing.id, action: .didSelectShowing(showing)))) {
-            $0.movieDetail = MovieDetail.State(movie: movie, showing: showing)
-        }
+    override func tearDown() async throws {
+        mainQueue = nil
     }
 
-    func testHandlingSettingsButtonTap() async {
-        let store = TestStore(
-            initialState: Main.State(),
-            reducer: Main()
-        )
+    func makeTestStore(with state: Main.State) -> TestMainStore {
+        let store = TestStore(initialState: state, reducer: Main())
 
-        await store.send(.schedule(.settingsButtonDidTap)) {
-            $0.settings = Settings.State()
-        }
-    }
-
-    func testHandlingEndOfScheduleTransition() async {
-        let store = TestStore(
-            initialState: Main.State(),
-            reducer: Main()
-        )
-
-        await store.send(.schedule(.transitionDidEnd)) {
-            $0.isFetchingMovies = false
-        }
-    }
-
-    func testSavingSettingsRefetchesMovies() async {
-        let store = TestStore(
-            initialState: Main.State(
-                settings: Settings.State(),
-                isFetchingMovies: false
-            ),
-            reducer: Main()
-        )
-
-        let mainQueue = DispatchQueue.test
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
-        let movies = [Movie()]
-        store.dependencies.movieClient.fetch = { _, _ in Effect(value: movies) }
-
-        store.dependencies.userDefaults.getCity = { City.vilnius }
+        store.dependencies.userDefaults.getCity = { .vilnius }
         store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
         store.dependencies.userDefaults.setCity = { _ in }
         store.dependencies.userDefaults.setVenues = { _ in }
+        store.dependencies.userDefaults.shouldAskForReview = { false }
 
-        await store.send(.settings(.saveSettings)) {
-            $0.isFetchingMovies = true
-            $0.movieClientError = nil
-        }
+        store.dependencies.apiClient.getShowings = { [] }
 
-        await mainQueue.advance(by: .seconds(1))
-
-        await store.receive(.movieClient(.success(movies))) {
-            $0.schedule.datasource.movies = movies
-            $0.schedule.didUpdateDatasource = true
-        }
+        return store
     }
 
-    func testFetchingMoviesSuccessfully() async {
-        let store = TestStore(
-            initialState: Main.State(
-                movieClientError: .network
-            ),
-            reducer: Main()
-        )
+    func testSelectingDate() async {
+        let date = Date()
+        let dateSelector = DateSelector.State(dates: [date], selectedDate: .none)
+        let store = makeTestStore(with: Main.State(dateSelector: dateSelector))
+        store.exhaustivity = .off(showSkippedAssertions: false)
 
-        let mainQueue = DispatchQueue.test
-        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
-
-        let movies = [Movie()]
-        store.dependencies.movieClient.fetch = { _, _ in Effect(value: movies) }
-
-        store.dependencies.userDefaults.getCity = { City.vilnius }
-        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
-
-        await store.send(.fetchMovies) {
-            $0.isFetchingMovies = true
-            $0.movieClientError = nil
+        await store.send(.dateSelector(.didSelect(date: date))) {
+            $0.dateSelector.selectedDate = date
+            $0.isHomeFeedButtonSelected = false
         }
 
-        await mainQueue.advance(by: .seconds(1))
+        await mainQueue.advance(by: .nanoseconds(50_000_000))
 
-        await store.receive(.movieClient(.success(movies))) {
-            $0.schedule.datasource.movies = movies
-            $0.schedule.didUpdateDatasource = true
+        await store.receive(.beginTransition)
+
+        await mainQueue.advance(by: .nanoseconds(300_000_000))
+
+        await store.receive(.updateDatasource) {
+            $0.isHomeFeedActive = false
+            $0.schedule.selectedDate = date
         }
+
+        await store.skipReceivedActions()
     }
 
-    func testEncounteringNetworkErrorWhileFetchingMovies() async {
-        let store = TestStore(
-            initialState: Main.State(
-                movieClientError: .network
-            ),
-            reducer: Main()
-        )
+    func testTappingHomeFeedScheduleButton() async {
+        let state = Main.State()
+        let store = makeTestStore(with: state)
+        store.exhaustivity = .off(showSkippedAssertions: false)
 
-        let mainQueue = DispatchQueue.test
-        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
+        let showings = stride(from: 1, through: 10, by: 1)
+            .map { _ in Previews.createShowing() }
+            .convertToIdentifiedArray()
 
-        store.dependencies.movieClient.fetch = { _, _ in
-            Effect(error: .network)
+        store.dependencies.apiClient.getShowings = { showings }
+        store.dependencies.userDefaults.shouldAskForReview = { true }
+
+        await store.send(.homeFeed(.scheduleButtonDidTap)) {
+            $0.isHomeFeedButtonSelected = false
+            $0.schedule.isTimeFiltering = false
+            $0.dateSelector.selectedDate = showings.getUpcomingDays().first!
+            $0.shouldAskForReview = true
         }
 
-        store.dependencies.userDefaults.getCity = { City.vilnius }
-        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
+        await mainQueue.advance(by: .nanoseconds(50_000_000))
 
-        await store.send(.fetchMovies) {
-            $0.isFetchingMovies = true
-            $0.movieClientError = nil
-        }
-
-        await mainQueue.advance(by: .seconds(1))
-
-        await store.receive(.movieClient(.failure(.network))) {
-            $0.movieClientError = .network
-        }
+        await store.skipReceivedActions()
     }
 
-    func testEncounteringRequiresUpdateErrorWhileFetchingMovies() async {
-        let store = TestStore(
-            initialState: Main.State(
-                movieClientError: .network
-            ),
-            reducer: Main()
-        )
+    func testTappingHomeFeedSettingsButton() async {
+        let store = TestStore(initialState: Main.State(), reducer: Main())
 
-        let mainQueue = DispatchQueue.test
-        store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
-
-        store.dependencies.movieClient.fetch = { _, _ in
-            Effect(error: .requiresUpdate)
-        }
-
-        store.dependencies.userDefaults.getCity = { City.vilnius }
-        store.dependencies.userDefaults.getVenues = { City.vilnius.venues }
-
-        await store.send(.fetchMovies) {
-            $0.isFetchingMovies = true
-            $0.movieClientError = nil
-        }
-
-        await mainQueue.advance(by: .seconds(1))
-
-        await store.receive(.movieClient(.failure(.requiresUpdate))) {
-            $0.movieClientError = .requiresUpdate
-        }
-    }
-
-    func testNavigationToMovieDetail() async {
-        let store = TestStore(
-            initialState: Main.State(movieDetail: MovieDetail.State(movie: Movie())),
-            reducer: Main()
-        )
-
-        await store.send(.setNavigationToMovieDetail(isActive: false)) {
-            $0.movieDetail = nil
-        }
-    }
-
-    func testNavigationToSettings() async {
-        let store = TestStore(
-            initialState: Main.State(),
-            reducer: Main()
-        )
-
-        await store.send(.setNavigationToSettings(isActive: true)) {
+        await store.send(.homeFeed(.settingsButtonDidTap)) {
             $0.settings = Settings.State()
         }
+    }
 
-        await store.send(.setNavigationToSettings(isActive: false)) {
-            $0.settings = nil
+    func testSelectingFeatured() async {
+        let featured = Previews.createFeatured(title: "test")
+        let homeFeed = HomeFeed.State(featured: [featured].convertToIdentifiedArray())
+
+        let showing = Previews.createShowing(title: "test")
+        let schedule = Schedule.State(datasource: [showing].convertToIdentifiedArray())
+
+        let state = Main.State(homeFeed: homeFeed, schedule: schedule)
+        let store = TestStore(initialState: state, reducer: Main())
+
+        await store.send(.homeFeed(.featured(id: featured.id, action: .didSelect))) {
+            $0.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: false)
         }
     }
 
+    func testSelectingUpcomingShowing() async {
+        let showing = Previews.createShowing()
+        let homeFeed = HomeFeed.State(upcoming: [showing].convertToIdentifiedArray())
+
+        let state = Main.State(homeFeed: homeFeed)
+        let store = TestStore(initialState: state, reducer: Main())
+
+        await store.send(.homeFeed(.upcoming(id: showing.id, action: .didSelect))) {
+            $0.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: true)
+        }
+    }
+
+    func testSelectingMovieItem() async {
+        let showing = Previews.createShowing()
+        let schedule = Schedule.State(
+            datasource: [showing].convertToIdentifiedArray(),
+            movies: [showing].convertToIdentifiedArray()
+        )
+
+        let state = Main.State(schedule: schedule)
+        let store = TestStore(initialState: state, reducer: Main())
+
+        await store.send(.schedule(.movie(id: showing.id, action: .didSelect))) {
+            $0.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: false)
+        }
+    }
+
+    func testSelectingShowingItem() async {
+        let showing = Previews.createShowing()
+        let schedule = Schedule.State(
+            datasource: [showing].convertToIdentifiedArray(),
+            showings: [showing].convertToIdentifiedArray()
+        )
+
+        let state = Main.State(schedule: schedule)
+        let store = TestStore(initialState: state, reducer: Main())
+
+        await store.send(.schedule(.showing(id: showing.id, action: .didSelect))) {
+            $0.showingInfo = ShowingInfo.State(showing: showing, shouldDisplayTicketURL: true)
+        }
+    }
+
+    func testSavingSettingsRefetchesAPI() async {
+        let settings = Settings.State()
+        let state = Main.State(settings: settings, apiError: .network, isFetching: false)
+        let store = makeTestStore(with: state)
+        store.exhaustivity = .off(showSkippedAssertions: false)
+
+        store.dependencies.apiClient.fetch = { _, _ in EffectTask(value: .failure(.decoding)) }
+
+        await store.send(.settings(.saveSettings)) {
+            $0.isFetching = true
+            $0.apiError = nil
+        }
+
+        await mainQueue.advance(by: .milliseconds(750))
+
+        await store.skipReceivedActions()
+    }
+
+    func testSuccessfulFetching() async {
+        let state = Main.State(isFetching: false)
+        let store = makeTestStore(with: state)
+
+        let featured = [Previews.createFeatured()].convertToIdentifiedArray()
+        let showings = [Previews.createShowing()].convertToIdentifiedArray()
+
+        store.dependencies.apiClient.fetch = { _, _ in EffectTask(value: .success) }
+        store.dependencies.apiClient.getFeatured = { featured }
+        store.dependencies.apiClient.getShowings = { showings }
+
+        await store.send(.fetch) {
+            $0.isFetching = true
+        }
+
+        await mainQueue.advance(by: .milliseconds(750))
+
+        await store.receive(.apiClient(.success(.success))) {
+            $0.homeFeed.featured = featured
+            $0.dateSelector = DateSelector.State(dates: showings.getUpcomingDays())
+            $0.schedule.datasource = showings
+            $0.schedule.isTimeFiltering = false
+        }
+
+        await mainQueue.advance(by: .nanoseconds(50_000_000))
+
+        await store.receive(.beginTransition)
+
+        await mainQueue.advance(by: .nanoseconds(300_000_000))
+
+        await store.receive(.updateDatasource) {
+            $0.schedule.selectedDate = $0.dateSelector.selectedDate
+            let upcoming = Array(showings.elements.prefix(5)).convertToIdentifiedArray()
+            $0.homeFeed.upcoming = upcoming
+        }
+
+        await store.receive(.schedule(.filterDatasource))
+
+        await mainQueue.advance(by: .nanoseconds(100_000_000))
+
+        await store.receive(.endTransition) {
+            $0.isFetching = false
+            $0.homeFeed.isTransitioning = false
+            $0.schedule.isTransitioning = false
+        }
+    }
+
+    func testEncouteringDecodingErrorWhileFetching() async {
+        let state = Main.State(isFetching: false)
+        let store = makeTestStore(with: state)
+
+        store.dependencies.apiClient.fetch = { _, _ in EffectTask(value: .failure(.decoding)) }
+
+        await store.send(.fetch) {
+            $0.isFetching = true
+        }
+
+        await mainQueue.advance(by: .milliseconds(750))
+
+        await store.receive(.apiClient(.success(.failure(.decoding)))) {
+            $0.apiError = APIClient.Error.network
+        }
+    }
+
+    func testEncouteringNetworkErrorWhileFetching() async {
+        let state = Main.State(isFetching: false)
+        let store = makeTestStore(with: state)
+
+        store.dependencies.apiClient.fetch = { _, _ in EffectTask(value: .failure(.network)) }
+
+        await store.send(.fetch) {
+            $0.isFetching = true
+        }
+
+        await mainQueue.advance(by: .milliseconds(750))
+
+        await store.receive(.apiClient(.success(.failure(.network)))) {
+            $0.apiError = APIClient.Error.network
+        }
+    }
+
+    func testEncouteringRequiresUpdatErrorWhileFetching() async {
+        let state = Main.State(isFetching: false)
+        let store = makeTestStore(with: state)
+
+        store.dependencies.apiClient.fetch = { _, _ in EffectTask(value: .failure(.requiresUpdate)) }
+
+        await store.send(.fetch) {
+            $0.isFetching = true
+        }
+
+        await mainQueue.advance(by: .milliseconds(750))
+
+        await store.receive(.apiClient(.success(.failure(.requiresUpdate)))) {
+            $0.apiError = APIClient.Error.requiresUpdate
+        }
+    }
+
+    func testPressingHomeFeedButton() async {
+        let dateSelector = DateSelector.State(dates: [Date()], selectedDate: Date())
+        let state = Main.State(dateSelector: dateSelector, isHomeFeedActive: false)
+        let store = makeTestStore(with: state)
+        store.exhaustivity = .off(showSkippedAssertions: false)
+
+        await store.send(.homefeedButtonDidTap) {
+            $0.isHomeFeedButtonSelected = true
+            $0.dateSelector.selectedDate = .none
+        }
+
+        await mainQueue.advance(by: .nanoseconds(50_000_000))
+
+        await store.receive(.beginTransition)
+
+        await mainQueue.advance(by: .nanoseconds(300_000_000))
+
+        await store.receive(.updateDatasource) {
+            $0.isHomeFeedActive = true
+            $0.schedule.selectedDate = .none
+        }
+
+        await store.skipReceivedActions()
+    }
 }
