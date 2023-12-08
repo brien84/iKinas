@@ -17,7 +17,6 @@ extension UserDefaultsClient: DependencyKey {
         return Self(
             isFirstLaunch: {
                 if CommandLine.isUITesting { return false }
-                if CommandLine.isUITestingFirstLaunch { return true }
                 return Self.isFirstLaunch(in: defaults)
             },
             setAppVersion: {

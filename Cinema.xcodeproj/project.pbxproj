@@ -33,6 +33,7 @@
 		296FE05D2951F3BF0015F7AA /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 296FE05C2951F3BF0015F7AA /* MainTests.swift */; };
 		297A3A792B1E35D600D0909A /* TrailerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297A3A782B1E35D600D0909A /* TrailerView.swift */; };
 		297A3A7B2B2079C300D0909A /* ShowingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297A3A7A2B2079C300D0909A /* ShowingTests.swift */; };
+		297A3A7D2B23742100D0909A /* Extension+CommandLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297A3A7C2B23742100D0909A /* Extension+CommandLine.swift */; };
 		297C826D26B01DA30053F706 /* Venue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 297C826C26B01DA30053F706 /* Venue.swift */; };
 		29817F6B293BB60600E59D42 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6A293BB60600E59D42 /* ComposableArchitecture */; };
 		29817F6D293BB60600E59D42 /* Dependencies in Frameworks */ = {isa = PBXBuildFile; productRef = 29817F6C293BB60600E59D42 /* Dependencies */; };
@@ -129,6 +130,7 @@
 		296FE05C2951F3BF0015F7AA /* MainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTests.swift; sourceTree = "<group>"; };
 		297A3A782B1E35D600D0909A /* TrailerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerView.swift; sourceTree = "<group>"; };
 		297A3A7A2B2079C300D0909A /* ShowingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingTests.swift; sourceTree = "<group>"; };
+		297A3A7C2B23742100D0909A /* Extension+CommandLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+CommandLine.swift"; sourceTree = "<group>"; };
 		297C826C26B01DA30053F706 /* Venue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Venue.swift; sourceTree = "<group>"; };
 		29817F77293BC1E800E59D42 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		29817F7B293BD70100E59D42 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -350,6 +352,7 @@
 				29DFA036297879D700F648F4 /* Extension+AnyTransition.swift */,
 				299E1EE42AEED894007BC565 /* Extension+Bundle.swift */,
 				29E3069A296F09E0003A52C4 /* Extension+Color.swift */,
+				297A3A7C2B23742100D0909A /* Extension+CommandLine.swift */,
 				29F3D6AC296AFE5300495BBD /* Extension+Date.swift */,
 				29AFB2322AC1A16000FC2D03 /* Extension+Locale.swift */,
 				29A8E1212A688321005FD2A6 /* Extension+TimeInterval.swift */,
@@ -697,6 +700,7 @@
 				29E3069D296F0A96003A52C4 /* Extension+URL.swift in Sources */,
 				297A3A792B1E35D600D0909A /* TrailerView.swift in Sources */,
 				29817F7C293BD70100E59D42 /* SettingsView.swift in Sources */,
+				297A3A7D2B23742100D0909A /* Extension+CommandLine.swift in Sources */,
 				29AFB2352AC1DA4200FC2D03 /* Previews.swift in Sources */,
 				293A436E29FBF07600913707 /* HomeFeedView.swift in Sources */,
 				29817F78293BC1E800E59D42 /* Settings.swift in Sources */,
@@ -892,7 +896,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -913,7 +917,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 51;
+				CURRENT_PROJECT_VERSION = 52;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
