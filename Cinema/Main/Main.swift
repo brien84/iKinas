@@ -42,7 +42,7 @@ struct Main: ReducerProtocol {
         case setNavigationToSettings(isActive: Bool)
         case setNavigationToShowingInfo(isActive: Bool)
 
-        case didPressHomeFeedButton
+        case homefeedButtonDidTap
         case beginTransition
         case updateDatasource
         case endTransition
@@ -159,7 +159,7 @@ struct Main: ReducerProtocol {
                 }
                 return .none
 
-            case .didPressHomeFeedButton:
+            case .homefeedButtonDidTap:
                 state.isHomeFeedButtonSelected = true
                 state.dateSelector.selectedDate = .none
                 return performTransition()
@@ -221,11 +221,11 @@ struct Main: ReducerProtocol {
 
     private func performTransition() -> EffectTask<Action> {
         EffectTask.run { send in
-            try await Task.sleep(nanoseconds: 50_000_000)
+            try await mainQueue.sleep(for: .nanoseconds(50_000_000))
             await send(.beginTransition)
-            try await Task.sleep(nanoseconds: 300_000_000)
+            try await mainQueue.sleep(for: .nanoseconds(300_000_000))
             await send(.updateDatasource)
-            try await Task.sleep(nanoseconds: 100_000_000)
+            try await mainQueue.sleep(for: .nanoseconds(100_000_000))
             await send(.endTransition)
         }
         .cancellable(id: CancelID.transition, cancelInFlight: true)

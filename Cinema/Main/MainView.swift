@@ -38,7 +38,7 @@ struct MainView: View {
                     HStack(spacing: .zero) {
                         let isSelected = viewStore.isHomeFeedButtonSelected
                         HomeFeedButton {
-                            viewStore.send(.didPressHomeFeedButton, animation: .default)
+                            viewStore.send(.homefeedButtonDidTap, animation: .default)
                         }
                         .foregroundColor(isSelected ? .tertiaryElement : .primaryElement)
 
