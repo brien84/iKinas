@@ -64,3 +64,22 @@ extension DependencyValues {
         set { self[APIClient.self] = newValue }
     }
 }
+
+extension APIClient {
+    static var testFeatured: IdentifiedArrayOf<Featured.State> {
+        stride(from: 1, to: 5, by: 1).map { index in
+            Previews.createFeatured(
+                title: "Movie \(index)"
+            )
+        }.convertToIdentifiedArray()
+    }
+
+    static var testShowings: IdentifiedArrayOf<Showing.State> {
+        stride(from: 1, to: 50, by: 1).map { index in
+            Previews.createShowing(
+                date: Date(timeIntervalSinceNow: Double(index) * .hour),
+                title: "Movie \(index)"
+            )
+        }.convertToIdentifiedArray()
+    }
+}

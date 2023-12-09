@@ -12,12 +12,20 @@ import OrderedCollections
 
 extension UserDefaultsClient: DependencyKey {
     static let liveValue: Self = {
-        let defaults = UserDefaults.standard
+        let defaults: UserDefaults = {
+            if !CommandLine.isUITesting {
+                return UserDefaults.standard
+            } else {
+                guard let defaults = UserDefaults(suiteName: "UserDefaults.UITesting")
+                else { fatalError("UserDefaults could not be initalized.") }
+                defaults.removePersistentDomain(forName: "UserDefaults.UITesting")
+                return defaults
+            }
+        }()
 
         return Self(
             isFirstLaunch: {
-                if CommandLine.isUITesting { return false }
-                return Self.isFirstLaunch(in: defaults)
+                Self.isFirstLaunch(in: defaults)
             },
             setAppVersion: {
                 if let version = Bundle.main.version, let build = Bundle.main.build {
@@ -37,15 +45,13 @@ extension UserDefaultsClient: DependencyKey {
                 return usageCount == 10 || usageCount % 50 == 0
             },
             getCity: {
-                if CommandLine.isUITesting { return .vilnius }
-                return Self.getCity(in: defaults)
+                Self.getCity(in: defaults)
             },
             setCity: { city in
                 Self.setCity(city, in: defaults)
             },
             getVenues: {
-                if CommandLine.isUITesting { return City.vilnius.venues }
-                return Self.getVenues(in: defaults)
+                Self.getVenues(in: defaults)
             },
             setVenues: { venues in
                 Self.setVenues(venues, in: defaults)

@@ -12,6 +12,7 @@ import SwiftUI
 extension ImageClient: DependencyKey {
     static let liveValue = Self(
         fetch: { url in
+            guard !CommandLine.isUITesting else { return EffectPublisher(value: UIImage(named: url.absoluteString)!) }
             if let image = Self.cache.object(forKey: url as NSURL) {
                 return EffectPublisher(value: image)
             } else {

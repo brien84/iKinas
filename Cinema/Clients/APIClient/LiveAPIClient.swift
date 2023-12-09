@@ -18,6 +18,12 @@ extension APIClient: DependencyKey {
 
         return Self(
             fetch: { city, venues in
+                if CommandLine.isUITesting {
+                    featured = Self.testFeatured
+                    showings = Self.testShowings
+                    return EffectTask(value: .success)
+                }
+
                 let featuredReq = constructRequest(city: city, venues: venues, url: .featuredAPI)
                 let showingsReq = constructRequest(city: city, venues: venues, url: .api)
 
