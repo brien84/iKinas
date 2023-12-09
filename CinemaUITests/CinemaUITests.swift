@@ -8,111 +8,173 @@
 
 import XCTest
 
-enum LaunchArgument: String {
-    case common = "ui-testing"
-    case firstLaunch = "ui-testing-first-launch"
-}
-
 final class CinemaUITests: XCTestCase {
     var app: XCUIApplication!
 
     override func setUp() {
         continueAfterFailure = false
-
         app = XCUIApplication()
+        app.launchArguments = ["ui-testing"]
+        app.launch()
     }
 
     override func tearDown() {
         app = nil
     }
 
-    func testSettingsViewAppearsOnFirstLaunch() {
-        app.launchArguments = [LaunchArgument.firstLaunch.rawValue]
-        app.launch()
+    func testUI() throws {
+        closeSettings()
+        openSettings()
+        toggleSettings()
+        closeSettings()
 
-        XCTAssertTrue(app.staticTexts["Pasirinkite teatrus"].waitForExistence(timeout: 5.0))
+        openShowingInfoView()
+        toggleShowingTimesView()
+        selectSimilarMovie()
+        closeShowingInfoView()
+
+        selectUpcomingShowing()
+        selectFeaturedShowing()
+        tapHomeFeedScheduleButton()
+        tapHomeFeedButton()
+
+        toggleDateSelector()
+        toggleTimeFiltering()
+        selectMovieListViewItem()
+        selectShowingListViewItem()
     }
 
-    func testChangingDates() {
-        app.launchArguments = [LaunchArgument.common.rawValue]
-        app.launch()
-
-        let dateSelector = app.scrollViews.element(boundBy: 0)
-
-        var showings = app.staticTexts.allElementsBoundByIndex.filter { $0.label.contains("Movie Title") }
-        XCTAssertEqual(showings.count, 2)
-        dateSelector.buttons.element(boundBy: 0).tap()
-        showings = app.staticTexts.allElementsBoundByIndex.filter { $0.label.contains("Movie Title") }
-        XCTAssertEqual(showings.count, 1)
-
-        dateSelector.buttons.element(boundBy: 1).tap()
-        XCTAssertTrue(app.staticTexts.allElementsBoundByIndex.contains(where: { $0.label == "nieko nerodo" }))
+    func closeSettings() {
+        let element = app.buttons["Close"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
     }
 
-    func testNavigationToSettingsView() {
-        app.launchArguments = [LaunchArgument.common.rawValue]
-        app.launch()
-
-        // opens SettingsView
-        app.buttons["gearshape"].tap()
-        XCTAssertTrue(app.staticTexts["Pasirinkite teatrus"].waitForExistence(timeout: 5.0))
-
-        // selects different city
-        var venueButtons = app.buttons.allElementsBoundByIndex.filter { $0.label.contains("Selected") }
-        XCTAssertEqual(venueButtons.count, 3)
-        app.buttons["Šiauliai"].tap()
-        venueButtons = app.buttons.allElementsBoundByIndex.filter { $0.label.contains("Selected") }
-        XCTAssertEqual(venueButtons.count, 2)
-
-        // validates that last selected button gets disabled
-        XCTAssertFalse(venueButtons.contains(where: { !$0.isEnabled }))
-        venueButtons.first?.tap()
-        XCTAssertTrue(venueButtons.contains(where: { !$0.isEnabled }))
-
-        // closes SettingsView
-        app.buttons["Close"].tap()
-        XCTAssertTrue(app.buttons["gearshape"].waitForExistence(timeout: 5.0))
+    func openSettings() {
+        let element = app.buttons["gearshape"]
+        XCTAssertTrue(element.waitForExistence(timeout: 3.0))
+        element.tap()
     }
 
-    func testOpeningSafariViewFromMovieDetailView() {
-        app.launchArguments = [LaunchArgument.common.rawValue]
-        app.launch()
+    func toggleSettings() {
+        let initialCount = app.buttons.count
 
-        // opens MovieDetailView
-        app.staticTexts["Movie Title"].firstMatch.tap()
-        XCTAssertTrue(app.buttons["Shopping Cart"].waitForExistence(timeout: 5.0))
+        var element = app.buttons["Kaunas"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
 
-        // opens SafariView
-        app.buttons["Shopping Cart"].tap()
-        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 5.0))
+        XCTAssertNotEqual(initialCount, app.buttons.count)
 
-        // closes SafariView
-        app.buttons["Done"].tap()
-        XCTAssertTrue(app.buttons["Shopping Cart"].waitForExistence(timeout: 5.0))
+        element = app.buttons["Vilnius"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+
+        XCTAssertEqual(initialCount, app.buttons.count)
     }
 
-    func testOpeningSafariViewFromShowingDetailView() {
-        app.launchArguments = [LaunchArgument.common.rawValue]
-        app.launch()
+    func openShowingInfoView() {
+        let element = app.otherElements["UpcomingListView"].staticTexts["Movie 1"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
 
-        // opens MovieDetailView
-        app.staticTexts["Movie Title"].firstMatch.tap()
-        XCTAssertTrue(app.buttons["trailers"].waitForExistence(timeout: 5.0))
+    func closeShowingInfoView() {
+        let element = app.buttons["Back"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
 
-        // opens to ShowingDetailView
-        app.buttons["trailers"].tap()
-        XCTAssertTrue(app.staticTexts["Seansai"].waitForExistence(timeout: 5.0))
+    func selectSimilarMovie() {
+        var element = app.otherElements["SimilarMoviesList"].images.firstMatch
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
 
-        // opens SafariView by tapping on any showing
-        app.collectionViews.firstMatch.descendants(matching: .staticText).firstMatch.tap()
-        XCTAssertTrue(app.buttons["Done"].waitForExistence(timeout: 5.0))
+        element = app.buttons["Back"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
 
-        // closes SafariView
-        app.buttons["Done"].tap()
-        XCTAssertTrue(app.buttons["trailers"].waitForExistence(timeout: 5.0))
+    func toggleShowingTimesView() {
+        var element = app.buttons["trailers"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
 
-        // closes MovieDetailView
-        app.buttons["Back"].tap()
-        XCTAssertTrue(app.buttons["Home"].waitForExistence(timeout: 5.0))
+        element = app.buttons["Close"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
+
+    func tapHomeFeedButton() {
+        let element = app.buttons["Home"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
+
+    func tapHomeFeedScheduleButton() {
+        let element = app.buttons["Artimiausi"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
+
+    func selectUpcomingShowing() {
+        var element = app.otherElements["UpcomingListView"].staticTexts["Movie 1"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+
+        element = app.buttons["Back"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
+
+    func selectFeaturedShowing() {
+        var element = app.otherElements["FeaturedListView"].staticTexts["Movie 1"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+
+        element = app.buttons["Back"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
+
+    func toggleDateSelector() {
+        var element = app.staticTexts["ŠND"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+        XCTAssertTrue(app.staticTexts["Šiandien"].waitForExistence(timeout: 1.0))
+
+        element = app.staticTexts["RYT"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+        XCTAssertTrue(app.staticTexts["Rytoj"].waitForExistence(timeout: 1.0))
+    }
+
+    func toggleTimeFiltering() {
+        XCTAssertEqual(app.datePickers.count, 0)
+
+        let element = app.buttons["Stopwatch"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+
+        XCTAssertGreaterThan(app.datePickers.count, 0)
+    }
+
+    func selectMovieListViewItem() {
+        var element = app.otherElements["MovieListView"].images.firstMatch
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+
+        element = app.buttons["Back"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+    }
+
+    func selectShowingListViewItem() {
+        var element = app.otherElements["ShowingListView"].images.firstMatch
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
+
+        element = app.buttons["Back"]
+        XCTAssertTrue(element.waitForExistence(timeout: 1.0))
+        element.tap()
     }
 }
