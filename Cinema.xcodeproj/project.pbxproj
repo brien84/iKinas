@@ -563,8 +563,9 @@
 		2904C7582336982B00407B64 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1230;
+				LastUpgradeCheck = 1500;
 				ORGANIZATIONNAME = Marius;
 				TargetAttributes = {
 					2904C75F2336982B00407B64 = {
@@ -896,7 +897,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -917,7 +918,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 52;
+				CURRENT_PROJECT_VERSION = 53;
 				DEVELOPMENT_TEAM = LZTF7R47SK;
 				INFOPLIST_FILE = Cinema/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
