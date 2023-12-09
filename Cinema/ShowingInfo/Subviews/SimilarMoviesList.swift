@@ -29,6 +29,7 @@ struct SimilarMoviesList: View {
                         }
                     }
                     .padding(.horizontal)
+                    .accessibilityIdentifier("\(Self.self)")
                 }
             }
             .padding(.bottom)

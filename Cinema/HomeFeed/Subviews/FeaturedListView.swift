@@ -22,6 +22,7 @@ struct FeaturedListView: View {
             }
         }
         .padding(.horizontal)
+        .accessibilityIdentifier("\(Self.self)")
     }
 }
 

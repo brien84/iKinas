@@ -22,6 +22,7 @@ struct ShowingListView: View {
             }
         }
         .padding([.bottom, .horizontal])
+        .accessibilityIdentifier("\(Self.self)")
     }
 }
 

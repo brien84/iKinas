@@ -32,6 +32,7 @@ struct UpcomingListView: View {
             .padding()
         }
         .padding(.horizontal)
+        .accessibilityIdentifier("\(Self.self)")
     }
 }
 

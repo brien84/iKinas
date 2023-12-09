@@ -27,6 +27,7 @@ struct MovieListView: View {
                     }
                     .padding([.bottom, .horizontal])
                     .id(ScrollToTop.id)
+                    .accessibilityIdentifier("\(Self.self)")
                 }
                 .scrollTo(ScrollToTop(proxy: proxy, anchor: .leading), when: viewStore.isTransitioning)
             }
