@@ -303,7 +303,9 @@ body,
     }
 }
 
-#f1 {}
+#f1 {
+
+}
 
 #f2 {
     -webkit-animation-delay: -8s;
