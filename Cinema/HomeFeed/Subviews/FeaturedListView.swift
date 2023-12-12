@@ -61,7 +61,9 @@ private struct FeaturedView: View {
                     }
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color.secondaryBackground)
+                    .background(
+                        LinearGradient(gradient: Self.backgroundGradient, startPoint: .top, endPoint: .bottom)
+                    )
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
 
                     RoundedRectangle(cornerRadius: Self.cornerRadius)
@@ -86,6 +88,16 @@ private extension FeaturedListView {
 }
 
 private extension FeaturedView {
+    static let backgroundGradient = Gradient(colors: [
+        Color.clear,
+        .primaryBackground.opacity(0.35),
+        .primaryBackground.opacity(0.45),
+        .primaryBackground.opacity(0.55),
+        .primaryBackground.opacity(0.6),
+        .primaryBackground.opacity(0.65),
+        .primaryBackground.opacity(0.7),
+        .primaryBackground.opacity(0.8)
+    ])
     static let cornerRadius: CGFloat = 15
     static let lineWidth: CGFloat = 3
     static let verticalSpacing: CGFloat = 8
