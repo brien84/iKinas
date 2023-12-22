@@ -42,7 +42,7 @@ extension UserDefaultsClient: DependencyKey {
                     Self.setUsageCount(usageCount + 1, in: defaults)
                 }
                 usageCount = Self.getUsageCount(in: defaults)
-                return usageCount == 10 || usageCount % 50 == 0
+                return usageCount == 5 || usageCount % 20 == 0
             },
             getCity: {
                 Self.getCity(in: defaults)
