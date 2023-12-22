@@ -14,9 +14,11 @@ struct NetworkImage: ReducerProtocol {
         var isFetching = false
         var image: UIImage?
         var url: URL?
+        let defaultImage: UIImage?
 
-        init(url: URL?) {
+        init(url: URL?, defaultImage: UIImage? = UIImage(named: "posterDefault")) {
             self.url = url
+            self.defaultImage = defaultImage
         }
     }
 
@@ -37,7 +39,7 @@ struct NetworkImage: ReducerProtocol {
                     .receive(on: mainQueue)
                     .catchToEffect(Action.imageClient)
             } else {
-                state.image = Self.defaultImage
+                state.image = state.defaultImage
                 return .none
             }
 
@@ -47,13 +49,9 @@ struct NetworkImage: ReducerProtocol {
             case .success(let image):
                 state.image = image
             case .failure:
-                state.image = Self.defaultImage
+                state.image = state.defaultImage
             }
             return .none
         }
     }
-}
-
-extension NetworkImage {
-    static let defaultImage = UIImage(named: "posterDefault")
 }

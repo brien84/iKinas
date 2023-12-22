@@ -60,7 +60,7 @@ final class NetworkImageTests: XCTestCase {
 
         await store.receive(.imageClient(.failure(ImageClient.Failure()))) {
             $0.isFetching = false
-            $0.image = NetworkImage.defaultImage
+            $0.image = UIImage(named: "posterDefault")
         }
     }
 
@@ -74,7 +74,7 @@ final class NetworkImageTests: XCTestCase {
         store.dependencies.mainQueue = mainQueue.eraseToAnyScheduler()
 
         await store.send(.fetch) {
-            $0.image = NetworkImage.defaultImage
+            $0.image = UIImage(named: "posterDefault")
         }
     }
 
