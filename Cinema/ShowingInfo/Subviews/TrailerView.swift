@@ -6,45 +6,55 @@
 //  Copyright © 2023 Marius. All rights reserved.
 //
 
+import ComposableArchitecture
 import SwiftUI
 import YouTubePlayerKit
 
 struct TrailerView: View {
-    let player: YouTubePlayer
+    let store: StoreOf<ShowingInfo>
 
-    @State private var shouldPlayTrailer = false
+    @State private var isPlayingTrailer = false
 
     var body: some View {
-        VStack(spacing: .zero) {
-            SectionLabelView(text: "Anonsas")
-                .padding(.bottom, Self.bottomPadding)
+        WithViewStore(store) { viewStore in
+            VStack(spacing: .zero) {
+                SectionLabelView(text: "Anonsas")
+                    .padding(.bottom, Self.bottomPadding)
 
-            ZStack {
-                Rectangle()
-                    .foregroundColor(Color.black)
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(Color.black)
 
-                if shouldPlayTrailer {
-                    YouTubePlayerView(player) { state in
-                        switch state {
-                        case .idle:
-                            ProgressView()
-                        case .ready:
-                            EmptyView()
-                        case .error:
-                            Text("klaida.")
+                    if let player = viewStore.player, isPlayingTrailer {
+                        YouTubePlayerView(player) { state in
+                            switch state {
+                            case .idle:
+                                ProgressView()
+                            case .ready:
+                                EmptyView()
+                            case .error:
+                                Text("klaida.")
+                            }
+                        }
+                    } else {
+                        ZStack {
+                            NetworkImageView(store: store.scope(
+                                state: \.trailerThumbnail,
+                                action: ShowingInfo.Action.trailerThumbnail
+                            ))
+
+                            Button {
+                                isPlayingTrailer.toggle()
+                            } label: {
+                                Image("play")
+                            }
                         }
                     }
-                } else {
-                    Button {
-                        shouldPlayTrailer.toggle()
-                    } label: {
-                        Image("play")
-                    }
                 }
+                .aspectRatio(Self.aspectRatio, contentMode: .fit)
             }
-            .aspectRatio(Self.aspectRatio, contentMode: .fit)
+            .padding(.bottom)
         }
-        .padding(.bottom)
     }
 }
 

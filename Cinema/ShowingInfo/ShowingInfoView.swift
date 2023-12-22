@@ -42,8 +42,8 @@ struct ShowingInfoView: View {
 
                             ShowingInfoBody(store: store)
 
-                            if let player = viewStore.player {
-                                TrailerView(player: player)
+                            if viewStore.player != nil {
+                                TrailerView(store: store)
                             }
 
                             if !viewStore.similar.isEmpty {
@@ -154,7 +154,10 @@ private extension ShowingInfoView {
 
 struct ShowingInfoView_Previews: PreviewProvider {
     static let store = Store(
-        initialState: ShowingInfo.State(showing: iKinas.Previews.createShowing(), shouldDisplayTicketURL: true),
+        initialState: ShowingInfo.State(
+            showing: iKinas.Previews.createShowing(),
+            shouldDisplayTicketURL: true
+        ),
         reducer: ShowingInfo()
     )
 

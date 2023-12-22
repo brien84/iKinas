@@ -18,6 +18,7 @@ struct ShowingInfo: ReducerProtocol {
 
         var isScrollingEnabled = true
         let player: YouTubePlayer?
+        var trailerThumbnail = NetworkImage.State(url: nil, defaultImage: nil)
         let shouldDisplayTicketURL: Bool
         var showingURL: URL?
         var selectedSimilarShowingID: UUID?
@@ -30,6 +31,9 @@ struct ShowingInfo: ReducerProtocol {
             self.shouldDisplayTicketURL = shouldDisplayTicketURL
             if let url = showing.trailer {
                 self.player = .init(source: .url(url), configuration: .init(autoPlay: true))
+                if let id = player?.source?.id {
+                    self.trailerThumbnail.url = URL(string: "https://i.ytimg.com/vi_webp/\(id)/maxres1.webp")
+                }
             } else {
                 self.player = nil
             }
@@ -38,6 +42,7 @@ struct ShowingInfo: ReducerProtocol {
 
     enum Action: Equatable {
         case networkImage(NetworkImage.Action)
+        case trailerThumbnail(NetworkImage.Action)
         case showingTimes(ShowingTimes.Action)
         case similar(id: Showing.State.ID, action: Showing.Action)
 
@@ -53,6 +58,10 @@ struct ShowingInfo: ReducerProtocol {
 
     var body: some ReducerProtocol<State, Action> {
         Scope(state: \.showing.networkImage, action: /Action.networkImage) {
+            NetworkImage()
+        }
+
+        Scope(state: \.trailerThumbnail, action: /Action.trailerThumbnail) {
             NetworkImage()
         }
 
@@ -79,6 +88,9 @@ struct ShowingInfo: ReducerProtocol {
                 return .none
 
             case .networkImage:
+                return .none
+
+            case .trailerThumbnail:
                 return .none
 
             case .resetSelectedSimilarShowingID:
