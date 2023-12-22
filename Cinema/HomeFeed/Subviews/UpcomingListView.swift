@@ -20,7 +20,7 @@ struct UpcomingListView: View {
             VStack {
                 ScheduleButton(store: store)
 
-                LazyVStack(spacing: Self.verticalSpacing) {
+                VStack(spacing: Self.verticalSpacing) {
                     ForEachStore(store.scope(
                         state: \.upcoming,
                         action: HomeFeed.Action.upcoming(id:action:)
