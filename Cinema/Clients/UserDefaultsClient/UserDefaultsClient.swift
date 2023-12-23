@@ -64,7 +64,7 @@ extension UserDefaultsClient: TestDependencyKey {
 extension UserDefaultsClient {
     static let cityKey = "UserDefaultsCityKey"
     static let venuesKey = "UserDefaultsVenuesKey"
-    static let lastUsageDateKey = "UserDefaultsUsageCountKey"
+    static let lastUsageDateKey = "UserDefaultsUsageDateKey"
     static let usageCountKey = "UserDefaultsUsageCountKey"
     static let versionKey = "versionKey"
 
@@ -76,7 +76,7 @@ extension UserDefaultsClient {
     }
 
     static func setAppVersion(_ version: String, in defaults: UserDefaults) {
-        defaults.setValue(version, forKey: Self.versionKey)
+        defaults.set(version, forKey: Self.versionKey)
     }
 
     static func getCity(in defaults: UserDefaults) -> City {
@@ -104,11 +104,11 @@ extension UserDefaultsClient {
     }
 
     static func getLastUsageDate(in defaults: UserDefaults) -> Date {
-        defaults.object(forKey: Self.lastUsageDateKey) as? Date ?? Date()
+        defaults.object(forKey: Self.lastUsageDateKey) as? Date ?? .distantPast
     }
 
     static func setLastUsageDate(_ date: Date, in defaults: UserDefaults) {
-        defaults.setValue(date, forKey: Self.lastUsageDateKey)
+        defaults.set(date, forKey: Self.lastUsageDateKey)
     }
 
     static func getUsageCount(in defaults: UserDefaults) -> Int {

@@ -29,15 +29,14 @@ extension UserDefaultsClient: DependencyKey {
             },
             setAppVersion: {
                 if let version = Bundle.main.version, let build = Bundle.main.build {
-                    UserDefaults.standard.set(version + " (\(build))", forKey: Self.versionKey)
+                    Self.setAppVersion(version + " (" + build + ")", in: defaults)
                 } else {
-                    UserDefaults.standard.set("1.0", forKey: Self.versionKey)
+                    Self.setAppVersion("1.0", in: defaults)
                 }
             },
             shouldAskForReview: {
-                let needsUpdate = !Calendar.current.isDateInToday(getLastUsageDate(in: defaults))
                 var usageCount = Self.getUsageCount(in: defaults)
-                if needsUpdate || usageCount == 0 {
+                if !Calendar.current.isDateInToday(getLastUsageDate(in: defaults)) {
                     Self.setLastUsageDate(Date(), in: defaults)
                     Self.setUsageCount(usageCount + 1, in: defaults)
                 }
